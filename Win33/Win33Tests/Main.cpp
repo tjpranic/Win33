@@ -10,8 +10,6 @@
 
 #include "String.h"
 
-//TODO: implement Calculator
-//TODO: upload to gitlab
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {
