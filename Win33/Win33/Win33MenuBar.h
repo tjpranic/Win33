@@ -1,5 +1,7 @@
 #pragma once
 
+#include <list>
+
 #include "Win33Menu.h"
 
 namespace Win33 {
@@ -12,12 +14,12 @@ namespace Win33 {
         MenuBar( );
         ~MenuBar( ) = default;
         
-        void addMenu( Menu* menu );
+        Menu& addMenu( const std::wstring& text );
         
     private:
-        static int generatePosition( );
-        
-        HMENU mHandle;
+        HMENU           mHandle;
+        int             mLastPosition;
+        std::list<Menu> mMenus;
     };
     
 };

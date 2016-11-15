@@ -65,10 +65,12 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     p = mWindows.at( reinterpret_cast<HWND>( longParameter ) );
                 }
                 else {
+                    
                     auto menuID   = static_cast<int>( wordParameter );
                     auto menuItem = mMenuItems[menuID];
                     if( menuItem->mCheckable ) {
-                        menuItem->setChecked( !menuItem->getChecked( ) ); //calls event handlers
+                        menuItem->setChecked( !menuItem->getChecked( ) );
+                        menuItem->mClick.handle( MenuEvents::ClickData( false ) );
                     }
                     else {
                         menuItem->mClick.handle( MenuEvents::ClickData( false ) );

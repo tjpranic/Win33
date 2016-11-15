@@ -19,8 +19,8 @@ namespace Win33 {
                   Win33::Window*      parent,
             const Point&              position,
             const Size&               size,
-                  TextAlignment::Type alignment = TextAlignment::Left,
-            const std::wstring&       text      = L""
+            const std::wstring&       text      = L"",
+                  TextAlignment::Type alignment = TextAlignment::Left
         );
         TextBox            ( TextBox&  other ) = default;
         TextBox            ( TextBox&& other );

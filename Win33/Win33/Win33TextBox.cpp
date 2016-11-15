@@ -6,8 +6,8 @@ Win33::TextBox::TextBox(
           Win33::Window*      parent,
     const Point&              position,
     const Size&               size,
-          TextAlignment::Type alignment,
-    const std::wstring&       text
+    const std::wstring&       text,
+          TextAlignment::Type alignment
 ):
 Control(
     Type::TextBox,

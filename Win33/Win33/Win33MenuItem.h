@@ -4,15 +4,16 @@
 
 namespace Win33 {
     
-    class Application;
     class Menu;
+    class ContextMenu;
+    class Application;
     
     class MenuItem {
-    friend class Application;
     friend class Menu;
+    friend class ContextMenu;
+    friend class Application;
     public:
-        MenuItem  ( const std::wstring& text, bool checkable = false );
-        ~MenuItem ( );
+        ~MenuItem( ) = default;
         
         void toggleChecked( );
         
@@ -31,15 +32,15 @@ namespace Win33 {
         void removeClickHandler( const MenuEvents::ClickHandler& handler );
         
     private:
-        static int generateID( );
+        MenuItem( HMENU parent, int position, const std::wstring& text, bool checkable = false );
         
         MenuEvents::Click mClick;
         
         HMENU        mParent;
-        int          mID;
+        int          mPosition;
         std::wstring mText;
-        bool         mEnabled;
         bool         mCheckable;
+        bool         mEnabled;
         bool         mChecked;
     };
     

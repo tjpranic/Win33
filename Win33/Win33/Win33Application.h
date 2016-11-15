@@ -9,11 +9,15 @@ namespace Win33 {
     class Platform;
     class MenuItem;
     class TrayIcon;
+    class Menu;
+    class ContextMenu;
     
     class Application {
     friend class Platform;
     friend class MenuItem;
     friend class TrayIcon;
+    friend class Menu;
+    friend class ContextMenu;
     public:
         Application( );
         virtual ~Application( ) = default;

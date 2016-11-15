@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Win33Menu.h"
+#include <list>
+
 #include "Win33Point.h"
 #include "Win33Window.h"
 
@@ -13,12 +14,16 @@ namespace Win33 {
         
         void show( Window* window, const Point& position );
         
-        void addMenu( Menu* menu );
+        void      addSeperator ( );
+        Menu&     addMenu      ( const std::wstring& text );
+        MenuItem& addMenuItem  ( const std::wstring& text, bool checkable = false );
         
     private:
-        static int generatePosition( );
-        
         HMENU mHandle;
+        int   mLastPosition;
+        
+        std::list<std::pair<int, Menu>>     mMenus;
+        std::list<std::pair<int, MenuItem>> mMenuItems;
     };
     
 };

@@ -1,14 +1,16 @@
 #include "Win33Menu.h"
 
-#include <cassert>
+#include "Win33Application.h"
 
-Win33::Menu::Menu( const std::wstring& text )
+Win33::Menu::Menu( HMENU parent, int position,  const std::wstring& text )
 :
-mHandle          ( CreateMenu( ) ),
-mParent          ( nullptr ),
-mPosition        ( -1 ),
-mSubMenuPosition ( 0 ),
-mText            ( text )
+mHandle       ( CreateMenu( ) ),
+mParent       ( parent ),
+mPosition     ( position ),
+mText         ( text ),
+mLastPosition ( 0 ),
+mSubMenus     ( ),
+mMenuItems    ( )
 {
     if( !mHandle ) {
         throw std::runtime_error( "Unable to create menu." );
@@ -41,24 +43,27 @@ void Win33::Menu::setEnabled( bool enabled ) {
 }
 
 void Win33::Menu::addSeparator( ) {
-    if( !AppendMenu( mHandle, MF_SEPARATOR, 0, nullptr ) ) {
-        throw std::runtime_error( "Unable to add separator." );
-    }
-    ++mSubMenuPosition;
+    AppendMenu( mHandle, MF_SEPARATOR, 0, nullptr );
+    mLastPosition++;
 }
-void Win33::Menu::addSubMenu( Menu* menu ) {
-    assert( menu->mParent == nullptr );
-    if( !AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu->mHandle ), menu->mText.c_str( ) ) ) {
-        throw std::runtime_error( "Unable to add sub menu." );
-    }
-    menu->mParent   = mHandle;
-    menu->mPosition = mSubMenuPosition;
+Win33::Menu& Win33::Menu::addSubMenu( const std::wstring& text ) {
+    mSubMenus.emplace_back( std::make_pair( mLastPosition, Menu( mHandle, mLastPosition, text ) ) );
+    auto& menu = mSubMenus.back( ).second;
+    
+    mLastPosition++;
+    
+    AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.mHandle ), text.c_str( ) );
+    
+    return menu;
 }
-void Win33::Menu::addMenuItem( MenuItem* item ) {
-    assert( item->mParent == nullptr );
-    if( !AppendMenu( mHandle, MF_STRING | ( item->mEnabled ? MF_ENABLED : MF_DISABLED ), item->mID, item->mText.c_str( ) ) ) {
-        throw std::runtime_error( "Unable to add menu item." );
-    }
-    item->mParent = mHandle;
-    ++mSubMenuPosition;
+Win33::MenuItem& Win33::Menu::addMenuItem( const std::wstring& text, bool checkable ) {
+    AppendMenu( mHandle, MF_STRING, mLastPosition, text.c_str( ) );
+    
+    mMenuItems.emplace_back( std::make_pair( mLastPosition, MenuItem( mHandle, mLastPosition, text, checkable ) ) );
+    auto& menuItem = mMenuItems.back( ).second;
+    
+    Application::mMenuItems[mLastPosition] = &menuItem;
+    
+    mLastPosition++;
+    return menuItem;
 }

@@ -10,7 +10,7 @@ public:
     CalculatorWindow( )
     :
     Window    ( Win33::DefaultPosition, { 183, 168 } ),
-    mResult   ( this, {  11, 10 }, { 145, 20 }, Win33::TextAlignment::Right ),
+    mResult   ( this, {  11, 10 }, { 145, 20 }, L"", Win33::TextAlignment::Right ),
     mOne      ( this, {  10, 35 }, { 25,  25 }, L"1" ),
     mTwo      ( this, {  40, 35 }, { 25,  25 }, L"2" ),
     mThree    ( this, {  70, 35 }, { 25,  25 }, L"3" ),

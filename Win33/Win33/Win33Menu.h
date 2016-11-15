@@ -1,5 +1,7 @@
 #pragma once
 
+#include <list>
+
 #include "Win33MenuItem.h"
 
 namespace Win33 {
@@ -11,8 +13,7 @@ namespace Win33 {
     friend class MenuBar;
     friend class ContextMenu;
     public:
-        Menu  ( const std::wstring& text );
-        ~Menu ( ) = default;
+        ~Menu( ) = default;
         
         std::wstring getText( )    const;
         bool         getEnabled( ) const;
@@ -20,15 +21,20 @@ namespace Win33 {
         void setText    ( const std::wstring& text    );
         void setEnabled (       bool          enabled );
         
-        void addSeparator ( );
-        void addSubMenu   ( Menu*     menu );
-        void addMenuItem  ( MenuItem* item );
+        void      addSeparator ( );
+        Menu&     addSubMenu   ( const std::wstring& text );
+        MenuItem& addMenuItem  ( const std::wstring& text, bool checkable = false );
         
     private:
+        Menu( HMENU parent, int position, const std::wstring& text );
+        
         HMENU        mHandle;
         HMENU        mParent;
         int          mPosition;
-        int          mSubMenuPosition;
         std::wstring mText;
+        int          mLastPosition;
+        
+        std::list<std::pair<int, Menu>>     mSubMenus;
+        std::list<std::pair<int, MenuItem>> mMenuItems;
     };
 };
