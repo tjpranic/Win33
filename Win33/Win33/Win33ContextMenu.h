@@ -14,16 +14,16 @@ namespace Win33 {
         
         void show( Window* window, const Point& position );
         
-        void      addSeperator ( );
-        Menu&     addMenu      ( const std::wstring& text );
-        MenuItem& addMenuItem  ( const std::wstring& text, bool checkable = false );
+        void      appendSeperator ( );
+        Menu&     appendMenu      ( const std::wstring& text );
+        MenuItem& appendMenuItem  ( const std::wstring& text, bool checkable = false );
         
     private:
         HMENU mHandle;
         int   mLastPosition;
         
-        std::list<std::pair<int, Menu>>     mMenus;
-        std::list<std::pair<int, MenuItem>> mMenuItems;
+        std::list<Menu>     mMenus;
+        std::list<MenuItem> mMenuItems;
     };
     
 };

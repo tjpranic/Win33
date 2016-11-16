@@ -42,27 +42,25 @@ void Win33::Menu::setEnabled( bool enabled ) {
     SetMenuItemInfo( mParent, mPosition, true, &mii );
 }
 
-void Win33::Menu::addSeparator( ) {
+void Win33::Menu::appendSeparator( ) {
     AppendMenu( mHandle, MF_SEPARATOR, 0, nullptr );
-    mLastPosition++;
 }
-Win33::Menu& Win33::Menu::addSubMenu( const std::wstring& text ) {
-    mSubMenus.emplace_back( std::make_pair( mLastPosition, Menu( mHandle, mLastPosition, text ) ) );
-    auto& menu = mSubMenus.back( ).second;
-    
-    mLastPosition++;
+Win33::Menu& Win33::Menu::appendSubMenu( const std::wstring& text ) {
+    mSubMenus.emplace_back( Menu( mHandle, mLastPosition, text ) );
+    auto& menu = mSubMenus.back( );
     
     AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.mHandle ), text.c_str( ) );
     
+    mLastPosition++;
     return menu;
 }
-Win33::MenuItem& Win33::Menu::addMenuItem( const std::wstring& text, bool checkable ) {
-    AppendMenu( mHandle, MF_STRING, mLastPosition, text.c_str( ) );
+Win33::MenuItem& Win33::Menu::appendMenuItem( const std::wstring& text, bool checkable ) {
+    mMenuItems.emplace_back( MenuItem( mHandle, text, checkable ) );
+    auto& menuItem = mMenuItems.back( );
     
-    mMenuItems.emplace_back( std::make_pair( mLastPosition, MenuItem( mHandle, mLastPosition, text, checkable ) ) );
-    auto& menuItem = mMenuItems.back( ).second;
+    Application::mMenuItems[menuItem.mID] = &menuItem;
     
-    Application::mMenuItems[mLastPosition] = &menuItem;
+    AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );
     
     mLastPosition++;
     return menuItem;

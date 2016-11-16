@@ -73,7 +73,7 @@ mMaximumSize     ( Win33::System::getMonitorSize( ) )
         throw std::runtime_error( "Unable to create window." );
     }
     
-    Application::mWindows[mHandle] = this;
+    Application::mPlatforms[mHandle] = this;
 }
 
 Win33::Platform::Platform( Platform&& other )
@@ -89,7 +89,7 @@ mMaximumSize     ( std::move( other.mMaximumSize ) )
     other.mHandle = nullptr;
     other.mParent = nullptr;
     
-    Application::mWindows[mHandle] = this;
+    Application::mPlatforms[mHandle] = this;
     
     for( auto& c = mChildren.begin( ); c != mChildren.end( ); ++c ) {
         ( *c )->mParent = this;
@@ -106,7 +106,7 @@ Win33::Platform& Win33::Platform::operator=( Platform&& other ) {
     other.mHandle    = nullptr;
     other.mParent    = nullptr;
     
-    Application::mWindows[mHandle] = this;
+    Application::mPlatforms[mHandle] = this;
     
     for( auto& c = mChildren.begin( ); c != mChildren.end( ); ++c ) {
         ( *c )->mParent = this;

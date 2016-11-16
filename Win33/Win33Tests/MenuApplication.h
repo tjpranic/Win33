@@ -17,30 +17,34 @@ public:
     {
         setTitle( L"MenuWindow" );
         
-        auto& fileMenu = mMenuBar.addMenu( L"&File" );
-        fileMenu.addMenuItem( L"&New" );
-        fileMenu.addMenuItem( L"&Open" );
-        fileMenu.addMenuItem( L"&Save" );
-        fileMenu.addSeparator( );
-        auto& quit = fileMenu.addMenuItem( L"&Quit" );
+        auto& fileMenu = mMenuBar.appendMenu( L"&File" );
+        fileMenu.appendMenuItem( L"&New" );
+        fileMenu.appendMenuItem( L"&Open" );
+        fileMenu.appendMenuItem( L"&Save" );
+        fileMenu.appendSeparator( );
+        auto& quit = fileMenu.appendMenuItem( L"&Quit" );
         
         quit.addClickHandler( [&]( Win33::MenuEvents::ClickData& data ) {
             close( );
         } );
         
-        auto& helpMenu = mMenuBar.addMenu( L"&Help" );
-        auto& miscMenu = helpMenu.addSubMenu( L"&Misc." );
-        miscMenu.addMenuItem( L"Go to website" );
-        miscMenu.addMenuItem( L"Leave feedback" );
-        helpMenu.addSeparator( );
-        helpMenu.addMenuItem( L"&About" );
+        auto& helpMenu = mMenuBar.appendMenu( L"&Help" );
+        auto& miscMenu = helpMenu.appendSubMenu( L"&Misc." );
+        miscMenu.appendMenuItem( L"Go to website" );
+        miscMenu.appendMenuItem( L"Leave feedback" );
+        helpMenu.appendSeparator( );
+        auto& about = helpMenu.appendMenuItem( L"&About" );
+        
+        about.addClickHandler( [&]( Win33::MenuEvents::ClickData& data ) {
+            Win33::PopupBox::information( L"This is a test." );
+        } );
         
         setMenuBar( &mMenuBar );
         
-        auto& greet = mContextMenu.addMenuItem( L"Say hello" );
-        mContextMenu.addSeperator( );
-        auto& english = mContextMenu.addMenuItem( L"English", true );
-        auto& espanol = mContextMenu.addMenuItem( L"Espanol", true  );
+        auto& greet = mContextMenu.appendMenuItem( L"Say hello" );
+        mContextMenu.appendSeperator( );
+        auto& english = mContextMenu.appendMenuItem( L"English", true );
+        auto& espanol = mContextMenu.appendMenuItem( L"Espanol", true  );
         
         english.setChecked( true );
         

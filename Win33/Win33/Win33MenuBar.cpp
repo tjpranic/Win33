@@ -11,13 +11,12 @@ mMenus        ( )
     }
 }
 
-Win33::Menu& Win33::MenuBar::addMenu( const std::wstring& text ) {
+Win33::Menu& Win33::MenuBar::appendMenu( const std::wstring& text ) {
     mMenus.emplace_back( Menu( mHandle, mLastPosition, text ) );
     auto& menu = mMenus.back( );
     
-    mLastPosition++;
-    
     AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.mHandle ), text.c_str( ) );
     
+    mLastPosition++;
     return menu;
 }

@@ -15,6 +15,9 @@ namespace Win33 {
     public:
         ~MenuItem( ) = default;
         
+        void check( );   //will call event handlers
+        void uncheck( ); //
+        
         void toggleChecked( );
         
         const std::wstring& getText( )      const;
@@ -32,12 +35,14 @@ namespace Win33 {
         void removeClickHandler( const MenuEvents::ClickHandler& handler );
         
     private:
-        MenuItem( HMENU parent, int position, const std::wstring& text, bool checkable = false );
+        MenuItem( HMENU parent, const std::wstring& text, bool checkable = false );
+        
+        static int nextID( );
         
         MenuEvents::Click mClick;
         
         HMENU        mParent;
-        int          mPosition;
+        int          mID;
         std::wstring mText;
         bool         mCheckable;
         bool         mEnabled;

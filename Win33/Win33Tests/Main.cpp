@@ -10,7 +10,6 @@
 
 #include "String.h"
 
-//TODO: add a debug class that formats GetLastError calls
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {

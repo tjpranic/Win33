@@ -218,8 +218,6 @@ namespace Win33 {
         void setMaximumSize ( const Size&     maximumSize );
         void setVisible     (       bool      visible     );
         
-        void resetBackgroundColor( );
-        
     private:
         Platform(
                   Type                type,

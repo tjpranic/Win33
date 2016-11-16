@@ -16,27 +16,26 @@ void Win33::ContextMenu::show( Window* window, const Point& position ) {
     TrackPopupMenuEx( mHandle, TPM_TOPALIGN | TPM_LEFTALIGN, position.getX( ), position.getY( ), window->mHandle, nullptr );
 }
 
-void Win33::ContextMenu::addSeperator( ) {
+void Win33::ContextMenu::appendSeperator( ) {
     AppendMenu( mHandle, MF_SEPARATOR, 0, nullptr );
     mLastPosition++;
 }
-Win33::Menu& Win33::ContextMenu::addMenu( const std::wstring& text ) {
-    mMenus.emplace_back( std::make_pair( mLastPosition, Menu( mHandle, mLastPosition, text ) ) );
-    auto& menu = mMenus.back( ).second;
-    
-    mLastPosition++;
+Win33::Menu& Win33::ContextMenu::appendMenu( const std::wstring& text ) {
+    mMenus.emplace_back( Menu( mHandle, mLastPosition, text ) );
+    auto& menu = mMenus.back( );
     
     AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.mHandle ), text.c_str( ) );
     
+    mLastPosition++;
     return menu;
 }
-Win33::MenuItem& Win33::ContextMenu::addMenuItem( const std::wstring& text, bool checkable ) {
-    AppendMenu( mHandle, MF_STRING, mLastPosition, text.c_str( ) );
+Win33::MenuItem& Win33::ContextMenu::appendMenuItem( const std::wstring& text, bool checkable ) {
+    mMenuItems.emplace_back( MenuItem( mHandle, text, checkable ) );
+    auto& menuItem = mMenuItems.back( );
     
-    mMenuItems.emplace_back( std::make_pair( mLastPosition, MenuItem( mHandle, mLastPosition, text, checkable ) ) );
-    auto& menuItem = mMenuItems.back( ).second;
+    Application::mMenuItems[menuItem.mID] = &menuItem;
     
-    Application::mMenuItems[mLastPosition] = &menuItem;
+    AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );
     
     mLastPosition++;
     return menuItem;

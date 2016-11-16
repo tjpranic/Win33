@@ -12,7 +12,7 @@
 #include "Win33TrayIcon.h"
 
 Win33::Application*                        Win33::Application::mInstance = nullptr;
-std::unordered_map<HWND, Win33::Platform*> Win33::Application::mWindows;
+std::unordered_map<HWND, Win33::Platform*> Win33::Application::mPlatforms;
 std::unordered_map<int,  Win33::MenuItem*> Win33::Application::mMenuItems;
 std::unordered_map<int,  Win33::TrayIcon*> Win33::Application::mTrayIcons;
 
@@ -43,7 +43,7 @@ Win33::Application::Application( ) {
 
 int Win33::Application::run( ) {
     MSG m = { };
-    while( !mWindows.empty( ) ) {
+    while( !mPlatforms.empty( ) ) {
         if( PeekMessage( &m, 0, 0, 0, PM_REMOVE ) > 0 ) {
             TranslateMessage( &m );
             DispatchMessage( &m );
@@ -56,21 +56,20 @@ int Win33::Application::run( ) {
 }
 
 LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter ) {
-    if( mWindows.find( window ) != mWindows.end( ) ) {
+    if( mPlatforms.find( window ) != mPlatforms.end( ) ) {
         Win33::Platform* p  = nullptr;
         switch( message ) {
             case WM_COMMAND: {
                 if( longParameter ) {
                     message = HIWORD( wordParameter );
-                    p = mWindows.at( reinterpret_cast<HWND>( longParameter ) );
+                    p = mPlatforms.at( reinterpret_cast<HWND>( longParameter ) );
                 }
                 else {
-                    
                     auto menuID   = static_cast<int>( wordParameter );
                     auto menuItem = mMenuItems[menuID];
                     if( menuItem->mCheckable ) {
                         menuItem->setChecked( !menuItem->getChecked( ) );
-                        menuItem->mClick.handle( MenuEvents::ClickData( false ) );
+                        menuItem->mClick.handle( MenuEvents::ClickData( menuItem->getChecked( ) ) );
                     }
                     else {
                         menuItem->mClick.handle( MenuEvents::ClickData( false ) );
@@ -103,7 +102,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 return true;
             }
             default: {
-                p = mWindows.at( window );
+                p = mPlatforms.at( window );
                 break;
             }
         }
@@ -145,10 +144,10 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         }
                         w->mClose.handle( );
                         for( auto& c = w->mChildren.begin( ); c != w->mChildren.end( ); ++c ) {
-                            DestroyWindow  ( ( *c )->mHandle );
-                            mWindows.erase ( ( *c )->mHandle );
+                            DestroyWindow    ( ( *c )->mHandle );
+                            mPlatforms.erase ( ( *c )->mHandle );
                         }
-                        mWindows.erase( w->mHandle );
+                        mPlatforms.erase( w->mHandle );
                         break;
                     }
                 }

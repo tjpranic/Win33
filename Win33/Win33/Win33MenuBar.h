@@ -14,11 +14,12 @@ namespace Win33 {
         MenuBar( );
         ~MenuBar( ) = default;
         
-        Menu& addMenu( const std::wstring& text );
+        Menu& appendMenu( const std::wstring& text );
         
     private:
-        HMENU           mHandle;
-        int             mLastPosition;
+        HMENU mHandle;
+        int   mLastPosition;
+        
         std::list<Menu> mMenus;
     };
     
