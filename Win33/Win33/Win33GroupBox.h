@@ -4,10 +4,7 @@
 
 namespace Win33 {
     
-    class Application;
-    
     class GroupBox : public Control {
-    friend class Application;
     public:
         GroupBox( ) = delete;
         GroupBox(
@@ -16,9 +13,9 @@ namespace Win33 {
             const Size&          size,
             const std::wstring&  title
         );
-        GroupBox            ( const GroupBox&  other ) = default;
+        GroupBox            ( const GroupBox&  other ) = delete;
         GroupBox            (       GroupBox&& other );
-        GroupBox& operator= ( const GroupBox&  other ) = default;
+        GroupBox& operator= ( const GroupBox&  other ) = delete;
         GroupBox& operator= (       GroupBox&& other );
         ~GroupBox           ( )                        = default;
         

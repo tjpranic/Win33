@@ -18,11 +18,11 @@ mMenuBar     ( nullptr ),
 mIcon        ( L"" )
 { }
 Win33::Window::Window(
-          Window*              parent,
-    const Point&               position,
-    const Size&                size,
-          WindowStyle::Type    style,
-          ExWindowStyle::Type  exStyle
+          Window*             parent,
+    const Point&              position,
+    const Size&               size,
+          WindowStyle::Type   style,
+          ExWindowStyle::Type exStyle
 ):
 Platform     ( Type::Window, parent, position, size, style, exStyle ),
 mResizable   ( ( style & WS_THICKFRAME ) != 0 ),
@@ -36,6 +36,10 @@ mIcon        ( L"" )
 Win33::Window::Window( Window&& other )
 :
 Platform     ( std::move( other ) ),
+idle         ( std::move( other.idle ) ),
+close        ( std::move( other.close ) ),
+resize       ( std::move( other.resize ) ),
+move         ( std::move( other.move ) ),
 mResizable   ( other.mResizable ),
 mMaximizable ( other.mMaximizable ),
 mMinimizable ( other.mMinimizable ),
@@ -44,6 +48,10 @@ mIcon        ( std::move( other.mIcon ) )
 { }
 Win33::Window& Win33::Window::operator=( Window&& other ) {
     Platform::operator=( std::move( other ) );
+    idle         = std::move( other.idle );
+    close        = std::move( other.close );
+    resize       = std::move( other.resize );
+    move         = std::move( other.move );
     mResizable   = other.mResizable;
     mMaximizable = other.mMaximizable;
     mMinimizable = other.mMinimizable;
@@ -52,7 +60,7 @@ Win33::Window& Win33::Window::operator=( Window&& other ) {
     return *this;
 }
 
-void Win33::Window::close( ) {
+void Win33::Window::quit( ) {
     SendMessage( mHandle, WM_CLOSE, 0, 0 );
 }
 void Win33::Window::minimize( ) {
@@ -128,32 +136,6 @@ void Win33::Window::setMinimizable( bool minimizable ) {
     else {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_MINIMIZEBOX );
     }
-}
-
-void Win33::Window::addIdleHandler( const WindowEvents::Handler& handler ) {
-    mIdle.addHandler( handler );
-}
-void Win33::Window::addCloseHandler( const WindowEvents::Handler& handler ) {
-    mClose.addHandler( handler );
-}
-void Win33::Window::addResizeHandler( const WindowEvents::ResizeHandler& handler ) {
-    mResize.addHandler( handler );
-}
-void Win33::Window::addMovedHandler( const WindowEvents::MoveHandler& handler ) {
-    mMove.addHandler( handler );
-}
-
-void Win33::Window::removeIdleHandler( const WindowEvents::Handler& handler ) {
-    mIdle.removeHandler( handler );
-}
-void Win33::Window::removeCloseHandler( const WindowEvents::Handler& handler ) {
-    mClose.removeHandler( handler );
-}
-void Win33::Window::removeResizeHandler( const WindowEvents::ResizeHandler& handler ) {
-    mResize.removeHandler( handler );
-}
-void Win33::Window::removeMovedHandler( const WindowEvents::MoveHandler& handler ) {
-    mMove.removeHandler( handler );
 }
 
 void Win33::Window::removeMenuBar( ) {

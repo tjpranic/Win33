@@ -22,12 +22,12 @@ Control(
 }
 Win33::RadioButton::RadioButton( RadioButton&& other )
 :
-Control( std::move( other ) ),
-mSelect( std::move( other.mSelect ) )
+Control ( std::move( other ) ),
+select  ( std::move( other.select ) )
 { }
 Win33::RadioButton& Win33::RadioButton::operator=( RadioButton&& other ) {
     Control::operator=( std::move( other ) );
-    mSelect = std::move( other.mSelect );
+    select = std::move( other.select );
     return *this;
 }
 
@@ -45,14 +45,4 @@ void Win33::RadioButton::setText( const std::wstring& text ) {
 }
 void Win33::RadioButton::setSelected( bool checked ) {
     Button_SetCheck( mHandle, checked );
-    //event handlers are called manually here as it seems impossible to intercept the BM_SETCHECK message
-    mSelect.handle( RadioButtonEvents::SelectData( checked ) );
-}
-
-void Win33::RadioButton::addSelectHandler( const RadioButtonEvents::SelectHandler& handler ) {
-    mSelect.addHandler( handler );
-}
-
-void Win33::RadioButton::removeSelectHandler( const RadioButtonEvents::SelectHandler& handler ) {
-    mSelect.removeHandler( handler );
 }

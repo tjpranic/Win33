@@ -17,13 +17,13 @@ namespace Win33 {
     friend class Application;
     public:
         Window            ( )                      = delete;
-        Window            ( const Window&  other ) = default;
+        Window            ( const Window&  other ) = delete;
         Window            (       Window&& other );
-        Window& operator= ( const Window&  other ) = default;
+        Window& operator= ( const Window&  other ) = delete;
         Window& operator= (       Window&& other );
         virtual ~Window   ( )                      = default;
         
-        void close( );
+        void quit( );
         void minimize( );
         void maximize( );
         void toggleVisibility( );
@@ -42,18 +42,13 @@ namespace Win33 {
         void setMaximizable ( bool maximizable );
         void setMinimizable ( bool minimizable );
         
-        void addIdleHandler   ( const WindowEvents::Handler&       handler );
-        void addCloseHandler  ( const WindowEvents::Handler&       handler );
-        void addResizeHandler ( const WindowEvents::ResizeHandler& handler );
-        void addMovedHandler  ( const WindowEvents::MoveHandler&   handler );
-        
-        void removeIdleHandler   ( const WindowEvents::Handler&       handler );
-        void removeCloseHandler  ( const WindowEvents::Handler&       handler );
-        void removeResizeHandler ( const WindowEvents::ResizeHandler& handler );
-        void removeMovedHandler  ( const WindowEvents::MoveHandler&   handler );
-        
         void removeMenuBar( );
         void removeContextMenu( );
+        
+        WindowEvents::Idle   idle;
+        WindowEvents::Close  close;
+        WindowEvents::Resize resize;
+        WindowEvents::Move   move;
         
     protected:
         Window(
@@ -71,11 +66,6 @@ namespace Win33 {
         );
         
     private:
-        WindowEvents::Idle   mIdle;
-        WindowEvents::Close  mClose;
-        WindowEvents::Resize mResize;
-        WindowEvents::Move   mMove;
-        
         bool         mResizable;
         bool         mMaximizable;
         bool         mMinimizable;

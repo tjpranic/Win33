@@ -5,10 +5,7 @@
 
 namespace Win33 {
     
-    class Application;
-    
     class RadioButton : public Control {
-    friend class Application;
     public:
         RadioButton( ) = delete;
         RadioButton(
@@ -19,9 +16,9 @@ namespace Win33 {
                   bool           selected = false,
                   bool           group    = false
         );
-        RadioButton            ( const RadioButton&  other ) = default;
+        RadioButton            ( const RadioButton&  other ) = delete;
         RadioButton            (       RadioButton&& other );
-        RadioButton& operator= ( const RadioButton&  other ) = default;
+        RadioButton& operator= ( const RadioButton&  other ) = delete;
         RadioButton& operator= (       RadioButton&& other );
         ~RadioButton           ( )                           = default;
         
@@ -31,12 +28,7 @@ namespace Win33 {
         void setText     ( const std::wstring& text );
         void setSelected ( bool selected );
         
-        void addSelectHandler( const RadioButtonEvents::SelectHandler& handler );
-        
-        void removeSelectHandler( const RadioButtonEvents::SelectHandler& handler );
-        
-    private:
-        RadioButtonEvents::Select mSelect;
+        RadioButtonEvents::Select select;
     };
     
 };

@@ -18,6 +18,7 @@ mChecked   ( false )
 { }
 Win33::MenuItem::MenuItem( MenuItem&& other )
 :
+click      ( std::move( other.click ) ),
 mParent    ( other.mParent ),
 mID        ( other.mID ),
 mText      ( std::move( other.mText ) ),
@@ -26,6 +27,7 @@ mEnabled   ( other.mEnabled ),
 mChecked   ( other.mChecked )
 { }
 Win33::MenuItem& Win33::MenuItem::operator=( MenuItem&& other ) {
+    click      = std::move( other.click );
     mParent    = other.mParent;
     mID        = other.mID;
     mText      = std::move( other.mText );
@@ -33,19 +35,6 @@ Win33::MenuItem& Win33::MenuItem::operator=( MenuItem&& other ) {
     mEnabled   = other.mEnabled;
     mChecked   = other.mChecked;
     return *this;
-}
-
-void Win33::MenuItem::check( ) {
-    if( !getChecked( ) ) {
-        setChecked( true );
-        mClick.handle( MenuEvents::ClickData( true ) );
-    }
-}
-void Win33::MenuItem::uncheck( ) {
-    if( getChecked( ) ) {
-        setChecked( false );
-        mClick.handle( MenuEvents::ClickData( false ) );
-    }
 }
 
 void Win33::MenuItem::toggleChecked( ) {
@@ -88,12 +77,4 @@ void Win33::MenuItem::setChecked( bool checked ) {
         CheckMenuItem( mParent, mID, MF_BYCOMMAND | ( checked ? MF_CHECKED : MF_UNCHECKED ) );
         mChecked = checked;
     }
-}
-
-void Win33::MenuItem::addClickHandler( const MenuEvents::ClickHandler& handler ) {
-    mClick.addHandler( handler );
-}
-
-void Win33::MenuItem::removeClickHandler( const MenuEvents::ClickHandler& handler ) {
-    mClick.removeHandler( handler );
 }

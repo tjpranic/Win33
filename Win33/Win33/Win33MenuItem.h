@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Win33MenuEvents.h"
+#include "Win33MenuItemEvents.h"
 
 namespace Win33 {
     
@@ -19,9 +19,6 @@ namespace Win33 {
         MenuItem& operator= (       MenuItem&& other );
         ~MenuItem( )                                   = default;
         
-        void check( );   //will call event handlers
-        void uncheck( ); //
-        
         void toggleChecked( );
         
         const std::wstring& getText( )      const;
@@ -34,16 +31,12 @@ namespace Win33 {
         void setCheckable (       bool          checkable );
         void setChecked   (       bool          checked   );
         
-        void addClickHandler( const MenuEvents::ClickHandler& handler );
-        
-        void removeClickHandler( const MenuEvents::ClickHandler& handler );
+        MenuItemEvents::Click click;
         
     private:
         MenuItem( HMENU parent, const std::wstring& text, bool checkable = false );
         
         static int nextID( );
-        
-        MenuEvents::Click mClick;
         
         HMENU        mParent;
         int          mID;

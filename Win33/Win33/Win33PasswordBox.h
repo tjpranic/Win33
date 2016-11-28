@@ -15,7 +15,7 @@ namespace Win33 {
         );
         PasswordBox            ( const PasswordBox&  other ) = delete;
         PasswordBox            (       PasswordBox&& other );
-        PasswordBox& operator= ( const PasswordBox&  other ) = default;
+        PasswordBox& operator= ( const PasswordBox&  other ) = delete;
         PasswordBox& operator= (       PasswordBox&& other );
         ~PasswordBox           ( )                           = default;
         

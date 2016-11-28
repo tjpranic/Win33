@@ -22,15 +22,15 @@ Control(
 Win33::CheckBox::CheckBox( CheckBox&& other )
 :
 Control ( std::move( other ) ),
-mCheck  ( std::move( other.mCheck ) )
+check   ( std::move( other.check ) )
 { }
 Win33::CheckBox& Win33::CheckBox::operator=( CheckBox&& other ) {
     Control::operator=( std::move( other ) );
-    mCheck = std::move( other.mCheck );
+    check = std::move( other.check );
     return *this;
 }
 
-void Win33::CheckBox::toggle( ) {
+void Win33::CheckBox::toggleChecked( ) {
     setChecked( !getChecked( ) );
 }
 
@@ -48,14 +48,4 @@ void Win33::CheckBox::setText( const std::wstring& text ) {
 }
 void Win33::CheckBox::setChecked( bool checked ) {
     Button_SetCheck( mHandle, checked );
-    //event handlers are called manually here as it seems impossible to intercept the BM_SETCHECK message
-    mCheck.handle( CheckBoxEvents::CheckData( checked ) );
-}
-
-void Win33::CheckBox::addCheckHandler( const CheckBoxEvents::CheckHandler& handler ) {
-    mCheck.addHandler( handler );
-}
-
-void Win33::CheckBox::removeCheckHandler( const CheckBoxEvents::CheckHandler& handler ) {
-    mCheck.removeHandler( handler );
 }

@@ -18,16 +18,12 @@ Control(
 Win33::Button::Button( Button&& other )
 :
 Control ( std::move( other ) ),
-mClick  ( std::move( other.mClick ) )
+click   ( std::move( other.click ) )
 { }
 Win33::Button& Win33::Button::operator=( Button&& other ) {
     Control::operator=( std::move( other ) );
-    mClick = std::move( other.mClick );
+    click = std::move( other.click );
     return *this;
-}
-
-void Win33::Button::click( ) {
-    SendMessage( mHandle, BM_CLICK, 0, 0 );
 }
 
 std::wstring Win33::Button::getText( ) const {
@@ -38,12 +34,4 @@ std::wstring Win33::Button::getText( ) const {
 
 void Win33::Button::setText( const std::wstring& text ) {
     SetWindowText( mHandle, text.c_str( ) );
-}
-
-void Win33::Button::addClickHandler( const ButtonEvents::Handler& handler ) {
-    mClick.addHandler( handler );
-}
-
-void Win33::Button::removeClickHandler( const ButtonEvents::Handler& handler ) {
-    mClick.removeHandler( handler );
 }

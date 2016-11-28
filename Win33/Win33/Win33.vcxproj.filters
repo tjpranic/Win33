@@ -188,9 +188,6 @@
     <ClInclude Include="Win33RadioButtonEvents.h">
       <Filter>Win33\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Win33MenuEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
     <ClInclude Include="Win33Size.h">
       <Filter>Win33\Utility</Filter>
     </ClInclude>
@@ -214,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="Win33Icon.h">
       <Filter>Win33\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33MenuItemEvents.h">
+      <Filter>Win33\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

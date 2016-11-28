@@ -5,10 +5,7 @@
 
 namespace Win33 {
     
-    class Application;
-    
     class Label : public Control {
-    friend class Application;
     public:
         Label( ) = delete;
         Label(
@@ -17,24 +14,17 @@ namespace Win33 {
             const Size&          size,
             const std::wstring&  text = L""
         );
-        Label            ( const Label&  other ) = default;
+        Label            ( const Label&  other ) = delete;
         Label            (       Label&& other );
-        Label& operator= ( const Label&  other ) = default;
+        Label& operator= ( const Label&  other ) = delete;
         Label& operator= (       Label&& other );
         ~Label           ( )                     = default;
-        
-        void click( );
         
         std::wstring getText( ) const;
         
         void setText( const std::wstring& text );
         
-        void addClickHandler( const LabelEvents::Handler& handler );
-        
-        void removeClickHandler( const LabelEvents::Handler& handler );
-        
-    private:
-        LabelEvents::Click mClick;
+        LabelEvents::Click click;
     };
     
 };

@@ -29,9 +29,9 @@ namespace Win33 {
     class Control : public Platform {
     public:
         Control            ( )                       = delete;
-        Control            ( const Control&  other ) = default;
+        Control            ( const Control&  other ) = delete;
         Control            (       Control&& other );
-        Control& operator= ( const Control&  other ) = default;
+        Control& operator= ( const Control&  other ) = delete;
         Control& operator= (       Control&& other );
         virtual ~Control   ( )                       = default;
         

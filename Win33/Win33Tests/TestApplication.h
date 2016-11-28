@@ -49,14 +49,14 @@ public:
         setIcon        ( Win33::Icon( L"TestIcon2.ico" ) );
         
         mTestButton1.setAnchor( Win33::Anchor::RightBottom );
-        mTestButton1.addClickHandler(
+        mTestButton1.click.addHandler(
             [&]( ) {
                 Win33::PopupBox::exclamation( mTestTextBox.getText( ), L"TestBox Text" );
             }
         );
         
         mTestButton2.setAnchor( Win33::Anchor::RightBottom );
-        mTestButton2.addClickHandler(
+        mTestButton2.click.addHandler(
             [&]( ) {
                 if( mTestPasswordBox.getText( ) == L"password" ) {
                     auto result = TestDialog( this ).show( );
@@ -73,14 +73,14 @@ public:
         mTestPasswordBox.setAnchor( Win33::Anchor::RightBottom );
         
         mTestCheckBox.setAnchor( Win33::Anchor::RightBottom );
-        mTestCheckBox.addCheckHandler(
+        mTestCheckBox.check.addHandler(
             [&]( Win33::CheckBoxEvents::CheckData& data ) {
                 mTestTextBox.setEnabled( !data.isChecked( ) );
             }
         );
         
         mTestLabel.setAnchor( Win33::Anchor::RightBottom );
-        mTestLabel.addClickHandler(
+        mTestLabel.click.addHandler(
             [&]( ) {
                 setResizable( !getResizable( ) );
             }

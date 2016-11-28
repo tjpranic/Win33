@@ -22,9 +22,9 @@ namespace Win33 {
             const std::wstring&       text      = L"",
                   TextAlignment::Type alignment = TextAlignment::Left
         );
-        TextBox            ( const TextBox&  other ) = default;
+        TextBox            ( const TextBox&  other ) = delete;
         TextBox            (       TextBox&& other );
-        TextBox& operator= ( const TextBox&  other ) = default;
+        TextBox& operator= ( const TextBox&  other ) = delete;
         TextBox& operator= (       TextBox&& other );
         ~TextBox           ( )                       = default;
         

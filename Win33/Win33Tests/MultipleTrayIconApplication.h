@@ -13,7 +13,7 @@ public:
     {
         setTitle( L"FirstWindow" );
         
-        mFirstTrayIcon.addLeftClickHandler(
+        mFirstTrayIcon.leftClick.addHandler(
             [&]( ) {
                 toggleVisibility( );
             }
@@ -34,7 +34,7 @@ public:
     {
         setTitle( L"SecondWindow" );
         
-        mSecondTrayIcon.addLeftClickHandler(
+        mSecondTrayIcon.leftClick.addHandler(
             [&]( ) {
                 toggleVisibility( );
             }

@@ -120,7 +120,7 @@
     <ClInclude Include="Win33LabelEvents.h" />
     <ClInclude Include="Win33Menu.h" />
     <ClInclude Include="Win33MenuBar.h" />
-    <ClInclude Include="Win33MenuEvents.h" />
+    <ClInclude Include="Win33MenuItemEvents.h" />
     <ClInclude Include="Win33MenuItem.h" />
     <ClInclude Include="Win33MultilineTextBox.h" />
     <ClInclude Include="Win33PasswordBox.h" />

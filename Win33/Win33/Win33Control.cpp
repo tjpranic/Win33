@@ -16,7 +16,7 @@ Platform ( type, parent, position, size, style, exStyle ),
 mAnchor  ( Anchor::All )
 {
     assert( parent != nullptr );
-    parent->addResizeHandler(
+    parent->resize.addHandler(
         [&]( WindowEvents::ResizeData& data ) {
             auto dx = data.getSize( ).getWidth( ) - mParent->mInitialSize.getWidth( );
             auto dy = data.getSize( ).getHeight( ) - mParent->mInitialSize.getHeight( );

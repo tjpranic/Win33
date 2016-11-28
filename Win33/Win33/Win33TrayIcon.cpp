@@ -39,8 +39,8 @@ mContextMenu ( nullptr )
 }
 Win33::TrayIcon::TrayIcon( TrayIcon&& other )
 :
-mLeftClick   ( std::move( other.mLeftClick ) ),
-mRightClick  ( std::move( other.mRightClick ) ),
+leftClick    ( std::move( other.leftClick ) ),
+rightClick   ( std::move( other.rightClick ) ),
 mParent      ( other.mParent ),
 mNID         ( std::move( other.mNID ) ),
 mContextMenu ( other.mContextMenu )
@@ -48,8 +48,8 @@ mContextMenu ( other.mContextMenu )
     Application::mTrayIcons[mNID.uID] = this;
 }
 Win33::TrayIcon& Win33::TrayIcon::operator=( TrayIcon&& other ) {
-    mLeftClick   = std::move( other.mLeftClick );
-    mRightClick  = std::move( other.mRightClick );
+    leftClick    = std::move( other.leftClick );
+    rightClick   = std::move( other.rightClick );
     mParent      = other.mParent;
     mNID         = std::move( other.mNID );
     mContextMenu = other.mContextMenu;
@@ -63,24 +63,6 @@ Win33::TrayIcon::~TrayIcon( ) {
     Application::mTrayIcons.erase( mNID.uID );
 }
 
-Win33::ContextMenu& Win33::TrayIcon::getContextMenu( ) const {
-    return *mContextMenu;
-}
-
 void Win33::TrayIcon::setContextMenu( ContextMenu* menu ) {
     mContextMenu = menu;
-}
-
-void Win33::TrayIcon::addLeftClickHandler( const TrayIconEvents::Handler& handler ) {
-    mLeftClick.addHandler( handler );
-}
-void Win33::TrayIcon::addRightClickHandler( const TrayIconEvents::Handler& handler ) {
-    mRightClick.addHandler( handler );
-}
-
-void Win33::TrayIcon::removeLeftClickHandler( const TrayIconEvents::Handler& handler ) {
-    mLeftClick.removeHandler( handler );
-}
-void Win33::TrayIcon::removeRightClickHandler( const TrayIconEvents::Handler& handler ) {
-    mRightClick.removeHandler( handler );
 }

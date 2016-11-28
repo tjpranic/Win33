@@ -23,27 +23,19 @@ namespace Win33 {
             const Icon&         icon,
             const std::wstring& tooltip
         );
-        TrayIcon            ( const TrayIcon&  other ) = default;
+        TrayIcon            ( const TrayIcon&  other ) = delete;
         TrayIcon            (       TrayIcon&& other );
-        TrayIcon& operator= ( const TrayIcon&  other ) = default;
+        TrayIcon& operator= ( const TrayIcon&  other ) = delete;
         TrayIcon& operator= (       TrayIcon&& other );
         ~TrayIcon           ( );
         
-        ContextMenu& getContextMenu( ) const;
-        
         void setContextMenu( ContextMenu* menu );
         
-        void addLeftClickHandler  ( const TrayIconEvents::Handler& handler );
-        void addRightClickHandler ( const TrayIconEvents::Handler& handler );
-        
-        void removeLeftClickHandler  ( const TrayIconEvents::Handler& handler );
-        void removeRightClickHandler ( const TrayIconEvents::Handler& handler );
+        TrayIconEvents::LeftClick  leftClick;
+        TrayIconEvents::RightClick rightClick;
         
     private:
         int generateID( );
-        
-        TrayIconEvents::LeftClick  mLeftClick;
-        TrayIconEvents::RightClick mRightClick;
         
         Window*        mParent;
         NOTIFYICONDATA mNID;

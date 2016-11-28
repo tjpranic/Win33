@@ -187,9 +187,9 @@ namespace Win33 {
         };
         
         Platform            ( )                        = delete;
-        Platform            ( const Platform&  other ) = default;
+        Platform            ( const Platform&  other ) = delete;
         Platform            (       Platform&& other );
-        Platform& operator= ( const Platform&  other ) = default;
+        Platform& operator= ( const Platform&  other ) = delete;
         Platform& operator= (       Platform&& other );
         virtual ~Platform   ( )                        = default;
         

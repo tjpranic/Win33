@@ -14,9 +14,9 @@ namespace Win33 {
                   ScrollBar::Type scrollBar = ScrollBar::None,
             const std::wstring&   text      = L""
         );
-        MultilineTextBox            ( const MultilineTextBox&  other ) = default;
+        MultilineTextBox            ( const MultilineTextBox&  other ) = delete;
         MultilineTextBox            (       MultilineTextBox&& other );
-        MultilineTextBox& operator= ( const MultilineTextBox&  other ) = default;
+        MultilineTextBox& operator= ( const MultilineTextBox&  other ) = delete;
         MultilineTextBox& operator= (       MultilineTextBox&& other );
         ~MultilineTextBox           ( )                                = default;
         

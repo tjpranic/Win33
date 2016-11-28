@@ -69,10 +69,10 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     auto menuItem = mMenuItems[menuID];
                     if( menuItem->mCheckable ) {
                         menuItem->setChecked( !menuItem->getChecked( ) );
-                        menuItem->mClick.handle( MenuEvents::ClickData( menuItem->getChecked( ) ) );
+                        menuItem->click.handle( MenuItemEvents::ClickData( menuItem->getChecked( ) ) );
                     }
                     else {
-                        menuItem->mClick.handle( MenuEvents::ClickData( false ) );
+                        menuItem->click.handle( MenuItemEvents::ClickData( false ) );
                     }
                     return true;
                 }
@@ -83,7 +83,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::TrayIcon* ti = mTrayIcons[trayiconID];
                 switch( longParameter ) {
                     case WM_LBUTTONUP: {
-                        ti->mLeftClick.handle( );
+                        ti->leftClick.handle( );
                         break;
                     }
                     case WM_RBUTTONUP: {
@@ -92,7 +92,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         if( ti->mContextMenu ) {
                             ti->mContextMenu->show( ti->mParent, { p.x, p.y } );
                         }
-                        ti->mRightClick.handle( );
+                        ti->rightClick.handle( );
                         break;
                     }
                     default: {
@@ -111,15 +111,15 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::Window* w = reinterpret_cast<Win33::Window*>( p );
                 switch( message ) {
                     case WM_IDLE: {
-                        w->mIdle.handle( );
+                        w->idle.handle( );
                         break;
                     }
                     case WM_SIZE: {
-                        w->mResize.handle( WindowEvents::ResizeData( { w->getWidth( ), w->getHeight( ) } ) );
+                        w->resize.handle( WindowEvents::ResizeData( { w->getWidth( ), w->getHeight( ) } ) );
                         break;
                     }
                     case WM_MOVE: {
-                        w->mMove.handle( WindowEvents::MoveData( { w->getX( ), w->getY( ) } ) );
+                        w->move.handle( WindowEvents::MoveData( { w->getX( ), w->getY( ) } ) );
                         break;
                     }
                     case WM_GETMINMAXINFO: {
@@ -142,7 +142,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         if( w->mParent ) {
                             w->mParent->mChildren.erase( std::remove( w->mParent->mChildren.begin( ), w->mParent->mChildren.end( ), w ) );
                         }
-                        w->mClose.handle( );
+                        w->close.handle( );
                         for( auto& c = w->mChildren.begin( ); c != w->mChildren.end( ); ++c ) {
                             DestroyWindow    ( ( *c )->mHandle );
                             mPlatforms.erase ( ( *c )->mHandle );
@@ -157,7 +157,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::Button* b = reinterpret_cast<Win33::Button*>( p );
                 switch( message ) {
                     case BN_CLICKED: {
-                        b->mClick.handle( );
+                        b->click.handle( );
                         break;
                     }
                     default: {
@@ -170,7 +170,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::CheckBox* cb = reinterpret_cast<Win33::CheckBox*>( p );
                 switch( message ) {
                     case BN_CLICKED: {
-                        cb->mCheck.handle( CheckBoxEvents::CheckData( cb->getChecked( ) ) );
+                        cb->check.handle( CheckBoxEvents::CheckData( cb->getChecked( ) ) );
                         break;
                     }
                     default: {
@@ -209,7 +209,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 switch( message ) {
                     case STN_DBLCLK: //double clicks have to be counted amongst single clicks due to notify style (?)
                     case STN_CLICKED: {
-                        l->mClick.handle( );
+                        l->click.handle( );
                         break;
                     }
                     default: {

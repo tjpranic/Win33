@@ -7,16 +7,16 @@ namespace Win33 {
     template<class T>
     class Dialog : public Window {
     public:
-        Dialog( )                = delete;
-        Dialog( Dialog&  other ) = default;
-        Dialog( Dialog&& other )
+        Dialog( )                      = delete;
+        Dialog( const Dialog&  other ) = delete;
+        Dialog(       Dialog&& other )
         :
         Window( std::move( other ) )
         {
             mResult = std::move( other._result );
         }
-        Dialog& operator=( Dialog&  other ) = default;
-        Dialog& operator=( Dialog&& other ) {
+        Dialog& operator=( const Dialog&  other ) = delete;
+        Dialog& operator=(       Dialog&& other ) {
             Window::operator=( std::move( other ) );
             mResult = std::move( other._result );
             return *this;
@@ -58,7 +58,7 @@ namespace Win33 {
         Window  ( parent, position, size, style, exStyle ),
         mResult ( )
         {
-            addCloseHandler(
+            close.addHandler(
                 [&]( ) {
                     getParent( ).setEnabled( true );
                 }

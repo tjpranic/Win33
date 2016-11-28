@@ -5,10 +5,7 @@
 
 namespace Win33 {
     
-    class Application;
-    
     class CheckBox : public Control {
-    friend class Application;
     public:
         CheckBox( ) = delete;
         CheckBox(
@@ -18,13 +15,13 @@ namespace Win33 {
             const std::wstring&  text,
                   bool           checked = false
         );
-        CheckBox            ( const CheckBox&  other ) = default;
+        CheckBox            ( const CheckBox&  other ) = delete;
         CheckBox            (       CheckBox&& other );
-        CheckBox& operator= ( const CheckBox&  other ) = default;
+        CheckBox& operator= ( const CheckBox&  other ) = delete;
         CheckBox& operator= (       CheckBox&& other );
         ~CheckBox           ( )                        = default;
         
-        void toggle( );
+        void toggleChecked( );
         
         std::wstring getText( )    const;
         bool         getChecked( ) const;
@@ -32,12 +29,7 @@ namespace Win33 {
         void setText    ( const std::wstring& text );
         void setChecked ( bool checked );
         
-        void addCheckHandler( const CheckBoxEvents::CheckHandler& handler );
-        
-        void removeCheckHandler( const CheckBoxEvents::CheckHandler& handler );
-        
-    private:
-        CheckBoxEvents::Check mCheck;
+        CheckBoxEvents::Check check;
     };
     
 };
