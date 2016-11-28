@@ -16,6 +16,24 @@ mCheckable ( checkable ),
 mEnabled   ( true ),
 mChecked   ( false )
 { }
+Win33::MenuItem::MenuItem( MenuItem&& other )
+:
+mParent    ( other.mParent ),
+mID        ( other.mID ),
+mText      ( std::move( other.mText ) ),
+mCheckable ( other.mCheckable ),
+mEnabled   ( other.mEnabled ),
+mChecked   ( other.mChecked )
+{ }
+Win33::MenuItem& Win33::MenuItem::operator=( MenuItem&& other ) {
+    mParent    = other.mParent;
+    mID        = other.mID;
+    mText      = std::move( other.mText );
+    mCheckable = other.mCheckable;
+    mEnabled   = other.mEnabled;
+    mChecked   = other.mChecked;
+    return *this;
+}
 
 void Win33::MenuItem::check( ) {
     if( !getChecked( ) ) {

@@ -11,8 +11,12 @@ namespace Win33 {
     class MenuBar {
     friend class Window;
     public:
-        MenuBar( );
-        ~MenuBar( ) = default;
+        MenuBar            ( );
+        MenuBar            ( const MenuBar&  other ) = delete;
+        MenuBar            (       MenuBar&& other );
+        MenuBar& operator= ( const MenuBar&  other ) = delete;
+        MenuBar& operator= (       MenuBar&& other );
+        ~MenuBar           ( )                       = default;
         
         Menu& appendMenu( const std::wstring& text );
         

@@ -13,11 +13,11 @@ namespace Win33 {
             const Size&          size,
                   wchar_t        passwordCharacter = L'*'
         );
-        PasswordBox            ( PasswordBox&  other ) = default;
-        PasswordBox            ( PasswordBox&& other );
-        PasswordBox& operator= ( PasswordBox&  other ) = default;
-        PasswordBox& operator= ( PasswordBox&& other );
-        ~PasswordBox           ( )                     = default;
+        PasswordBox            ( const PasswordBox&  other ) = delete;
+        PasswordBox            (       PasswordBox&& other );
+        PasswordBox& operator= ( const PasswordBox&  other ) = default;
+        PasswordBox& operator= (       PasswordBox&& other );
+        ~PasswordBox           ( )                           = default;
         
         std::wstring getText( )              const;
         wchar_t      getPasswordCharacter( ) const;

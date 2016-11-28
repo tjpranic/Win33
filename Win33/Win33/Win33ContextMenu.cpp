@@ -11,6 +11,20 @@ mLastPosition ( 0 )
         throw std::runtime_error( "Unable to create context menu." );
     }
 }
+Win33::ContextMenu::ContextMenu( ContextMenu&& other )
+:
+mHandle       ( other.mHandle ),
+mLastPosition ( other.mLastPosition ),
+mMenus        ( std::move( other.mMenus ) ),
+mMenuItems    ( std::move( other.mMenuItems ) )
+{ }
+Win33::ContextMenu& Win33::ContextMenu::operator=( ContextMenu&& other ) {
+    mHandle       = other.mHandle;
+    mLastPosition = other.mLastPosition;
+    mMenus        = std::move( other.mMenus );
+    mMenuItems    = std::move( other.mMenuItems );
+    return *this;
+}
 
 void Win33::ContextMenu::show( Window* window, const Point& position ) {
     TrackPopupMenuEx( mHandle, TPM_TOPALIGN | TPM_LEFTALIGN, position.getX( ), position.getY( ), window->mHandle, nullptr );

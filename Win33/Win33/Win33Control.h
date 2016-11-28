@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Win33Platform.h"
+#include "Win33Window.h"
 
 namespace Win33 {
     
@@ -25,27 +26,14 @@ namespace Win33 {
         };
     };
     
-    class Button;
-    class CheckBox;
-    class RadioButton;
-    class TextBox;
-    class PasswordBox;
-    class MultilineTextBox;
-    class Label;
-    class GroupBox;
-    
     class Control : public Platform {
-    friend class Button;
-    friend class CheckBox;
-    friend class RadioButton;
-    friend class TextBox;
-    friend class PasswordBox;
-    friend class MultilineTextBox;
-    friend class Label;
-    friend class GroupBox;
     public:
-        Control         ( ) = delete;
-        virtual ~Control( ) = default;
+        Control            ( )                       = delete;
+        Control            ( const Control&  other ) = default;
+        Control            (       Control&& other );
+        Control& operator= ( const Control&  other ) = default;
+        Control& operator= (       Control&& other );
+        virtual ~Control   ( )                       = default;
         
         Anchor::Type getAnchor( ) const;
         int          getX( )      const;
@@ -56,14 +44,6 @@ namespace Win33 {
         void setY      ( int y );
         
     protected:
-        Control            ( Control&  other ) = default;
-        Control            ( Control&& other );
-        Control& operator= ( Control&  other ) = default;
-        Control& operator= ( Control&& other );
-        
-        using Platform::mHandle;
-        
-    private:
         Control(
                   Type                type,
                   Win33::Window*      parent,
@@ -73,6 +53,7 @@ namespace Win33 {
                   ExWindowStyle::Type exStyle = ExWindowStyle::NoExWindowStyle
         );
         
+    private:
         Anchor::Type mAnchor;
     };
     

@@ -17,11 +17,11 @@ namespace Win33 {
             const Size&          size,
             const std::wstring&  text
         );
-        Button            ( Button&  other ) = default;
-        Button            ( Button&& other );
-        Button& operator= ( Button&  other ) = default;
-        Button& operator= ( Button&& other );
-        ~Button           ( )                = default;
+        Button            ( const Button&  other ) = default;
+        Button            (       Button&& other );
+        Button& operator= ( const Button&  other ) = default;
+        Button& operator= (       Button&& other );
+        ~Button           ( )                      = default;
         
         void click( );
         

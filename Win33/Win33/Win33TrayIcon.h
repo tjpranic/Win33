@@ -23,7 +23,11 @@ namespace Win33 {
             const Icon&         icon,
             const std::wstring& tooltip
         );
-        ~TrayIcon( );
+        TrayIcon            ( const TrayIcon&  other ) = default;
+        TrayIcon            (       TrayIcon&& other );
+        TrayIcon& operator= ( const TrayIcon&  other ) = default;
+        TrayIcon& operator= (       TrayIcon&& other );
+        ~TrayIcon           ( );
         
         ContextMenu& getContextMenu( ) const;
         

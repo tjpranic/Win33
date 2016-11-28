@@ -16,11 +16,11 @@ namespace Win33 {
             const Size&          size,
             const std::wstring&  title
         );
-        GroupBox            ( GroupBox&  other ) = default;
-        GroupBox            ( GroupBox&& other );
-        GroupBox& operator= ( GroupBox&  other ) = default;
-        GroupBox& operator= ( GroupBox&& other );
-        ~GroupBox           ( )                  = default;
+        GroupBox            ( const GroupBox&  other ) = default;
+        GroupBox            (       GroupBox&& other );
+        GroupBox& operator= ( const GroupBox&  other ) = default;
+        GroupBox& operator= (       GroupBox&& other );
+        ~GroupBox           ( )                        = default;
         
         std::wstring getTitle( ) const;
         

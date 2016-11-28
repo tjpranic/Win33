@@ -19,11 +19,11 @@ namespace Win33 {
                   bool           selected = false,
                   bool           group    = false
         );
-        RadioButton            ( RadioButton&  other ) = default;
-        RadioButton            ( RadioButton&& other );
-        RadioButton& operator= ( RadioButton&  other ) = default;
-        RadioButton& operator= ( RadioButton&& other );
-        ~RadioButton           ( )                     = default;
+        RadioButton            ( const RadioButton&  other ) = default;
+        RadioButton            (       RadioButton&& other );
+        RadioButton& operator= ( const RadioButton&  other ) = default;
+        RadioButton& operator= (       RadioButton&& other );
+        ~RadioButton           ( )                           = default;
         
         std::wstring getText( )     const;
         bool         getSelected( ) const;

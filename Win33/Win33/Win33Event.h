@@ -44,13 +44,13 @@ namespace Win33 {
         :
         mEventHandlers( )
         { }
-        Event( const Event& ) = default;
-        Event( const Event&& other )
+        Event( const Event&  other ) = default;
+        Event(       Event&& other )
         :
         mEventHandlers( std::move( other.mEventHandlers ) )
         { }
-        Event& operator=( const Event& ) = default;
-        Event& operator=( const Event&& other ) {
+        Event& operator=( const Event&  other ) = default;
+        Event& operator=(       Event&& other ) {
             mEventHandlers = std::move( other.mEventHandlers );
             return *this;
         }

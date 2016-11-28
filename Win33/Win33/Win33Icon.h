@@ -15,9 +15,13 @@ namespace Win33 {
     friend class Window;
     friend class TrayIcon;
     public:
-        Icon  ( );
-        Icon  ( const std::wstring& filepath );
-        ~Icon ( ) = default;
+        Icon            ( );
+        Icon            ( const std::wstring& filepath );
+        Icon            ( const Icon&  other ) = default;
+        Icon            (       Icon&& other );
+        Icon& operator= ( const Icon&  other ) = default;
+        Icon& operator= (       Icon&& other );
+        ~Icon           ( ) = default;
         
         const std::wstring& getFilepath( ) const;
         

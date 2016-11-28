@@ -16,8 +16,12 @@ namespace Win33 {
     class Window : public Platform {
     friend class Application;
     public:
-        Window          ( ) = delete;
-        virtual ~Window ( ) = default;
+        Window            ( )                      = delete;
+        Window            ( const Window&  other ) = default;
+        Window            (       Window&& other );
+        Window& operator= ( const Window&  other ) = default;
+        Window& operator= (       Window&& other );
+        virtual ~Window   ( )                      = default;
         
         void close( );
         void minimize( );
@@ -65,10 +69,6 @@ namespace Win33 {
                   WindowStyle::Type   style   = WindowStyle::OverlappedWindow,
                   ExWindowStyle::Type exStyle = ExWindowStyle::NoExWindowStyle
         );
-        Window            ( Window&  other ) = default;
-        Window            ( Window&& other );
-        Window& operator= ( Window&  other ) = default;
-        Window& operator= ( Window&& other );
         
     private:
         WindowEvents::Idle   mIdle;

@@ -13,7 +13,11 @@ namespace Win33 {
     friend class MenuBar;
     friend class ContextMenu;
     public:
-        ~Menu( ) = default;
+        Menu            ( const Menu&  other ) = delete;
+        Menu            (       Menu&& other );
+        Menu& operator= ( const Menu&  other ) = delete;
+        Menu& operator= (       Menu&& other );
+        ~Menu           ( )                    = default;
         
         std::wstring getText( )    const;
         bool         getEnabled( ) const;
@@ -28,12 +32,11 @@ namespace Win33 {
     private:
         Menu( HMENU parent, int position, const std::wstring& text );
         
-        HMENU        mHandle;
-        HMENU        mParent;
-        int          mPosition;
-        std::wstring mText;
-        int          mLastPosition;
-        
+        HMENU               mHandle;
+        HMENU               mParent;
+        int                 mPosition;
+        std::wstring        mText;
+        int                 mLastPosition;
         std::list<Menu>     mSubMenus;
         std::list<MenuItem> mMenuItems;
     };

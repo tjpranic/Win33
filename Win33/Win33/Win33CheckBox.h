@@ -18,11 +18,11 @@ namespace Win33 {
             const std::wstring&  text,
                   bool           checked = false
         );
-        CheckBox            ( CheckBox&  other ) = default;
-        CheckBox            ( CheckBox&& other );
-        CheckBox& operator= ( CheckBox&  other ) = default;
-        CheckBox& operator= ( CheckBox&& other );
-        ~CheckBox           ( )                  = default;
+        CheckBox            ( const CheckBox&  other ) = default;
+        CheckBox            (       CheckBox&& other );
+        CheckBox& operator= ( const CheckBox&  other ) = default;
+        CheckBox& operator= (       CheckBox&& other );
+        ~CheckBox           ( )                        = default;
         
         void toggle( );
         

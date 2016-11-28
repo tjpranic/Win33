@@ -13,7 +13,11 @@ namespace Win33 {
     friend class ContextMenu;
     friend class Application;
     public:
-        ~MenuItem( ) = default;
+        MenuItem            ( const MenuItem&  other ) = delete;
+        MenuItem            (       MenuItem&& other );
+        MenuItem& operator= ( const MenuItem&  other ) = delete;
+        MenuItem& operator= (       MenuItem&& other );
+        ~MenuItem( )                                   = default;
         
         void check( );   //will call event handlers
         void uncheck( ); //

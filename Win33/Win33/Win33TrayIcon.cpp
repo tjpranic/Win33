@@ -37,6 +37,26 @@ mContextMenu ( nullptr )
     
     Application::mTrayIcons[mNID.uID] = this;
 }
+Win33::TrayIcon::TrayIcon( TrayIcon&& other )
+:
+mLeftClick   ( std::move( other.mLeftClick ) ),
+mRightClick  ( std::move( other.mRightClick ) ),
+mParent      ( other.mParent ),
+mNID         ( std::move( other.mNID ) ),
+mContextMenu ( other.mContextMenu )
+{
+    Application::mTrayIcons[mNID.uID] = this;
+}
+Win33::TrayIcon& Win33::TrayIcon::operator=( TrayIcon&& other ) {
+    mLeftClick   = std::move( other.mLeftClick );
+    mRightClick  = std::move( other.mRightClick );
+    mParent      = other.mParent;
+    mNID         = std::move( other.mNID );
+    mContextMenu = other.mContextMenu;
+    Application::mTrayIcons[mNID.uID] = this;
+    return *this;
+}
+
 Win33::TrayIcon::~TrayIcon( ) {
     Shell_NotifyIcon( NIM_DELETE, &mNID );
     

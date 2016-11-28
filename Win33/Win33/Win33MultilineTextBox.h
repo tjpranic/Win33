@@ -14,11 +14,11 @@ namespace Win33 {
                   ScrollBar::Type scrollBar = ScrollBar::None,
             const std::wstring&   text      = L""
         );
-        MultilineTextBox            ( MultilineTextBox&  other ) = default;
-        MultilineTextBox            ( MultilineTextBox&& other );
-        MultilineTextBox& operator= ( MultilineTextBox&  other ) = default;
-        MultilineTextBox& operator= ( MultilineTextBox&& other );
-        ~MultilineTextBox           ( )                          = default;
+        MultilineTextBox            ( const MultilineTextBox&  other ) = default;
+        MultilineTextBox            (       MultilineTextBox&& other );
+        MultilineTextBox& operator= ( const MultilineTextBox&  other ) = default;
+        MultilineTextBox& operator= (       MultilineTextBox&& other );
+        ~MultilineTextBox           ( )                                = default;
         
         std::wstring getText( ) const;
         

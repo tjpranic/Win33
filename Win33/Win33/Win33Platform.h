@@ -164,14 +164,12 @@ namespace Win33 {
     };
     
     class Application;
-    class Window;
     class Control;
     class ContextMenu;
     class TrayIcon;
     
     class Platform {
     friend class Application;
-    friend class Window;
     friend class Control;
     friend class ContextMenu;
     friend class TrayIcon;
@@ -188,8 +186,12 @@ namespace Win33 {
             GroupBox
         };
         
-        Platform          ( ) = delete;
-        virtual ~Platform ( ) = default;
+        Platform            ( )                        = delete;
+        Platform            ( const Platform&  other ) = default;
+        Platform            (       Platform&& other );
+        Platform& operator= ( const Platform&  other ) = default;
+        Platform& operator= (       Platform&& other );
+        virtual ~Platform   ( )                        = default;
         
         void show( );
         void hide( );
@@ -218,7 +220,7 @@ namespace Win33 {
         void setMaximumSize ( const Size&     maximumSize );
         void setVisible     (       bool      visible     );
         
-    private:
+    protected:
         Platform(
                   Type                type,
                   Platform*           parent,
@@ -227,10 +229,6 @@ namespace Win33 {
                   WindowStyle::Type   style   = WindowStyle::OverlappedWindow,
                   ExWindowStyle::Type exStyle = ExWindowStyle::NoExWindowStyle
         );
-        Platform            ( Platform&  other ) = default;
-        Platform            ( Platform&& other );
-        Platform& operator= ( Platform&  other ) = default;
-        Platform& operator= ( Platform&& other );
         
         Type                   mType;
         HWND                   mHandle;

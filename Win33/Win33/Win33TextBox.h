@@ -22,11 +22,11 @@ namespace Win33 {
             const std::wstring&       text      = L"",
                   TextAlignment::Type alignment = TextAlignment::Left
         );
-        TextBox            ( TextBox&  other ) = default;
-        TextBox            ( TextBox&& other );
-        TextBox& operator= ( TextBox&  other ) = default;
-        TextBox& operator= ( TextBox&& other );
-        ~TextBox           ( )                 = default;
+        TextBox            ( const TextBox&  other ) = default;
+        TextBox            (       TextBox&& other );
+        TextBox& operator= ( const TextBox&  other ) = default;
+        TextBox& operator= (       TextBox&& other );
+        ~TextBox           ( )                       = default;
         
         std::wstring getText( )     const;
         bool         getReadOnly( ) const;

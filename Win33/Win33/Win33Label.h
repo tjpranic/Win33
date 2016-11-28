@@ -17,11 +17,11 @@ namespace Win33 {
             const Size&          size,
             const std::wstring&  text = L""
         );
-        Label            ( Label&  other ) = default;
-        Label            ( Label&& other );
-        Label& operator= ( Label&  other ) = default;
-        Label& operator= ( Label&& other );
-        ~Label           ( )               = default;
+        Label            ( const Label&  other ) = default;
+        Label            (       Label&& other );
+        Label& operator= ( const Label&  other ) = default;
+        Label& operator= (       Label&& other );
+        ~Label           ( )                     = default;
         
         void click( );
         
