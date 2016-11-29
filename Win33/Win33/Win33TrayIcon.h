@@ -21,13 +21,14 @@ namespace Win33 {
         TrayIcon& operator= (       TrayIcon&& other );
         ~TrayIcon           ( );
         
-              int                 getID( )          const;
               Win33::Window*      getParent( )      const;
               Win33::ContextMenu* getContextMenu( ) const;
         const std::wstring&       getIcon( )        const;
         
         void setIcon        ( const std::wstring&       icon        );
         void setContextMenu (       Win33::ContextMenu* contextMenu );
+        
+        int getID( ) const; //*
         
         Win33::TrayIconEvents::Click click;
         

@@ -187,11 +187,11 @@ namespace Win33 {
         void show( );
         void hide( );
         
-              HWND                  getHandle( )          const;
-              Win33::Platform::Type getType( )            const;
+              HWND                  getHandle( )          const; //*
+              Win33::Platform::Type getType( )            const; //*
               Win33::Platform*      getParent( )          const;
-        const Win33::Point&         getInitialPosition( ) const;
-        const Win33::Size&          getInitialSize( )     const;
+        const Win33::Point&         getInitialPosition( ) const; //*
+        const Win33::Size&          getInitialSize( )     const; //*
         const Win33::Size&          getMinimumSize( )     const;
         const Win33::Size&          getMaximumSize( )     const;
               bool                  getEnabled( )         const;

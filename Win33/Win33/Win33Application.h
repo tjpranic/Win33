@@ -19,13 +19,13 @@ namespace Win33 {
         
         int run( );
         
-        static void registerPlatform ( Win33::Platform* platform );
-        static void registerMenuItem ( Win33::MenuItem* menuItem );
-        static void registerTrayIcon ( Win33::TrayIcon* trayIcon );
+        static void registerPlatform ( Win33::Platform* platform ); //*
+        static void registerMenuItem ( Win33::MenuItem* menuItem ); //*
+        static void registerTrayIcon ( Win33::TrayIcon* trayIcon ); //*
         
-        static void unregisterPlatform ( Win33::Platform* platform );
-        static void unregisterMenuItem ( Win33::MenuItem* menuItem );
-        static void unregisterTrayIcon ( Win33::TrayIcon* trayIcon );
+        static void unregisterPlatform ( Win33::Platform* platform ); //*
+        static void unregisterMenuItem ( Win33::MenuItem* menuItem ); //*
+        static void unregisterTrayIcon ( Win33::TrayIcon* trayIcon ); //*
         
     private:
         static LRESULT CALLBACK windowProcessor      ( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter );

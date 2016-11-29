@@ -10,6 +10,10 @@
 
 #include "String.h"
 
+//TODO: find a way to remove the first parameter of ContextMenu::show
+//TODO: remove unnecessary includes
+//TODO: refactor to hide marked methods
+//TODO? have all gets return const reference
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {

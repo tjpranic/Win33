@@ -15,7 +15,6 @@ namespace Win33 {
         
         void toggleChecked( );
         
-              int           getID( )        const;
         const std::wstring& getText( )      const;
               bool          getEnabled( )   const;
               bool          getCheckable( ) const;
@@ -25,6 +24,8 @@ namespace Win33 {
         void setEnabled   (       bool          enabled   );
         void setCheckable (       bool          checkable );
         void setChecked   (       bool          checked   );
+        
+        int getID( ) const; //*
         
         Win33::MenuItemEvents::Click click;
         

@@ -41,9 +41,6 @@ void Win33::MenuItem::toggleChecked( ) {
     setChecked( !getChecked( ) );
 }
 
-int Win33::MenuItem::getID( ) const {
-    return mID;
-}
 const std::wstring& Win33::MenuItem::getText( ) const {
     return mText;
 }
@@ -80,4 +77,8 @@ void Win33::MenuItem::setChecked( bool checked ) {
         CheckMenuItem( mParent, mID, MF_BYCOMMAND | ( checked ? MF_CHECKED : MF_UNCHECKED ) );
         mChecked = checked;
     }
+}
+
+int Win33::MenuItem::getID( ) const {
+    return mID;
 }

@@ -23,7 +23,7 @@ namespace Win33 {
         Menu&     appendMenu      ( const std::wstring& text );
         MenuItem& appendMenuItem  ( const std::wstring& text, bool checkable = false );
         
-        HMENU getHandle( ) const;
+        HMENU getHandle( ) const; //*
         
     private:
         int mLastPosition;

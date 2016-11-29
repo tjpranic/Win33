@@ -67,11 +67,13 @@ namespace Win33 {
             );
         }
         
+        //*
         void handle( ) {
             for( auto& h = mEventHandlers.begin( ); h != mEventHandlers.end( ); ++h ) {
                 ( *h )( );
             }
         }
+        //*
         template<class D>
         void handle( D& data ) {
             for( auto& h = mEventHandlers.begin( ); h != mEventHandlers.end( ); ++h ) {

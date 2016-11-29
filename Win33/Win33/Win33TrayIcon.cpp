@@ -69,9 +69,6 @@ Win33::TrayIcon::~TrayIcon( ) {
     Win33::Application::unregisterTrayIcon( this );
 }
 
-int Win33::TrayIcon::getID( ) const {
-    return mNID.uID;
-}
 Win33::Window* Win33::TrayIcon::getParent( ) const {
     return mParent;
 }
@@ -84,4 +81,8 @@ const std::wstring& Win33::TrayIcon::getIcon( ) const {
 
 void Win33::TrayIcon::setContextMenu( Win33::ContextMenu* contextMenu ) {
     mContextMenu = contextMenu;
+}
+
+int Win33::TrayIcon::getID( ) const {
+    return mNID.uID;
 }
