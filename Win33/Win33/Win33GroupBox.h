@@ -9,8 +9,8 @@ namespace Win33 {
         GroupBox( ) = delete;
         GroupBox(
                   Win33::Window* parent,
-            const Point&         position,
-            const Size&          size,
+            const Win33::Point&  position,
+            const Win33::Size&   size,
             const std::wstring&  title
         );
         GroupBox            ( const GroupBox&  other ) = delete;

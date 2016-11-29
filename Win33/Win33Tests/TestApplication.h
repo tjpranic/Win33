@@ -46,7 +46,7 @@ public:
         setTitle       ( L"TestWindow" );
         setMinimumSize ( { 260,  255 } );
         setMaximumSize ( { 1024, 768 } );
-        setIcon        ( Win33::Icon( L"TestIcon2.ico" ) );
+        setIcon        ( L"TestIcon2.ico" );
         
         mTestButton1.setAnchor( Win33::Anchor::RightBottom );
         mTestButton1.click.addHandler(

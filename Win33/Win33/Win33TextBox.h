@@ -16,11 +16,11 @@ namespace Win33 {
     public:
         TextBox( ) = delete;
         TextBox(
-                  Win33::Window*      parent,
-            const Point&              position,
-            const Size&               size,
-            const std::wstring&       text      = L"",
-                  TextAlignment::Type alignment = TextAlignment::Left
+                  Win33::Window*             parent,
+            const Win33::Point&              position,
+            const Win33::Size&               size,
+            const std::wstring&              text      = L"",
+                  Win33::TextAlignment::Type alignment = Win33::TextAlignment::Left
         );
         TextBox            ( const TextBox&  other ) = delete;
         TextBox            (       TextBox&& other );

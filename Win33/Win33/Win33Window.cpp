@@ -25,7 +25,7 @@ Win33::Window::Window(
           ExWindowStyle::Type exStyle
 ):
 Platform     ( Type::Window, parent, position, size, style, exStyle ),
-mResizable   ( ( style & WS_THICKFRAME ) != 0 ),
+mResizable   ( ( style & WS_THICKFRAME  ) != 0 ),
 mMaximizable ( ( style & WS_MAXIMIZEBOX ) != 0 ),
 mMinimizable ( ( style & WS_MINIMIZEBOX ) != 0 ),
 mMenuBar     ( nullptr ),
@@ -86,13 +86,13 @@ std::wstring Win33::Window::getTitle( ) const {
 bool Win33::Window::getResizable( ) const {
     return mResizable;
 }
-Win33::MenuBar& Win33::Window::getMenuBar( ) const {
-    return *mMenuBar;
+Win33::MenuBar* Win33::Window::getMenuBar( ) const {
+    return mMenuBar;
 }
-Win33::ContextMenu& Win33::Window::getContextMenu( ) const {
-    return *mContextMenu;
+Win33::ContextMenu* Win33::Window::getContextMenu( ) const {
+    return mContextMenu;
 }
-const Win33::Icon& Win33::Window::getIcon( ) const {
+const std::wstring& Win33::Window::getIcon( ) const {
     return mIcon;
 }
 
@@ -108,16 +108,20 @@ void Win33::Window::setResizable( bool resizable ) {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_THICKFRAME );
     }
 }
-void Win33::Window::setMenuBar( MenuBar* menu ) {
-    mMenuBar = menu;
-    SetMenu( mHandle, mMenuBar->mHandle );
+void Win33::Window::setMenuBar( MenuBar* menuBar ) {
+    mMenuBar = menuBar;
+    SetMenu( mHandle, mMenuBar->getHandle( ) );
 }
-void Win33::Window::setContextMenu( ContextMenu* menu ) {
-    mContextMenu = menu;
+void Win33::Window::setContextMenu( ContextMenu* contextMenu ) {
+    mContextMenu = contextMenu;
 }
-void Win33::Window::setIcon( const Win33::Icon& icon ) {
-    SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( icon.mHandle ) );
+void Win33::Window::setIcon( const std::wstring& icon ) {
+    assert( icon != L"" );
     mIcon = icon;
+    auto handle = static_cast<HICON>(
+        LoadImage( nullptr, mIcon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
+    );
+    SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( handle ) );
 }
 void Win33::Window::setMaximizable( bool maximizable ) {
     mMaximizable = maximizable;
@@ -136,11 +140,4 @@ void Win33::Window::setMinimizable( bool minimizable ) {
     else {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_MINIMIZEBOX );
     }
-}
-
-void Win33::Window::removeMenuBar( ) {
-    SetMenu( mHandle, nullptr );
-}
-void Win33::Window::removeContextMenu( ) {
-    mContextMenu = nullptr;
 }

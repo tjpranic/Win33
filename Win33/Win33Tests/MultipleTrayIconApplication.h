@@ -9,11 +9,11 @@ public:
     FirstWindow( )
     :
     Window         ( Win33::DefaultPosition, { 640, 480 } ),
-    mFirstTrayIcon ( this, Win33::Icon( L"TestIcon1.ico" ), L"FirstTrayIcon" )
+    mFirstTrayIcon ( this, L"TestIcon1.ico", L"FirstTrayIcon" )
     {
         setTitle( L"FirstWindow" );
         
-        mFirstTrayIcon.leftClick.addHandler(
+        mFirstTrayIcon.click.addHandler(
             [&]( ) {
                 toggleVisibility( );
             }
@@ -30,11 +30,11 @@ public:
     SecondWindow( )
     :
     Window          ( Win33::DefaultPosition, { 640, 480 } ),
-    mSecondTrayIcon ( this, Win33::Icon( L"TestIcon2.ico" ), L"SecondTrayIcon" )
+    mSecondTrayIcon ( this, L"TestIcon2.ico", L"SecondTrayIcon" )
     {
         setTitle( L"SecondWindow" );
         
-        mSecondTrayIcon.leftClick.addHandler(
+        mSecondTrayIcon.click.addHandler(
             [&]( ) {
                 toggleVisibility( );
             }

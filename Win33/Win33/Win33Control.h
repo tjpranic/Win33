@@ -35,26 +35,26 @@ namespace Win33 {
         Control& operator= (       Control&& other );
         virtual ~Control   ( )                       = default;
         
-        Anchor::Type getAnchor( ) const;
-        int          getX( )      const;
-        int          getY( )      const;
+        Win33::Anchor::Type getAnchor( ) const;
+        int                 getX( )      const;
+        int                 getY( )      const;
         
-        void setAnchor ( Anchor::Type anchor );
-        void setX      ( int x );
-        void setY      ( int y );
+        void setAnchor ( Win33::Anchor::Type anchor );
+        void setX      ( int                 x      );
+        void setY      ( int                 y      );
         
     protected:
         Control(
-                  Type                type,
-                  Win33::Window*      parent,
-            const Point&              position,
-            const Size&               size,
-                  WindowStyle::Type   style,
-                  ExWindowStyle::Type exStyle = ExWindowStyle::NoExWindowStyle
+                  Win33::Platform::Type      type,
+                  Win33::Window*             parent,
+            const Win33::Point&              position,
+            const Win33::Size&               size,
+                  Win33::WindowStyle::Type   style,
+                  Win33::ExWindowStyle::Type exStyle = Win33::ExWindowStyle::NoExWindowStyle
         );
         
     private:
-        Anchor::Type mAnchor;
+        Win33::Anchor::Type mAnchor;
     };
     
 };

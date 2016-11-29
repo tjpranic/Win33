@@ -10,8 +10,8 @@ namespace Win33 {
         RadioButton( ) = delete;
         RadioButton(
                   Win33::Window* parent,
-            const Point&         position,
-            const Size&          size,
+            const Win33::Point&  position,
+            const Win33::Size&   size,
             const std::wstring&  text,
                   bool           selected = false,
                   bool           group    = false
@@ -25,10 +25,10 @@ namespace Win33 {
         std::wstring getText( )     const;
         bool         getSelected( ) const;
         
-        void setText     ( const std::wstring& text );
-        void setSelected ( bool selected );
+        void setText     ( const std::wstring& text     );
+        void setSelected (       bool          selected );
         
-        RadioButtonEvents::Select select;
+        Win33::RadioButtonEvents::Select select;
     };
     
 };

@@ -2,16 +2,20 @@
 
 Win33::Button::Button(
           Win33::Window* parent,
-    const Point&         position,
-    const Size&          size,
+    const Win33::Point&  position,
+    const Win33::Size&   size,
     const std::wstring&  text
 ):
 Control(
-    Type::Button,
+    Win33::Platform::Type::Button,
     parent,
     position,
     size,
-    static_cast<WindowStyle::Type>( WindowStyle::Tabstop | WindowStyle::Child | ButtonStyle::PushButton )
+    static_cast<Win33::WindowStyle::Type>(
+        Win33::WindowStyle::Tabstop    |
+        Win33::WindowStyle::Child      |
+        Win33::ButtonStyle::PushButton
+    )
 ) {
     setText( text );
 }

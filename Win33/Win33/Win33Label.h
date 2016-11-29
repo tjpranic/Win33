@@ -10,8 +10,8 @@ namespace Win33 {
         Label( ) = delete;
         Label(
                   Win33::Window* parent,
-            const Point&         position,
-            const Size&          size,
+            const Win33::Point&  position,
+            const Win33::Size&   size,
             const std::wstring&  text = L""
         );
         Label            ( const Label&  other ) = delete;
@@ -24,7 +24,7 @@ namespace Win33 {
         
         void setText( const std::wstring& text );
         
-        LabelEvents::Click click;
+        Win33::LabelEvents::Click click;
     };
     
 };

@@ -5,51 +5,51 @@
 #include "Win33Window.h"
 
 Win33::Control::Control(
-          Type                type,
-          Win33::Window*      parent,
-    const Point&              position,
-    const Size&               size,
-          WindowStyle::Type   style,
-          ExWindowStyle::Type exStyle
+          Win33::Platform::Type      type,
+          Win33::Window*             parent,
+    const Win33::Point&              position,
+    const Win33::Size&               size,
+          Win33::WindowStyle::Type   style,
+          Win33::ExWindowStyle::Type exStyle
 ):
 Platform ( type, parent, position, size, style, exStyle ),
-mAnchor  ( Anchor::All )
+mAnchor  ( Win33::Anchor::All )
 {
     assert( parent != nullptr );
     parent->resize.addHandler(
-        [&]( WindowEvents::ResizeData& data ) {
-            auto dx = data.getSize( ).getWidth( ) - mParent->mInitialSize.getWidth( );
-            auto dy = data.getSize( ).getHeight( ) - mParent->mInitialSize.getHeight( );
+        [&]( Win33::WindowEvents::ResizeData& data ) {
+            auto dx = data.getSize( ).getWidth( )  - mParent->getInitialSize( ).getWidth( );
+            auto dy = data.getSize( ).getHeight( ) - mParent->getInitialSize( ).getHeight( );
             switch( mAnchor ) {
-                case Anchor::All: {
+                case Win33::Anchor::All: {
                     SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ) + dy, SWP_NOMOVE );
                     break;
                 }
-                case Anchor::TopLeftRight: {
+                case Win33::Anchor::TopLeftRight: {
                     SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ), SWP_NOMOVE );
                     break;
                 }
-                case Anchor::TopLeftBottom: {
+                case Win33::Anchor::TopLeftBottom: {
                     SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ), mInitialSize.getHeight( ) + dy, SWP_NOMOVE );
                     break;
                 }
-                case Anchor::LeftRightBottom: {
+                case Win33::Anchor::LeftRightBottom: {
                     SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ), mInitialPosition.getY( ) + dy, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ), 0 );
                     break;
                 }
-                case Anchor::TopRightBottom: {
+                case Win33::Anchor::TopRightBottom: {
                     SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ), mInitialSize.getWidth( ), mInitialSize.getHeight( ) + dy, 0 );
                     break;
                 }
-                case Anchor::TopRight: {
+                case Win33::Anchor::TopRight: {
                     SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ), 0, 0, SWP_NOSIZE );
                     break;
                 }
-                case Anchor::LeftBottom: {
+                case Win33::Anchor::LeftBottom: {
                     SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ), mInitialPosition.getY( ) + dy, 0, 0, SWP_NOSIZE );
                     break;
                 }
-                case Anchor::RightBottom: {
+                case Win33::Anchor::RightBottom: {
                     SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ) + dy, 0, 0, SWP_NOSIZE );
                     break;
                 }
@@ -81,7 +81,7 @@ Win33::Anchor::Type Win33::Control::getAnchor( ) const {
 int Win33::Control::getX( ) const {
     RECT cr;
     GetClientRect( mHandle, &cr );
-    MapWindowPoints( mHandle, mParent->mHandle, reinterpret_cast<LPPOINT>( &cr ), 2 );
+    MapWindowPoints( mHandle, mParent->getHandle( ), reinterpret_cast<LPPOINT>( &cr ), 2 );
     RECT wr;
     GetWindowRect( mHandle, &wr );
     POINT p = { wr.left, wr.top };
@@ -91,7 +91,7 @@ int Win33::Control::getX( ) const {
 int Win33::Control::getY( ) const {
     RECT cr;
     GetClientRect( mHandle, &cr );
-    MapWindowPoints( mHandle, mParent->mHandle, reinterpret_cast<LPPOINT>( &cr ), 2 );
+    MapWindowPoints( mHandle, mParent->getHandle( ), reinterpret_cast<LPPOINT>( &cr ), 2 );
     RECT wr;
     GetWindowRect( mHandle, &wr );
     POINT p = { wr.left, wr.top };
@@ -99,7 +99,7 @@ int Win33::Control::getY( ) const {
     return cr.top + p.y;
 }
 
-void Win33::Control::setAnchor( Anchor::Type anchor ) {
+void Win33::Control::setAnchor( Win33::Anchor::Type anchor ) {
     mAnchor = anchor;
 }
 void Win33::Control::setX( int x ) {

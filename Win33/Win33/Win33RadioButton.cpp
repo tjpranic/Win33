@@ -4,18 +4,23 @@
 
 Win33::RadioButton::RadioButton(
           Win33::Window* parent,
-    const Point&         position,
-    const Size&          size,
+    const Win33::Point&  position,
+    const Win33::Size&   size,
     const std::wstring&  text,
           bool           selected,
           bool           group
 ):
 Control(
-    Type::RadioButton,
+    Win33::Platform::Type::RadioButton,
     parent,
     position,
     size,
-    static_cast<WindowStyle::Type>( WindowStyle::Tabstop | WindowStyle::Child | ButtonStyle::AutoRadioButton | ( group ? WindowStyle::Group : 0 ) )
+    static_cast<Win33::WindowStyle::Type>(
+        Win33::WindowStyle::Tabstop         |
+        Win33::WindowStyle::Child           |
+        Win33::ButtonStyle::AutoRadioButton |
+        ( group ? Win33::WindowStyle::Group : 0 )
+    )
 ) {
     setText     ( text );
     setSelected ( selected );

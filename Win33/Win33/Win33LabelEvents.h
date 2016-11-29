@@ -6,7 +6,7 @@ namespace Win33 {
     
     namespace LabelEvents {
         
-        typedef Event<> Click;
+        typedef Win33::Event<> Click;
     };
     
 };

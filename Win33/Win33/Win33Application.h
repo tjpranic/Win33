@@ -3,21 +3,12 @@
 #include <unordered_map>
 
 #include "Win33Platform.h"
+#include "Win33MenuItem.h"
+#include "Win33TrayIcon.h"
 
 namespace Win33 {
     
-    class Platform;
-    class MenuItem;
-    class TrayIcon;
-    class Menu;
-    class ContextMenu;
-    
     class Application {
-    friend class Platform;
-    friend class MenuItem;
-    friend class TrayIcon;
-    friend class Menu;
-    friend class ContextMenu;
     public:
         Application            ( );
         Application            ( const Application&  other ) = delete;
@@ -28,13 +19,22 @@ namespace Win33 {
         
         int run( );
         
-    private:
-        static LRESULT CALLBACK windowProcessor( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter );
+        static void registerPlatform ( Win33::Platform* platform );
+        static void registerMenuItem ( Win33::MenuItem* menuItem );
+        static void registerTrayIcon ( Win33::TrayIcon* trayIcon );
         
-        static Application*                        mInstance;
-        static std::unordered_map<HWND, Platform*> mPlatforms;
-        static std::unordered_map<int,  MenuItem*> mMenuItems;
-        static std::unordered_map<int,  TrayIcon*> mTrayIcons;
+        static void unregisterPlatform ( Win33::Platform* platform );
+        static void unregisterMenuItem ( Win33::MenuItem* menuItem );
+        static void unregisterTrayIcon ( Win33::TrayIcon* trayIcon );
+        
+    private:
+        static LRESULT CALLBACK windowProcessor      ( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter );
+        static BOOL    CALLBACK childWindowDestroyer ( HWND window, LPARAM longParameter );
+        
+        static Win33::Application*                        mInstance;
+        static std::unordered_map<HWND, Win33::Platform*> mPlatforms;
+        static std::unordered_map<int,  Win33::MenuItem*> mMenuItems;
+        static std::unordered_map<int,  Win33::TrayIcon*> mTrayIcons;
     };
     
 };

@@ -9,8 +9,8 @@ namespace Win33 {
         PasswordBox( ) = delete;
         PasswordBox(
                   Win33::Window* parent,
-            const Point&         position,
-            const Size&          size,
+            const Win33::Point&  position,
+            const Win33::Size&   size,
                   wchar_t        passwordCharacter = L'*'
         );
         PasswordBox            ( const PasswordBox&  other ) = delete;

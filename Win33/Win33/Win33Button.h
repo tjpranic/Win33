@@ -10,8 +10,8 @@ namespace Win33 {
         Button( ) = delete;
         Button(
                   Win33::Window* parent,
-            const Point&         position,
-            const Size&          size,
+            const Win33::Point&  position,
+            const Win33::Size&   size,
             const std::wstring&  text
         );
         Button            ( const Button&  other ) = delete;
@@ -24,7 +24,7 @@ namespace Win33 {
         
         void setText( const std::wstring& text );
         
-        ButtonEvents::Click click;
+        Win33::ButtonEvents::Click click;
     };
     
 };

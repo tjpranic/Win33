@@ -4,23 +4,18 @@
 
 namespace Win33 {
     
-    class Menu;
-    class ContextMenu;
-    class Application;
-    
     class MenuItem {
-    friend class Menu;
-    friend class ContextMenu;
-    friend class Application;
     public:
+        MenuItem            ( HMENU parent, const std::wstring& text, bool checkable = false );
         MenuItem            ( const MenuItem&  other ) = delete;
         MenuItem            (       MenuItem&& other );
         MenuItem& operator= ( const MenuItem&  other ) = delete;
         MenuItem& operator= (       MenuItem&& other );
-        ~MenuItem( )                                   = default;
+        ~MenuItem           ( )                        = default;
         
         void toggleChecked( );
         
+              int           getID( )        const;
         const std::wstring& getText( )      const;
               bool          getEnabled( )   const;
               bool          getCheckable( ) const;
@@ -31,12 +26,10 @@ namespace Win33 {
         void setCheckable (       bool          checkable );
         void setChecked   (       bool          checked   );
         
-        MenuItemEvents::Click click;
+        Win33::MenuItemEvents::Click click;
         
     private:
-        MenuItem( HMENU parent, const std::wstring& text, bool checkable = false );
-        
-        static int nextID( );
+        static int generateID( );
         
         HMENU        mParent;
         int          mID;

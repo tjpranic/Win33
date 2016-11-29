@@ -6,13 +6,9 @@
 
 namespace Win33 {
     
-    class MenuBar;
-    class ContextMenu;
-    
     class Menu {
-    friend class MenuBar;
-    friend class ContextMenu;
     public:
+        Menu            ( HMENU parent, int position, const std::wstring& text );
         Menu            ( const Menu&  other ) = delete;
         Menu            (       Menu&& other );
         Menu& operator= ( const Menu&  other ) = delete;
@@ -29,15 +25,16 @@ namespace Win33 {
         Menu&     appendSubMenu   ( const std::wstring& text );
         MenuItem& appendMenuItem  ( const std::wstring& text, bool checkable = false );
         
-    private:
-        Menu( HMENU parent, int position, const std::wstring& text );
+        HMENU getHandle( ) const;
         
-        HMENU               mHandle;
-        HMENU               mParent;
-        int                 mPosition;
-        std::wstring        mText;
-        int                 mLastPosition;
-        std::list<Menu>     mSubMenus;
-        std::list<MenuItem> mMenuItems;
+    private:
+        int mLastPosition;
+        
+        HMENU                      mHandle;
+        HMENU                      mParent;
+        int                        mPosition;
+        std::wstring               mText;
+        std::list<Win33::Menu>     mSubMenus;
+        std::list<Win33::MenuItem> mMenuItems;
     };
 };

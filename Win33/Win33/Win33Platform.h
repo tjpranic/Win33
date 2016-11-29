@@ -163,16 +163,7 @@ namespace Win33 {
         };
     };
     
-    class Application;
-    class Control;
-    class ContextMenu;
-    class TrayIcon;
-    
     class Platform {
-    friend class Application;
-    friend class Control;
-    friend class ContextMenu;
-    friend class TrayIcon;
     public:
         enum Type {
             Window,
@@ -196,48 +187,51 @@ namespace Win33 {
         void show( );
         void hide( );
         
-        bool      getEnabled( )     const;
-        Platform& getParent( )      const;
-        int       getX( )           const;
-        int       getY( )           const;
-        int       getWidth( )       const;
-        int       getHeight( )      const;
-        Point     getPosition( )    const;
-        Size      getSize( )        const;
-        Size      getMinimumSize( ) const;
-        Size      getMaximumSize( ) const;
-        bool      getVisible( )     const;
+              HWND                  getHandle( )          const;
+              Win33::Platform::Type getType( )            const;
+              Win33::Platform*      getParent( )          const;
+        const Win33::Point&         getInitialPosition( ) const;
+        const Win33::Size&          getInitialSize( )     const;
+        const Win33::Size&          getMinimumSize( )     const;
+        const Win33::Size&          getMaximumSize( )     const;
+              bool                  getEnabled( )         const;
+              int                   getX( )               const;
+              int                   getY( )               const;
+              Win33::Point          getPosition( )        const;
+              int                   getWidth( )           const;
+              int                   getHeight( )          const;
+              Win33::Size           getSize( )            const;
+              bool                  getVisible( )         const;
         
-        void setEnabled     (       bool      enabled     );
-        void setParent      (       Platform* parent      );
-        void setX           (       int       x           );
-        void setY           (       int       y           );
-        void setWidth       (       int       width       );
-        void setHeight      (       int       height      );
-        void setPosition    ( const Point&    position    );
-        void setSize        ( const Size&     size        );
-        void setMinimumSize ( const Size&     minimumSize );
-        void setMaximumSize ( const Size&     maximumSize );
-        void setVisible     (       bool      visible     );
+        void setParent      (       Win33::Platform* parent      );
+        void setMinimumSize ( const Win33::Size&     minimumSize );
+        void setMaximumSize ( const Win33::Size&     maximumSize );
+        void setEnabled     (       bool             enabled     );
+        void setX           (       int              x           );
+        void setY           (       int              y           );
+        void setPosition    ( const Win33::Point&    position    );
+        void setWidth       (       int              width       );
+        void setHeight      (       int              height      );
+        void setSize        ( const Win33::Size&     size        );
+        void setVisible     (       bool             visible     );
         
     protected:
         Platform(
-                  Type                type,
-                  Platform*           parent,
-            const Point&              position,
-            const Size&               size,
-                  WindowStyle::Type   style   = WindowStyle::OverlappedWindow,
-                  ExWindowStyle::Type exStyle = ExWindowStyle::NoExWindowStyle
+                  Win33::Platform::Type      type,
+                  Win33::Platform*           parent,
+            const Win33::Point&              position,
+            const Win33::Size&               size,
+                  Win33::WindowStyle::Type   style   = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle::Type exStyle = Win33::ExWindowStyle::NoExWindowStyle
         );
         
-        Type                   mType;
-        HWND                   mHandle;
-        Platform*              mParent;
-        std::vector<Platform*> mChildren;
-        Point                  mInitialPosition;
-        Size                   mInitialSize;
-        Size                   mMinimumSize;
-        Size                   mMaximumSize;
+        HWND                  mHandle;
+        Win33::Platform::Type mType;
+        Win33::Platform*      mParent;
+        Win33::Point          mInitialPosition;
+        Win33::Size           mInitialSize;
+        Win33::Size           mMinimumSize;
+        Win33::Size           mMaximumSize;
     };
     
 };

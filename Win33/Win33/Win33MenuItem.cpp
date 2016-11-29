@@ -2,7 +2,7 @@
 
 #include "Win33Application.h"
 
-int Win33::MenuItem::nextID( ) {
+int Win33::MenuItem::generateID( ) {
     static int id = 0;
     return ++id;
 }
@@ -10,7 +10,7 @@ int Win33::MenuItem::nextID( ) {
 Win33::MenuItem::MenuItem( HMENU parent, const std::wstring& text, bool checkable )
 :
 mParent    ( parent ),
-mID        ( nextID( ) ),
+mID        ( generateID( ) ),
 mText      ( text ),
 mCheckable ( checkable ),
 mEnabled   ( true ),
@@ -41,6 +41,9 @@ void Win33::MenuItem::toggleChecked( ) {
     setChecked( !getChecked( ) );
 }
 
+int Win33::MenuItem::getID( ) const {
+    return mID;
+}
 const std::wstring& Win33::MenuItem::getText( ) const {
     return mText;
 }

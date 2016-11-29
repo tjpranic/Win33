@@ -2,19 +2,16 @@
 
 #include "Win33Platform.h"
 #include "Win33MenuBar.h"
-#include "Win33ContextMenu.h"
-#include "Win33Icon.h"
 #include "Win33WindowEvents.h"
 
 namespace Win33 {
     
-    const Point DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
-    const Size  DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
+    const Win33::Point DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
+    const Win33::Size  DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
     
-    class Application;
+    class ContextMenu;
     
     class Window : public Platform {
-    friend class Application;
     public:
         Window            ( )                      = delete;
         Window            ( const Window&  other ) = delete;
@@ -28,50 +25,47 @@ namespace Win33 {
         void maximize( );
         void toggleVisibility( );
         
-              std::wstring getTitle( )       const;
-              bool         getResizable( )   const;
-              MenuBar&     getMenuBar( )     const;
-              ContextMenu& getContextMenu( ) const;
-        const Icon&        getIcon( )        const;
+              std::wstring        getTitle( )       const;
+              bool                getResizable( )   const;
+              Win33::MenuBar*     getMenuBar( )     const;
+              Win33::ContextMenu* getContextMenu( ) const;
+        const std::wstring&       getIcon( )        const;
         
-        void setTitle       ( const std::wstring& title     );
-        void setResizable   (       bool          resizable );
-        void setMenuBar     (       MenuBar*      menu      );
-        void setContextMenu (       ContextMenu*  menu      );
-        void setIcon        ( const Icon&         icon      );
-        void setMaximizable ( bool maximizable );
-        void setMinimizable ( bool minimizable );
+        void setTitle       ( const std::wstring&       title       );
+        void setResizable   (       bool                resizable   );
+        void setMenuBar     (       Win33::MenuBar*     menuBar     );
+        void setContextMenu (       Win33::ContextMenu* contextMenu );
+        void setIcon        ( const std::wstring&       icon        );
+        void setMaximizable (       bool                maximizable );
+        void setMinimizable (       bool                minimizable );
         
-        void removeMenuBar( );
-        void removeContextMenu( );
-        
-        WindowEvents::Idle   idle;
-        WindowEvents::Close  close;
-        WindowEvents::Resize resize;
-        WindowEvents::Move   move;
+        Win33::WindowEvents::Idle   idle;
+        Win33::WindowEvents::Close  close;
+        Win33::WindowEvents::Resize resize;
+        Win33::WindowEvents::Move   move;
         
     protected:
         Window(
-            const Point&              position,
-            const Size&               size,
-                  WindowStyle::Type   style   = WindowStyle::OverlappedWindow,
-                  ExWindowStyle::Type exStyle = ExWindowStyle::NoExWindowStyle
+            const Win33::Point&              position,
+            const Win33::Size&               size,
+                  Win33::WindowStyle::Type   style   = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle::Type exStyle = Win33::ExWindowStyle::NoExWindowStyle
         );
         Window(
-                  Window*             parent,
-            const Point&              position,
-            const Size&               size,
-                  WindowStyle::Type   style   = WindowStyle::OverlappedWindow,
-                  ExWindowStyle::Type exStyle = ExWindowStyle::NoExWindowStyle
+                  Win33::Window*             parent,
+            const Win33::Point&              position,
+            const Win33::Size&               size,
+                  Win33::WindowStyle::Type   style   = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle::Type exStyle = Win33::ExWindowStyle::NoExWindowStyle
         );
         
     private:
-        bool         mResizable;
-        bool         mMaximizable;
-        bool         mMinimizable;
-        MenuBar*     mMenuBar;
-        ContextMenu* mContextMenu;
-        Icon         mIcon;
+        bool                mResizable;
+        bool                mMaximizable;
+        bool                mMinimizable;
+        Win33::MenuBar*     mMenuBar;
+        Win33::ContextMenu* mContextMenu;
+        std::wstring        mIcon;
     };
     
 };

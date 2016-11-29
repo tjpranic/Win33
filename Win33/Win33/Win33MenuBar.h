@@ -6,10 +6,7 @@
 
 namespace Win33 {
     
-    class Window;
-    
     class MenuBar {
-    friend class Window;
     public:
         MenuBar            ( );
         MenuBar            ( const MenuBar&  other ) = delete;
@@ -20,11 +17,13 @@ namespace Win33 {
         
         Menu& appendMenu( const std::wstring& text );
         
-    private:
-        HMENU mHandle;
-        int   mLastPosition;
+        HMENU getHandle( ) const;
         
-        std::list<Menu> mMenus;
+    private:
+        int mLastPosition;
+        
+        HMENU                  mHandle;
+        std::list<Win33::Menu> mMenus;
     };
     
 };

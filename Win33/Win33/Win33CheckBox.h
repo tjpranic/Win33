@@ -10,8 +10,8 @@ namespace Win33 {
         CheckBox( ) = delete;
         CheckBox(
                   Win33::Window* parent,
-            const Point&         position,
-            const Size&          size,
+            const Win33::Point&  position,
+            const Win33::Size&   size,
             const std::wstring&  text,
                   bool           checked = false
         );
@@ -26,10 +26,10 @@ namespace Win33 {
         std::wstring getText( )    const;
         bool         getChecked( ) const;
         
-        void setText    ( const std::wstring& text );
-        void setChecked ( bool checked );
+        void setText    ( const std::wstring& text    );
+        void setChecked (       bool          checked );
         
-        CheckBoxEvents::Check check;
+        Win33::CheckBoxEvents::Check check;
     };
     
 };

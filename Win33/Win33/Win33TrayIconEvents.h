@@ -6,8 +6,7 @@ namespace Win33 {
     
     namespace TrayIconEvents {
         
-        typedef Event<> LeftClick;
-        typedef Event<> RightClick;
+        typedef Win33::Event<> Click;
     };
     
 };

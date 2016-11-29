@@ -9,22 +9,23 @@ class CalculatorWindow : public Win33::Window {
 public:
     CalculatorWindow( )
     :
-    Window    ( Win33::DefaultPosition, { 183, 168 } ),
-    mResult   ( this, {  11, 10 }, { 145, 20 }, L"", Win33::TextAlignment::Right ),
-    mOne      ( this, {  10, 35 }, { 25,  25 }, L"1" ),
-    mTwo      ( this, {  40, 35 }, { 25,  25 }, L"2" ),
-    mThree    ( this, {  70, 35 }, { 25,  25 }, L"3" ),
-    mFour     ( this, {  10, 65 }, { 25,  25 }, L"4" ),
-    mFive     ( this, {  40, 65 }, { 25,  25 }, L"5" ),
-    mSix      ( this, {  70, 65 }, { 25,  25 }, L"6" ),
-    mSeven    ( this, {  10, 95 }, { 25,  25 }, L"7" ),
-    mEight    ( this, {  40, 95 }, { 25,  25 }, L"8" ),
-    mNine     ( this, {  70, 95 }, { 25,  25 }, L"9" ),
-    mDivide   ( this, { 100, 35 }, { 25,  25 }, L"/" ),
-    mMultiply ( this, { 130, 35 }, { 25,  25 }, L"*" ),
-    mSubtract ( this, { 100, 65 }, { 25,  25 }, L"-" ),
-    mAdd      ( this, { 130, 65 }, { 25,  25 }, L"+" ),
-    mEquals   ( this, { 100, 95 }, { 55,  25 }, L"=" )
+    Window    ( Win33::DefaultPosition, { 306, 243 } ),
+    mResult   ( this, {  11,  10 }, { 270, 20 }, L"", Win33::TextAlignment::Right ),
+    mOne      ( this, {  10,  35 }, {  50, 50 }, L"1" ),
+    mTwo      ( this, {  65,  35 }, {  50, 50 }, L"2" ),
+    mThree    ( this, { 120,  35 }, {  50, 50 }, L"3" ),
+    mFour     ( this, {  10,  90 }, {  50, 50 }, L"4" ),
+    mFive     ( this, {  65,  90 }, {  50, 50 }, L"5" ),
+    mSix      ( this, { 120,  90 }, {  50, 50 }, L"6" ),
+    mSeven    ( this, {  10, 145 }, {  50, 50 }, L"7" ),
+    mEight    ( this, {  65, 145 }, {  50, 50 }, L"8" ),
+    mNine     ( this, { 120, 145 }, {  50, 50 }, L"9" ),
+    mAdd      ( this, { 175,  35 }, {  50, 50 }, L"+" ),
+    mSubtract ( this, { 230,  35 }, {  50, 50 }, L"-" ),
+    mMultiply ( this, { 175,  90 }, {  50, 50 }, L"*" ),
+    mDivide   ( this, { 230,  90 }, {  50, 50 }, L"/" ),
+    mEquals   ( this, { 175, 145 }, {  50, 50 }, L"=" ),
+    mClear    ( this, { 230, 145 }, {  50, 50 }, L"C" )
     {
         setTitle       ( L"Calculator" );
         setResizable   ( false );
@@ -33,7 +34,50 @@ public:
         
         mResult.setReadOnly( true );
         
-        //...
+        mOne.click.addHandler( [&]( ) {
+            
+        } );
+        mTwo.click.addHandler( [&]( ) {
+            
+        } );
+        mThree.click.addHandler( [&]( ) {
+            
+        } );
+        mFour.click.addHandler( [&]( ) {
+            
+        } );
+        mFive.click.addHandler( [&]( ) {
+            
+        } );
+        mSix.click.addHandler( [&]( ) {
+            
+        } );
+        mSeven.click.addHandler( [&]( ) {
+            
+        } );
+        mEight.click.addHandler( [&]( ) {
+            
+        } );
+        mNine.click.addHandler( [&]( ) {
+            
+        } );
+        
+        mAdd.click.addHandler( [&]( ) {
+            
+        } );
+        mSubtract.click.addHandler( [&]( ) {
+            
+        } );
+        mMultiply.click.addHandler( [&]( ) {
+            
+        } );
+        mDivide.click.addHandler( [&]( ) {
+            
+        } );
+        
+        mClear.click.addHandler( [&]( ) {
+            mResult.setText( L"" );
+        } );
     }
     
 private:
@@ -47,11 +91,12 @@ private:
     Win33::Button  mSeven;
     Win33::Button  mEight;
     Win33::Button  mNine;
-    Win33::Button  mDivide;
-    Win33::Button  mMultiply;
-    Win33::Button  mSubtract;
     Win33::Button  mAdd;
+    Win33::Button  mSubtract;
+    Win33::Button  mMultiply;
+    Win33::Button  mDivide;
     Win33::Button  mEquals;
+    Win33::Button  mClear;
 };
 
 class CalculatorApplication : public Win33::Application {

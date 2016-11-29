@@ -1,26 +1,26 @@
 #include "Win33MultilineTextBox.h"
 
 Win33::MultilineTextBox::MultilineTextBox(
-          Win33::Window*  parent,
-    const Point&          position,
-    const Size&           size,
-          ScrollBar::Type scrollBar,
-    const std::wstring&   text
+          Win33::Window*         parent,
+    const Win33::Point&          position,
+    const Win33::Size&           size,
+          Win33::ScrollBar::Type scrollBar,
+    const std::wstring&          text
 ):
 Control(
     Type::MultilineTextBox,
     parent,
     position,
     size,
-    static_cast<WindowStyle::Type>(
-        WindowStyle::Tabstop |
-        WindowStyle::Child   |
-        EditStyle::Left      |
-        EditStyle::Multiline |
-        ( scrollBar == Win33::ScrollBar::Vertical   || scrollBar == Win33::ScrollBar::Both ? ( EditStyle::AutoVerticalScroll   | WindowStyle::VerticalScroll   ) : 0 ) |
-        ( scrollBar == Win33::ScrollBar::Horizontal || scrollBar == Win33::ScrollBar::Both ? ( EditStyle::AutoHorizontalScroll | WindowStyle::HorizontalScroll ) : 0 )
+    static_cast<Win33::WindowStyle::Type>(
+        Win33::WindowStyle::Tabstop |
+        Win33::WindowStyle::Child   |
+        Win33::EditStyle::Left      |
+        Win33::EditStyle::Multiline |
+        ( scrollBar == Win33::ScrollBar::Vertical   || scrollBar == Win33::ScrollBar::Both ? ( Win33::EditStyle::AutoVerticalScroll   | Win33::WindowStyle::VerticalScroll   ) : 0 ) |
+        ( scrollBar == Win33::ScrollBar::Horizontal || scrollBar == Win33::ScrollBar::Both ? ( Win33::EditStyle::AutoHorizontalScroll | Win33::WindowStyle::HorizontalScroll ) : 0 )
     ),
-    ExWindowStyle::ClientEdge
+    Win33::ExWindowStyle::ClientEdge
 ) {
     setText( text );
 }

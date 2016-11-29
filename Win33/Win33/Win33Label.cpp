@@ -2,17 +2,21 @@
 
 Win33::Label::Label(
           Win33::Window* parent,
-    const Point&         position,
-    const Size&          size,
+    const Win33::Point&  position,
+    const Win33::Size&   size,
     const std::wstring&  text
 ):
 Control(
-    Type::Label,
+    Win33::Platform::Type::Label,
     parent,
     position,
     size,
-    static_cast<WindowStyle::Type>( WindowStyle::Child | StaticStyle::Notify | StaticStyle::Left ),
-    ExWindowStyle::NoExWindowStyle
+    static_cast<Win33::WindowStyle::Type>(
+        Win33::WindowStyle::Child  |
+        Win33::StaticStyle::Notify |
+        Win33::StaticStyle::Left
+    ),
+    Win33::ExWindowStyle::NoExWindowStyle
 ) {
     setText( text );
 }

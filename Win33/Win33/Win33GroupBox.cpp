@@ -2,16 +2,19 @@
 
 Win33::GroupBox::GroupBox(
           Win33::Window* parent,
-    const Point&         position,
-    const Size&          size,
+    const Win33::Point&  position,
+    const Win33::Size&   size,
     const std::wstring&  title
 ):
 Control(
-    Type::GroupBox,
+    Win33::Platform::Type::GroupBox,
     parent,
     position,
     size,
-    static_cast<WindowStyle::Type>( WindowStyle::Child | ButtonStyle::GroupBox )
+    static_cast<Win33::WindowStyle::Type>(
+        Win33::WindowStyle::Child    |
+        Win33::ButtonStyle::GroupBox
+    )
 ) {
     setTitle( title );
 }

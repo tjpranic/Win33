@@ -24,7 +24,7 @@ public:
         fileMenu.appendSeparator( );
         auto& quit = fileMenu.appendMenuItem( L"&Quit" );
         
-        quit.click.addHandler( [&]( Win33::MenuEvents::ClickData& data ) {
+        quit.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
             this->quit( );
         } );
         
@@ -35,7 +35,7 @@ public:
         helpMenu.appendSeparator( );
         auto& about = helpMenu.appendMenuItem( L"&About" );
         
-        about.click.addHandler( [&]( Win33::MenuEvents::ClickData& data ) {
+        about.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
             Win33::PopupBox::information( L"This is a test." );
         } );
         
@@ -48,7 +48,7 @@ public:
         
         english.setChecked( true );
         
-        greet.click.addHandler( [&]( Win33::MenuEvents::ClickData& data ) {
+        greet.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
             switch( mLanguage ) {
                 case Language::English: {
                     Win33::PopupBox::exclamation( L"Hello, world!" );
@@ -63,12 +63,12 @@ public:
                 }
             }
         } );
-        english.click.addHandler( [&]( Win33::MenuEvents::ClickData& data ) {
+        english.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::English;
             espanol.setChecked( false );
             greet.setText( L"Say hello" );
         } );
-        espanol.click.addHandler( [&]( Win33::MenuEvents::ClickData& data ) {
+        espanol.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::Espanol;
             english.setChecked( false );
             greet.setText( L"Di hola" );

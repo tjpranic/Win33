@@ -2,17 +2,23 @@
 
 Win33::PasswordBox::PasswordBox(
           Win33::Window* parent,
-    const Point&         position,
-    const Size&          size,
+    const Win33::Point&  position,
+    const Win33::Size&   size,
           wchar_t        passwordCharacter
 ):
 Control(
-    Type::PasswordBox,
+    Win33::Platform::Type::PasswordBox,
     parent,
     position,
     size,
-    static_cast<WindowStyle::Type>( WindowStyle::Tabstop | WindowStyle::Child | EditStyle::Left | EditStyle::Password | EditStyle::AutoHorizontalScroll ),
-    ExWindowStyle::ClientEdge
+    static_cast<Win33::WindowStyle::Type>(
+        Win33::WindowStyle::Tabstop            |
+        Win33::WindowStyle::Child              |
+        Win33::EditStyle::Left                 |
+        Win33::EditStyle::Password             |
+        Win33::EditStyle::AutoHorizontalScroll
+    ),
+    Win33::ExWindowStyle::ClientEdge
 ) {
     setPasswordCharacter( passwordCharacter );
 }

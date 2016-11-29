@@ -1,5 +1,6 @@
 #include "Win33Application.h"
 
+#include "Win33System.h"
 #include "Win33Window.h"
 #include "Win33Button.h"
 #include "Win33CheckBox.h"
@@ -9,7 +10,6 @@
 #include "Win33MultilineTextBox.h"
 #include "Win33Label.h"
 #include "Win33GroupBox.h"
-#include "Win33TrayIcon.h"
 
 Win33::Application*                        Win33::Application::mInstance = nullptr;
 std::unordered_map<HWND, Win33::Platform*> Win33::Application::mPlatforms;
@@ -25,7 +25,7 @@ Win33::Application::Application( ) {
     WNDCLASSEX wcex    = { };
     wcex.cbSize        = sizeof( WNDCLASSEX );
     wcex.style         = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc   = &Application::windowProcessor;
+    wcex.lpfnWndProc   = &Win33::Application::windowProcessor;
     wcex.cbClsExtra    = 0;
     wcex.cbWndExtra    = 0;
     wcex.hInstance     = GetModuleHandle( nullptr );
@@ -55,6 +55,26 @@ int Win33::Application::run( ) {
     return static_cast<int>( m.wParam );
 }
 
+void Win33::Application::registerPlatform( Win33::Platform* platform ) {
+    mPlatforms[platform->getHandle( )] = platform;
+}
+void Win33::Application::registerMenuItem( Win33::MenuItem* menuItem ) {
+    mMenuItems[menuItem->getID( )] = menuItem;
+}
+void Win33::Application::registerTrayIcon( Win33::TrayIcon* trayIcon ) {
+    mTrayIcons[trayIcon->getID( )] = trayIcon;
+}
+
+void Win33::Application::unregisterPlatform( Win33::Platform* platform ) {
+    mPlatforms.erase( platform->getHandle( ) );
+}
+void Win33::Application::unregisterMenuItem( Win33::MenuItem* menuItem ) {
+    mMenuItems.erase( menuItem->getID( ) );
+}
+void Win33::Application::unregisterTrayIcon( Win33::TrayIcon* trayIcon ) {
+    mTrayIcons.erase( trayIcon->getID( ) );
+}
+
 LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter ) {
     if( mPlatforms.find( window ) != mPlatforms.end( ) ) {
         Win33::Platform* p  = nullptr;
@@ -67,7 +87,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 else {
                     auto menuID   = static_cast<int>( wordParameter );
                     auto menuItem = mMenuItems[menuID];
-                    if( menuItem->mCheckable ) {
+                    if( menuItem->getCheckable( ) ) {
                         menuItem->setChecked( !menuItem->getChecked( ) );
                         menuItem->click.handle( MenuItemEvents::ClickData( menuItem->getChecked( ) ) );
                     }
@@ -83,16 +103,14 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::TrayIcon* ti = mTrayIcons[trayiconID];
                 switch( longParameter ) {
                     case WM_LBUTTONUP: {
-                        ti->leftClick.handle( );
+                        ti->click.handle( );
                         break;
                     }
                     case WM_RBUTTONUP: {
-                        POINT p;
-                        GetCursorPos( &p );
-                        if( ti->mContextMenu ) {
-                            ti->mContextMenu->show( ti->mParent, { p.x, p.y } );
+                        if( ti->getContextMenu( ) ) {
+                            ti->getContextMenu( )->show( ti->getParent( ) );
                         }
-                        ti->rightClick.handle( );
+                        break;
                         break;
                     }
                     default: {
@@ -106,8 +124,8 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 break;
             }
         }
-        switch( p->mType ) {
-            case Platform::Type::Window: {
+        switch( p->getType( ) ) {
+            case Win33::Platform::Type::Window: {
                 Win33::Window* w = reinterpret_cast<Win33::Window*>( p );
                 switch( message ) {
                     case WM_IDLE: {
@@ -124,36 +142,31 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     }
                     case WM_GETMINMAXINFO: {
                         MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>( longParameter );
-                        mmi->ptMinTrackSize.x = w->mMinimumSize.getWidth( );
-                        mmi->ptMinTrackSize.y = w->mMinimumSize.getHeight( );
-                        mmi->ptMaxTrackSize.x = w->mMaximumSize.getWidth( );
-                        mmi->ptMaxTrackSize.y = w->mMaximumSize.getHeight( );
+                        mmi->ptMinTrackSize.x = w->getMinimumSize( ).getWidth( );
+                        mmi->ptMinTrackSize.y = w->getMinimumSize( ).getHeight( );
+                        mmi->ptMaxTrackSize.x = w->getMaximumSize( ).getWidth( );
+                        mmi->ptMaxTrackSize.y = w->getMaximumSize( ).getHeight( );
                         break;
                     }
                     case WM_RBUTTONUP: {
-                        POINT p;
-                        GetCursorPos( &p );
-                        if( w->mContextMenu ) {
-                            w->mContextMenu->show( w, { p.x, p.y } );
+                        if( w->getContextMenu( ) ) {
+                            w->getContextMenu( )->show( w );
                         }
                         break;
                     }
                     case WM_CLOSE: {
-                        if( w->mParent ) {
-                            w->mParent->mChildren.erase( std::remove( w->mParent->mChildren.begin( ), w->mParent->mChildren.end( ), w ) );
-                        }
                         w->close.handle( );
-                        for( auto& c = w->mChildren.begin( ); c != w->mChildren.end( ); ++c ) {
-                            DestroyWindow    ( ( *c )->mHandle );
-                            mPlatforms.erase ( ( *c )->mHandle );
-                        }
-                        mPlatforms.erase( w->mHandle );
+                        break;
+                    }
+                    case WM_DESTROY: {
+                        EnumChildWindows( w->getHandle( ), childWindowDestroyer, 0 );
+                        mPlatforms.erase( w->getHandle( ) );
                         break;
                     }
                 }
                 break;
             }
-            case Platform::Type::Button: {
+            case Win33::Platform::Type::Button: {
                 Win33::Button* b = reinterpret_cast<Win33::Button*>( p );
                 switch( message ) {
                     case BN_CLICKED: {
@@ -166,7 +179,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 }
                 break;
             }
-            case Platform::Type::CheckBox: {
+            case Win33::Platform::Type::CheckBox: {
                 Win33::CheckBox* cb = reinterpret_cast<Win33::CheckBox*>( p );
                 switch( message ) {
                     case BN_CLICKED: {
@@ -179,32 +192,32 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 }
                 break;
             }
-            case Platform::Type::RadioButton: {
+            case Win33::Platform::Type::RadioButton: {
                 Win33::RadioButton* rb = reinterpret_cast<Win33::RadioButton*>( p );
                 //...
                 break;
             }
-            case Platform::Type::TextBox: {
+            case Win33::Platform::Type::TextBox: {
                 Win33::TextBox* tb = reinterpret_cast<Win33::TextBox*>( p );
                 //...
                 break;
             }
-            case Platform::Type::PasswordBox: {
+            case Win33::Platform::Type::PasswordBox: {
                 Win33::PasswordBox* pb = reinterpret_cast<Win33::PasswordBox*>( p );
                 //...
                 break;
             }
-            case Platform::Type::MultilineTextBox: {
+            case Win33::Platform::Type::MultilineTextBox: {
                 Win33::MultilineTextBox* mtb = reinterpret_cast<Win33::MultilineTextBox*>( p );
                 //...
                 break;
             }
-            case Platform::Type::GroupBox: {
+            case Win33::Platform::Type::GroupBox: {
                 Win33::GroupBox* gb = reinterpret_cast<Win33::GroupBox*>( p );
                 //...
                 break;
             }
-            case Platform::Type::Label: {
+            case Win33::Platform::Type::Label: {
                 Win33::Label* l = reinterpret_cast<Win33::Label*>( p );
                 switch( message ) {
                     case STN_DBLCLK: //double clicks have to be counted amongst single clicks due to notify style (?)
@@ -234,4 +247,8 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
         }
     }
     return DefWindowProc( window, message, wordParameter, longParameter );
+}
+BOOL CALLBACK Win33::Application::childWindowDestroyer( HWND hwnd, LPARAM lParam ) {
+    mPlatforms.erase( hwnd );
+    return true;
 }

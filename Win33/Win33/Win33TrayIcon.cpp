@@ -10,22 +10,28 @@ int Win33::TrayIcon::generateID( ) {
 }
 
 Win33::TrayIcon::TrayIcon(
-          Window*       parent,
-    const Icon&         icon,
-    const std::wstring& tooltip
+          Win33::Window* parent,
+    const std::wstring&  icon,
+    const std::wstring&  tooltip
 ):
 mParent      ( parent ),
-mContextMenu ( nullptr )
+mContextMenu ( nullptr ),
+mIcon        ( icon )
 {
     assert( parent != nullptr );
+    assert( icon   != L""     );
     assert( tooltip.length( ) <= 128 );
     
+    auto handle = static_cast<HICON>(
+        LoadImage( nullptr, mIcon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
+    );
+    
     mNID = { sizeof( NOTIFYICONDATA ) };
-    mNID.hWnd             = parent->mHandle;
+    mNID.hWnd             = parent->getHandle( );
     mNID.uID              = generateID( );
     mNID.uFlags           = NIF_MESSAGE | NIF_ICON | NIF_TIP;
     mNID.uCallbackMessage = WM_TRAYICON;
-    mNID.hIcon            = icon.mHandle;
+    mNID.hIcon            = handle;
     
     for( auto i = 0; i != tooltip.size( ); ++i ) {
         mNID.szTip[i] = tooltip[i];
@@ -35,34 +41,47 @@ mContextMenu ( nullptr )
     
     Shell_NotifyIcon( NIM_ADD, &mNID );
     
-    Application::mTrayIcons[mNID.uID] = this;
+    Win33::Application::registerTrayIcon( this );
 }
 Win33::TrayIcon::TrayIcon( TrayIcon&& other )
 :
-leftClick    ( std::move( other.leftClick ) ),
-rightClick   ( std::move( other.rightClick ) ),
+click        ( std::move( other.click ) ),
 mParent      ( other.mParent ),
-mNID         ( std::move( other.mNID ) ),
-mContextMenu ( other.mContextMenu )
+mContextMenu ( other.mContextMenu ),
+mIcon        ( std::move( other.mIcon ) ),
+mNID         ( std::move( other.mNID ) )
 {
-    Application::mTrayIcons[mNID.uID] = this;
+    Win33::Application::registerTrayIcon( this );
 }
 Win33::TrayIcon& Win33::TrayIcon::operator=( TrayIcon&& other ) {
-    leftClick    = std::move( other.leftClick );
-    rightClick   = std::move( other.rightClick );
+    click        = std::move( other.click );
     mParent      = other.mParent;
-    mNID         = std::move( other.mNID );
     mContextMenu = other.mContextMenu;
-    Application::mTrayIcons[mNID.uID] = this;
+    mIcon        = std::move( other.mIcon );
+    mNID         = std::move( other.mNID );
+    
+    Win33::Application::registerTrayIcon( this );
     return *this;
 }
-
 Win33::TrayIcon::~TrayIcon( ) {
     Shell_NotifyIcon( NIM_DELETE, &mNID );
     
-    Application::mTrayIcons.erase( mNID.uID );
+    Win33::Application::unregisterTrayIcon( this );
 }
 
-void Win33::TrayIcon::setContextMenu( ContextMenu* menu ) {
-    mContextMenu = menu;
+int Win33::TrayIcon::getID( ) const {
+    return mNID.uID;
+}
+Win33::Window* Win33::TrayIcon::getParent( ) const {
+    return mParent;
+}
+Win33::ContextMenu* Win33::TrayIcon::getContextMenu( ) const {
+    return mContextMenu;
+}
+const std::wstring& Win33::TrayIcon::getIcon( ) const {
+    return mIcon;
+}
+
+void Win33::TrayIcon::setContextMenu( Win33::ContextMenu* contextMenu ) {
+    mContextMenu = contextMenu;
 }

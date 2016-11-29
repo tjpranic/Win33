@@ -4,11 +4,11 @@
 
 Win33::Menu::Menu( HMENU parent, int position,  const std::wstring& text )
 :
+mLastPosition ( 0 ),
 mHandle       ( CreateMenu( ) ),
 mParent       ( parent ),
 mPosition     ( position ),
 mText         ( text ),
-mLastPosition ( 0 ),
 mSubMenus     ( ),
 mMenuItems    ( )
 {
@@ -18,20 +18,20 @@ mMenuItems    ( )
 }
 Win33::Menu::Menu( Menu&& other )
 :
+mLastPosition ( other.mLastPosition ),
 mHandle       ( other.mHandle ),
 mParent       ( other.mParent ),
 mPosition     ( other.mPosition ),
 mText         ( std::move( other.mText ) ),
-mLastPosition ( other.mLastPosition ),
 mSubMenus     ( std::move( other.mSubMenus ) ),
 mMenuItems    ( std::move( other.mMenuItems ) )
 { }
 Win33::Menu& Win33::Menu::operator=( Menu&& other ) {
+    mLastPosition = other.mLastPosition;
     mHandle       = other.mHandle;
     mParent       = other.mParent;
     mPosition     = other.mPosition;
     mText         = std::move( other.mText );
-    mLastPosition = other.mLastPosition;
     mSubMenus     = std::move( other.mSubMenus );
     mMenuItems    = std::move( other.mMenuItems );
     return *this;
@@ -66,7 +66,7 @@ void Win33::Menu::appendSeparator( ) {
     AppendMenu( mHandle, MF_SEPARATOR, 0, nullptr );
 }
 Win33::Menu& Win33::Menu::appendSubMenu( const std::wstring& text ) {
-    mSubMenus.emplace_back( Menu( mHandle, mLastPosition, text ) );
+    mSubMenus.emplace_back( Win33::Menu( mHandle, mLastPosition, text ) );
     auto& menu = mSubMenus.back( );
     
     AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.mHandle ), text.c_str( ) );
@@ -75,13 +75,17 @@ Win33::Menu& Win33::Menu::appendSubMenu( const std::wstring& text ) {
     return menu;
 }
 Win33::MenuItem& Win33::Menu::appendMenuItem( const std::wstring& text, bool checkable ) {
-    mMenuItems.emplace_back( MenuItem( mHandle, text, checkable ) );
+    mMenuItems.emplace_back( Win33::MenuItem( mHandle, text, checkable ) );
     auto& menuItem = mMenuItems.back( );
     
-    Application::mMenuItems[menuItem.mID] = &menuItem;
+    Win33::Application::registerMenuItem( &menuItem );
     
-    AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );
+    AppendMenu( mHandle, MF_STRING, menuItem.getID( ), text.c_str( ) );
     
     mLastPosition++;
     return menuItem;
+}
+
+HMENU Win33::Menu::getHandle( ) const {
+    return mHandle;
 }

@@ -24,8 +24,8 @@ namespace Win33 {
         virtual ~Dialog( ) = default;
         
         T show( ) {
-            getParent( ).setEnabled( false );
-            Window::show( );
+            getParent( )->setEnabled( false );
+            Win33::Window::show( );
             MSG m = { };
             while( m.message != WM_QUIT ) {
                 if( PeekMessage( &m, 0, 0, 0, PM_REMOVE ) > 0 ) {
@@ -49,20 +49,18 @@ namespace Win33 {
         
     protected:
         Dialog(
-                  Window*              parent,
-            const Point&               position,
-            const Size&                size,
-                  WindowStyle::Type    style   = WindowStyle::OverlappedWindow,
-                  ExWindowStyle::Type  exStyle = ExWindowStyle::NoExWindowStyle
+                  Win33::Window*              parent,
+            const Win33::Point&               position,
+            const Win33::Size&                size,
+                  Win33::WindowStyle::Type    style   = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle::Type  exStyle = Win33::ExWindowStyle::NoExWindowStyle
         ):
         Window  ( parent, position, size, style, exStyle ),
         mResult ( )
         {
-            close.addHandler(
-                [&]( ) {
-                    getParent( ).setEnabled( true );
-                }
-            );
+            close.addHandler( [&]( ) {
+                getParent( )->setEnabled( true );
+            } );
         }
         
     private:
