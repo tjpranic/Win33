@@ -28,8 +28,8 @@ Win33::ContextMenu& Win33::ContextMenu::operator=( ContextMenu&& other ) {
     return *this;
 }
 
-void Win33::ContextMenu::show( Win33::Window* window, const Win33::Point& position ) {
-    TrackPopupMenuEx( mHandle, TPM_TOPALIGN | TPM_LEFTALIGN, position.getX( ), position.getY( ), window->getHandle( ), nullptr );
+void Win33::ContextMenu::show( const Win33::Point& position ) {
+    TrackPopupMenuEx( mHandle, TPM_TOPALIGN | TPM_LEFTALIGN, position.getX( ), position.getY( ), GetActiveWindow( ), nullptr );
 }
 
 void Win33::ContextMenu::appendSeperator( ) {
@@ -40,7 +40,7 @@ Win33::Menu& Win33::ContextMenu::appendMenu( const std::wstring& text ) {
     mMenus.emplace_back( Win33::Menu( mHandle, mLastPosition, text ) );
     auto& menu = mMenus.back( );
     
-    AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.getHandle( ) ), text.c_str( ) );
+    AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( Win33::Interop::menuToHandle( &menu ) ), text.c_str( ) );
     
     mLastPosition++;
     return menu;
@@ -49,14 +49,8 @@ Win33::MenuItem& Win33::ContextMenu::appendMenuItem( const std::wstring& text, b
     mMenuItems.emplace_back( Win33::MenuItem( mHandle, text, checkable ) );
     auto& menuItem = mMenuItems.back( );
     
-    Win33::Application::registerMenuItem( &menuItem );
-    
-    AppendMenu( mHandle, MF_STRING, menuItem.getID( ), text.c_str( ) );
+    AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );
     
     mLastPosition++;
     return menuItem;
-}
-
-HMENU Win33::ContextMenu::getHandle( ) const {
-    return mHandle;
 }

@@ -1,10 +1,8 @@
 #pragma once
 
-#include <list>
-
-#include "Win33Point.h"
-#include "Win33Window.h"
+#include "Win33Menu.h"
 #include "Win33System.h"
+#include "Win33Interop.h"
 
 namespace Win33 {
     
@@ -17,13 +15,13 @@ namespace Win33 {
         ContextMenu& operator= (       ContextMenu&& other );
         ~ContextMenu           ( )                           = default;
         
-        void show( Win33::Window* window, const Win33::Point& position = Win33::System::getCursorPosition( ) );
+        void show( const Win33::Point& position = Win33::System::getCursorPosition( ) );
         
         void      appendSeperator ( );
         Menu&     appendMenu      ( const std::wstring& text );
         MenuItem& appendMenuItem  ( const std::wstring& text, bool checkable = false );
         
-        HMENU getHandle( ) const; //*
+        friend HMENU Win33::Interop::contextMenuToHandle( Win33::ContextMenu* contextMenu );
         
     private:
         int mLastPosition;

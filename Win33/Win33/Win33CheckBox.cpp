@@ -25,12 +25,12 @@ Control(
 }
 Win33::CheckBox::CheckBox( CheckBox&& other )
 :
-Control ( std::move( other ) ),
-check   ( std::move( other.check ) )
+Control( std::move( other ) ),
+onCheck( std::move( other.onCheck ) )
 { }
 Win33::CheckBox& Win33::CheckBox::operator=( CheckBox&& other ) {
     Control::operator=( std::move( other ) );
-    check = std::move( other.check );
+    onCheck = std::move( other.onCheck );
     return *this;
 }
 

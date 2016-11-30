@@ -24,9 +24,9 @@ public:
         fileMenu.appendSeparator( );
         auto& quit = fileMenu.appendMenuItem( L"&Quit" );
         
-        quit.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
-            this->quit( );
-        } );
+        quit.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+            close( );
+        };
         
         auto& helpMenu = mMenuBar.appendMenu( L"&Help" );
         auto& miscMenu = helpMenu.appendSubMenu( L"&Misc." );
@@ -35,9 +35,9 @@ public:
         helpMenu.appendSeparator( );
         auto& about = helpMenu.appendMenuItem( L"&About" );
         
-        about.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
+        about.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             Win33::PopupBox::information( L"This is a test." );
-        } );
+        };
         
         setMenuBar( &mMenuBar );
         
@@ -48,7 +48,7 @@ public:
         
         english.setChecked( true );
         
-        greet.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
+        greet.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             switch( mLanguage ) {
                 case Language::English: {
                     Win33::PopupBox::exclamation( L"Hello, world!" );
@@ -62,17 +62,17 @@ public:
                     throw std::runtime_error( "Unknown language." );
                 }
             }
-        } );
-        english.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
+        };
+        english.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::English;
             espanol.setChecked( false );
             greet.setText( L"Say hello" );
-        } );
-        espanol.click.addHandler( [&]( Win33::MenuItemEvents::ClickData& data ) {
+        };
+        espanol.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::Espanol;
             english.setChecked( false );
             greet.setText( L"Di hola" );
-        } );
+        };
         
         setContextMenu( &mContextMenu );
     }

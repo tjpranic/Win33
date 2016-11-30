@@ -78,14 +78,8 @@ Win33::MenuItem& Win33::Menu::appendMenuItem( const std::wstring& text, bool che
     mMenuItems.emplace_back( Win33::MenuItem( mHandle, text, checkable ) );
     auto& menuItem = mMenuItems.back( );
     
-    Win33::Application::registerMenuItem( &menuItem );
-    
-    AppendMenu( mHandle, MF_STRING, menuItem.getID( ), text.c_str( ) );
+    AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );
     
     mLastPosition++;
     return menuItem;
-}
-
-HMENU Win33::Menu::getHandle( ) const {
-    return mHandle;
 }

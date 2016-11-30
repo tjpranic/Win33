@@ -36,10 +36,10 @@ mIcon        ( L"" )
 Win33::Window::Window( Window&& other )
 :
 Platform     ( std::move( other ) ),
-idle         ( std::move( other.idle ) ),
-close        ( std::move( other.close ) ),
-resize       ( std::move( other.resize ) ),
-move         ( std::move( other.move ) ),
+onIdle       ( std::move( other.onIdle ) ),
+onClose      ( std::move( other.onClose ) ),
+onResize     ( std::move( other.onResize ) ),
+onMove       ( std::move( other.onMove ) ),
 mResizable   ( other.mResizable ),
 mMaximizable ( other.mMaximizable ),
 mMinimizable ( other.mMinimizable ),
@@ -48,10 +48,10 @@ mIcon        ( std::move( other.mIcon ) )
 { }
 Win33::Window& Win33::Window::operator=( Window&& other ) {
     Platform::operator=( std::move( other ) );
-    idle         = std::move( other.idle );
-    close        = std::move( other.close );
-    resize       = std::move( other.resize );
-    move         = std::move( other.move );
+    onIdle       = std::move( other.onIdle );
+    onClose      = std::move( other.onClose );
+    onResize     = std::move( other.onResize );
+    onMove       = std::move( other.onMove );
     mResizable   = other.mResizable;
     mMaximizable = other.mMaximizable;
     mMinimizable = other.mMinimizable;
@@ -60,7 +60,7 @@ Win33::Window& Win33::Window::operator=( Window&& other ) {
     return *this;
 }
 
-void Win33::Window::quit( ) {
+void Win33::Window::close( ) {
     SendMessage( mHandle, WM_CLOSE, 0, 0 );
 }
 void Win33::Window::minimize( ) {
@@ -110,7 +110,7 @@ void Win33::Window::setResizable( bool resizable ) {
 }
 void Win33::Window::setMenuBar( MenuBar* menuBar ) {
     mMenuBar = menuBar;
-    SetMenu( mHandle, mMenuBar->getHandle( ) );
+    SetMenu( mHandle, Win33::Interop::menuBarToHandle( menuBar ) );
 }
 void Win33::Window::setContextMenu( ContextMenu* contextMenu ) {
     mContextMenu = contextMenu;

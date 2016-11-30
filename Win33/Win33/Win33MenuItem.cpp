@@ -15,25 +15,31 @@ mText      ( text ),
 mCheckable ( checkable ),
 mEnabled   ( true ),
 mChecked   ( false )
-{ }
+{
+    Win33::Application::mMenuItems[mID] = this;
+}
 Win33::MenuItem::MenuItem( MenuItem&& other )
 :
-click      ( std::move( other.click ) ),
+onClick    ( std::move( other.onClick ) ),
 mParent    ( other.mParent ),
 mID        ( other.mID ),
 mText      ( std::move( other.mText ) ),
 mCheckable ( other.mCheckable ),
 mEnabled   ( other.mEnabled ),
 mChecked   ( other.mChecked )
-{ }
+{
+    Win33::Application::mMenuItems[mID] = this;
+}
 Win33::MenuItem& Win33::MenuItem::operator=( MenuItem&& other ) {
-    click      = std::move( other.click );
+    onClick    = std::move( other.onClick );
     mParent    = other.mParent;
     mID        = other.mID;
     mText      = std::move( other.mText );
     mCheckable = other.mCheckable;
     mEnabled   = other.mEnabled;
     mChecked   = other.mChecked;
+    
+    Win33::Application::mMenuItems[mID] = this;
     return *this;
 }
 
@@ -77,8 +83,4 @@ void Win33::MenuItem::setChecked( bool checked ) {
         CheckMenuItem( mParent, mID, MF_BYCOMMAND | ( checked ? MF_CHECKED : MF_UNCHECKED ) );
         mChecked = checked;
     }
-}
-
-int Win33::MenuItem::getID( ) const {
-    return mID;
 }

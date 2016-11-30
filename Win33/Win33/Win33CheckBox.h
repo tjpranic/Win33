@@ -29,7 +29,7 @@ namespace Win33 {
         void setText    ( const std::wstring& text    );
         void setChecked (       bool          checked );
         
-        Win33::CheckBoxEvents::Check check;
+        Win33::CheckBoxEvents::Check onCheck;
     };
     
 };

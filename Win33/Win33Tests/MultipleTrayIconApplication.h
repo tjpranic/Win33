@@ -4,43 +4,41 @@
 #include <Win33Window.h>
 #include <Win33TrayIcon.h>
 
-class FirstWindow : public Win33::Window {
+class FirstTrayIconWindow : public Win33::Window {
 public:
-    FirstWindow( )
+    FirstTrayIconWindow( )
     :
     Window         ( Win33::DefaultPosition, { 640, 480 } ),
     mFirstTrayIcon ( this, L"TestIcon1.ico", L"FirstTrayIcon" )
     {
         setTitle( L"FirstWindow" );
         
-        mFirstTrayIcon.click.addHandler(
-            [&]( ) {
-                toggleVisibility( );
-            }
-        );
+        mFirstTrayIcon.onClick += [&]( ) {
+            toggleVisibility( );
+        };
+        
+        mFirstTrayIcon.setTooltip( L"Hello" );
     }
-    ~FirstWindow( ) = default;
+    ~FirstTrayIconWindow( ) = default;
     
 private:
     Win33::TrayIcon mFirstTrayIcon;
 };
 
-class SecondWindow : public Win33::Window {
+class SecondTrayIconWindow : public Win33::Window {
 public:
-    SecondWindow( )
+    SecondTrayIconWindow( )
     :
     Window          ( Win33::DefaultPosition, { 640, 480 } ),
     mSecondTrayIcon ( this, L"TestIcon2.ico", L"SecondTrayIcon" )
     {
         setTitle( L"SecondWindow" );
         
-        mSecondTrayIcon.click.addHandler(
-            [&]( ) {
-                toggleVisibility( );
-            }
-        );
+        mSecondTrayIcon.onClick += [&]( ) {
+            toggleVisibility( );
+        };
     }
-    ~SecondWindow( ) = default;
+    ~SecondTrayIconWindow( ) = default;
     
 private:
     Win33::TrayIcon mSecondTrayIcon;
@@ -60,6 +58,6 @@ public:
     ~MultipleTrayIconApplication( ) = default;
     
 private:
-    FirstWindow  mFirstWindow;
-    SecondWindow mSecondWindow;
+    FirstTrayIconWindow  mFirstWindow;
+    SecondTrayIconWindow mSecondWindow;
 };

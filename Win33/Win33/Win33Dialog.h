@@ -23,8 +23,8 @@ namespace Win33 {
         }
         virtual ~Dialog( ) = default;
         
-        T show( ) {
-            getParent( )->setEnabled( false );
+        const T& show( ) {
+            mParent->setEnabled( false );
             Win33::Window::show( );
             MSG m = { };
             while( m.message != WM_QUIT ) {
@@ -58,9 +58,9 @@ namespace Win33 {
         Window  ( parent, position, size, style, exStyle ),
         mResult ( )
         {
-            close.addHandler( [&]( ) {
-                getParent( )->setEnabled( true );
-            } );
+            onClose += [&]( ) {
+                mParent->setEnabled( true );
+            };
         }
         
     private:

@@ -16,49 +16,47 @@ Platform ( type, parent, position, size, style, exStyle ),
 mAnchor  ( Win33::Anchor::All )
 {
     assert( parent != nullptr );
-    parent->resize.addHandler(
-        [&]( Win33::WindowEvents::ResizeData& data ) {
-            auto dx = data.getSize( ).getWidth( )  - mParent->getInitialSize( ).getWidth( );
-            auto dy = data.getSize( ).getHeight( ) - mParent->getInitialSize( ).getHeight( );
-            switch( mAnchor ) {
-                case Win33::Anchor::All: {
-                    SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ) + dy, SWP_NOMOVE );
-                    break;
-                }
-                case Win33::Anchor::TopLeftRight: {
-                    SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ), SWP_NOMOVE );
-                    break;
-                }
-                case Win33::Anchor::TopLeftBottom: {
-                    SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ), mInitialSize.getHeight( ) + dy, SWP_NOMOVE );
-                    break;
-                }
-                case Win33::Anchor::LeftRightBottom: {
-                    SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ), mInitialPosition.getY( ) + dy, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ), 0 );
-                    break;
-                }
-                case Win33::Anchor::TopRightBottom: {
-                    SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ), mInitialSize.getWidth( ), mInitialSize.getHeight( ) + dy, 0 );
-                    break;
-                }
-                case Win33::Anchor::TopRight: {
-                    SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ), 0, 0, SWP_NOSIZE );
-                    break;
-                }
-                case Win33::Anchor::LeftBottom: {
-                    SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ), mInitialPosition.getY( ) + dy, 0, 0, SWP_NOSIZE );
-                    break;
-                }
-                case Win33::Anchor::RightBottom: {
-                    SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ) + dy, 0, 0, SWP_NOSIZE );
-                    break;
-                }
-                default: {
-                    break;
-                }
+    parent->onResize += [&]( Win33::WindowEvents::ResizeData& data ) {
+        auto dx = data.getSize( ).getWidth( )  - mParent->getInitialSize( ).getWidth( );
+        auto dy = data.getSize( ).getHeight( ) - mParent->getInitialSize( ).getHeight( );
+        switch( mAnchor ) {
+            case Win33::Anchor::All: {
+                SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ) + dy, SWP_NOMOVE );
+                break;
+            }
+            case Win33::Anchor::TopLeftRight: {
+                SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ), SWP_NOMOVE );
+                break;
+            }
+            case Win33::Anchor::TopLeftBottom: {
+                SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ), mInitialSize.getHeight( ) + dy, SWP_NOMOVE );
+                break;
+            }
+            case Win33::Anchor::LeftRightBottom: {
+                SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ), mInitialPosition.getY( ) + dy, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ), 0 );
+                break;
+            }
+            case Win33::Anchor::TopRightBottom: {
+                SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ), mInitialSize.getWidth( ), mInitialSize.getHeight( ) + dy, 0 );
+                break;
+            }
+            case Win33::Anchor::TopRight: {
+                SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ), 0, 0, SWP_NOSIZE );
+                break;
+            }
+            case Win33::Anchor::LeftBottom: {
+                SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ), mInitialPosition.getY( ) + dy, 0, 0, SWP_NOSIZE );
+                break;
+            }
+            case Win33::Anchor::RightBottom: {
+                SetWindowPos( mHandle, HWND_TOP, mInitialPosition.getX( ) + dx, mInitialPosition.getY( ) + dy, 0, 0, SWP_NOSIZE );
+                break;
+            }
+            default: {
+                break;
             }
         }
-    );
+    };
     
     Platform::show( );
     
@@ -81,7 +79,7 @@ Win33::Anchor::Type Win33::Control::getAnchor( ) const {
 int Win33::Control::getX( ) const {
     RECT cr;
     GetClientRect( mHandle, &cr );
-    MapWindowPoints( mHandle, mParent->getHandle( ), reinterpret_cast<LPPOINT>( &cr ), 2 );
+    MapWindowPoints( mHandle, GetParent( mHandle ), reinterpret_cast<LPPOINT>( &cr ), 2 );
     RECT wr;
     GetWindowRect( mHandle, &wr );
     POINT p = { wr.left, wr.top };
@@ -91,7 +89,7 @@ int Win33::Control::getX( ) const {
 int Win33::Control::getY( ) const {
     RECT cr;
     GetClientRect( mHandle, &cr );
-    MapWindowPoints( mHandle, mParent->getHandle( ), reinterpret_cast<LPPOINT>( &cr ), 2 );
+    MapWindowPoints( mHandle, GetParent( mHandle ), reinterpret_cast<LPPOINT>( &cr ), 2 );
     RECT wr;
     GetWindowRect( mHandle, &wr );
     POINT p = { wr.left, wr.top };

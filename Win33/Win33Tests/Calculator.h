@@ -34,50 +34,50 @@ public:
         
         mResult.setReadOnly( true );
         
-        mOne.click.addHandler( [&]( ) {
+        mOne.onClick += [&]( ) {
             
-        } );
-        mTwo.click.addHandler( [&]( ) {
+        };
+        mTwo.onClick += [&]( ) {
             
-        } );
-        mThree.click.addHandler( [&]( ) {
+        };
+        mThree.onClick += [&]( ) {
             
-        } );
-        mFour.click.addHandler( [&]( ) {
+        };
+        mFour.onClick += [&]( ) {
             
-        } );
-        mFive.click.addHandler( [&]( ) {
+        };
+        mFive.onClick += [&]( ) {
             
-        } );
-        mSix.click.addHandler( [&]( ) {
+        };
+        mSix.onClick += [&]( ) {
             
-        } );
-        mSeven.click.addHandler( [&]( ) {
+        };
+        mSeven.onClick += [&]( ) {
             
-        } );
-        mEight.click.addHandler( [&]( ) {
+        };
+        mEight.onClick += [&]( ) {
             
-        } );
-        mNine.click.addHandler( [&]( ) {
+        };
+        mNine.onClick += [&]( ) {
             
-        } );
+        };
         
-        mAdd.click.addHandler( [&]( ) {
+        mAdd.onClick += [&]( ) {
             
-        } );
-        mSubtract.click.addHandler( [&]( ) {
+        };
+        mSubtract.onClick += [&]( ) {
             
-        } );
-        mMultiply.click.addHandler( [&]( ) {
+        };
+        mMultiply.onClick += [&]( ) {
             
-        } );
-        mDivide.click.addHandler( [&]( ) {
+        };
+        mDivide.onClick += [&]( ) {
             
-        } );
+        };
         
-        mClear.click.addHandler( [&]( ) {
+        mClear.onClick += [&]( ) {
             mResult.setText( L"" );
-        } );
+        };
     }
     
 private:

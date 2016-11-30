@@ -22,12 +22,12 @@ Control(
 }
 Win33::Label::Label( Label&& other )
 :
-Control ( std::move( other ) ),
-click   ( std::move( other.click ) )
+Control( std::move( other ) ),
+onClick( std::move( other.onClick ) )
 { }
 Win33::Label& Win33::Label::operator=( Label&& other ) {
     Control::operator=( std::move( other ) );
-    click = std::move( other.click );
+    onClick = std::move( other.onClick );
     return *this;
 }
 

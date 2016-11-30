@@ -4,10 +4,6 @@
 #include <vector>
 #include <algorithm>
 
-#include <Windows.h>
-
-#define WM_IDLE ( WM_USER + 0x01 )
-
 namespace Win33 {
     
     class Application;
@@ -37,8 +33,9 @@ namespace Win33 {
         typedef std::function<void( )> Handler;
     }
     
-    template<class H = Events::Handler>
+    template<class H = Win33::Events::Handler>
     class Event {
+    friend class Application;
     public:
         Event( )
         :
@@ -67,13 +64,19 @@ namespace Win33 {
             );
         }
         
-        //*
+        void operator+=( const H& handler ) {
+            addHandler( handler );
+        }
+        void operator-=( const H& handler ) {
+            removeHandler( handler );
+        }
+        
+    private:
         void handle( ) {
             for( auto& h = mEventHandlers.begin( ); h != mEventHandlers.end( ); ++h ) {
                 ( *h )( );
             }
         }
-        //*
         template<class D>
         void handle( D& data ) {
             for( auto& h = mEventHandlers.begin( ); h != mEventHandlers.end( ); ++h ) {
@@ -81,7 +84,6 @@ namespace Win33 {
             }
         }
         
-    private:
         std::vector<H> mEventHandlers;
     };
     

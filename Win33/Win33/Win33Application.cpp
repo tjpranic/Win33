@@ -1,6 +1,9 @@
 #include "Win33Application.h"
 
 #include "Win33System.h"
+#include "Win33Platform.h"
+#include "Win33MenuItem.h"
+#include "Win33TrayIcon.h"
 #include "Win33Window.h"
 #include "Win33Button.h"
 #include "Win33CheckBox.h"
@@ -55,29 +58,9 @@ int Win33::Application::run( ) {
     return static_cast<int>( m.wParam );
 }
 
-void Win33::Application::registerPlatform( Win33::Platform* platform ) {
-    mPlatforms[platform->getHandle( )] = platform;
-}
-void Win33::Application::registerMenuItem( Win33::MenuItem* menuItem ) {
-    mMenuItems[menuItem->getID( )] = menuItem;
-}
-void Win33::Application::registerTrayIcon( Win33::TrayIcon* trayIcon ) {
-    mTrayIcons[trayIcon->getID( )] = trayIcon;
-}
-
-void Win33::Application::unregisterPlatform( Win33::Platform* platform ) {
-    mPlatforms.erase( platform->getHandle( ) );
-}
-void Win33::Application::unregisterMenuItem( Win33::MenuItem* menuItem ) {
-    mMenuItems.erase( menuItem->getID( ) );
-}
-void Win33::Application::unregisterTrayIcon( Win33::TrayIcon* trayIcon ) {
-    mTrayIcons.erase( trayIcon->getID( ) );
-}
-
 LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter ) {
     if( mPlatforms.find( window ) != mPlatforms.end( ) ) {
-        Win33::Platform* p  = nullptr;
+        Win33::Platform* p = nullptr;
         switch( message ) {
             case WM_COMMAND: {
                 if( longParameter ) {
@@ -88,11 +71,11 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     auto menuID   = static_cast<int>( wordParameter );
                     auto menuItem = mMenuItems[menuID];
                     if( menuItem->getCheckable( ) ) {
-                        menuItem->setChecked( !menuItem->getChecked( ) );
-                        menuItem->click.handle( MenuItemEvents::ClickData( menuItem->getChecked( ) ) );
+                        menuItem->setChecked     ( !menuItem->getChecked( ) );
+                        menuItem->onClick.handle ( Win33::MenuItemEvents::ClickData( menuItem->getChecked( ) ) );
                     }
                     else {
-                        menuItem->click.handle( MenuItemEvents::ClickData( false ) );
+                        menuItem->onClick.handle( Win33::MenuItemEvents::ClickData( false ) );
                     }
                     return true;
                 }
@@ -103,14 +86,13 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::TrayIcon* ti = mTrayIcons[trayiconID];
                 switch( longParameter ) {
                     case WM_LBUTTONUP: {
-                        ti->click.handle( );
+                        ti->onClick.handle( );
                         break;
                     }
                     case WM_RBUTTONUP: {
                         if( ti->getContextMenu( ) ) {
-                            ti->getContextMenu( )->show( ti->getParent( ) );
+                            ti->getContextMenu( )->show( );
                         }
-                        break;
                         break;
                     }
                     default: {
@@ -124,20 +106,20 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 break;
             }
         }
-        switch( p->getType( ) ) {
+        switch( p->mType ) {
             case Win33::Platform::Type::Window: {
                 Win33::Window* w = reinterpret_cast<Win33::Window*>( p );
                 switch( message ) {
                     case WM_IDLE: {
-                        w->idle.handle( );
+                        w->onIdle.handle( );
                         break;
                     }
                     case WM_SIZE: {
-                        w->resize.handle( WindowEvents::ResizeData( { w->getWidth( ), w->getHeight( ) } ) );
+                        w->onResize.handle( Win33::WindowEvents::ResizeData( { w->getWidth( ), w->getHeight( ) } ) );
                         break;
                     }
                     case WM_MOVE: {
-                        w->move.handle( WindowEvents::MoveData( { w->getX( ), w->getY( ) } ) );
+                        w->onMove.handle( Win33::WindowEvents::MoveData( { w->getX( ), w->getY( ) } ) );
                         break;
                     }
                     case WM_GETMINMAXINFO: {
@@ -150,17 +132,20 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     }
                     case WM_RBUTTONUP: {
                         if( w->getContextMenu( ) ) {
-                            w->getContextMenu( )->show( w );
+                            w->getContextMenu( )->show( );
                         }
                         break;
                     }
                     case WM_CLOSE: {
-                        w->close.handle( );
+                        w->onClose.handle( );
                         break;
                     }
                     case WM_DESTROY: {
-                        EnumChildWindows( w->getHandle( ), childWindowDestroyer, 0 );
-                        mPlatforms.erase( w->getHandle( ) );
+                        EnumChildWindows( Win33::Interop::windowToHandle( w ), childWindowEraser, 0 );
+                        mPlatforms.erase( Win33::Interop::windowToHandle( w ) );
+                        break;
+                    }
+                    default: {
                         break;
                     }
                 }
@@ -170,7 +155,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::Button* b = reinterpret_cast<Win33::Button*>( p );
                 switch( message ) {
                     case BN_CLICKED: {
-                        b->click.handle( );
+                        b->onClick.handle( );
                         break;
                     }
                     default: {
@@ -183,7 +168,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::CheckBox* cb = reinterpret_cast<Win33::CheckBox*>( p );
                 switch( message ) {
                     case BN_CLICKED: {
-                        cb->check.handle( CheckBoxEvents::CheckData( cb->getChecked( ) ) );
+                        cb->onCheck.handle( Win33::CheckBoxEvents::CheckData( cb->getChecked( ) ) );
                         break;
                     }
                     default: {
@@ -222,7 +207,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 switch( message ) {
                     case STN_DBLCLK: //double clicks have to be counted amongst single clicks due to notify style (?)
                     case STN_CLICKED: {
-                        l->click.handle( );
+                        l->onClick.handle( );
                         break;
                     }
                     default: {
@@ -248,7 +233,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
     }
     return DefWindowProc( window, message, wordParameter, longParameter );
 }
-BOOL CALLBACK Win33::Application::childWindowDestroyer( HWND hwnd, LPARAM lParam ) {
+BOOL CALLBACK Win33::Application::childWindowEraser( HWND hwnd, LPARAM lParam ) {
     mPlatforms.erase( hwnd );
     return true;
 }

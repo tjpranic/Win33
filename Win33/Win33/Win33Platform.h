@@ -2,11 +2,14 @@
 
 #include <string>
 #include <vector>
+#include <cassert>
 
 #include <Windows.h>
 
 #include "Win33Point.h"
 #include "Win33Size.h"
+
+#define WM_IDLE ( WM_USER + 0x01 )
 
 namespace Win33 {
     
@@ -163,8 +166,46 @@ namespace Win33 {
         };
     };
     
+    class Application;
+    
     class Platform {
+    friend class Application;
     public:
+        Platform            ( )                        = delete;
+        Platform            ( const Platform&  other ) = delete;
+        Platform            (       Platform&& other );
+        Platform& operator= ( const Platform&  other ) = delete;
+        Platform& operator= (       Platform&& other );
+        virtual ~Platform   ( )                        = default;
+        
+        void show( );
+        void hide( );
+        
+        const Win33::Point& getInitialPosition( ) const;
+        const Win33::Size&  getInitialSize( )     const;
+        const Win33::Size&  getMinimumSize( )     const;
+        const Win33::Size&  getMaximumSize( )     const;
+              bool          getEnabled( )         const;
+              int           getX( )               const;
+              int           getY( )               const;
+              Win33::Point  getPosition( )        const;
+              int           getWidth( )           const;
+              int           getHeight( )          const;
+              Win33::Size   getSize( )            const;
+              bool          getVisible( )         const;
+        
+        void setMinimumSize ( const Win33::Size&  minimumSize );
+        void setMaximumSize ( const Win33::Size&  maximumSize );
+        void setEnabled     (       bool          enabled     );
+        void setX           (       int           x           );
+        void setY           (       int           y           );
+        void setPosition    ( const Win33::Point& position    );
+        void setWidth       (       int           width       );
+        void setHeight      (       int           height      );
+        void setSize        ( const Win33::Size&  size        );
+        void setVisible     (       bool          visible     );
+        
+    protected:
         enum Type {
             Window,
             Button,
@@ -177,45 +218,6 @@ namespace Win33 {
             GroupBox
         };
         
-        Platform            ( )                        = delete;
-        Platform            ( const Platform&  other ) = delete;
-        Platform            (       Platform&& other );
-        Platform& operator= ( const Platform&  other ) = delete;
-        Platform& operator= (       Platform&& other );
-        virtual ~Platform   ( )                        = default;
-        
-        void show( );
-        void hide( );
-        
-              HWND                  getHandle( )          const; //*
-              Win33::Platform::Type getType( )            const; //*
-              Win33::Platform*      getParent( )          const;
-        const Win33::Point&         getInitialPosition( ) const; //*
-        const Win33::Size&          getInitialSize( )     const; //*
-        const Win33::Size&          getMinimumSize( )     const;
-        const Win33::Size&          getMaximumSize( )     const;
-              bool                  getEnabled( )         const;
-              int                   getX( )               const;
-              int                   getY( )               const;
-              Win33::Point          getPosition( )        const;
-              int                   getWidth( )           const;
-              int                   getHeight( )          const;
-              Win33::Size           getSize( )            const;
-              bool                  getVisible( )         const;
-        
-        void setParent      (       Win33::Platform* parent      );
-        void setMinimumSize ( const Win33::Size&     minimumSize );
-        void setMaximumSize ( const Win33::Size&     maximumSize );
-        void setEnabled     (       bool             enabled     );
-        void setX           (       int              x           );
-        void setY           (       int              y           );
-        void setPosition    ( const Win33::Point&    position    );
-        void setWidth       (       int              width       );
-        void setHeight      (       int              height      );
-        void setSize        ( const Win33::Size&     size        );
-        void setVisible     (       bool             visible     );
-        
-    protected:
         Platform(
                   Win33::Platform::Type      type,
                   Win33::Platform*           parent,

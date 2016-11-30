@@ -28,7 +28,7 @@ namespace Win33 {
         void setText     ( const std::wstring& text     );
         void setSelected (       bool          selected );
         
-        Win33::RadioButtonEvents::Select select;
+        Win33::RadioButtonEvents::Select onSelect;
     };
     
 };

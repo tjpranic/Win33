@@ -27,12 +27,12 @@ Control(
 }
 Win33::RadioButton::RadioButton( RadioButton&& other )
 :
-Control ( std::move( other ) ),
-select  ( std::move( other.select ) )
+Control  ( std::move( other ) ),
+onSelect ( std::move( other.onSelect ) )
 { }
 Win33::RadioButton& Win33::RadioButton::operator=( RadioButton&& other ) {
     Control::operator=( std::move( other ) );
-    select = std::move( other.select );
+    onSelect = std::move( other.onSelect );
     return *this;
 }
 

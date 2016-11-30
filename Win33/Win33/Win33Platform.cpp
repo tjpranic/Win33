@@ -1,7 +1,5 @@
 #include "Win33Platform.h"
 
-#include <algorithm>
-
 #include "Win33Application.h"
 #include "Win33System.h"
 
@@ -68,7 +66,7 @@ mMaximumSize     ( Win33::System::getMonitorSize( ) )
         throw std::runtime_error( "Unable to create window." );
     }
     
-    Win33::Application::registerPlatform( this );
+    Win33::Application::mPlatforms[mHandle] = this;
 }
 
 Win33::Platform::Platform( Platform&& other )
@@ -84,7 +82,7 @@ mMaximumSize     ( std::move( other.mMaximumSize ) )
     other.mHandle = nullptr;
     other.mParent = nullptr;
     
-    Win33::Application::registerPlatform( this );
+    Win33::Application::mPlatforms[mHandle] = this;
 }
 Win33::Platform& Win33::Platform::operator=( Platform&& other ) {
     mHandle          = other.mHandle;
@@ -97,7 +95,7 @@ Win33::Platform& Win33::Platform::operator=( Platform&& other ) {
     other.mHandle    = nullptr;
     other.mParent    = nullptr;
     
-    Win33::Application::registerPlatform( this );
+    Win33::Application::mPlatforms[mHandle] = this;
     
     return *this;
 }
@@ -109,15 +107,6 @@ void Win33::Platform::hide( ) {
     ShowWindow( mHandle, SW_HIDE );
 }
 
-HWND Win33::Platform::getHandle( ) const {
-    return mHandle;
-}
-Win33::Platform* Win33::Platform::getParent( ) const {
-    return mParent;
-}
-Win33::Platform::Type Win33::Platform::getType( ) const {
-    return mType;
-}
 const Win33::Point& Win33::Platform::getInitialPosition( ) const {
     return mInitialPosition;
 }
@@ -173,10 +162,6 @@ bool Win33::Platform::getVisible( ) const {
     return IsWindowVisible( mHandle ) != 0;
 }
 
-void Win33::Platform::setParent( Win33::Platform* parent ) {
-    SetParent( mHandle, parent->mHandle );
-    mParent = parent;
-}
 void Win33::Platform::setMinimumSize( const Size& size ) {
     mMinimumSize = size;
 }

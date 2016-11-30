@@ -1,12 +1,19 @@
 #pragma once
 
+#include <Windows.h>
+
 #include "Win33MenuItemEvents.h"
 
 namespace Win33 {
     
+    class ContextMenu;
+    class Menu;
+    
     class MenuItem {
+    friend class ContextMenu;
+    friend class Menu;
     public:
-        MenuItem            ( HMENU parent, const std::wstring& text, bool checkable = false );
+        MenuItem            ( )                        = delete;
         MenuItem            ( const MenuItem&  other ) = delete;
         MenuItem            (       MenuItem&& other );
         MenuItem& operator= ( const MenuItem&  other ) = delete;
@@ -25,11 +32,11 @@ namespace Win33 {
         void setCheckable (       bool          checkable );
         void setChecked   (       bool          checked   );
         
-        int getID( ) const; //*
-        
-        Win33::MenuItemEvents::Click click;
+        Win33::MenuItemEvents::Click onClick;
         
     private:
+        MenuItem( HMENU parent, const std::wstring& text, bool checkable = false );
+        
         static int generateID( );
         
         HMENU        mParent;

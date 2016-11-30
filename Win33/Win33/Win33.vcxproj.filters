@@ -43,6 +43,9 @@
     <Filter Include="Win33\System Tray">
       <UniqueIdentifier>{95613a34-511a-4ab8-a3dd-8aeb57d6fe8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Win33\Interop">
+      <UniqueIdentifier>{d0345337-1dbf-410c-a309-e7e4a9a18ec9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Win33Application.cpp">
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="Win33TrayIcon.cpp">
       <Filter>Win33\System Tray</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33Interop.cpp">
+      <Filter>Win33\Interop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="Win33MenuItemEvents.h">
       <Filter>Win33\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33Interop.h">
+      <Filter>Win33\Interop</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

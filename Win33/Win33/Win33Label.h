@@ -24,7 +24,7 @@ namespace Win33 {
         
         void setText( const std::wstring& text );
         
-        Win33::LabelEvents::Click click;
+        Win33::LabelEvents::Click onClick;
     };
     
 };

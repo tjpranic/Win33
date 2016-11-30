@@ -27,12 +27,8 @@ Win33::Menu& Win33::MenuBar::appendMenu( const std::wstring& text ) {
     mMenus.emplace_back( Win33::Menu( mHandle, mLastPosition, text ) );
     auto& menu = mMenus.back( );
     
-    AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.getHandle( ) ), text.c_str( ) );
+    AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( Win33::Interop::menuToHandle( &menu ) ), text.c_str( ) );
     
     mLastPosition++;
     return menu;
-}
-
-HMENU Win33::MenuBar::getHandle( ) const {
-    return mHandle;
 }

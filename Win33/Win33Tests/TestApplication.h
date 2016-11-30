@@ -49,42 +49,34 @@ public:
         setIcon        ( L"TestIcon2.ico" );
         
         mTestButton1.setAnchor( Win33::Anchor::RightBottom );
-        mTestButton1.click.addHandler(
-            [&]( ) {
-                Win33::PopupBox::exclamation( mTestTextBox.getText( ), L"TestBox Text" );
-            }
-        );
+        mTestButton1.onClick += [&]( ) {
+            Win33::PopupBox::exclamation( mTestTextBox.getText( ), L"TestBox Text" );
+        };
         
         mTestButton2.setAnchor( Win33::Anchor::RightBottom );
-        mTestButton2.click.addHandler(
-            [&]( ) {
-                if( mTestPasswordBox.getText( ) == L"password" ) {
-                    auto result = TestDialog( this ).show( );
-                    Win33::PopupBox::exclamation( result.c_str( ), L"TestDialog Result" );
-                }
-                else {
-                    Win33::PopupBox::exclamation( L"Password incorrect.", L"Access denied" );
-                }
+        mTestButton2.onClick += [&]( ) {
+            if( mTestPasswordBox.getText( ) == L"password" ) {
+                auto result = TestDialog( this ).show( );
+                Win33::PopupBox::exclamation( result.c_str( ), L"TestDialog Result" );
             }
-        );
+            else {
+                Win33::PopupBox::exclamation( L"Password incorrect.", L"Access denied" );
+            }
+        };
         
         mTestTextBox.setAnchor( Win33::Anchor::RightBottom );
         
         mTestPasswordBox.setAnchor( Win33::Anchor::RightBottom );
         
         mTestCheckBox.setAnchor( Win33::Anchor::RightBottom );
-        mTestCheckBox.check.addHandler(
-            [&]( Win33::CheckBoxEvents::CheckData& data ) {
-                mTestTextBox.setEnabled( !data.isChecked( ) );
-            }
-        );
+        mTestCheckBox.onCheck += [&]( Win33::CheckBoxEvents::CheckData& data ) {
+            mTestTextBox.setEnabled( !data.isChecked( ) );
+        };
         
         mTestLabel.setAnchor( Win33::Anchor::RightBottom );
-        mTestLabel.click.addHandler(
-            [&]( ) {
-                setResizable( !getResizable( ) );
-            }
-        );
+        mTestLabel.onClick += [&]( ) {
+            setResizable( !getResizable( ) );
+        };
         
         mTestMultilineTextBox.setAnchor( Win33::Anchor::RightBottom );
         

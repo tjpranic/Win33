@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Win33Platform.h"
-#include "Win33Window.h"
+#include "Win33Interop.h"
 
 namespace Win33 {
     
@@ -42,6 +42,8 @@ namespace Win33 {
         void setAnchor ( Win33::Anchor::Type anchor );
         void setX      ( int                 x      );
         void setY      ( int                 y      );
+        
+        friend HWND Win33::Interop::controlToHandle( Win33::Control* control );
         
     protected:
         Control(

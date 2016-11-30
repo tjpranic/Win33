@@ -1,8 +1,7 @@
 #pragma once
 
-#include <list>
-
 #include "Win33Menu.h"
+#include "Win33Interop.h"
 
 namespace Win33 {
     
@@ -17,7 +16,7 @@ namespace Win33 {
         
         Menu& appendMenu( const std::wstring& text );
         
-        HMENU getHandle( ) const; //*
+        friend HMENU Win33::Interop::menuBarToHandle( Win33::MenuBar* menuBar );
         
     private:
         int mLastPosition;

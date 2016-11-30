@@ -11,7 +11,7 @@ namespace Win33 {
     class TrayIcon {
     public:
         TrayIcon(
-                  Win33::Window* parent,
+                  Win33::Window* window,
             const std::wstring&  icon,
             const std::wstring&  tooltip
         );
@@ -21,24 +21,19 @@ namespace Win33 {
         TrayIcon& operator= (       TrayIcon&& other );
         ~TrayIcon           ( );
         
-              Win33::Window*      getParent( )      const;
-              Win33::ContextMenu* getContextMenu( ) const;
-        const std::wstring&       getIcon( )        const;
+        Win33::ContextMenu* getContextMenu( ) const;
         
         void setIcon        ( const std::wstring&       icon        );
+        void setTooltip     ( const std::wstring&       tooltip     );
         void setContextMenu (       Win33::ContextMenu* contextMenu );
         
-        int getID( ) const; //*
-        
-        Win33::TrayIconEvents::Click click;
+        Win33::TrayIconEvents::Click onClick;
         
     private:
         int generateID( );
         
-        Win33::Window*      mParent;
-        Win33::ContextMenu* mContextMenu;
-        std::wstring        mIcon;
         NOTIFYICONDATA      mNID;
+        Win33::ContextMenu* mContextMenu;
     };
     
 };

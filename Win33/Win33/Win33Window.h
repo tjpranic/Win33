@@ -2,14 +2,14 @@
 
 #include "Win33Platform.h"
 #include "Win33MenuBar.h"
+#include "Win33ContextMenu.h"
+#include "Win33Interop.h"
 #include "Win33WindowEvents.h"
 
 namespace Win33 {
     
     const Win33::Point DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
     const Win33::Size  DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
-    
-    class ContextMenu;
     
     class Window : public Platform {
     public:
@@ -20,7 +20,7 @@ namespace Win33 {
         Window& operator= (       Window&& other );
         virtual ~Window   ( )                      = default;
         
-        void quit( );
+        void close( );
         void minimize( );
         void maximize( );
         void toggleVisibility( );
@@ -39,10 +39,12 @@ namespace Win33 {
         void setMaximizable (       bool                maximizable );
         void setMinimizable (       bool                minimizable );
         
-        Win33::WindowEvents::Idle   idle;
-        Win33::WindowEvents::Close  close;
-        Win33::WindowEvents::Resize resize;
-        Win33::WindowEvents::Move   move;
+        Win33::WindowEvents::Idle   onIdle;
+        Win33::WindowEvents::Close  onClose;
+        Win33::WindowEvents::Resize onResize;
+        Win33::WindowEvents::Move   onMove;
+        
+        friend HWND Win33::Interop::windowToHandle( Win33::Window* window );
         
     protected:
         Window(

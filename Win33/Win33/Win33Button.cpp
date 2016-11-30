@@ -21,12 +21,12 @@ Control(
 }
 Win33::Button::Button( Button&& other )
 :
-Control ( std::move( other ) ),
-click   ( std::move( other.click ) )
+Control( std::move( other ) ),
+onClick( std::move( other.onClick ) )
 { }
 Win33::Button& Win33::Button::operator=( Button&& other ) {
     Control::operator=( std::move( other ) );
-    click = std::move( other.click );
+    onClick = std::move( other.onClick );
     return *this;
 }
 
