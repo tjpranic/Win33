@@ -215,5 +215,8 @@
     <ClInclude Include="Win33Interop.h">
       <Filter>Win33\Interop</Filter>
     </ClInclude>
+    <ClInclude Include="Win33Utility.h">
+      <Filter>Win33\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

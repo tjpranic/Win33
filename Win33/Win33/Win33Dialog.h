@@ -33,7 +33,7 @@ namespace Win33 {
                     DispatchMessage( &m );
                 }
                 else {
-                    SendMessage( m.hwnd, WM_IDLE, 0, 0 );
+                    Sleep( 10 );
                 }
             }
             return mResult;

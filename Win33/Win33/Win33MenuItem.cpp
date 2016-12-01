@@ -1,15 +1,27 @@
 #include "Win33MenuItem.h"
 
 #include "Win33Application.h"
+#include "Win33Interop.h"
 
 int Win33::MenuItem::generateID( ) {
     static int id = 0;
     return ++id;
 }
 
-Win33::MenuItem::MenuItem( HMENU parent, const std::wstring& text, bool checkable )
+Win33::MenuItem::MenuItem( Win33::ContextMenu* contextMenu, const std::wstring& text, bool checkable )
 :
-mParent    ( parent ),
+mParent    ( Win33::Interop::toHandle( contextMenu ) ),
+mID        ( generateID( ) ),
+mText      ( text ),
+mCheckable ( checkable ),
+mEnabled   ( true ),
+mChecked   ( false )
+{
+    Win33::Application::mMenuItems[mID] = this;
+}
+Win33::MenuItem::MenuItem( Win33::Menu* menu, const std::wstring& text, bool checkable )
+:
+mParent    ( Win33::Interop::toHandle( menu ) ),
 mID        ( generateID( ) ),
 mText      ( text ),
 mCheckable ( checkable ),
@@ -28,6 +40,7 @@ mCheckable ( other.mCheckable ),
 mEnabled   ( other.mEnabled ),
 mChecked   ( other.mChecked )
 {
+    other.mID  = -1;
     Win33::Application::mMenuItems[mID] = this;
 }
 Win33::MenuItem& Win33::MenuItem::operator=( MenuItem&& other ) {
@@ -38,9 +51,13 @@ Win33::MenuItem& Win33::MenuItem::operator=( MenuItem&& other ) {
     mCheckable = other.mCheckable;
     mEnabled   = other.mEnabled;
     mChecked   = other.mChecked;
+    other.mID  = -1;
     
     Win33::Application::mMenuItems[mID] = this;
     return *this;
+}
+Win33::MenuItem::~MenuItem( ) {
+    Win33::Application::mMenuItems.erase( mID );
 }
 
 void Win33::MenuItem::toggleChecked( ) {
@@ -61,11 +78,12 @@ bool Win33::MenuItem::getChecked( ) const {
 }
 
 void Win33::MenuItem::setText( const std::wstring& text ) {
+    mText = text;
+    
     MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
     mii.fMask        = MIIM_TYPE;
     mii.dwTypeData   = const_cast<wchar_t*>( text.c_str( ) );
     SetMenuItemInfo( mParent, mID, false, &mii );
-    mText = text;
 }
 void Win33::MenuItem::setEnabled( bool enabled ) {
     MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };

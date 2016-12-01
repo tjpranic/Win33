@@ -30,13 +30,3 @@ Win33::Label& Win33::Label::operator=( Label&& other ) {
     onClick = std::move( other.onClick );
     return *this;
 }
-
-std::wstring Win33::Label::getText( ) const {
-    static wchar_t t[256];
-    GetWindowText( mHandle, t, 256 );
-    return std::wstring( t );
-}
-
-void Win33::Label::setText( const std::wstring& text ) {
-    SetWindowText( mHandle, text.c_str( ) );
-}

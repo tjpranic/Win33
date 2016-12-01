@@ -24,6 +24,7 @@ namespace Win33 {
         typedef std::function<void( CheckData& )> CheckHandler;
         
         typedef Win33::Event<CheckHandler> Check;
+        
     };
     
 };

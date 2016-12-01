@@ -2,13 +2,12 @@
 
 #include "Win33Menu.h"
 #include "Win33System.h"
-#include "Win33Interop.h"
 
 namespace Win33 {
     
     class ContextMenu {
     public:
-        ContextMenu            ( );
+        ContextMenu            ( Win33::Window* window );
         ContextMenu            ( const ContextMenu&  other ) = delete;
         ContextMenu            (       ContextMenu&& other );
         ContextMenu& operator= ( const ContextMenu&  other ) = delete;
@@ -21,12 +20,13 @@ namespace Win33 {
         Menu&     appendMenu      ( const std::wstring& text );
         MenuItem& appendMenuItem  ( const std::wstring& text, bool checkable = false );
         
-        friend HMENU Win33::Interop::contextMenuToHandle( Win33::ContextMenu* contextMenu );
+        friend HMENU Win33::Interop::toHandle( Win33::ContextMenu* contextMenu );
         
     private:
         int mLastPosition;
         
         HMENU                      mHandle;
+        Win33::Window*             mWindow;
         std::list<Win33::Menu>     mMenus;
         std::list<Win33::MenuItem> mMenuItems;
     };

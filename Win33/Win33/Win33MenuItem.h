@@ -18,7 +18,7 @@ namespace Win33 {
         MenuItem            (       MenuItem&& other );
         MenuItem& operator= ( const MenuItem&  other ) = delete;
         MenuItem& operator= (       MenuItem&& other );
-        ~MenuItem           ( )                        = default;
+        ~MenuItem           ( );
         
         void toggleChecked( );
         
@@ -35,7 +35,8 @@ namespace Win33 {
         Win33::MenuItemEvents::Click onClick;
         
     private:
-        MenuItem( HMENU parent, const std::wstring& text, bool checkable = false );
+        MenuItem( Win33::ContextMenu* contextMenu, const std::wstring& text, bool checkable = false );
+        MenuItem( Win33::Menu*        menu,        const std::wstring& text, bool checkable = false );
         
         static int generateID( );
         

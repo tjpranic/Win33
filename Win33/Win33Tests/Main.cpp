@@ -10,17 +10,18 @@
 
 #include "String.h"
 
-//NOTE: tray icons and menu items do not get removed from global application maps
-//TODO? have all get methods return reference-to-const
+//TODO: write nicer tests
+//TODO: finish calculator example
+//TODO? add event datas to all events
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {
-        return TestApplication( ).run( );
+        //return TestApplication( ).run( );
         //return MultipleWindowApplication( ).run( );
         //return HiddenWindowApplication( ).run( );
         //return MultipleTrayIconApplication( ).run( );
         //return MenuApplication( ).run( );
-        //return CalculatorApplication( ).run( );
+        return CalculatorApplication( ).run( );
     }
     catch( const std::exception& ex ) {
         Win33::PopupBox::error( String::widen( ex.what( ) ) );

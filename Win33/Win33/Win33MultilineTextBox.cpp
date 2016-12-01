@@ -32,13 +32,3 @@ Win33::MultilineTextBox& Win33::MultilineTextBox::operator=( MultilineTextBox&& 
     Control::operator=( std::move( other ) );
     return *this;
 }
-
-std::wstring Win33::MultilineTextBox::getText( ) const {
-    static wchar_t t[256];
-    GetWindowText( mHandle, t, 256 );
-    return std::wstring( t );
-}
-
-void Win33::MultilineTextBox::setText( const std::wstring& text ) {
-    SetWindowText( mHandle, text.c_str( ) );
-}

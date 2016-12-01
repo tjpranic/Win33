@@ -9,8 +9,6 @@
 #include "Win33Point.h"
 #include "Win33Size.h"
 
-#define WM_IDLE ( WM_USER + 0x01 )
-
 namespace Win33 {
     
     namespace WindowStyle {
@@ -188,10 +186,10 @@ namespace Win33 {
               bool          getEnabled( )         const;
               int           getX( )               const;
               int           getY( )               const;
-              Win33::Point  getPosition( )        const;
+        const Win33::Point& getPosition( )        const;
               int           getWidth( )           const;
               int           getHeight( )          const;
-              Win33::Size   getSize( )            const;
+        const Win33::Size&  getSize( )            const;
               bool          getVisible( )         const;
         
         void setMinimumSize ( const Win33::Size&  minimumSize );
@@ -234,6 +232,8 @@ namespace Win33 {
         Win33::Size           mInitialSize;
         Win33::Size           mMinimumSize;
         Win33::Size           mMaximumSize;
+        Win33::Point          mPosition;
+        Win33::Size           mSize;
     };
     
 };

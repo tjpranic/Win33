@@ -12,11 +12,11 @@ namespace Win33 {
     
     namespace Interop {
         
-        HWND  windowToHandle      ( Win33::Window*      window      );
-        HWND  controlToHandle     ( Win33::Control*     control     );
-        HMENU contextMenuToHandle ( Win33::ContextMenu* contextMenu );
-        HMENU menuBarToHandle     ( Win33::MenuBar*     menuBar     );
-        HMENU menuToHandle        ( Win33::Menu*        menu        );
+        HWND  toHandle( Win33::Window*      window      );
+        HWND  toHandle( Win33::Control*     control     );
+        HMENU toHandle( Win33::ContextMenu* contextMenu );
+        HMENU toHandle( Win33::MenuBar*     menuBar     );
+        HMENU toHandle( Win33::Menu*        menu        );
         
     };
     

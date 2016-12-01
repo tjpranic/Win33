@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Win33Platform.h"
-#include "Win33MenuBar.h"
-#include "Win33ContextMenu.h"
 #include "Win33Interop.h"
 #include "Win33WindowEvents.h"
 
@@ -25,26 +23,26 @@ namespace Win33 {
         void maximize( );
         void toggleVisibility( );
         
+              Win33::Window*      getParent( )      const;
               std::wstring        getTitle( )       const;
               bool                getResizable( )   const;
-              Win33::MenuBar*     getMenuBar( )     const;
-              Win33::ContextMenu* getContextMenu( ) const;
         const std::wstring&       getIcon( )        const;
+              bool                getMaximizable( ) const;
+              bool                getMinimizable( ) const;
         
         void setTitle       ( const std::wstring&       title       );
         void setResizable   (       bool                resizable   );
-        void setMenuBar     (       Win33::MenuBar*     menuBar     );
-        void setContextMenu (       Win33::ContextMenu* contextMenu );
         void setIcon        ( const std::wstring&       icon        );
         void setMaximizable (       bool                maximizable );
         void setMinimizable (       bool                minimizable );
         
-        Win33::WindowEvents::Idle   onIdle;
-        Win33::WindowEvents::Close  onClose;
-        Win33::WindowEvents::Resize onResize;
-        Win33::WindowEvents::Move   onMove;
+        Win33::WindowEvents::Close      onClose;
+        Win33::WindowEvents::Resize     onResize;
+        Win33::WindowEvents::Move       onMove;
+        Win33::WindowEvents::LeftClick  onLeftClick;
+        Win33::WindowEvents::RightClick onRightClick;
         
-        friend HWND Win33::Interop::windowToHandle( Win33::Window* window );
+        friend HWND Win33::Interop::toHandle( Win33::Window* window );
         
     protected:
         Window(
@@ -62,12 +60,10 @@ namespace Win33 {
         );
         
     private:
-        bool                mResizable;
-        bool                mMaximizable;
-        bool                mMinimizable;
-        Win33::MenuBar*     mMenuBar;
-        Win33::ContextMenu* mContextMenu;
-        std::wstring        mIcon;
+        bool         mResizable;
+        bool         mMaximizable;
+        bool         mMinimizable;
+        std::wstring mIcon;
     };
     
 };

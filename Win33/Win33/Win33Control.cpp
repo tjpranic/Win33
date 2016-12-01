@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-#include "Win33Window.h"
+#include "Win33Utility.h"
 
 Win33::Control::Control(
           Win33::Platform::Type      type,
@@ -13,7 +13,8 @@ Win33::Control::Control(
           Win33::ExWindowStyle::Type exStyle
 ):
 Platform ( type, parent, position, size, style, exStyle ),
-mAnchor  ( Win33::Anchor::All )
+mAnchor  ( Win33::Anchor::All ),
+mText    ( L"" )
 {
     assert( parent != nullptr );
     parent->onResize += [&]( Win33::WindowEvents::ResizeData& data ) {
@@ -60,21 +61,33 @@ mAnchor  ( Win33::Anchor::All )
     
     Platform::show( );
     
+    //Win32 defaults to a different UI font, so actually set the proper UI default
     SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( GetStockObject( DEFAULT_GUI_FONT ) ), MAKELPARAM( TRUE, 0 ) );
 }
 Win33::Control::Control( Control&& other )
 :
 Platform ( std::move( other ) ),
-mAnchor  ( other.mAnchor )
+mAnchor  ( other.mAnchor ),
+mText    ( std::move( other.mText ) )
 { }
 Win33::Control& Win33::Control::operator=( Control&& other ) {
     Platform::operator=( std::move( other ) );
     mAnchor = other.mAnchor;
+    mText   = std::move( other.mText );
     return *this;
 }
 
+Win33::Window* Win33::Control::getParent( ) const {
+    return static_cast<Win33::Window*>( mParent );
+}
 Win33::Anchor::Type Win33::Control::getAnchor( ) const {
     return mAnchor;
+}
+const std::wstring& Win33::Control::getText( ) const {
+    static wchar_t t[256];
+    GetWindowText( mHandle, t, 256 );
+    Win33::Utility::mutate( const_cast<std::wstring*>( &mText ), t );
+    return mText;
 }
 int Win33::Control::getX( ) const {
     RECT cr;
@@ -99,6 +112,11 @@ int Win33::Control::getY( ) const {
 
 void Win33::Control::setAnchor( Win33::Anchor::Type anchor ) {
     mAnchor = anchor;
+}
+void Win33::Control::setText( const std::wstring& text ) {
+    mText = text;
+    
+    SetWindowText( mHandle, text.c_str( ) );
 }
 void Win33::Control::setX( int x ) {
     Platform::setX( x );

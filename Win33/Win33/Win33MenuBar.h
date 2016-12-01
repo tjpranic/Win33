@@ -1,13 +1,12 @@
 #pragma once
 
 #include "Win33Menu.h"
-#include "Win33Interop.h"
 
 namespace Win33 {
     
     class MenuBar {
     public:
-        MenuBar            ( );
+        MenuBar            ( Win33::Window* window );
         MenuBar            ( const MenuBar&  other ) = delete;
         MenuBar            (       MenuBar&& other );
         MenuBar& operator= ( const MenuBar&  other ) = delete;
@@ -16,12 +15,13 @@ namespace Win33 {
         
         Menu& appendMenu( const std::wstring& text );
         
-        friend HMENU Win33::Interop::menuBarToHandle( Win33::MenuBar* menuBar );
+        friend HMENU Win33::Interop::toHandle( Win33::MenuBar* menuBar );
         
     private:
         int mLastPosition;
         
         HMENU                  mHandle;
+        Win33::Window*         mWindow;
         std::list<Win33::Menu> mMenus;
     };
     

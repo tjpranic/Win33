@@ -2,6 +2,15 @@
 
 #include "Win33Application.h"
 #include "Win33System.h"
+#include "Win33Utility.h"
+
+void updatePositionProperty( int x, int y, Win33::Point* property ) {
+    *property = Win33::Point( x, y );
+}
+void updateSizeProperty( int width, int height, Win33::Size* property ) {
+    *property = Win33::Size( width, height );
+}
+
 
 Win33::Platform::Platform(
           Win33::Platform::Type      type,
@@ -17,7 +26,9 @@ mParent          ( parent ),
 mInitialPosition ( position ),
 mInitialSize     ( size ),
 mMinimumSize     ( { 0, 0 } ),
-mMaximumSize     ( Win33::System::getMonitorSize( ) )
+mMaximumSize     ( Win33::System::getMonitorSize( ) ),
+mPosition        ( position ),
+mSize            ( size )
 {
     auto identifier = L"";
     switch( mType ) {
@@ -77,7 +88,9 @@ mParent          ( other.mParent ),
 mInitialPosition ( std::move( other.mInitialPosition ) ),
 mInitialSize     ( std::move( other.mInitialSize ) ),
 mMinimumSize     ( std::move( other.mMinimumSize ) ),
-mMaximumSize     ( std::move( other.mMaximumSize ) )
+mMaximumSize     ( std::move( other.mMaximumSize ) ),
+mPosition        ( std::move( other.mPosition ) ),
+mSize            ( std::move( other.mSize ) )
 {
     other.mHandle = nullptr;
     other.mParent = nullptr;
@@ -92,6 +105,8 @@ Win33::Platform& Win33::Platform::operator=( Platform&& other ) {
     mInitialSize     = std::move( other.mInitialSize );
     mMinimumSize     = std::move( other.mMinimumSize );
     mMaximumSize     = std::move( other.mMaximumSize );
+    mPosition        = std::move( other.mPosition );
+    mSize            = std::move( other.mSize );
     other.mHandle    = nullptr;
     other.mParent    = nullptr;
     
@@ -142,8 +157,9 @@ int Win33::Platform::getY( ) const {
     ScreenToClient( mHandle, &p );
     return cr.top + p.y;
 }
-Win33::Point Win33::Platform::getPosition( ) const {
-    return { getX( ), getY( ) };
+const Win33::Point& Win33::Platform::getPosition( ) const {
+    Win33::Utility::mutate( const_cast<Win33::Point*>( &mPosition ), getX( ), getY( ) );
+    return mPosition;
 }
 int Win33::Platform::getWidth( ) const {
     RECT wr;
@@ -155,8 +171,9 @@ int Win33::Platform::getHeight( ) const {
     GetWindowRect( mHandle, &wr );
     return wr.bottom - wr.top;
 }
-Win33::Size Win33::Platform::getSize( ) const {
-    return { getWidth( ), getHeight( ) };
+const Win33::Size& Win33::Platform::getSize( ) const {
+    Win33::Utility::mutate( const_cast<Win33::Size*>( &mSize ), getWidth( ), getHeight( ) );
+    return mSize;
 }
 bool Win33::Platform::getVisible( ) const {
     return IsWindowVisible( mHandle ) != 0;

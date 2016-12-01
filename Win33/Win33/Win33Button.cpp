@@ -29,13 +29,3 @@ Win33::Button& Win33::Button::operator=( Button&& other ) {
     onClick = std::move( other.onClick );
     return *this;
 }
-
-std::wstring Win33::Button::getText( ) const {
-    static wchar_t t[256];
-    GetWindowText( mHandle, t, 256 );
-    return std::wstring( t );
-}
-
-void Win33::Button::setText( const std::wstring& text ) {
-    SetWindowText( mHandle, text.c_str( ) );
-}

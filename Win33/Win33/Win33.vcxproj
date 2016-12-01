@@ -133,6 +133,7 @@
     <ClInclude Include="Win33RadioButton.h" />
     <ClInclude Include="Win33RadioButtonEvents.h" />
     <ClInclude Include="Win33TrayIconEvents.h" />
+    <ClInclude Include="Win33Utility.h" />
     <ClInclude Include="Win33WindowEvents.h" />
     <ClInclude Include="Win33PopupBox.h" />
     <ClInclude Include="Win33System.h" />

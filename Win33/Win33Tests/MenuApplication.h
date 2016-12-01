@@ -11,8 +11,8 @@ public:
     MenuWindow( )
     :
     Window       ( Win33::DefaultPosition, { 640, 480 } ),
-    mMenuBar     ( ),
-    mContextMenu ( ),
+    mMenuBar     ( this ),
+    mContextMenu ( this ),
     mLanguage    ( Language::English )
     {
         setTitle( L"MenuWindow" );
@@ -39,8 +39,6 @@ public:
             Win33::PopupBox::information( L"This is a test." );
         };
         
-        setMenuBar( &mMenuBar );
-        
         auto& greet = mContextMenu.appendMenuItem( L"Say hello" );
         mContextMenu.appendSeperator( );
         auto& english = mContextMenu.appendMenuItem( L"English", true );
@@ -65,16 +63,20 @@ public:
         };
         english.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::English;
+            english.setChecked( true );
             espanol.setChecked( false );
             greet.setText( L"Say hello" );
         };
         espanol.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::Espanol;
             english.setChecked( false );
+            espanol.setChecked( true );
             greet.setText( L"Di hola" );
         };
         
-        setContextMenu( &mContextMenu );
+        onRightClick += [&]( ) {
+            mContextMenu.show( );
+        };
     }
     ~MenuWindow( ) = default;
     

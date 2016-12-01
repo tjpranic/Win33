@@ -1,10 +1,9 @@
 #pragma once
 
 #include "Win33Window.h"
-#include "Win33ContextMenu.h"
 #include "Win33TrayIconEvents.h"
 
-#define WM_TRAYICON ( WM_USER + 0x02 )
+#define WM_TRAYICON ( WM_USER + 0x01 )
 
 namespace Win33 {
     
@@ -19,21 +18,18 @@ namespace Win33 {
         TrayIcon            (       TrayIcon&& other );
         TrayIcon& operator= ( const TrayIcon&  other ) = delete;
         TrayIcon& operator= (       TrayIcon&& other );
-        ~TrayIcon           ( );
+        ~TrayIcon           ( )                        = default;
         
-        Win33::ContextMenu* getContextMenu( ) const;
+        void setIcon    ( const std::wstring& icon    );
+        void setTooltip ( const std::wstring& tooltip );
         
-        void setIcon        ( const std::wstring&       icon        );
-        void setTooltip     ( const std::wstring&       tooltip     );
-        void setContextMenu (       Win33::ContextMenu* contextMenu );
-        
-        Win33::TrayIconEvents::Click onClick;
+        Win33::TrayIconEvents::LeftClick  onLeftClick;
+        Win33::TrayIconEvents::RightClick onRightClick;
         
     private:
         int generateID( );
         
-        NOTIFYICONDATA      mNID;
-        Win33::ContextMenu* mContextMenu;
+        NOTIFYICONDATA mNID;
     };
     
 };

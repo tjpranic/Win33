@@ -23,11 +23,9 @@ namespace Win33 {
         
         void toggleChecked( );
         
-        std::wstring getText( )    const;
-        bool         getChecked( ) const;
+        bool getChecked( ) const;
         
-        void setText    ( const std::wstring& text    );
-        void setChecked (       bool          checked );
+        void setChecked( bool checked );
         
         Win33::CheckBoxEvents::Check onCheck;
     };

@@ -19,9 +19,12 @@ namespace Win33 {
         GroupBox& operator= (       GroupBox&& other );
         ~GroupBox           ( )                        = default;
         
-        std::wstring getTitle( ) const;
+        const std::wstring& getTitle( ) const;
         
         void setTitle( const std::wstring& title );
+        
+    private:
+        std::wstring mTitle;
     };
     
 };

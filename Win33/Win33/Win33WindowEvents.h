@@ -42,9 +42,10 @@ namespace Win33 {
         };
         typedef std::function<void( MoveData& )> MoveHandler;
         
-        typedef Win33::Event<>              Idle;
         typedef Win33::Event<>              Close;
         typedef Win33::Event<ResizeHandler> Resize;
         typedef Win33::Event<MoveHandler>   Move;
+        typedef Win33::Event<>              LeftClick;
+        typedef Win33::Event<>              RightClick;
     };
 };

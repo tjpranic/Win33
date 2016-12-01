@@ -20,10 +20,6 @@ namespace Win33 {
         Label& operator= (       Label&& other );
         ~Label           ( )                     = default;
         
-        std::wstring getText( ) const;
-        
-        void setText( const std::wstring& text );
-        
         Win33::LabelEvents::Click onClick;
     };
     

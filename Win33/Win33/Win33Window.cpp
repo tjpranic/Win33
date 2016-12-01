@@ -11,10 +11,9 @@ Win33::Window::Window(
           ExWindowStyle::Type  exStyle
 ):
 Platform     ( Type::Window, nullptr, position, size, style, exStyle ),
-mResizable   ( ( style & WS_THICKFRAME ) != 0 ),
+mResizable   ( ( style & WS_THICKFRAME  ) != 0 ),
 mMaximizable ( ( style & WS_MAXIMIZEBOX ) != 0 ),
 mMinimizable ( ( style & WS_MINIMIZEBOX ) != 0 ),
-mMenuBar     ( nullptr ),
 mIcon        ( L"" )
 { }
 Win33::Window::Window(
@@ -28,7 +27,6 @@ Platform     ( Type::Window, parent, position, size, style, exStyle ),
 mResizable   ( ( style & WS_THICKFRAME  ) != 0 ),
 mMaximizable ( ( style & WS_MAXIMIZEBOX ) != 0 ),
 mMinimizable ( ( style & WS_MINIMIZEBOX ) != 0 ),
-mMenuBar     ( nullptr ),
 mIcon        ( L"" )
 {
     assert( mParent != nullptr );
@@ -36,26 +34,26 @@ mIcon        ( L"" )
 Win33::Window::Window( Window&& other )
 :
 Platform     ( std::move( other ) ),
-onIdle       ( std::move( other.onIdle ) ),
 onClose      ( std::move( other.onClose ) ),
 onResize     ( std::move( other.onResize ) ),
 onMove       ( std::move( other.onMove ) ),
+onLeftClick  ( std::move( other.onLeftClick ) ),
+onRightClick ( std::move( other.onRightClick ) ),
 mResizable   ( other.mResizable ),
 mMaximizable ( other.mMaximizable ),
 mMinimizable ( other.mMinimizable ),
-mMenuBar     ( other.mMenuBar ),
 mIcon        ( std::move( other.mIcon ) )
 { }
 Win33::Window& Win33::Window::operator=( Window&& other ) {
     Platform::operator=( std::move( other ) );
-    onIdle       = std::move( other.onIdle );
     onClose      = std::move( other.onClose );
     onResize     = std::move( other.onResize );
     onMove       = std::move( other.onMove );
+    onLeftClick  = std::move( other.onLeftClick );
+    onRightClick = std::move( other.onRightClick );
     mResizable   = other.mResizable;
     mMaximizable = other.mMaximizable;
     mMinimizable = other.mMinimizable;
-    mMenuBar     = other.mMenuBar;
     mIcon        = std::move( other.mIcon );
     return *this;
 }
@@ -78,6 +76,9 @@ void Win33::Window::toggleVisibility( ) {
     }
 }
 
+Win33::Window* Win33::Window::getParent( ) const {
+    return static_cast<Win33::Window*>( mParent );
+}
 std::wstring Win33::Window::getTitle( ) const {
     static wchar_t t[256];
     GetWindowText( mHandle, t, 256 );
@@ -86,14 +87,14 @@ std::wstring Win33::Window::getTitle( ) const {
 bool Win33::Window::getResizable( ) const {
     return mResizable;
 }
-Win33::MenuBar* Win33::Window::getMenuBar( ) const {
-    return mMenuBar;
-}
-Win33::ContextMenu* Win33::Window::getContextMenu( ) const {
-    return mContextMenu;
-}
 const std::wstring& Win33::Window::getIcon( ) const {
     return mIcon;
+}
+bool Win33::Window::getMaximizable( ) const {
+    return mMaximizable;
+}
+bool Win33::Window::getMinimizable( ) const {
+    return mMinimizable;
 }
 
 void Win33::Window::setTitle( const std::wstring& title ) {
@@ -107,13 +108,6 @@ void Win33::Window::setResizable( bool resizable ) {
     else {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_THICKFRAME );
     }
-}
-void Win33::Window::setMenuBar( MenuBar* menuBar ) {
-    mMenuBar = menuBar;
-    SetMenu( mHandle, Win33::Interop::menuBarToHandle( menuBar ) );
-}
-void Win33::Window::setContextMenu( ContextMenu* contextMenu ) {
-    mContextMenu = contextMenu;
 }
 void Win33::Window::setIcon( const std::wstring& icon ) {
     assert( icon != L"" );

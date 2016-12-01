@@ -22,11 +22,9 @@ namespace Win33 {
         RadioButton& operator= (       RadioButton&& other );
         ~RadioButton           ( )                           = default;
         
-        std::wstring getText( )     const;
-        bool         getSelected( ) const;
+        bool getSelected( ) const;
         
-        void setText     ( const std::wstring& text     );
-        void setSelected (       bool          selected );
+        void setSelected ( bool selected );
         
         Win33::RadioButtonEvents::Select onSelect;
     };

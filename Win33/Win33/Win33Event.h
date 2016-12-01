@@ -75,12 +75,15 @@ namespace Win33 {
         void handle( ) {
             for( auto& h = mEventHandlers.begin( ); h != mEventHandlers.end( ); ++h ) {
                 ( *h )( );
+                //this is to stop close events (which erase event handlers) from triggering debug assertions
+                if( mEventHandlers.empty( ) ) { break; }
             }
         }
         template<class D>
         void handle( D& data ) {
             for( auto& h = mEventHandlers.begin( ); h != mEventHandlers.end( ); ++h ) {
                 ( *h )( data );
+                if( mEventHandlers.empty( ) ) { break; }
             }
         }
         

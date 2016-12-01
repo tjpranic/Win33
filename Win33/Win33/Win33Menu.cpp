@@ -2,11 +2,39 @@
 
 #include "Win33Application.h"
 
-Win33::Menu::Menu( HMENU parent, int position,  const std::wstring& text )
+Win33::Menu::Menu( Win33::ContextMenu* contextMenu, int position,  const std::wstring& text )
 :
 mLastPosition ( 0 ),
 mHandle       ( CreateMenu( ) ),
-mParent       ( parent ),
+mParent       ( Win33::Interop::toHandle( contextMenu ) ),
+mPosition     ( position ),
+mText         ( text ),
+mSubMenus     ( ),
+mMenuItems    ( )
+{
+    if( !mHandle ) {
+        throw std::runtime_error( "Unable to create menu." );
+    }
+}
+Win33::Menu::Menu( Win33::MenuBar* menuBar, int position,  const std::wstring& text )
+:
+mLastPosition ( 0 ),
+mHandle       ( CreateMenu( ) ),
+mParent       ( Win33::Interop::toHandle( menuBar ) ),
+mPosition     ( position ),
+mText         ( text ),
+mSubMenus     ( ),
+mMenuItems    ( )
+{
+    if( !mHandle ) {
+        throw std::runtime_error( "Unable to create menu." );
+    }
+}
+Win33::Menu::Menu( Win33::Menu* menu, int position,  const std::wstring& text )
+:
+mLastPosition ( 0 ),
+mHandle       ( CreateMenu( ) ),
+mParent       ( Win33::Interop::toHandle( menu ) ),
 mPosition     ( position ),
 mText         ( text ),
 mSubMenus     ( ),
@@ -37,10 +65,8 @@ Win33::Menu& Win33::Menu::operator=( Menu&& other ) {
     return *this;
 }
 
-std::wstring Win33::Menu::getText( ) const {
-    static wchar_t text[256];
-    GetMenuString( mParent, mPosition, text, 256, MF_BYPOSITION );
-    return std::wstring( text );
+const std::wstring& Win33::Menu::getText( ) const {
+    return mText;
 }
 bool Win33::Menu::getEnabled( ) const {
     MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
@@ -50,6 +76,8 @@ bool Win33::Menu::getEnabled( ) const {
 }
 
 void Win33::Menu::setText( const std::wstring& text ) {
+    mText = text;
+    
     MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
     mii.fMask        = MIIM_TYPE;
     mii.dwTypeData   = const_cast<wchar_t*>( text.c_str( ) );
@@ -66,7 +94,7 @@ void Win33::Menu::appendSeparator( ) {
     AppendMenu( mHandle, MF_SEPARATOR, 0, nullptr );
 }
 Win33::Menu& Win33::Menu::appendSubMenu( const std::wstring& text ) {
-    mSubMenus.emplace_back( Win33::Menu( mHandle, mLastPosition, text ) );
+    mSubMenus.emplace_back( Win33::Menu( this, mLastPosition, text ) );
     auto& menu = mSubMenus.back( );
     
     AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.mHandle ), text.c_str( ) );
@@ -75,7 +103,7 @@ Win33::Menu& Win33::Menu::appendSubMenu( const std::wstring& text ) {
     return menu;
 }
 Win33::MenuItem& Win33::Menu::appendMenuItem( const std::wstring& text, bool checkable ) {
-    mMenuItems.emplace_back( Win33::MenuItem( mHandle, text, checkable ) );
+    mMenuItems.emplace_back( Win33::MenuItem( this, text, checkable ) );
     auto& menuItem = mMenuItems.back( );
     
     AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );

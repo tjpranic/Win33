@@ -19,11 +19,9 @@ namespace Win33 {
         PasswordBox& operator= (       PasswordBox&& other );
         ~PasswordBox           ( )                           = default;
         
-        std::wstring getText( )              const;
-        wchar_t      getPasswordCharacter( ) const;
+        wchar_t getPasswordCharacter( ) const;
         
-        void setText              ( const std::wstring& text      );
-        void setPasswordCharacter (       wchar_t       character );
+        void setPasswordCharacter( wchar_t character );
     };
     
 };

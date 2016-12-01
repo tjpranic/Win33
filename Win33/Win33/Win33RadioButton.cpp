@@ -36,18 +36,10 @@ Win33::RadioButton& Win33::RadioButton::operator=( RadioButton&& other ) {
     return *this;
 }
 
-std::wstring Win33::RadioButton::getText( ) const {
-    static wchar_t t[256];
-    GetWindowText( mHandle, t, 256 );
-    return std::wstring( t );
-}
 bool Win33::RadioButton::getSelected( ) const {
     return Button_GetCheck( mHandle ) != 0;
 }
 
-void Win33::RadioButton::setText( const std::wstring& text ) {
-    SetWindowText( mHandle, text.c_str( ) );
-}
 void Win33::RadioButton::setSelected( bool checked ) {
     Button_SetCheck( mHandle, checked );
 }

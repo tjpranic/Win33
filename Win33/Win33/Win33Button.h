@@ -20,10 +20,6 @@ namespace Win33 {
         Button& operator= (       Button&& other );
         ~Button           ( )                      = default;
         
-        std::wstring getText( ) const;
-        
-        void setText( const std::wstring& text );
-        
         Win33::ButtonEvents::Click onClick;
     };
     

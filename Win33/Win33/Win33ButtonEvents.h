@@ -7,6 +7,7 @@ namespace Win33 {
     namespace ButtonEvents {
         
         typedef Win33::Event<> Click;
+        
     };
     
 };

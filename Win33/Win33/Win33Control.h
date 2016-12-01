@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Win33Platform.h"
+#include "Win33Window.h"
 #include "Win33Interop.h"
 
 namespace Win33 {
@@ -35,15 +36,18 @@ namespace Win33 {
         Control& operator= (       Control&& other );
         virtual ~Control   ( )                       = default;
         
-        Win33::Anchor::Type getAnchor( ) const;
-        int                 getX( )      const;
-        int                 getY( )      const;
+              Win33::Window*      getParent( ) const;
+              Win33::Anchor::Type getAnchor( ) const;
+        const std::wstring&       getText( )   const;
+              int                 getX( )      const;
+              int                 getY( )      const;
         
-        void setAnchor ( Win33::Anchor::Type anchor );
-        void setX      ( int                 x      );
-        void setY      ( int                 y      );
+        void setAnchor (       Win33::Anchor::Type anchor );
+        void setText   ( const std::wstring&       text   );
+        void setX      (       int                 x      );
+        void setY      (       int                 y      );
         
-        friend HWND Win33::Interop::controlToHandle( Win33::Control* control );
+        friend HWND Win33::Interop::toHandle( Win33::Control* control );
         
     protected:
         Control(
@@ -57,6 +61,7 @@ namespace Win33 {
         
     private:
         Win33::Anchor::Type mAnchor;
+        std::wstring        mText;
     };
     
 };

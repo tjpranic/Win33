@@ -15,24 +15,28 @@ Control(
         Win33::WindowStyle::Child    |
         Win33::ButtonStyle::GroupBox
     )
-) {
+),
+mTitle( title )
+{
     setTitle( title );
 }
 Win33::GroupBox::GroupBox( GroupBox&& other )
 :
-Control( std::move( other ) )
+Control ( std::move( other ) ),
+mTitle  ( std::move( other.mTitle ) )
 { }
 Win33::GroupBox& Win33::GroupBox::operator=( GroupBox&& other ) {
     Control::operator=( std::move( other ) );
+    mTitle = std::move( other.mTitle );
     return *this;
 }
 
-std::wstring Win33::GroupBox::getTitle( ) const {
-    static wchar_t t[256];
-    GetWindowText( mHandle, t, 256 );
-    return std::wstring( t );
+const std::wstring& Win33::GroupBox::getTitle( ) const {
+    return mTitle;
 }
 
 void Win33::GroupBox::setTitle( const std::wstring& title ) {
+    mTitle = title;
+    
     SetWindowText( mHandle, title.c_str( ) );
 }

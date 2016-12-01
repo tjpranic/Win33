@@ -24,6 +24,7 @@ namespace Win33 {
         typedef std::function<void( SelectData& )> SelectHandler;
         
         typedef Win33::Event<SelectHandler> Select;
+        
     };
     
 };

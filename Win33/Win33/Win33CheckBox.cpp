@@ -38,18 +38,10 @@ void Win33::CheckBox::toggleChecked( ) {
     setChecked( !getChecked( ) );
 }
 
-std::wstring Win33::CheckBox::getText( ) const {
-    static wchar_t t[256];
-    GetWindowText( mHandle, t, 256 );
-    return std::wstring( t );
-}
 bool Win33::CheckBox::getChecked( ) const {
     return Button_GetCheck( mHandle ) != 0;
 }
 
-void Win33::CheckBox::setText( const std::wstring& text ) {
-    SetWindowText( mHandle, text.c_str( ) );
-}
 void Win33::CheckBox::setChecked( bool checked ) {
     Button_SetCheck( mHandle, checked );
 }

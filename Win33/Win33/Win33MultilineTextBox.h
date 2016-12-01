@@ -19,9 +19,6 @@ namespace Win33 {
         MultilineTextBox& operator= ( const MultilineTextBox&  other ) = delete;
         MultilineTextBox& operator= (       MultilineTextBox&& other );
         ~MultilineTextBox           ( )                                = default;
-        
-        std::wstring getText( ) const;
-        
-        void setText( const std::wstring& text );
     };
+    
 };

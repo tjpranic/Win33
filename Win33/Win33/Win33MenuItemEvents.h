@@ -24,6 +24,7 @@ namespace Win33 {
         typedef std::function<void( ClickData& )> ClickHandler;
         
         typedef Win33::Event<ClickHandler> Click;
+        
     };
     
 };

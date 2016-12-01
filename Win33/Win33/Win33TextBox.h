@@ -28,11 +28,9 @@ namespace Win33 {
         TextBox& operator= (       TextBox&& other );
         ~TextBox           ( )                       = default;
         
-        std::wstring getText( )     const;
-        bool         getReadOnly( ) const;
+        bool getReadOnly( ) const;
         
-        void setText     ( const std::wstring& text );
-        void setReadOnly ( bool readOnly );
+        void setReadOnly( bool readOnly );
         
     private:
         bool mReadOnly;

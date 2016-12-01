@@ -14,15 +14,13 @@ Win33::TrayIcon::TrayIcon(
           Win33::Window* window,
     const std::wstring&  icon,
     const std::wstring&  tooltip
-):
-mContextMenu( nullptr )
-{
+) {
     assert( window != nullptr );
     assert( icon   != L""     );
     assert( tooltip.length( ) <= 128 );
     
     mNID                  = { sizeof( NOTIFYICONDATA ) };
-    mNID.hWnd             = Win33::Interop::windowToHandle( window );
+    mNID.hWnd             = Win33::Interop::toHandle( window );
     mNID.uID              = generateID( );
     mNID.uFlags           = NIF_MESSAGE | NIF_ICON | NIF_TIP;
     mNID.uCallbackMessage = WM_TRAYICON;
@@ -37,31 +35,27 @@ mContextMenu( nullptr )
     Shell_NotifyIcon( NIM_ADD, &mNID );
     
     Win33::Application::mTrayIcons[mNID.uID] = this;
+    
+    window->onClose += [&]( ) {
+        Shell_NotifyIcon( NIM_DELETE, &mNID );
+        Win33::Application::mTrayIcons.erase( mNID.uID );
+    };
 }
 Win33::TrayIcon::TrayIcon( TrayIcon&& other )
 :
-onClick      ( std::move( other.onClick ) ),
-mNID         ( std::move( other.mNID ) ),
-mContextMenu ( other.mContextMenu )
+onLeftClick  ( std::move( other.onLeftClick ) ),
+onRightClick ( std::move( other.onRightClick ) ),
+mNID         ( std::move( other.mNID ) )
 {
     Win33::Application::mTrayIcons[mNID.uID] = this;
 }
 Win33::TrayIcon& Win33::TrayIcon::operator=( TrayIcon&& other ) {
-    onClick      = std::move( other.onClick );
+    onLeftClick  = std::move( other.onLeftClick );
+    onRightClick = std::move( other.onRightClick );
     mNID         = std::move( other.mNID );
-    mContextMenu = other.mContextMenu;
-
+    
     Win33::Application::mTrayIcons[mNID.uID] = this;
     return *this;
-}
-Win33::TrayIcon::~TrayIcon( ) {
-    Shell_NotifyIcon( NIM_DELETE, &mNID );
-    
-    Win33::Application::mTrayIcons.erase( mNID.uID );
-}
-
-Win33::ContextMenu* Win33::TrayIcon::getContextMenu( ) const {
-    return mContextMenu;
 }
 
 void Win33::TrayIcon::setIcon( const std::wstring& icon ) {
@@ -76,8 +70,4 @@ void Win33::TrayIcon::setTooltip( const std::wstring& tooltip ) {
         mNID.szTip[i] = tooltip[i];
     }
     Shell_NotifyIcon( NIM_MODIFY, &mNID );
-}
-void Win33::TrayIcon::setContextMenu( Win33::ContextMenu* contextMenu ) {
-    assert( contextMenu != nullptr );
-    mContextMenu = contextMenu;
 }
