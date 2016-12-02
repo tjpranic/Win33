@@ -23,7 +23,7 @@ namespace Win33 {
         }
         virtual ~Dialog( ) = default;
         
-        const T& show( ) {
+        T show( ) {
             mParent->setEnabled( false );
             Win33::Window::show( );
             MSG m = { };
@@ -39,21 +39,13 @@ namespace Win33 {
             return mResult;
         }
         
-        const T& getResult( ) const {
-            return mResult;
-        }
-        
-        void setResult( const T& result ) {
-            mResult = result;
-        }
-        
     protected:
         Dialog(
-                  Win33::Window*              parent,
-            const Win33::Point&               position,
-            const Win33::Size&                size,
-                  Win33::WindowStyle::Type    style   = Win33::WindowStyle::OverlappedWindow,
-                  Win33::ExWindowStyle::Type  exStyle = Win33::ExWindowStyle::NoExWindowStyle
+                  Win33::Window*             parent,
+            const Win33::Point&              position,
+            const Win33::Size&               size,
+                  Win33::WindowStyle::Type   style   = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle::Type exStyle = Win33::ExWindowStyle::NoExWindowStyle
         ):
         Window  ( parent, position, size, style, exStyle ),
         mResult ( )
@@ -63,7 +55,6 @@ namespace Win33 {
             };
         }
         
-    private:
         T mResult;
     };
     

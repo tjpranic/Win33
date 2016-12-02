@@ -3,31 +3,35 @@
 #include <cassert>
 
 #include "Win33Application.h"
+#include "Win33Utility.h"
+
+const Win33::Point Win33::Window::DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
+const Win33::Size  Win33::Window::DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
 
 Win33::Window::Window(
-    const Point&               position,
-    const Size&                size,
-          WindowStyle::Type    style,
-          ExWindowStyle::Type  exStyle
+    const Win33::Point&              position,
+    const Win33::Size&               size,
+          Win33::WindowStyle::Type   style,
+          Win33::ExWindowStyle::Type exStyle
 ):
-Platform     ( Type::Window, nullptr, position, size, style, exStyle ),
+Platform     ( Win33::Platform::Type::Window, nullptr, position, size, style, exStyle ),
 mResizable   ( ( style & WS_THICKFRAME  ) != 0 ),
 mMaximizable ( ( style & WS_MAXIMIZEBOX ) != 0 ),
 mMinimizable ( ( style & WS_MINIMIZEBOX ) != 0 ),
-mIcon        ( L"" )
+mTitle       ( L"" )
 { }
 Win33::Window::Window(
-          Window*             parent,
-    const Point&              position,
-    const Size&               size,
-          WindowStyle::Type   style,
-          ExWindowStyle::Type exStyle
+          Win33::Window*             parent,
+    const Win33::Point&              position,
+    const Win33::Size&               size,
+          Win33::WindowStyle::Type   style,
+          Win33::ExWindowStyle::Type exStyle
 ):
-Platform     ( Type::Window, parent, position, size, style, exStyle ),
+Platform     ( Win33::Platform::Type::Window, parent, position, size, style, exStyle ),
 mResizable   ( ( style & WS_THICKFRAME  ) != 0 ),
 mMaximizable ( ( style & WS_MAXIMIZEBOX ) != 0 ),
 mMinimizable ( ( style & WS_MINIMIZEBOX ) != 0 ),
-mIcon        ( L"" )
+mTitle       ( L"" )
 {
     assert( mParent != nullptr );
 }
@@ -42,7 +46,7 @@ onRightClick ( std::move( other.onRightClick ) ),
 mResizable   ( other.mResizable ),
 mMaximizable ( other.mMaximizable ),
 mMinimizable ( other.mMinimizable ),
-mIcon        ( std::move( other.mIcon ) )
+mTitle       ( std::move( other.mTitle ) )
 { }
 Win33::Window& Win33::Window::operator=( Window&& other ) {
     Platform::operator=( std::move( other ) );
@@ -54,7 +58,7 @@ Win33::Window& Win33::Window::operator=( Window&& other ) {
     mResizable   = other.mResizable;
     mMaximizable = other.mMaximizable;
     mMinimizable = other.mMinimizable;
-    mIcon        = std::move( other.mIcon );
+    mTitle       = std::move( other.mTitle );
     return *this;
 }
 
@@ -79,16 +83,14 @@ void Win33::Window::toggleVisibility( ) {
 Win33::Window* Win33::Window::getParent( ) const {
     return static_cast<Win33::Window*>( mParent );
 }
-std::wstring Win33::Window::getTitle( ) const {
-    static wchar_t t[256];
-    GetWindowText( mHandle, t, 256 );
-    return std::wstring( t );
+const std::wstring& Win33::Window::getTitle( ) const {
+    static wchar_t text[256];
+    GetWindowText( mHandle, text, 256 );
+    Win33::Utility::mutate( const_cast<std::wstring*>( &mTitle ), text );
+    return mTitle;
 }
 bool Win33::Window::getResizable( ) const {
     return mResizable;
-}
-const std::wstring& Win33::Window::getIcon( ) const {
-    return mIcon;
 }
 bool Win33::Window::getMaximizable( ) const {
     return mMaximizable;
@@ -111,9 +113,8 @@ void Win33::Window::setResizable( bool resizable ) {
 }
 void Win33::Window::setIcon( const std::wstring& icon ) {
     assert( icon != L"" );
-    mIcon = icon;
     auto handle = static_cast<HICON>(
-        LoadImage( nullptr, mIcon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
+        LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
     );
     SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( handle ) );
 }

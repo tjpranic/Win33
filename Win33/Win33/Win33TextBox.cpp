@@ -25,6 +25,9 @@ Control(
 mReadOnly( false )
 {
     setText( text );
+    
+    //auto font = CreateFont( 48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact") );
+    //SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( font ), MAKELPARAM( TRUE, 0 ) );
 }
 Win33::TextBox::TextBox( TextBox&& other )
 :

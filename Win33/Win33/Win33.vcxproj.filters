@@ -117,6 +117,9 @@
     <ClCompile Include="Win33Interop.cpp">
       <Filter>Win33\Interop</Filter>
     </ClCompile>
+    <ClCompile Include="Win33Utility.cpp">
+      <Filter>Win33\Utility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win33Window.h">

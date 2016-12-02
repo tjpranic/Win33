@@ -6,9 +6,6 @@
 
 namespace Win33 {
     
-    const Win33::Point DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
-    const Win33::Size  DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
-    
     class Window : public Platform {
     public:
         Window            ( )                      = delete;
@@ -18,23 +15,25 @@ namespace Win33 {
         Window& operator= (       Window&& other );
         virtual ~Window   ( )                      = default;
         
+        static const Win33::Point DefaultPosition;
+        static const Win33::Size  DefaultSize;
+        
         void close( );
         void minimize( );
         void maximize( );
         void toggleVisibility( );
         
-              Win33::Window*      getParent( )      const;
-              std::wstring        getTitle( )       const;
-              bool                getResizable( )   const;
-        const std::wstring&       getIcon( )        const;
-              bool                getMaximizable( ) const;
-              bool                getMinimizable( ) const;
+              Win33::Window* getParent( )      const;
+        const std::wstring&  getTitle( )       const;
+              bool           getResizable( )   const;
+              bool           getMaximizable( ) const;
+              bool           getMinimizable( ) const;
         
-        void setTitle       ( const std::wstring&       title       );
-        void setResizable   (       bool                resizable   );
-        void setIcon        ( const std::wstring&       icon        );
-        void setMaximizable (       bool                maximizable );
-        void setMinimizable (       bool                minimizable );
+        void setTitle       ( const std::wstring& title       );
+        void setResizable   (       bool          resizable   );
+        void setIcon        ( const std::wstring& icon        );
+        void setMaximizable (       bool          maximizable );
+        void setMinimizable (       bool          minimizable );
         
         Win33::WindowEvents::Close      onClose;
         Win33::WindowEvents::Resize     onResize;
@@ -63,7 +62,7 @@ namespace Win33 {
         bool         mResizable;
         bool         mMaximizable;
         bool         mMinimizable;
-        std::wstring mIcon;
+        std::wstring mTitle;
     };
     
 };

@@ -103,6 +103,7 @@
     <ClCompile Include="Win33RadioButton.cpp" />
     <ClCompile Include="Win33System.cpp" />
     <ClCompile Include="Win33TextBox.cpp" />
+    <ClCompile Include="Win33Utility.cpp" />
     <ClCompile Include="Win33Window.cpp" />
   </ItemGroup>
   <ItemGroup>

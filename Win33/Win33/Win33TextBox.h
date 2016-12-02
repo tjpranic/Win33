@@ -6,9 +6,9 @@ namespace Win33 {
     
     namespace TextAlignment {
         enum Type {
-            Left   = EditStyle::Left,
-            Center = EditStyle::Center,
-            Right  = EditStyle::Right
+            Left   = Win33::EditStyle::Left,
+            Center = Win33::EditStyle::Center,
+            Right  = Win33::EditStyle::Right
         };
     };
     
