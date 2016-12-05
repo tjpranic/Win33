@@ -102,8 +102,8 @@ Win33::Menu& Win33::Menu::appendSubMenu( const std::wstring& text ) {
     mLastPosition++;
     return menu;
 }
-Win33::MenuItem& Win33::Menu::appendMenuItem( const std::wstring& text, bool checkable ) {
-    mMenuItems.emplace_back( Win33::MenuItem( this, text, checkable ) );
+Win33::MenuItem& Win33::Menu::appendMenuItem( const std::wstring& text ) {
+    mMenuItems.emplace_back( Win33::MenuItem( this, text ) );
     auto& menuItem = mMenuItems.back( );
     
     AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );

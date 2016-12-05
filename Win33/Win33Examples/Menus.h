@@ -24,29 +24,32 @@ public:
         fileMenu.appendSeparator( );
         auto& quit = fileMenu.appendMenuItem( L"&Quit" );
         
-        quit.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        quit.onClick += [&]( ) {
             close( );
         };
         
         auto& helpMenu = mMenuBar.appendMenu( L"&Help" );
         auto& miscMenu = helpMenu.appendSubMenu( L"&Misc." );
-        miscMenu.appendMenuItem( L"Go to website" );
-        miscMenu.appendMenuItem( L"Leave feedback" );
+        auto& website  = miscMenu.appendMenuItem( L"Go to website" );
+        auto& feedback = miscMenu.appendMenuItem( L"Leave feedback" );
         helpMenu.appendSeparator( );
         auto& about = helpMenu.appendMenuItem( L"&About" );
         
-        about.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        website.setEnabled  ( false );
+        feedback.setEnabled ( false );
+        
+        about.onClick += [&]( ) {
             Win33::PopupBox::information( L"This is a test." );
         };
         
         auto& greet = mContextMenu.appendMenuItem( L"Say hello" );
         mContextMenu.appendSeperator( );
-        auto& english = mContextMenu.appendMenuItem( L"English", true );
-        auto& espanol = mContextMenu.appendMenuItem( L"Espanol", true  );
+        auto& english = mContextMenu.appendMenuItem( L"English" );
+        auto& espanol = mContextMenu.appendMenuItem( L"Espanol"  );
         
         english.setChecked( true );
         
-        greet.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        greet.onClick += [&]( ) {
             switch( mLanguage ) {
                 case Language::English: {
                     Win33::PopupBox::exclamation( L"Hello, world!" );
@@ -61,13 +64,13 @@ public:
                 }
             }
         };
-        english.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        english.onClick += [&]( ) {
             mLanguage = Language::English;
             english.setChecked( true );
             espanol.setChecked( false );
             greet.setText( L"Say hello" );
         };
-        espanol.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        espanol.onClick += [&]( ) {
             mLanguage = Language::Espanol;
             english.setChecked( false );
             espanol.setChecked( true );

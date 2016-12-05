@@ -71,13 +71,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     auto menuID = static_cast<int>( wordParameter );
                     if( mMenuItems.find( menuID ) != mMenuItems.end( ) ) {
                         auto menuItem = mMenuItems[menuID];
-                        if( menuItem->getCheckable( ) ) {
-                            menuItem->setChecked     ( !menuItem->getChecked( ) );
-                            menuItem->onClick.handle ( Win33::MenuItemEvents::ClickData( menuItem->getChecked( ) ) );
-                        }
-                        else {
-                            menuItem->onClick.handle( Win33::MenuItemEvents::ClickData( false ) );
-                        }
+                        menuItem->onClick.handle( );
                     }
                     return true;
                 }

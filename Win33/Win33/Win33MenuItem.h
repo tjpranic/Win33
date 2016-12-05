@@ -22,30 +22,25 @@ namespace Win33 {
         
         void toggleChecked( );
         
-        const std::wstring& getText( )      const;
-              bool          getEnabled( )   const;
-              bool          getCheckable( ) const;
-              bool          getChecked( )   const;
+        const std::wstring& getText( )    const;
+              bool          getEnabled( ) const;
+              bool          getChecked( ) const;
         
-        void setText      ( const std::wstring& text      );
-        void setEnabled   (       bool          enabled   );
-        void setCheckable (       bool          checkable );
-        void setChecked   (       bool          checked   );
+        void setText    ( const std::wstring& text    );
+        void setEnabled (       bool          enabled );
+        void setChecked (       bool          checked );
         
         Win33::MenuItemEvents::Click onClick;
         
     private:
-        MenuItem( Win33::ContextMenu* contextMenu, const std::wstring& text, bool checkable = false );
-        MenuItem( Win33::Menu*        menu,        const std::wstring& text, bool checkable = false );
+        MenuItem( Win33::ContextMenu* contextMenu, const std::wstring& text );
+        MenuItem( Win33::Menu*        menu,        const std::wstring& text );
         
         static int generateID( );
         
         HMENU        mParent;
         int          mID;
         std::wstring mText;
-        bool         mCheckable;
-        bool         mEnabled;
-        bool         mChecked;
     };
     
 };

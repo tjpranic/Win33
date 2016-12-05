@@ -18,7 +18,7 @@ namespace Win33 {
         
         void      appendSeperator ( );
         Menu&     appendMenu      ( const std::wstring& text );
-        MenuItem& appendMenuItem  ( const std::wstring& text, bool checkable = false );
+        MenuItem& appendMenuItem  ( const std::wstring& text );
         
         friend HMENU Win33::Interop::toHandle( Win33::ContextMenu* contextMenu );
         
