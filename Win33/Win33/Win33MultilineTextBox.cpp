@@ -4,7 +4,7 @@ Win33::MultilineTextBox::MultilineTextBox(
           Win33::Window*         parent,
     const Win33::Point&          position,
     const Win33::Size&           size,
-          Win33::ScrollBar::Type scrollBar,
+          Win33::EditStyle::Type style,
     const std::wstring&          text
 ):
 Control(
@@ -17,8 +17,7 @@ Control(
         Win33::WindowStyle::Child   |
         Win33::EditStyle::Left      |
         Win33::EditStyle::Multiline |
-        ( scrollBar == Win33::ScrollBar::Vertical   || scrollBar == Win33::ScrollBar::Both ? ( Win33::EditStyle::AutoVerticalScroll   | Win33::WindowStyle::VerticalScroll   ) : 0 ) |
-        ( scrollBar == Win33::ScrollBar::Horizontal || scrollBar == Win33::ScrollBar::Both ? ( Win33::EditStyle::AutoHorizontalScroll | Win33::WindowStyle::HorizontalScroll ) : 0 )
+        style
     ),
     Win33::ExWindowStyle::ClientEdge
 ) {

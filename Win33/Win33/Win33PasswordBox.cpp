@@ -1,10 +1,10 @@
 #include "Win33PasswordBox.h"
 
 Win33::PasswordBox::PasswordBox(
-          Win33::Window* parent,
-    const Win33::Point&  position,
-    const Win33::Size&   size,
-          wchar_t        passwordCharacter
+          Win33::Window*         parent,
+    const Win33::Point&          position,
+    const Win33::Size&           size,
+          Win33::EditStyle::Type style
 ):
 Control(
     Win33::Platform::Type::PasswordBox,
@@ -16,12 +16,12 @@ Control(
         Win33::WindowStyle::Child              |
         Win33::EditStyle::Left                 |
         Win33::EditStyle::Password             |
-        Win33::EditStyle::AutoHorizontalScroll
+        Win33::EditStyle::AutoHorizontalScroll |
+        style
     ),
     Win33::ExWindowStyle::ClientEdge
-) {
-    setPasswordCharacter( passwordCharacter );
-}
+)
+{ }
 Win33::PasswordBox::PasswordBox( PasswordBox&& other )
 :
 Control( std::move( other ) )

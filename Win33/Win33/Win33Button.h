@@ -9,10 +9,11 @@ namespace Win33 {
     public:
         Button( ) = delete;
         Button(
-                  Win33::Window* parent,
-            const Win33::Point&  position,
-            const Win33::Size&   size,
-            const std::wstring&  text
+                  Win33::Window*           parent,
+            const Win33::Point&            position,
+            const Win33::Size&             size,
+            const std::wstring&            text,
+                  Win33::ButtonStyle::Type style = static_cast<Win33::ButtonStyle::Type>( 0 )
         );
         Button            ( const Button&  other ) = delete;
         Button            (       Button&& other );

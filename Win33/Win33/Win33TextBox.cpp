@@ -3,11 +3,11 @@
 #include <windowsx.h>
 
 Win33::TextBox::TextBox(
-          Win33::Window*             parent,
-    const Win33::Point&              position,
-    const Win33::Size&               size,
-    const std::wstring&              text,
-          Win33::TextAlignment::Type alignment
+          Win33::Window*         parent,
+    const Win33::Point&          position,
+    const Win33::Size&           size,
+    const std::wstring&          text,
+          Win33::EditStyle::Type style
 ):
 Control(
     Win33::Platform::Type::TextBox,
@@ -18,16 +18,13 @@ Control(
         Win33::WindowStyle::Tabstop            |
         Win33::WindowStyle::Child              |
         Win33::EditStyle::AutoHorizontalScroll |
-        alignment
+        style
     ),
     Win33::ExWindowStyle::ClientEdge
 ),
 mReadOnly( false )
 {
     setText( text );
-    
-    //auto font = CreateFont( 48,0,0,0,FW_DONTCARE,FALSE,TRUE,FALSE,DEFAULT_CHARSET,OUT_OUTLINE_PRECIS, CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY, VARIABLE_PITCH,TEXT("Impact") );
-    //SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( font ), MAKELPARAM( TRUE, 0 ) );
 }
 Win33::TextBox::TextBox( TextBox&& other )
 :

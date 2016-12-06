@@ -3,11 +3,12 @@
 #include <windowsx.h>
 
 Win33::CheckBox::CheckBox(
-          Win33::Window* parent,
-    const Win33::Point&  position,
-    const Win33::Size&   size,
-    const std::wstring&  text,
-          bool           checked
+          Win33::Window*           parent,
+    const Win33::Point&            position,
+    const Win33::Size&             size,
+    const std::wstring&            text,
+          bool                     checked,
+          Win33::ButtonStyle::Type style
 ):
 Control(
     Win33::Platform::Type::CheckBox,
@@ -17,7 +18,8 @@ Control(
     static_cast<Win33::WindowStyle::Type>(
         Win33::WindowStyle::Tabstop      |
         Win33::WindowStyle::Child        |
-        Win33::ButtonStyle::AutoCheckBox
+        Win33::ButtonStyle::AutoCheckBox |
+        style
     )
 ) {
     setText    ( text );

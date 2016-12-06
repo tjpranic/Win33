@@ -9,10 +9,7 @@
 #include <Win33PopupBox.h>
 #include <Win33Utility.h>
 
-#include "String.h"
-
 //TODO: find a way to incorporate win32 resources like icons and fonts
-//TODO: finish controls example
 //TODO: finish calculator
 //TODO? add event datas to all events
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {

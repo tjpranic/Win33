@@ -3,12 +3,13 @@
 #include <windowsx.h>
 
 Win33::RadioButton::RadioButton(
-          Win33::Window* parent,
-    const Win33::Point&  position,
-    const Win33::Size&   size,
-    const std::wstring&  text,
-          bool           selected,
-          bool           group
+          Win33::Window*           parent,
+    const Win33::Point&            position,
+    const Win33::Size&             size,
+    const std::wstring&            text,
+          bool                     selected,
+          bool                     group,
+          Win33::ButtonStyle::Type style
 ):
 Control(
     Win33::Platform::Type::RadioButton,
@@ -19,6 +20,7 @@ Control(
         Win33::WindowStyle::Tabstop         |
         Win33::WindowStyle::Child           |
         Win33::ButtonStyle::AutoRadioButton |
+        style                               |
         ( group ? Win33::WindowStyle::Group : 0 )
     )
 ) {

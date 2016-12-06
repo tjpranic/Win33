@@ -1,10 +1,11 @@
 #include "Win33GroupBox.h"
 
 Win33::GroupBox::GroupBox(
-          Win33::Window* parent,
-    const Win33::Point&  position,
-    const Win33::Size&   size,
-    const std::wstring&  title
+          Win33::Window*     parent,
+    const Win33::Point&      position,
+    const Win33::Size&       size,
+    const std::wstring&      title,
+    Win33::ButtonStyle::Type style
 ):
 Control(
     Win33::Platform::Type::GroupBox,
@@ -13,7 +14,8 @@ Control(
     size,
     static_cast<Win33::WindowStyle::Type>(
         Win33::WindowStyle::Child    |
-        Win33::ButtonStyle::GroupBox
+        Win33::ButtonStyle::GroupBox |
+        style
     )
 ),
 mTitle( title )

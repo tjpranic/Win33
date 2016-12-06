@@ -47,4 +47,5 @@ namespace Win33 {
         std::list<Win33::Menu>     mSubMenus;
         std::list<Win33::MenuItem> mMenuItems;
     };
+    
 };

@@ -4,23 +4,15 @@
 
 namespace Win33 {
     
-    namespace TextAlignment {
-        enum Type {
-            Left   = Win33::EditStyle::Left,
-            Center = Win33::EditStyle::Center,
-            Right  = Win33::EditStyle::Right
-        };
-    };
-    
     class TextBox : public Control {
     public:
         TextBox( ) = delete;
         TextBox(
-                  Win33::Window*             parent,
-            const Win33::Point&              position,
-            const Win33::Size&               size,
-            const std::wstring&              text      = L"",
-                  Win33::TextAlignment::Type alignment = Win33::TextAlignment::Left
+                  Win33::Window*         parent,
+            const Win33::Point&          position,
+            const Win33::Size&           size,
+            const std::wstring&          text  = L"",
+                  Win33::EditStyle::Type style = Win33::EditStyle::Left
         );
         TextBox            ( const TextBox&  other ) = delete;
         TextBox            (       TextBox&& other );

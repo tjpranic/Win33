@@ -3,7 +3,7 @@
 CalculatorWindow::CalculatorWindow( )
 :
 Win33::Window ( Win33::Window::DefaultPosition, { 306, 243 } ),
-mResult       ( this, {  11,  10 }, { 270, 20 }, L"", Win33::TextAlignment::Right ),
+mResult       ( this, {  11,  10 }, { 270, 20 }, L"", Win33::EditStyle::Right ),
 mOne          ( this, {  10,  35 }, {  50, 50 }, L"1" ),
 mTwo          ( this, {  65,  35 }, {  50, 50 }, L"2" ),
 mThree        ( this, { 120,  35 }, {  50, 50 }, L"3" ),
@@ -24,50 +24,50 @@ mClear        ( this, { 230, 145 }, {  50, 50 }, L"C" )
     setResizable   ( false );
     setMaximizable ( false );
     setMinimizable ( false );
-        
+    
     mResult.setReadOnly( true );
-        
+    
     mOne.onClick += [&]( ) {
-            
+        
     };
     mTwo.onClick += [&]( ) {
-            
+         
     };
     mThree.onClick += [&]( ) {
-            
+       
     };
     mFour.onClick += [&]( ) {
-            
+        
     };
     mFive.onClick += [&]( ) {
-            
+        
     };
     mSix.onClick += [&]( ) {
-            
+        
     };
     mSeven.onClick += [&]( ) {
-            
+        
     };
     mEight.onClick += [&]( ) {
-            
+        
     };
     mNine.onClick += [&]( ) {
-            
-    };
         
+    };
+    
     mAdd.onClick += [&]( ) {
-            
+        
     };
     mSubtract.onClick += [&]( ) {
-            
+        
     };
     mMultiply.onClick += [&]( ) {
-            
+        
     };
     mDivide.onClick += [&]( ) {
-            
-    };
         
+    };
+    
     mClear.onClick += [&]( ) {
         mResult.setText( L"" );
     };

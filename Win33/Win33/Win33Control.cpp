@@ -13,7 +13,7 @@ Win33::Control::Control(
           Win33::ExWindowStyle::Type exStyle
 ):
 Platform ( type, parent, position, size, style, exStyle ),
-mAnchor  ( Win33::Anchor::All ),
+mAnchor  ( Win33::Anchor::TopLeft ),
 mText    ( L"" )
 {
     assert( parent != nullptr );
@@ -23,6 +23,9 @@ mText    ( L"" )
         switch( mAnchor ) {
             case Win33::Anchor::All: {
                 SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ) + dy, SWP_NOMOVE );
+                break;
+            }
+            case Win33::Anchor::TopLeft: {
                 break;
             }
             case Win33::Anchor::TopLeftRight: {

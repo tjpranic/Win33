@@ -25,8 +25,7 @@ Win33::Application::Application( ) {
     }
     mInstance = this;
     
-    WNDCLASSEX wcex    = { };
-    wcex.cbSize        = sizeof( WNDCLASSEX );
+    WNDCLASSEX wcex    = { sizeof( WNDCLASSEX ) };
     wcex.style         = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc   = &Win33::Application::windowProcessor;
     wcex.cbClsExtra    = 0;

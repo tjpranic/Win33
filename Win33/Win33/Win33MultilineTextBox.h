@@ -11,8 +11,8 @@ namespace Win33 {
                   Win33::Window*         parent,
             const Win33::Point&          position,
             const Win33::Size&           size,
-                  Win33::ScrollBar::Type scrollBar = Win33::ScrollBar::None,
-            const std::wstring&          text      = L""
+                  Win33::EditStyle::Type style = static_cast<Win33::EditStyle::Type>( 0 ),
+            const std::wstring&          text  = L""
         );
         MultilineTextBox            ( const MultilineTextBox&  other ) = delete;
         MultilineTextBox            (       MultilineTextBox&& other );

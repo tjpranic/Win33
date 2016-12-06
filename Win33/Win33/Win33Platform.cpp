@@ -4,14 +4,6 @@
 #include "Win33System.h"
 #include "Win33Utility.h"
 
-void updatePositionProperty( int x, int y, Win33::Point* property ) {
-    *property = Win33::Point( x, y );
-}
-void updateSizeProperty( int width, int height, Win33::Size* property ) {
-    *property = Win33::Size( width, height );
-}
-
-
 Win33::Platform::Platform(
           Win33::Platform::Type      type,
           Win33::Platform*           parent,

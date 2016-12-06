@@ -9,6 +9,7 @@ namespace Win33 {
     namespace Anchor {
         enum Type {
             All,
+            TopLeft,
             TopLeftRight,
             TopLeftBottom,
             LeftRightBottom,
@@ -16,14 +17,6 @@ namespace Win33 {
             TopRight,
             LeftBottom,
             RightBottom
-        };
-    };
-    namespace ScrollBar {
-        enum Type {
-            None,
-            Vertical,
-            Horizontal,
-            Both
         };
     };
     
