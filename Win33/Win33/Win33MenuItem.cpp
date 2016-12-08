@@ -11,7 +11,7 @@ int Win33::MenuItem::generateID( ) {
 Win33::MenuItem::MenuItem( Win33::ContextMenu* contextMenu, const std::wstring& text )
 :
 mParent ( Win33::Interop::toHandle( contextMenu ) ),
-mID     ( generateID( ) ),
+mID     ( Win33::MenuItem::generateID( ) ),
 mText   ( text )
 {
     Win33::Application::mMenuItems[mID] = this;
@@ -19,7 +19,7 @@ mText   ( text )
 Win33::MenuItem::MenuItem( Win33::Menu* menu, const std::wstring& text )
 :
 mParent ( Win33::Interop::toHandle( menu ) ),
-mID     ( generateID( ) ),
+mID     ( Win33::MenuItem::generateID( ) ),
 mText   ( text )
 {
     Win33::Application::mMenuItems[mID] = this;

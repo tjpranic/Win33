@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Win33Menu.h"
+#include "Win33Window.h"
 #include "Win33System.h"
 
 namespace Win33 {

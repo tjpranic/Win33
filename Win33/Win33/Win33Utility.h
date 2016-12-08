@@ -13,8 +13,10 @@ namespace Win33 {
             *property = T( args... );
         }
         
-        std::wstring widen( const std::string& string );
-        std::wstring widen( const char*        string );
+        std::string  narrow ( const std::wstring& string );
+        std::string  narrow ( const wchar_t*      string );
+        std::wstring widen  ( const std::string&  string );
+        std::wstring widen  ( const char*         string );
         
         template<typename... A>
         static std::wstring format( const wchar_t* string, const A&... args ) {

@@ -2,6 +2,7 @@
 
 #include "Win33Application.h"
 #include "Win33Window.h"
+#include "Win33Utility.h"
 
 Win33::ContextMenu::ContextMenu( Win33::Window* window )
 :
@@ -46,7 +47,7 @@ void Win33::ContextMenu::appendSeperator( ) {
     mLastPosition++;
 }
 Win33::Menu& Win33::ContextMenu::appendMenu( const std::wstring& text ) {
-    mMenus.emplace_back( Win33::Menu( this, mLastPosition, text ) );
+    mMenus.push_back( std::move( Win33::Menu( this, mLastPosition, text ) ) );
     auto& menu = mMenus.back( );
     
     AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( Win33::Interop::toHandle( &menu ) ), text.c_str( ) );
@@ -55,7 +56,7 @@ Win33::Menu& Win33::ContextMenu::appendMenu( const std::wstring& text ) {
     return menu;
 }
 Win33::MenuItem& Win33::ContextMenu::appendMenuItem( const std::wstring& text ) {
-    mMenuItems.emplace_back( Win33::MenuItem( this, text ) );
+    mMenuItems.push_back( std::move( Win33::MenuItem( this, text ) ) );
     auto& menuItem = mMenuItems.back( );
     
     AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );

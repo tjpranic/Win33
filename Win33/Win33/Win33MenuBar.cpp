@@ -35,7 +35,7 @@ Win33::MenuBar& Win33::MenuBar::operator=( MenuBar&& other ) {
 }
 
 Win33::Menu& Win33::MenuBar::appendMenu( const std::wstring& text ) {
-    mMenus.emplace_back( Win33::Menu( this, mLastPosition, text ) );
+    mMenus.push_back( std::move( Win33::Menu( this, mLastPosition, text ) ) );
     auto& menu = mMenus.back( );
     
     AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( Win33::Interop::toHandle( &menu ) ), text.c_str( ) );

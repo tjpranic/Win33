@@ -18,9 +18,9 @@ int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR comma
         //return MultipleWindowsApplication( ).run( );
         //return HiddenWindowApplication( ).run( );
         //return MultipleTrayIconsApplication( ).run( );
-        //return MenusApplication( ).run( );
+        return MenusApplication( ).run( );
         //return DialogApplication( ).run( );
-        return ControlsApplication( ).run( );
+        //return ControlsApplication( ).run( );
     }
     catch( const std::exception& ex ) {
         Win33::PopupBox::error( Win33::Utility::widen( ex.what( ) ) );
