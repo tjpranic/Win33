@@ -46,6 +46,9 @@
     <Filter Include="Win33\Interop">
       <UniqueIdentifier>{d0345337-1dbf-410c-a309-e7e4a9a18ec9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Win33\Resource">
+      <UniqueIdentifier>{1b94c6ae-6972-4f97-8091-13c70b42a169}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Win33Application.cpp">
@@ -119,6 +122,12 @@
     </ClCompile>
     <ClCompile Include="Win33Utility.cpp">
       <Filter>Win33\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33Font.cpp">
+      <Filter>Win33\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33Icon.cpp">
+      <Filter>Win33\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +229,12 @@
     </ClInclude>
     <ClInclude Include="Win33Utility.h">
       <Filter>Win33\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33Font.h">
+      <Filter>Win33\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33Icon.h">
+      <Filter>Win33\Resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -81,6 +81,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Win33Font.cpp" />
+    <ClCompile Include="Win33Icon.cpp" />
     <ClCompile Include="Win33Interop.cpp" />
     <ClCompile Include="Win33TrayIcon.cpp" />
     <ClCompile Include="Win33Application.cpp" />
@@ -107,6 +109,8 @@
     <ClCompile Include="Win33Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Win33Font.h" />
+    <ClInclude Include="Win33Icon.h" />
     <ClInclude Include="Win33Interop.h" />
     <ClInclude Include="Win33TrayIcon.h" />
     <ClInclude Include="Win33Application.h" />

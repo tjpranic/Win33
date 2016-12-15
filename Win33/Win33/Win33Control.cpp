@@ -127,3 +127,6 @@ void Win33::Control::setX( int x ) {
 void Win33::Control::setY( int y ) {
     Platform::setY( y );
 }
+void Win33::Control::setFont( const Win33::Font* font ) {
+    SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( Win33::Interop::toHandle( font ) ), MAKELPARAM( TRUE, 0 ) );
+}

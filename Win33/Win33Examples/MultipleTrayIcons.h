@@ -4,12 +4,15 @@
 #include <Win33Window.h>
 #include <Win33TrayIcon.h>
 
+const Win33::Icon TestIcon1 = Win33::Icon( L"TestIcon1.ico" );
+const Win33::Icon TestIcon2 = Win33::Icon( L"TestIcon2.ico" );
+
 class FirstTrayIconWindow : public Win33::Window {
 public:
     FirstTrayIconWindow( )
     :
     Win33::Window  ( Win33::Window::DefaultPosition, { 640, 480 } ),
-    mFirstTrayIcon ( this, L"TestIcon1.ico", L"FirstTrayIcon" )
+    mFirstTrayIcon ( this, &TestIcon1, L"FirstTrayIcon" )
     {
         setTitle( L"FirstWindow" );
         
@@ -30,7 +33,7 @@ public:
     SecondTrayIconWindow( )
     :
     Win33::Window   ( Win33::Window::DefaultPosition, { 640, 480 } ),
-    mSecondTrayIcon ( this, L"TestIcon2.ico", L"SecondTrayIcon" )
+    mSecondTrayIcon ( this, &TestIcon2, L"SecondTrayIcon" )
     {
         setTitle( L"SecondWindow" );
         

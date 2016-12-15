@@ -1,9 +1,5 @@
 #include "Win33ContextMenu.h"
 
-#include "Win33Application.h"
-#include "Win33Window.h"
-#include "Win33Utility.h"
-
 Win33::ContextMenu::ContextMenu( Win33::Window* window )
 :
 mLastPosition ( 0 ),

@@ -1,8 +1,5 @@
 #include "Win33Menu.h"
 
-#include "Win33Application.h"
-#include "Win33Utility.h"
-
 Win33::Menu::Menu( Win33::ContextMenu* contextMenu, int position,  const std::wstring& text )
 :
 mLastPosition ( 0 ),

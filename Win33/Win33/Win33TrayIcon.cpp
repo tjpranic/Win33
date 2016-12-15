@@ -12,11 +12,11 @@ int Win33::TrayIcon::generateID( ) {
 
 Win33::TrayIcon::TrayIcon(
           Win33::Window* window,
-    const std::wstring&  icon,
+    const Win33::Icon*   icon,
     const std::wstring&  tooltip
 ) {
     assert( window != nullptr );
-    assert( icon   != L""     );
+    //assert( icon   != L""     );
     assert( tooltip.length( ) <= 128 );
     
     mNID                  = { sizeof( NOTIFYICONDATA ) };
@@ -24,7 +24,7 @@ Win33::TrayIcon::TrayIcon(
     mNID.uID              = generateID( );
     mNID.uFlags           = NIF_MESSAGE | NIF_ICON | NIF_TIP;
     mNID.uCallbackMessage = WM_TRAYICON;
-    mNID.hIcon            = static_cast<HICON>( LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED ) );
+    mNID.hIcon            = Win33::Interop::toHandle( icon ); //static_cast<HICON>( LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED ) );
     
     for( auto i = 0; i != tooltip.size( ); ++i ) {
         mNID.szTip[i] = tooltip[i];
@@ -58,9 +58,10 @@ Win33::TrayIcon& Win33::TrayIcon::operator=( TrayIcon&& other ) {
     return *this;
 }
 
-void Win33::TrayIcon::setIcon( const std::wstring& icon ) {
-    assert( icon != L"" );
-    mNID.hIcon = static_cast<HICON>( LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED ) );
+void Win33::TrayIcon::setIcon( const Win33::Icon* icon ) {
+    //assert( icon != L"" );
+    //mNID.hIcon = static_cast<HICON>( LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED ) );
+    mNID.hIcon = Win33::Interop::toHandle( icon );
     Shell_NotifyIcon( NIM_MODIFY, &mNID );
 }
 void Win33::TrayIcon::setTooltip( const std::wstring& tooltip ) {

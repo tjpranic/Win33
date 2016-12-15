@@ -3,6 +3,7 @@
 #include "Win33Platform.h"
 #include "Win33Window.h"
 #include "Win33Interop.h"
+#include "Win33Font.h"
 
 namespace Win33 {
     
@@ -39,8 +40,9 @@ namespace Win33 {
         void setText   ( const std::wstring&       text   );
         void setX      (       int                 x      );
         void setY      (       int                 y      );
+        void setFont   ( const Win33::Font*        font   );
         
-        friend HWND Win33::Interop::toHandle( Win33::Control* control );
+        friend HWND Win33::Interop::toHandle( const Win33::Control* control );
         
     protected:
         Control(

@@ -41,7 +41,7 @@ namespace Win33 {
         Win33::WindowEvents::LeftClick  onLeftClick;
         Win33::WindowEvents::RightClick onRightClick;
         
-        friend HWND Win33::Interop::toHandle( Win33::Window* window );
+        friend HWND Win33::Interop::toHandle( const Win33::Window* window );
         
     protected:
         Window(

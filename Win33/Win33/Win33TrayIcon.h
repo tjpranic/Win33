@@ -2,6 +2,7 @@
 
 #include "Win33Window.h"
 #include "Win33TrayIconEvents.h"
+#include "Win33Icon.h"
 
 #define WM_TRAYICON ( WM_USER + 0x01 )
 
@@ -11,7 +12,7 @@ namespace Win33 {
     public:
         TrayIcon(
                   Win33::Window* window,
-            const std::wstring&  icon,
+            const Win33::Icon*   icon,
             const std::wstring&  tooltip
         );
         TrayIcon            ( const TrayIcon&  other ) = delete;
@@ -20,7 +21,7 @@ namespace Win33 {
         TrayIcon& operator= (       TrayIcon&& other );
         ~TrayIcon           ( )                        = default;
         
-        void setIcon    ( const std::wstring& icon    );
+        void setIcon    ( const Win33::Icon*  icon    );
         void setTooltip ( const std::wstring& tooltip );
         
         Win33::TrayIconEvents::LeftClick  onLeftClick;

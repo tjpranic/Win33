@@ -9,14 +9,18 @@ namespace Win33 {
     class ContextMenu;
     class MenuBar;
     class Menu;
+    class Font;
+    class Icon;
     
     namespace Interop {
         
-        HWND  toHandle( Win33::Window*      window      );
-        HWND  toHandle( Win33::Control*     control     );
-        HMENU toHandle( Win33::ContextMenu* contextMenu );
-        HMENU toHandle( Win33::MenuBar*     menuBar     );
-        HMENU toHandle( Win33::Menu*        menu        );
+        HWND  toHandle( const Win33::Window*      window      );
+        HWND  toHandle( const Win33::Control*     control     );
+        HMENU toHandle( const Win33::ContextMenu* contextMenu );
+        HMENU toHandle( const Win33::MenuBar*     menuBar     );
+        HMENU toHandle( const Win33::Menu*        menu        );
+        HFONT toHandle( const Win33::Font*        font        );
+        HICON toHandle( const Win33::Icon*        icon        );
         
     };
     

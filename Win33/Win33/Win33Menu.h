@@ -31,7 +31,7 @@ namespace Win33 {
         Menu&     appendSubMenu   ( const std::wstring& text );
         MenuItem& appendMenuItem  ( const std::wstring& text );
         
-        friend HMENU Win33::Interop::toHandle( Win33::Menu* menu );
+        friend HMENU Win33::Interop::toHandle( const Win33::Menu* menu );
         
     private:
         Menu( Win33::ContextMenu* contextMenu, int position, const std::wstring& text );
