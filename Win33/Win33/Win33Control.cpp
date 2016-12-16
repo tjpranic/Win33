@@ -5,12 +5,12 @@
 #include "Win33Utility.h"
 
 Win33::Control::Control(
-          Win33::Platform::Type      type,
-          Win33::Window*             parent,
-    const Win33::Point&              position,
-    const Win33::Size&               size,
-          Win33::WindowStyle::Type   style,
-          Win33::ExWindowStyle::Type exStyle
+          Win33::Platform::Type type,
+          Win33::Window*        parent,
+    const Win33::Point&         position,
+    const Win33::Size&          size,
+          Win33::WindowStyle    style,
+          Win33::ExWindowStyle  exStyle
 ):
 Platform ( type, parent, position, size, style, exStyle ),
 mAnchor  ( Win33::Anchor::TopLeft ),
@@ -83,7 +83,7 @@ Win33::Control& Win33::Control::operator=( Control&& other ) {
 Win33::Window* Win33::Control::getParent( ) const {
     return static_cast<Win33::Window*>( mParent );
 }
-Win33::Anchor::Type Win33::Control::getAnchor( ) const {
+Win33::Anchor Win33::Control::getAnchor( ) const {
     return mAnchor;
 }
 const std::wstring& Win33::Control::getText( ) const {
@@ -113,7 +113,7 @@ int Win33::Control::getY( ) const {
     return cr.top + p.y;
 }
 
-void Win33::Control::setAnchor( Win33::Anchor::Type anchor ) {
+void Win33::Control::setAnchor( Win33::Anchor anchor ) {
     mAnchor = anchor;
 }
 void Win33::Control::setText( const std::wstring& text ) {

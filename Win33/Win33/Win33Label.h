@@ -9,11 +9,11 @@ namespace Win33 {
     public:
         Label( ) = delete;
         Label(
-                  Win33::Window*           parent,
-            const Win33::Point&            position,
-            const Win33::Size&             size,
-            const std::wstring&            text  = L"",
-                  Win33::StaticStyle::Type style = Win33::StaticStyle::Left
+                  Win33::Window*     parent,
+            const Win33::Point&      position,
+            const Win33::Size&       size,
+            const std::wstring&      text  = L"",
+                  Win33::StaticStyle style = Win33::StaticStyle::Left
         );
         Label            ( const Label&  other ) = delete;
         Label            (       Label&& other );

@@ -8,10 +8,10 @@ namespace Win33 {
     public:
         PasswordBox( ) = delete;
         PasswordBox(
-                  Win33::Window*         parent,
-            const Win33::Point&          position,
-            const Win33::Size&           size,
-                  Win33::EditStyle::Type style = Win33::EditStyle::Left
+                  Win33::Window*   parent,
+            const Win33::Point&    position,
+            const Win33::Size&     size,
+                  Win33::EditStyle style = Win33::EditStyle::Left
         );
         PasswordBox            ( const PasswordBox&  other ) = delete;
         PasswordBox            (       PasswordBox&& other );

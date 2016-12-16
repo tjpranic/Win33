@@ -1,24 +1,19 @@
 #include "Win33PasswordBox.h"
 
+#include "Win33BitfieldOperators.h"
+
 Win33::PasswordBox::PasswordBox(
-          Win33::Window*         parent,
-    const Win33::Point&          position,
-    const Win33::Size&           size,
-          Win33::EditStyle::Type style
+          Win33::Window*   parent,
+    const Win33::Point&    position,
+    const Win33::Size&     size,
+          Win33::EditStyle style
 ):
 Control(
     Win33::Platform::Type::PasswordBox,
     parent,
     position,
     size,
-    static_cast<Win33::WindowStyle::Type>(
-        Win33::WindowStyle::Tabstop            |
-        Win33::WindowStyle::Child              |
-        Win33::EditStyle::Left                 |
-        Win33::EditStyle::Password             |
-        Win33::EditStyle::AutoHorizontalScroll |
-        style
-    ),
+    Win33::WindowStyle::Tabstop | Win33::WindowStyle::Child | Win33::EditStyle::Left | Win33::EditStyle::Password | Win33::EditStyle::AutoHorizontalScroll | style,
     Win33::ExWindowStyle::ClientEdge
 )
 { }

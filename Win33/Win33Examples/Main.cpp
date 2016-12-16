@@ -9,7 +9,6 @@
 #include <Win33PopupBox.h>
 #include <Win33Utility.h>
 
-//TODO: replace enums with enum classes
 //TODO: finish calculator
 //TODO? add event datas to all events
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {

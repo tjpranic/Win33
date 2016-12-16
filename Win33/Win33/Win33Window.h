@@ -45,17 +45,17 @@ namespace Win33 {
         
     protected:
         Window(
-            const Win33::Point&              position,
-            const Win33::Size&               size,
-                  Win33::WindowStyle::Type   style   = Win33::WindowStyle::OverlappedWindow,
-                  Win33::ExWindowStyle::Type exStyle = Win33::ExWindowStyle::NoExWindowStyle
+            const Win33::Point&        position,
+            const Win33::Size&         size,
+                  Win33::WindowStyle   style   = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::NoExWindowStyle
         );
         Window(
-                  Win33::Window*             parent,
-            const Win33::Point&              position,
-            const Win33::Size&               size,
-                  Win33::WindowStyle::Type   style   = Win33::WindowStyle::OverlappedWindow,
-                  Win33::ExWindowStyle::Type exStyle = Win33::ExWindowStyle::NoExWindowStyle
+                  Win33::Window*       parent,
+            const Win33::Point&        position,
+            const Win33::Size&         size,
+                  Win33::WindowStyle   style   = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::NoExWindowStyle
         );
         
     private:

@@ -1,5 +1,7 @@
 #include "Calculator.h"
 
+#include <algorithm>
+
 #include <Win33PopupBox.h>
 #include <Win33Utility.h>
 
@@ -17,13 +19,13 @@ mSeven        ( this, {  10, 155 }, {  50, 50 }, L"7" ),
 mEight        ( this, {  65, 155 }, {  50, 50 }, L"8" ),
 mNine         ( this, { 120, 155 }, {  50, 50 }, L"9" ),
 mZero         ( this, {  65, 210 }, {  50, 50 }, L"0" ),
+mDot          ( this, { 120, 210 }, {  50, 50 }, L"." ),
 mAdd          ( this, { 175,  45 }, {  50, 50 }, L"+" ),
 mSubtract     ( this, { 175, 100 }, {  50, 50 }, L"-" ),
 mMultiply     ( this, { 175, 155 }, {  50, 50 }, L"*" ),
 mDivide       ( this, { 175, 210 }, {  50, 50 }, L"/" ),
 mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" ),
-mClear        ( this, { 230, 155 }, {  50, 50 }, L"C" ),
-mDot          ( this, { 120, 210 }, {  50, 50 }, L"." )
+mClear        ( this, { 230, 155 }, {  50, 50 }, L"C" )
 {
     setTitle       ( L"Calculator" );
     setResizable   ( false );
@@ -53,55 +55,65 @@ mDot          ( this, { 120, 210 }, {  50, 50 }, L"." )
     mDot.setFont      ( &SegoeUI18 );
     
     mOne.onClick += [&]( ) {
-        
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"1" : mResult.getText( ) + L"1" );
     };
     mTwo.onClick += [&]( ) {
-         
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"2" : mResult.getText( ) + L"2" );
     };
     mThree.onClick += [&]( ) {
-       
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"3" : mResult.getText( ) + L"3" );
     };
     mFour.onClick += [&]( ) {
-        
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"4" : mResult.getText( ) + L"4" );
     };
     mFive.onClick += [&]( ) {
-        
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"5" : mResult.getText( ) + L"5" );
     };
     mSix.onClick += [&]( ) {
-        
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"6" : mResult.getText( ) + L"6" );
     };
     mSeven.onClick += [&]( ) {
-        
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"7" : mResult.getText( ) + L"7" );
     };
     mEight.onClick += [&]( ) {
-        
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"8" : mResult.getText( ) + L"8" );
     };
     mNine.onClick += [&]( ) {
-        
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"9" : mResult.getText( ) + L"9" );
     };
     mZero.onClick += [&]( ) {
-        
-    };
-    mAdd.onClick += [&]( ) {
-        
-    };
-    mSubtract.onClick += [&]( ) {
-        
-    };
-    mMultiply.onClick += [&]( ) {
-        
-    };
-    mDivide.onClick += [&]( ) {
-        
-    };
-    mEquals.onClick += [&]( ) {
-        
-    };
-    mClear.onClick += [&]( ) {
-        
+        if( mResult.getText( ) != L"0" ) {
+            mResult.setText( mResult.getText( ) + L"0" );
+        }
     };
     mDot.onClick += [&]( ) {
-        
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"." : mResult.getText( ) + L"." );
+    };
+    mAdd.onClick += [&]( ) {
+        if( mResult.getText( ) != L"0" ) {
+            mResult.setText( mResult.getText( ) + L" + " );
+        }
+    };
+    mSubtract.onClick += [&]( ) {
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"-" : mResult.getText( ) + L" - " );
+    };
+    mMultiply.onClick += [&]( ) {
+        if( mResult.getText( ) != L"0" ) {
+            mResult.setText( mResult.getText( ) + L" * " );
+        }
+    };
+    mDivide.onClick += [&]( ) {
+        if( mResult.getText( ) != L"0" ) {
+            mResult.setText( mResult.getText( ) + L" / " );
+        }
+    };
+    mEquals.onClick += [&]( ) {
+        double result = 0.0;
+        //...
+        mResult.setText( Win33::Utility::format( L"%g", result ) );
+    };
+    mClear.onClick += [&]( ) {
+        mResult.setText( L"0" );
     };
 }
 

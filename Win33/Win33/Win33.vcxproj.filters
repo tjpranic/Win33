@@ -227,14 +227,17 @@
     <ClInclude Include="Win33Interop.h">
       <Filter>Win33\Interop</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Utility.h">
-      <Filter>Win33\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Win33Font.h">
       <Filter>Win33\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Win33Icon.h">
       <Filter>Win33\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33BitfieldOperators.h">
+      <Filter>Win33\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33Utility.h">
+      <Filter>Win33\Utility</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

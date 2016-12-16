@@ -5,12 +5,12 @@
 #include "Win33Utility.h"
 
 Win33::Platform::Platform(
-          Win33::Platform::Type      type,
-          Win33::Platform*           parent,
-    const Win33::Point&              position,
-    const Win33::Size&               size,
-          Win33::WindowStyle::Type   style,
-          Win33::ExWindowStyle::Type exStyle
+          Win33::Platform::Type type,
+          Win33::Platform*      parent,
+    const Win33::Point&         position,
+    const Win33::Size&          size,
+          Win33::WindowStyle    style,
+          Win33::ExWindowStyle  exStyle
 ):
 mHandle          ( nullptr ),
 mType            ( type ),
@@ -51,10 +51,10 @@ mSize            ( size )
     }
     
     mHandle = CreateWindowEx(
-        exStyle,
+        static_cast<DWORD>( exStyle ),
         identifier,
         L"",
-        style,
+        static_cast<DWORD>( style ),
         position.getX( ),
         position.getY( ),
         size.getWidth( ),

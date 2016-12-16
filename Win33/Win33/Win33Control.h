@@ -7,18 +7,16 @@
 
 namespace Win33 {
     
-    namespace Anchor {
-        enum Type {
-            All,
-            TopLeft,
-            TopLeftRight,
-            TopLeftBottom,
-            LeftRightBottom,
-            TopRightBottom,
-            TopRight,
-            LeftBottom,
-            RightBottom
-        };
+    enum class Anchor : int {
+        All,
+        TopLeft,
+        TopLeftRight,
+        TopLeftBottom,
+        LeftRightBottom,
+        TopRightBottom,
+        TopRight,
+        LeftBottom,
+        RightBottom
     };
     
     class Control : public Platform {
@@ -30,33 +28,33 @@ namespace Win33 {
         Control& operator= (       Control&& other );
         virtual ~Control   ( )                       = default;
         
-              Win33::Window*      getParent( ) const;
-              Win33::Anchor::Type getAnchor( ) const;
-        const std::wstring&       getText( )   const;
-              int                 getX( )      const;
-              int                 getY( )      const;
+              Win33::Window* getParent( ) const;
+              Win33::Anchor  getAnchor( ) const;
+        const std::wstring&  getText( )   const;
+              int            getX( )      const;
+              int            getY( )      const;
         
-        void setAnchor (       Win33::Anchor::Type anchor );
-        void setText   ( const std::wstring&       text   );
-        void setX      (       int                 x      );
-        void setY      (       int                 y      );
-        void setFont   ( const Win33::Font*        font   );
+        void setAnchor (       Win33::Anchor anchor );
+        void setText   ( const std::wstring& text   );
+        void setX      (       int           x      );
+        void setY      (       int           y      );
+        void setFont   ( const Win33::Font*  font   );
         
         friend HWND Win33::Interop::toHandle( const Win33::Control* control );
         
     protected:
         Control(
-                  Win33::Platform::Type      type,
-                  Win33::Window*             parent,
-            const Win33::Point&              position,
-            const Win33::Size&               size,
-                  Win33::WindowStyle::Type   style,
-                  Win33::ExWindowStyle::Type exStyle = Win33::ExWindowStyle::NoExWindowStyle
+                  Win33::Platform::Type type,
+                  Win33::Window*        parent,
+            const Win33::Point&         position,
+            const Win33::Size&          size,
+                  Win33::WindowStyle    style,
+                  Win33::ExWindowStyle  exStyle = Win33::ExWindowStyle::NoExWindowStyle
         );
         
     private:
-        Win33::Anchor::Type mAnchor;
-        std::wstring        mText;
+        Win33::Anchor mAnchor;
+        std::wstring  mText;
     };
     
 };

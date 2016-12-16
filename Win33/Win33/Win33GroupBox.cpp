@@ -1,22 +1,20 @@
 #include "Win33GroupBox.h"
 
+#include "Win33BitfieldOperators.h"
+
 Win33::GroupBox::GroupBox(
-          Win33::Window*     parent,
-    const Win33::Point&      position,
-    const Win33::Size&       size,
-    const std::wstring&      title,
-    Win33::ButtonStyle::Type style
+          Win33::Window* parent,
+    const Win33::Point&  position,
+    const Win33::Size&   size,
+    const std::wstring&  title,
+    Win33::ButtonStyle   style
 ):
 Control(
     Win33::Platform::Type::GroupBox,
     parent,
     position,
     size,
-    static_cast<Win33::WindowStyle::Type>(
-        Win33::WindowStyle::Child    |
-        Win33::ButtonStyle::GroupBox |
-        style
-    )
+    Win33::WindowStyle::Child | Win33::ButtonStyle::GroupBox | style
 ),
 mTitle( title )
 {

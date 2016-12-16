@@ -9,12 +9,12 @@ namespace Win33 {
     public:
         CheckBox( ) = delete;
         CheckBox(
-                  Win33::Window*           parent,
-            const Win33::Point&            position,
-            const Win33::Size&             size,
-            const std::wstring&            text,
-                  bool                     checked = false,
-                  Win33::ButtonStyle::Type style   = static_cast<Win33::ButtonStyle::Type>( 0 )
+                  Win33::Window*     parent,
+            const Win33::Point&      position,
+            const Win33::Size&       size,
+            const std::wstring&      text,
+                  bool               checked = false,
+                  Win33::ButtonStyle style   = static_cast<Win33::ButtonStyle>( 0 )
         );
         CheckBox            ( const CheckBox&  other ) = delete;
         CheckBox            (       CheckBox&& other );

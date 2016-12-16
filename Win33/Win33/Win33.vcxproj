@@ -109,6 +109,7 @@
     <ClCompile Include="Win33Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Win33BitfieldOperators.h" />
     <ClInclude Include="Win33Font.h" />
     <ClInclude Include="Win33Icon.h" />
     <ClInclude Include="Win33Interop.h" />

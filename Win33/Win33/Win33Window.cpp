@@ -4,33 +4,34 @@
 
 #include "Win33Application.h"
 #include "Win33Utility.h"
+#include "Win33BitfieldOperators.h"
 
 const Win33::Point Win33::Window::DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
 const Win33::Size  Win33::Window::DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
 
 Win33::Window::Window(
-    const Win33::Point&              position,
-    const Win33::Size&               size,
-          Win33::WindowStyle::Type   style,
-          Win33::ExWindowStyle::Type exStyle
+    const Win33::Point&        position,
+    const Win33::Size&         size,
+          Win33::WindowStyle   style,
+          Win33::ExWindowStyle exStyle
 ):
 Platform     ( Win33::Platform::Type::Window, nullptr, position, size, style, exStyle ),
-mResizable   ( ( style & WS_THICKFRAME  ) != 0 ),
-mMaximizable ( ( style & WS_MAXIMIZEBOX ) != 0 ),
-mMinimizable ( ( style & WS_MINIMIZEBOX ) != 0 ),
+mResizable   ( style & Win33::WindowStyle::Thickframe   ),
+mMaximizable ( style & Win33::WindowStyle::MaximizedBox ),
+mMinimizable ( style & Win33::WindowStyle::MinimizedBox ),
 mTitle       ( L"" )
 { }
 Win33::Window::Window(
-          Win33::Window*             parent,
-    const Win33::Point&              position,
-    const Win33::Size&               size,
-          Win33::WindowStyle::Type   style,
-          Win33::ExWindowStyle::Type exStyle
+          Win33::Window*       parent,
+    const Win33::Point&        position,
+    const Win33::Size&         size,
+          Win33::WindowStyle   style,
+          Win33::ExWindowStyle exStyle
 ):
 Platform     ( Win33::Platform::Type::Window, parent, position, size, style, exStyle ),
-mResizable   ( ( style & WS_THICKFRAME  ) != 0 ),
-mMaximizable ( ( style & WS_MAXIMIZEBOX ) != 0 ),
-mMinimizable ( ( style & WS_MINIMIZEBOX ) != 0 ),
+mResizable   ( style & Win33::WindowStyle::Thickframe   ),
+mMaximizable ( style & Win33::WindowStyle::MaximizedBox ),
+mMinimizable ( style & Win33::WindowStyle::MinimizedBox ),
 mTitle       ( L"" )
 {
     assert( mParent != nullptr );

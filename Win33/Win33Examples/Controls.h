@@ -10,6 +10,7 @@
 #include <Win33CheckBox.h>
 #include <Win33RadioButton.h>
 #include <Win33GroupBox.h>
+#include <Win33BitfieldOperators.h>
 
 class ControlsWindow : public Win33::Window {
 public:
@@ -18,7 +19,7 @@ public:
     Win33::Window     ( Win33::Window::DefaultPosition, { 340, 220 } ),
     mTextBoxTypes     ( this, {   7,   7 }, { 100,  20 }, L"TextBox Types", Win33::StaticStyle::Center ),
     mTextBox          ( this, {   7,  25 }, { 100,  20 }, L"TextBox" ),
-    mMultilineTextBox ( this, {   7,  50 }, { 100, 100 }, static_cast<Win33::EditStyle::Type>( Win33::EditStyle::AutoVerticalScroll | Win33::WindowStyle::VerticalScroll ), L"MultilineTextBox" ),
+    mMultilineTextBox ( this, {   7,  50 }, { 100, 100 }, Win33::EditStyle::AutoVerticalScroll | Win33::WindowStyle::VerticalScroll, L"MultilineTextBox" ),
     mPasswordBox      ( this, {   7, 155 }, { 100,  20 } ),
     mButtonTypes      ( this, { 112,   7 }, { 100,  20 }, L"Button Types", Win33::StaticStyle::Center ),
     mButton           ( this, { 112,  25 }, { 100,  20 }, L"Button" ),

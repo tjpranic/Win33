@@ -25,13 +25,13 @@ private:
     Win33::Button  mEight;
     Win33::Button  mNine;
     Win33::Button  mZero;
+    Win33::Button  mDot;
     Win33::Button  mAdd;
     Win33::Button  mSubtract;
     Win33::Button  mMultiply;
     Win33::Button  mDivide;
     Win33::Button  mEquals;
     Win33::Button  mClear;
-    Win33::Button  mDot;
 };
 
 class CalculatorApplication : public Win33::Application {
