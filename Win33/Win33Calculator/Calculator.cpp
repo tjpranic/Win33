@@ -87,24 +87,38 @@ mClear        ( this, { 230, 155 }, {  50, 50 }, L"C" )
         }
     };
     mDot.onClick += [&]( ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"." : mResult.getText( ) + L"." );
+        auto text = mResult.getText( );
+        auto last = text.back( );
+        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' ) {
+            mResult.setText( ( text == L"0" ) ? L"." : text + L"." );
+        }
     };
     mAdd.onClick += [&]( ) {
-        if( mResult.getText( ) != L"0" ) {
-            mResult.setText( mResult.getText( ) + L" + " );
+        auto text = mResult.getText( );
+        auto last = text.back( );
+        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
+            mResult.setText( text + L"+" );
         }
     };
     mSubtract.onClick += [&]( ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"-" : mResult.getText( ) + L" - " );
+        auto text = mResult.getText( );
+        auto last = text.back( );
+        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' ) {
+            mResult.setText( ( text == L"0" ) ? L"-" : text + L"-" );
+        }
     };
     mMultiply.onClick += [&]( ) {
-        if( mResult.getText( ) != L"0" ) {
-            mResult.setText( mResult.getText( ) + L" * " );
+        auto text = mResult.getText( );
+        auto last = text.back( );
+        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
+            mResult.setText( text + L"*" );
         }
     };
     mDivide.onClick += [&]( ) {
-        if( mResult.getText( ) != L"0" ) {
-            mResult.setText( mResult.getText( ) + L" / " );
+        auto text = mResult.getText( );
+        auto last = text.back( );
+        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
+            mResult.setText( text + L"/" );
         }
     };
     mEquals.onClick += [&]( ) {

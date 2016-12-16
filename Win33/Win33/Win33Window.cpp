@@ -16,9 +16,9 @@ Win33::Window::Window(
           Win33::ExWindowStyle exStyle
 ):
 Platform     ( Win33::Platform::Type::Window, nullptr, position, size, style, exStyle ),
-mResizable   ( style & Win33::WindowStyle::Thickframe   ),
-mMaximizable ( style & Win33::WindowStyle::MaximizedBox ),
-mMinimizable ( style & Win33::WindowStyle::MinimizedBox ),
+mResizable   ( ( style & Win33::WindowStyle::Thickframe   ) == Win33::WindowStyle::Thickframe   ),
+mMaximizable ( ( style & Win33::WindowStyle::MaximizedBox ) == Win33::WindowStyle::MaximizedBox ),
+mMinimizable ( ( style & Win33::WindowStyle::MinimizedBox ) == Win33::WindowStyle::MinimizedBox ),
 mTitle       ( L"" )
 { }
 Win33::Window::Window(
@@ -29,9 +29,9 @@ Win33::Window::Window(
           Win33::ExWindowStyle exStyle
 ):
 Platform     ( Win33::Platform::Type::Window, parent, position, size, style, exStyle ),
-mResizable   ( style & Win33::WindowStyle::Thickframe   ),
-mMaximizable ( style & Win33::WindowStyle::MaximizedBox ),
-mMinimizable ( style & Win33::WindowStyle::MinimizedBox ),
+mResizable   ( ( style & Win33::WindowStyle::Thickframe   ) == Win33::WindowStyle::Thickframe   ),
+mMaximizable ( ( style & Win33::WindowStyle::MaximizedBox ) == Win33::WindowStyle::MaximizedBox ),
+mMinimizable ( ( style & Win33::WindowStyle::MinimizedBox ) == Win33::WindowStyle::MinimizedBox ),
 mTitle       ( L"" )
 {
     assert( mParent != nullptr );

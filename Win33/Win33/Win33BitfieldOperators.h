@@ -15,9 +15,9 @@ namespace Win33 {
         return lhs;
     }
     template<class T, typename = std::enable_if<std::is_enum<T>::value>::type>
-    inline bool operator&( T lhs, T rhs ) {
+    inline T operator&( T lhs, T rhs ) {
         using U = std::underlying_type<T>::type;
-        return ( static_cast<U>( lhs ) & static_cast<U>( rhs ) ) == static_cast<U>( rhs );
+        return static_cast<T>( static_cast<U>( lhs ) & static_cast<U>( rhs ) );
     }
     template<class T, typename = std::enable_if<std::is_enum<T>::value>::type>
     inline T& operator&=( T& lhs, T rhs ) {
