@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Win33Platform.h"
+#include "Win33Common.h"
 #include "Win33Window.h"
 #include "Win33Interop.h"
 #include "Win33Font.h"
@@ -19,7 +19,7 @@ namespace Win33 {
         RightBottom
     };
     
-    class Control : public Platform {
+    class Control : public Common {
     public:
         Control            ( )                       = delete;
         Control            ( const Control&  other ) = delete;
@@ -44,12 +44,12 @@ namespace Win33 {
         
     protected:
         Control(
-                  Win33::Platform::Type type,
-                  Win33::Window*        parent,
-            const Win33::Point&         position,
-            const Win33::Size&          size,
-                  Win33::WindowStyle    style,
-                  Win33::ExWindowStyle  exStyle = Win33::ExWindowStyle::NoExWindowStyle
+                  Win33::Common::Type  type,
+                  Win33::Window*       parent,
+            const Win33::Point&        position,
+            const Win33::Size&         size,
+                  Win33::WindowStyle   style,
+                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::NoExWindowStyle
         );
         
     private:

@@ -96,7 +96,7 @@
     <ClCompile Include="Win33MenuItem.cpp" />
     <ClCompile Include="Win33MultilineTextBox.cpp" />
     <ClCompile Include="Win33PasswordBox.cpp" />
-    <ClCompile Include="Win33Platform.cpp" />
+    <ClCompile Include="Win33Common.cpp" />
     <ClCompile Include="Win33Button.cpp" />
     <ClCompile Include="Win33Console.cpp" />
     <ClCompile Include="Win33Control.cpp" />
@@ -130,7 +130,7 @@
     <ClInclude Include="Win33MenuItem.h" />
     <ClInclude Include="Win33MultilineTextBox.h" />
     <ClInclude Include="Win33PasswordBox.h" />
-    <ClInclude Include="Win33Platform.h" />
+    <ClInclude Include="Win33Common.h" />
     <ClInclude Include="Win33Button.h" />
     <ClInclude Include="Win33Console.h" />
     <ClInclude Include="Win33Control.h" />

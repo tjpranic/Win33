@@ -10,7 +10,7 @@ Win33::Label::Label(
           Win33::StaticStyle style
 ):
 Control(
-    Win33::Platform::Type::Label,
+    Win33::Common::Type::Label,
     parent,
     position,
     size,

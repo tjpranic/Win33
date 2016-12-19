@@ -13,7 +13,7 @@ Win33::CheckBox::CheckBox(
           Win33::ButtonStyle style
 ):
 Control(
-    Win33::Platform::Type::CheckBox,
+    Win33::Common::Type::CheckBox,
     parent,
     position,
     size,

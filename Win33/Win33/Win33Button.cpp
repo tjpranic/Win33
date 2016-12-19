@@ -10,7 +10,7 @@ Win33::Button::Button(
           Win33::ButtonStyle style
 ):
 Control(
-    Win33::Platform::Type::Button,
+    Win33::Common::Type::Button,
     parent,
     position,
     size,

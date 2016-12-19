@@ -9,7 +9,7 @@ Win33::PasswordBox::PasswordBox(
           Win33::EditStyle style
 ):
 Control(
-    Win33::Platform::Type::PasswordBox,
+    Win33::Common::Type::PasswordBox,
     parent,
     position,
     size,

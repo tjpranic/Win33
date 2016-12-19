@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Win33Platform.h"
+#include "Win33Common.h"
 #include "Win33Interop.h"
 #include "Win33WindowEvents.h"
 
 namespace Win33 {
     
-    class Window : public Platform {
+    class Window : public Common {
     public:
         Window            ( )                      = delete;
         Window            ( const Window&  other ) = delete;

@@ -1,7 +1,7 @@
 #include "Win33Application.h"
 
 #include "Win33System.h"
-#include "Win33Platform.h"
+#include "Win33Common.h"
 #include "Win33MenuItem.h"
 #include "Win33TrayIcon.h"
 #include "Win33Window.h"
@@ -15,7 +15,7 @@
 #include "Win33GroupBox.h"
 
 Win33::Application*                        Win33::Application::mInstance = nullptr;
-std::unordered_map<HWND, Win33::Platform*> Win33::Application::mPlatforms;
+std::unordered_map<HWND, Win33::Common*>   Win33::Application::mCommons;
 std::unordered_map<int,  Win33::MenuItem*> Win33::Application::mMenuItems;
 std::unordered_map<int,  Win33::TrayIcon*> Win33::Application::mTrayIcons;
 
@@ -45,7 +45,7 @@ Win33::Application::Application( ) {
 
 int Win33::Application::run( ) {
     MSG m = { };
-    while( !mPlatforms.empty( ) ) {
+    while( !mCommons.empty( ) ) {
         if( PeekMessage( &m, 0, 0, 0, PM_REMOVE ) > 0 ) {
             TranslateMessage( &m );
             DispatchMessage( &m );
@@ -58,13 +58,13 @@ int Win33::Application::run( ) {
 }
 
 LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter ) {
-    if( mPlatforms.find( window ) != mPlatforms.end( ) ) {
-        Win33::Platform* p = nullptr;
+    if( mCommons.find( window ) != mCommons.end( ) ) {
+        Win33::Common* c = nullptr;
         switch( message ) {
             case WM_COMMAND: {
                 if( longParameter ) {
                     message = HIWORD( wordParameter );
-                    p = mPlatforms.at( reinterpret_cast<HWND>( longParameter ) );
+                    c = mCommons.at( reinterpret_cast<HWND>( longParameter ) );
                 }
                 else {
                     auto menuID = static_cast<int>( wordParameter );
@@ -95,13 +95,13 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 return true;
             }
             default: {
-                p = mPlatforms.at( window );
+                c = mCommons.at( window );
                 break;
             }
         }
-        switch( p->mType ) {
-            case Win33::Platform::Type::Window: {
-                Win33::Window* w = reinterpret_cast<Win33::Window*>( p );
+        switch( c->mType ) {
+            case Win33::Common::Type::Window: {
+                Win33::Window* w = reinterpret_cast<Win33::Window*>( c );
                 switch( message ) {
                     case WM_SIZE: {
                         w->onResize.handle( Win33::WindowEvents::ResizeData( w->getSize( ) ) );
@@ -130,7 +130,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     case WM_CLOSE: {
                         w->onClose.handle( );
                         EnumChildWindows( Win33::Interop::toHandle( w ), childWindowEraser, 0 );
-                        mPlatforms.erase( Win33::Interop::toHandle( w ) );
+                        mCommons.erase( Win33::Interop::toHandle( w ) );
                         break;
                     }
                     default: {
@@ -139,8 +139,8 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 }
                 break;
             }
-            case Win33::Platform::Type::Button: {
-                Win33::Button* b = reinterpret_cast<Win33::Button*>( p );
+            case Win33::Common::Type::Button: {
+                Win33::Button* b = reinterpret_cast<Win33::Button*>( c );
                 switch( message ) {
                     case BN_CLICKED: {
                         b->onClick.handle( );
@@ -152,8 +152,8 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 }
                 break;
             }
-            case Win33::Platform::Type::CheckBox: {
-                Win33::CheckBox* cb = reinterpret_cast<Win33::CheckBox*>( p );
+            case Win33::Common::Type::CheckBox: {
+                Win33::CheckBox* cb = reinterpret_cast<Win33::CheckBox*>( c );
                 switch( message ) {
                     case BN_CLICKED: {
                         cb->onCheck.handle( Win33::CheckBoxEvents::CheckData( cb->getChecked( ) ) );
@@ -165,33 +165,33 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 }
                 break;
             }
-            case Win33::Platform::Type::RadioButton: {
-                Win33::RadioButton* rb = reinterpret_cast<Win33::RadioButton*>( p );
+            case Win33::Common::Type::RadioButton: {
+                Win33::RadioButton* rb = reinterpret_cast<Win33::RadioButton*>( c );
                 //...
                 break;
             }
-            case Win33::Platform::Type::TextBox: {
-                Win33::TextBox* tb = reinterpret_cast<Win33::TextBox*>( p );
+            case Win33::Common::Type::TextBox: {
+                Win33::TextBox* tb = reinterpret_cast<Win33::TextBox*>( c );
                 //...
                 break;
             }
-            case Win33::Platform::Type::PasswordBox: {
-                Win33::PasswordBox* pb = reinterpret_cast<Win33::PasswordBox*>( p );
+            case Win33::Common::Type::PasswordBox: {
+                Win33::PasswordBox* pb = reinterpret_cast<Win33::PasswordBox*>( c );
                 //...
                 break;
             }
-            case Win33::Platform::Type::MultilineTextBox: {
-                Win33::MultilineTextBox* mtb = reinterpret_cast<Win33::MultilineTextBox*>( p );
+            case Win33::Common::Type::MultilineTextBox: {
+                Win33::MultilineTextBox* mtb = reinterpret_cast<Win33::MultilineTextBox*>( c );
                 //...
                 break;
             }
-            case Win33::Platform::Type::GroupBox: {
-                Win33::GroupBox* gb = reinterpret_cast<Win33::GroupBox*>( p );
+            case Win33::Common::Type::GroupBox: {
+                Win33::GroupBox* gb = reinterpret_cast<Win33::GroupBox*>( c );
                 //...
                 break;
             }
-            case Win33::Platform::Type::Label: {
-                Win33::Label* l = reinterpret_cast<Win33::Label*>( p );
+            case Win33::Common::Type::Label: {
+                Win33::Label* l = reinterpret_cast<Win33::Label*>( c );
                 switch( message ) {
                     case STN_DBLCLK: //double clicks have to be counted amongst single clicks due to notify style (?)
                     case STN_CLICKED: {
@@ -224,6 +224,6 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
     return DefWindowProc( window, message, wordParameter, longParameter );
 }
 BOOL CALLBACK Win33::Application::childWindowEraser( HWND hwnd, LPARAM lParam ) {
-    mPlatforms.erase( hwnd );
+    mCommons.erase( hwnd );
     return true;
 }

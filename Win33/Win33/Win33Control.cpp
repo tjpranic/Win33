@@ -5,16 +5,16 @@
 #include "Win33Utility.h"
 
 Win33::Control::Control(
-          Win33::Platform::Type type,
-          Win33::Window*        parent,
-    const Win33::Point&         position,
-    const Win33::Size&          size,
-          Win33::WindowStyle    style,
-          Win33::ExWindowStyle  exStyle
+          Win33::Common::Type  type,
+          Win33::Window*       parent,
+    const Win33::Point&        position,
+    const Win33::Size&         size,
+          Win33::WindowStyle   style,
+          Win33::ExWindowStyle exStyle
 ):
-Platform ( type, parent, position, size, style, exStyle ),
-mAnchor  ( Win33::Anchor::TopLeft ),
-mText    ( L"" )
+Common  ( type, parent, position, size, style, exStyle ),
+mAnchor ( Win33::Anchor::TopLeft ),
+mText   ( L"" )
 {
     assert( parent != nullptr );
     parent->onResize += [&]( Win33::WindowEvents::ResizeData& data ) {
@@ -62,19 +62,19 @@ mText    ( L"" )
         }
     };
     
-    Platform::show( );
+    Common::show( );
     
     //Win32 defaults to a different UI font, so actually set the proper UI default
     SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( GetStockObject( DEFAULT_GUI_FONT ) ), MAKELPARAM( TRUE, 0 ) );
 }
 Win33::Control::Control( Control&& other )
 :
-Platform ( std::move( other ) ),
-mAnchor  ( other.mAnchor ),
-mText    ( std::move( other.mText ) )
+Common  ( std::move( other ) ),
+mAnchor ( other.mAnchor ),
+mText   ( std::move( other.mText ) )
 { }
 Win33::Control& Win33::Control::operator=( Control&& other ) {
-    Platform::operator=( std::move( other ) );
+    Common::operator=( std::move( other ) );
     mAnchor = other.mAnchor;
     mText   = std::move( other.mText );
     return *this;
@@ -122,10 +122,10 @@ void Win33::Control::setText( const std::wstring& text ) {
     SetWindowText( mHandle, text.c_str( ) );
 }
 void Win33::Control::setX( int x ) {
-    Platform::setX( x );
+    Common::setX( x );
 }
 void Win33::Control::setY( int y ) {
-    Platform::setY( y );
+    Common::setY( y );
 }
 void Win33::Control::setFont( const Win33::Font* font ) {
     SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( Win33::Interop::toHandle( font ) ), MAKELPARAM( TRUE, 0 ) );

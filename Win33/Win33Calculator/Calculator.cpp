@@ -24,8 +24,11 @@ mAdd          ( this, { 175,  45 }, {  50, 50 }, L"+" ),
 mSubtract     ( this, { 175, 100 }, {  50, 50 }, L"-" ),
 mMultiply     ( this, { 175, 155 }, {  50, 50 }, L"*" ),
 mDivide       ( this, { 175, 210 }, {  50, 50 }, L"/" ),
-mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" ),
-mClear        ( this, { 230, 155 }, {  50, 50 }, L"C" )
+mOpenBracket  ( this, { 230, 45  }, {  50, 50 }, L"(" ),
+mCloseBracket ( this, { 230, 100 }, {  50, 50 }, L")" ),
+mClear        ( this, { 230, 155 }, {  50, 50 }, L"C" ),
+mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
+
 {
     setTitle       ( L"Calculator" );
     setResizable   ( false );
@@ -121,13 +124,19 @@ mClear        ( this, { 230, 155 }, {  50, 50 }, L"C" )
             mResult.setText( text + L"/" );
         }
     };
+    mOpenBracket.onClick += [&]( ) {
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"(" : mResult.getText( ) + L"(" );
+    };
+    mCloseBracket.onClick += [&]( ) {
+        mResult.setText( ( mResult.getText( ) == L"0" ) ? L")" : mResult.getText( ) + L")" );
+    };
+    mClear.onClick += [&]( ) {
+        mResult.setText( L"0" );
+    };
     mEquals.onClick += [&]( ) {
         double result = 0.0;
         //...
         mResult.setText( Win33::Utility::format( L"%g", result ) );
-    };
-    mClear.onClick += [&]( ) {
-        mResult.setText( L"0" );
     };
 }
 

@@ -10,7 +10,7 @@ Win33::MultilineTextBox::MultilineTextBox(
     const std::wstring&    text
 ):
 Control(
-    Type::MultilineTextBox,
+    Win33::Common::Type::MultilineTextBox,
     parent,
     position,
     size,

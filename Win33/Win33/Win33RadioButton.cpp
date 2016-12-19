@@ -14,7 +14,7 @@ Win33::RadioButton::RadioButton(
           Win33::ButtonStyle style
 ):
 Control(
-    Win33::Platform::Type::RadioButton,
+    Win33::Common::Type::RadioButton,
     parent,
     position,
     size,

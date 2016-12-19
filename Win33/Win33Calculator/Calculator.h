@@ -30,8 +30,10 @@ private:
     Win33::Button  mSubtract;
     Win33::Button  mMultiply;
     Win33::Button  mDivide;
-    Win33::Button  mEquals;
+    Win33::Button  mOpenBracket;
+    Win33::Button  mCloseBracket;
     Win33::Button  mClear;
+    Win33::Button  mEquals;
 };
 
 class CalculatorApplication : public Win33::Application {

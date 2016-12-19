@@ -63,9 +63,6 @@
     <ClCompile Include="Win33Console.cpp">
       <Filter>Win33\Console</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Platform.cpp">
-      <Filter>Win33\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Win33PopupBox.cpp">
       <Filter>Win33\Windows</Filter>
     </ClCompile>
@@ -129,6 +126,9 @@
     <ClCompile Include="Win33Icon.cpp">
       <Filter>Win33\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="Win33Common.cpp">
+      <Filter>Win33\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win33Window.h">
@@ -142,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="Win33Console.h">
       <Filter>Win33\Console</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33Platform.h">
-      <Filter>Win33\Core</Filter>
     </ClInclude>
     <ClInclude Include="Win33PopupBox.h">
       <Filter>Win33\Windows</Filter>
@@ -238,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="Win33Utility.h">
       <Filter>Win33\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33Common.h">
+      <Filter>Win33\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

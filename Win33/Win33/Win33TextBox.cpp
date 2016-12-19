@@ -12,7 +12,7 @@ Win33::TextBox::TextBox(
           Win33::EditStyle style
 ):
 Control(
-    Win33::Platform::Type::TextBox,
+    Win33::Common::Type::TextBox,
     parent,
     position,
     size,

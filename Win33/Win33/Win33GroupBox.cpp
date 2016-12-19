@@ -10,7 +10,7 @@ Win33::GroupBox::GroupBox(
     Win33::ButtonStyle   style
 ):
 Control(
-    Win33::Platform::Type::GroupBox,
+    Win33::Common::Type::GroupBox,
     parent,
     position,
     size,

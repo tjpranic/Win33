@@ -6,12 +6,12 @@
 
 namespace Win33 {
     
-    class Platform;
+    class Common;
     class MenuItem;
     class TrayIcon;
     
     class Application {
-    friend class Platform;
+    friend class Common;
     friend class MenuItem;
     friend class TrayIcon;
     public:
@@ -29,7 +29,7 @@ namespace Win33 {
         static BOOL    CALLBACK childWindowEraser ( HWND window, LPARAM longParameter );
         
         static Win33::Application*                        mInstance;
-        static std::unordered_map<HWND, Win33::Platform*> mPlatforms;
+        static std::unordered_map<HWND, Win33::Common*>   mCommons;
         static std::unordered_map<int,  Win33::MenuItem*> mMenuItems;
         static std::unordered_map<int,  Win33::TrayIcon*> mTrayIcons;
     };
