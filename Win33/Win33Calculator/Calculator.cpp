@@ -28,7 +28,6 @@ mOpenBracket  ( this, { 230, 45  }, {  50, 50 }, L"(" ),
 mCloseBracket ( this, { 230, 100 }, {  50, 50 }, L")" ),
 mClear        ( this, { 230, 155 }, {  50, 50 }, L"C" ),
 mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
-
 {
     setTitle       ( L"Calculator" );
     setResizable   ( false );
@@ -92,7 +91,7 @@ mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
     mDot.onClick += [&]( ) {
         auto text = mResult.getText( );
         auto last = text.back( );
-        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' ) {
+        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
             mResult.setText( ( text == L"0" ) ? L"." : text + L"." );
         }
     };

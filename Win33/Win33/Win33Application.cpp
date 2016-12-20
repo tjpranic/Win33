@@ -25,7 +25,7 @@ Win33::Application::Application( ) {
     }
     mInstance = this;
     
-    WNDCLASSEX wcex    = { sizeof( WNDCLASSEX ) };
+    auto wcex          = WNDCLASSEX { sizeof( WNDCLASSEX ) };
     wcex.style         = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc   = &Win33::Application::windowProcessor;
     wcex.cbClsExtra    = 0;
@@ -44,7 +44,7 @@ Win33::Application::Application( ) {
 }
 
 int Win33::Application::run( ) {
-    MSG m = { };
+    auto m = MSG { };
     while( !mCommons.empty( ) ) {
         if( PeekMessage( &m, 0, 0, 0, PM_REMOVE ) > 0 ) {
             TranslateMessage( &m );
@@ -129,7 +129,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     }
                     case WM_CLOSE: {
                         w->onClose.handle( );
-                        EnumChildWindows( Win33::Interop::toHandle( w ), childWindowEraser, 0 );
+                        EnumChildWindows( Win33::Interop::toHandle( w ), []( HWND window, LPARAM longParameter ) -> BOOL { mCommons.erase( window ); return true; }, 0 );
                         mCommons.erase( Win33::Interop::toHandle( w ) );
                         break;
                     }
@@ -222,8 +222,4 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
         }
     }
     return DefWindowProc( window, message, wordParameter, longParameter );
-}
-BOOL CALLBACK Win33::Application::childWindowEraser( HWND hwnd, LPARAM lParam ) {
-    mCommons.erase( hwnd );
-    return true;
 }

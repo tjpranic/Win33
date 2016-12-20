@@ -25,8 +25,7 @@ namespace Win33 {
         int run( );
         
     private:
-        static LRESULT CALLBACK windowProcessor   ( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter );
-        static BOOL    CALLBACK childWindowEraser ( HWND window, LPARAM longParameter );
+        static LRESULT CALLBACK windowProcessor( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter );
         
         static Win33::Application*                        mInstance;
         static std::unordered_map<HWND, Win33::Common*>   mCommons;

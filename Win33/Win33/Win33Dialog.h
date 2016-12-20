@@ -13,12 +13,12 @@ namespace Win33 {
         :
         Window( std::move( other ) )
         {
-            mResult = std::move( other._result );
+            mResult = std::move( other.mResult );
         }
         Dialog& operator=( const Dialog&  other ) = delete;
         Dialog& operator=(       Dialog&& other ) {
             Window::operator=( std::move( other ) );
-            mResult = std::move( other._result );
+            mResult = std::move( other.mResult );
             return *this;
         }
         virtual ~Dialog( ) = default;
@@ -26,7 +26,7 @@ namespace Win33 {
         T show( ) {
             mParent->setEnabled( false );
             Win33::Window::show( );
-            MSG m = { };
+            auto m = MSG { };
             while( m.message != WM_QUIT ) {
                 if( PeekMessage( &m, 0, 0, 0, PM_REMOVE ) > 0 ) {
                     TranslateMessage( &m );
