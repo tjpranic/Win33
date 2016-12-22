@@ -80,9 +80,6 @@ Win33::Control& Win33::Control::operator=( Control&& other ) {
     return *this;
 }
 
-Win33::Window* Win33::Control::getParent( ) const {
-    return static_cast<Win33::Window*>( mParent );
-}
 Win33::Anchor Win33::Control::getAnchor( ) const {
     return mAnchor;
 }

@@ -42,10 +42,27 @@ namespace Win33 {
         };
         typedef std::function<void( MoveData& )> MoveHandler;
         
+        class ClickData {
+        public:
+            ClickData( const Point& position )
+            :
+            mPosition( position )
+            { }
+            ~ClickData( ) = default;
+            
+            const Point& getPosition( ) const {
+                return mPosition;
+            }
+            
+        private:
+            Point mPosition;
+        };
+        typedef std::function<void( ClickData& )> ClickHandler;
+        
         typedef Win33::Event<>              Close;
         typedef Win33::Event<ResizeHandler> Resize;
         typedef Win33::Event<MoveHandler>   Move;
-        typedef Win33::Event<>              LeftClick;
-        typedef Win33::Event<>              RightClick;
+        typedef Win33::Event<ClickHandler>  LeftClick;
+        typedef Win33::Event<ClickHandler>  RightClick;
     };
 };

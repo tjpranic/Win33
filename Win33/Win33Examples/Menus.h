@@ -77,8 +77,8 @@ public:
             greet.setText( L"Di hola" );
         };
         
-        onRightClick += [&]( ) {
-            mContextMenu.show( );
+        onRightClick += [&]( Win33::WindowEvents::ClickData& data ) {
+            mContextMenu.show( data.getPosition( ) );
         };
     }
     ~MenusWindow( ) = default;

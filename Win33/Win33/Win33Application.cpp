@@ -81,11 +81,11 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::TrayIcon* ti = mTrayIcons[trayiconID];
                 switch( longParameter ) {
                     case WM_LBUTTONUP: {
-                        ti->onLeftClick.handle( );
+                        ti->onLeftClick.handle( Win33::TrayIconEvents::ClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_RBUTTONUP: {
-                        ti->onRightClick.handle( );
+                        ti->onRightClick.handle( Win33::TrayIconEvents::ClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     default: {
@@ -120,11 +120,11 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         break;
                     }
                     case WM_LBUTTONUP: {
-                        w->onLeftClick.handle( );
+                        w->onLeftClick.handle( Win33::WindowEvents::ClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_RBUTTONUP: {
-                        w->onRightClick.handle( );
+                        w->onRightClick.handle( Win33::WindowEvents::ClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_CLOSE: {

@@ -16,7 +16,7 @@ public:
     {
         setTitle( L"FirstWindow" );
         
-        mFirstTrayIcon.onLeftClick += [&]( ) {
+        mFirstTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::ClickData& data ) {
             toggleVisibility( );
         };
         
@@ -37,7 +37,7 @@ public:
     {
         setTitle( L"SecondWindow" );
         
-        mSecondTrayIcon.onLeftClick += [&]( ) {
+        mSecondTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::ClickData& data ) {
             toggleVisibility( );
         };
     }

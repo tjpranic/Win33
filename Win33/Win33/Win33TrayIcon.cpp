@@ -16,7 +16,7 @@ Win33::TrayIcon::TrayIcon(
     const std::wstring&  tooltip
 ) {
     assert( window != nullptr );
-    //assert( icon   != L""     );
+    assert( icon   != nullptr );
     assert( tooltip.length( ) <= 128 );
     
     mNID                  = { sizeof( NOTIFYICONDATA ) };

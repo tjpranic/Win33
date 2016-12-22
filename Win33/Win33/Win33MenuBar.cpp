@@ -9,6 +9,8 @@ mHandle       ( CreateMenu( ) ),
 mWindow       ( window ),
 mMenus        ( )
 {
+    assert( window != nullptr );
+    
     if( !mHandle ) {
         throw std::runtime_error( "Unable to create menu bar." );
     }

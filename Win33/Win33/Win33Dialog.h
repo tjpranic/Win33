@@ -21,7 +21,7 @@ namespace Win33 {
             mResult = std::move( other.mResult );
             return *this;
         }
-        virtual ~Dialog( ) = default;
+        ~Dialog( ) = default;
         
         T show( ) {
             mParent->setEnabled( false );

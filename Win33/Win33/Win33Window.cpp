@@ -81,9 +81,6 @@ void Win33::Window::toggleVisibility( ) {
     }
 }
 
-Win33::Window* Win33::Window::getParent( ) const {
-    return static_cast<Win33::Window*>( mParent );
-}
 const std::wstring& Win33::Window::getTitle( ) const {
     static wchar_t text[256];
     GetWindowText( mHandle, text, 256 );

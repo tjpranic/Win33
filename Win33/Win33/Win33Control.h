@@ -28,7 +28,6 @@ namespace Win33 {
         Control& operator= (       Control&& other );
         virtual ~Control   ( )                       = default;
         
-              Win33::Window* getParent( ) const;
               Win33::Anchor  getAnchor( ) const;
         const std::wstring&  getText( )   const;
               int            getX( )      const;

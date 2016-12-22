@@ -8,6 +8,8 @@ mWindow       ( window ),
 mMenus        ( ),
 mMenuItems    ( )
 {
+    assert( window != nullptr );
+    
     if( !mHandle ) {
         throw std::runtime_error( "Unable to create context menu." );
     }
