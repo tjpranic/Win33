@@ -36,7 +36,7 @@ Win33::TrayIcon::TrayIcon(
     
     Win33::Application::mTrayIcons[mNID.uID] = this;
     
-    window->onClose += [&]( ) {
+    window->onClose += [&]( Win33::WindowEvents::CloseData& data ) {
         Shell_NotifyIcon( NIM_DELETE, &mNID );
         Win33::Application::mTrayIcons.erase( mNID.uID );
     };

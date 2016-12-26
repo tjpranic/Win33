@@ -14,26 +14,10 @@ mMenuItems    ( )
         throw std::runtime_error( "Unable to create context menu." );
     }
     
-    window->onClose += [&]( ) {
+    window->onClose += [&]( Win33::WindowEvents::CloseData& data ) {
         mMenus.clear( );
         mMenuItems.clear( );
     };
-}
-Win33::ContextMenu::ContextMenu( ContextMenu&& other )
-:
-mLastPosition ( other.mLastPosition ),
-mHandle       ( other.mHandle ),
-mWindow       ( other.mWindow ),
-mMenus        ( std::move( other.mMenus ) ),
-mMenuItems    ( std::move( other.mMenuItems ) )
-{ }
-Win33::ContextMenu& Win33::ContextMenu::operator=( ContextMenu&& other ) {
-    mLastPosition = other.mLastPosition;
-    mHandle       = other.mHandle;
-    mWindow       = other.mWindow;
-    mMenus        = std::move( other.mMenus );
-    mMenuItems    = std::move( other.mMenuItems );
-    return *this;
 }
 
 void Win33::ContextMenu::show( const Win33::Point& position ) {

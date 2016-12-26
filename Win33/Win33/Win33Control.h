@@ -23,9 +23,9 @@ namespace Win33 {
     public:
         Control            ( )                       = delete;
         Control            ( const Control&  other ) = delete;
-        Control            (       Control&& other );
+        Control            (       Control&& other ) = default;
         Control& operator= ( const Control&  other ) = delete;
-        Control& operator= (       Control&& other );
+        Control& operator= (       Control&& other ) = default;
         virtual ~Control   ( )                       = default;
         
               Win33::Anchor  getAnchor( ) const;
@@ -48,7 +48,7 @@ namespace Win33 {
             const Win33::Point&        position,
             const Win33::Size&         size,
                   Win33::WindowStyle   style,
-                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::NoExWindowStyle
+                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::None
         );
         
     private:

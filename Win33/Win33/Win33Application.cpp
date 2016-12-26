@@ -1,5 +1,8 @@
 #include "Win33Application.h"
 
+//typecast warning when using MAKEINTRESOURCE
+#pragma warning( disable : 4302 )
+
 #include "Win33System.h"
 #include "Win33Common.h"
 #include "Win33MenuItem.h"
@@ -70,7 +73,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     auto menuID = static_cast<int>( wordParameter );
                     if( mMenuItems.find( menuID ) != mMenuItems.end( ) ) {
                         auto menuItem = mMenuItems[menuID];
-                        menuItem->onClick.handle( );
+                        menuItem->onClick.handle( Win33::MenuItemEvents::ClickData( ) );
                     }
                     return true;
                 }
@@ -81,11 +84,11 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::TrayIcon* ti = mTrayIcons[trayiconID];
                 switch( longParameter ) {
                     case WM_LBUTTONUP: {
-                        ti->onLeftClick.handle( Win33::TrayIconEvents::ClickData( Win33::System::getCursorPosition( ) ) );
+                        ti->onLeftClick.handle( Win33::TrayIconEvents::LeftClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_RBUTTONUP: {
-                        ti->onRightClick.handle( Win33::TrayIconEvents::ClickData( Win33::System::getCursorPosition( ) ) );
+                        ti->onRightClick.handle( Win33::TrayIconEvents::RightClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     default: {
@@ -120,15 +123,19 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         break;
                     }
                     case WM_LBUTTONUP: {
-                        w->onLeftClick.handle( Win33::WindowEvents::ClickData( Win33::System::getCursorPosition( ) ) );
+                        w->onLeftClick.handle( Win33::WindowEvents::LeftClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_RBUTTONUP: {
-                        w->onRightClick.handle( Win33::WindowEvents::ClickData( Win33::System::getCursorPosition( ) ) );
+                        w->onRightClick.handle( Win33::WindowEvents::RightClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_CLOSE: {
-                        w->onClose.handle( );
+                        auto data = Win33::WindowEvents::CloseData( );
+                        w->onClose.handle( data );
+                        if( data.getCancelled( ) ) {
+                            return true;
+                        }
                         EnumChildWindows( Win33::Interop::toHandle( w ), []( HWND window, LPARAM longParameter ) -> BOOL { mCommons.erase( window ); return true; }, 0 );
                         mCommons.erase( Win33::Interop::toHandle( w ) );
                         break;
@@ -143,7 +150,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 Win33::Button* b = reinterpret_cast<Win33::Button*>( c );
                 switch( message ) {
                     case BN_CLICKED: {
-                        b->onClick.handle( );
+                        b->onClick.handle( Win33::ButtonEvents::ClickData( ) );
                         break;
                     }
                     default: {
@@ -195,7 +202,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 switch( message ) {
                     case STN_DBLCLK: //double clicks have to be counted amongst single clicks due to notify style (?)
                     case STN_CLICKED: {
-                        l->onClick.handle( );
+                        l->onClick.handle( Win33::LabelEvents::ClickData( ) );
                         break;
                     }
                     default: {

@@ -15,17 +15,7 @@ Control(
     position,
     size,
     Win33::WindowStyle::Child | Win33::StaticStyle::Notify | Win33::StaticStyle::Left | style,
-    Win33::ExWindowStyle::NoExWindowStyle
+    Win33::ExWindowStyle::None
 ) {
     setText( text );
-}
-Win33::Label::Label( Label&& other )
-:
-Control( std::move( other ) ),
-onClick( std::move( other.onClick ) )
-{ }
-Win33::Label& Win33::Label::operator=( Label&& other ) {
-    Control::operator=( std::move( other ) );
-    onClick = std::move( other.onClick );
-    return *this;
 }

@@ -11,7 +11,11 @@ public:
     {
         setTitle( L"FirstWindow" );
     }
-    ~FirstWindow( ) = default;
+    FirstWindow            ( const FirstWindow&  other ) = delete;
+    FirstWindow            (       FirstWindow&& other ) = default;
+    FirstWindow& operator= ( const FirstWindow&  other ) = delete;
+    FirstWindow& operator= (       FirstWindow&& other ) = default;
+    ~FirstWindow           ( )                           = default;
 };
 
 class SecondWindow : public Win33::Window {
@@ -22,7 +26,11 @@ public:
     {
         setTitle( L"SecondWindow" );
     }
-    ~SecondWindow( ) = default;
+    SecondWindow            ( const SecondWindow&  other ) = delete;
+    SecondWindow            (       SecondWindow&& other ) = default;
+    SecondWindow& operator= ( const SecondWindow&  other ) = delete;
+    SecondWindow& operator= (       SecondWindow&& other ) = default;
+    ~SecondWindow           ( )                            = default;
 };
 
 class MultipleWindowsApplication : public Win33::Application {
@@ -36,7 +44,11 @@ public:
         mFirstWindow.show( );
         mSecondWindow.show( );
     }
-    ~MultipleWindowsApplication( ) = default;
+    MultipleWindowsApplication            ( const MultipleWindowsApplication&  other ) = delete;
+    MultipleWindowsApplication            (       MultipleWindowsApplication&& other ) = default;
+    MultipleWindowsApplication& operator= ( const MultipleWindowsApplication&  other ) = delete;
+    MultipleWindowsApplication& operator= (       MultipleWindowsApplication&& other ) = default;
+    ~MultipleWindowsApplication           ( )                                          = default;
     
 private:
     FirstWindow  mFirstWindow;

@@ -11,7 +11,11 @@ public:
     {
         setTitle( L"HiddenWindowTest" );
     }
-    ~HiddenWindow( ) = default;
+    HiddenWindow            ( const HiddenWindow&  other ) = delete;
+    HiddenWindow            (       HiddenWindow&& other ) = default;
+    HiddenWindow& operator= ( const HiddenWindow&  other ) = delete;
+    HiddenWindow& operator= (       HiddenWindow&& other ) = default;
+    ~HiddenWindow           ( )                            = default;
 };
 
 class HiddenWindowApplication : public Win33::Application {
@@ -21,7 +25,11 @@ public:
     Win33::Application ( ),
     mHiddenWindow      ( )
     { }
-    ~HiddenWindowApplication( ) = default;
+    HiddenWindowApplication            ( const HiddenWindowApplication&  other ) = delete;
+    HiddenWindowApplication            (       HiddenWindowApplication&& other ) = default;
+    HiddenWindowApplication& operator= ( const HiddenWindowApplication&  other ) = delete;
+    HiddenWindowApplication& operator= (       HiddenWindowApplication&& other ) = default;
+    ~HiddenWindowApplication           ( )                                       = default;
     
 private:
     HiddenWindow mHiddenWindow;

@@ -15,14 +15,16 @@ namespace Win33 {
     friend class MenuItem;
     friend class TrayIcon;
     public:
-        Application            ( );
         Application            ( const Application&  other ) = delete;
         Application            (       Application&& other ) = delete;
         Application& operator= ( const Application&  other ) = delete;
         Application& operator= (       Application&& other ) = delete;
-        virtual ~Application   ( )                           = default;
+        ~Application           ( )                           = default;
         
         int run( );
+        
+    protected:
+        Application( );
         
     private:
         static LRESULT CALLBACK windowProcessor( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter );

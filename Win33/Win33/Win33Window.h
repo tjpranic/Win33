@@ -8,11 +8,10 @@ namespace Win33 {
     
     class Window : public Common {
     public:
-        Window            ( )                      = delete;
         Window            ( const Window&  other ) = delete;
-        Window            (       Window&& other );
+        Window            (       Window&& other ) = default;
         Window& operator= ( const Window&  other ) = delete;
-        Window& operator= (       Window&& other );
+        Window& operator= (       Window&& other ) = default;
         ~Window           ( )                      = default;
         
         static const Win33::Point DefaultPosition;
@@ -44,17 +43,17 @@ namespace Win33 {
         
     protected:
         Window(
-            const Win33::Point&        position,
-            const Win33::Size&         size,
-                  Win33::WindowStyle   style   = Win33::WindowStyle::OverlappedWindow,
-                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::NoExWindowStyle
+            const Win33::Point&        position = Win33::Window::DefaultPosition,
+            const Win33::Size&         size     = Win33::Window::DefaultSize,
+                  Win33::WindowStyle   style    = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle exStyle  = Win33::ExWindowStyle::None
         );
         Window(
                   Win33::Window*       parent,
             const Win33::Point&        position,
             const Win33::Size&         size,
                   Win33::WindowStyle   style   = Win33::WindowStyle::OverlappedWindow,
-                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::NoExWindowStyle
+                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::None
         );
         
     private:

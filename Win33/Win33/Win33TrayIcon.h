@@ -15,6 +15,7 @@ namespace Win33 {
             const Win33::Icon*   icon,
             const std::wstring&  tooltip
         );
+        TrayIcon            ( )                        = delete;
         TrayIcon            ( const TrayIcon&  other ) = delete;
         TrayIcon            (       TrayIcon&& other );
         TrayIcon& operator= ( const TrayIcon&  other ) = delete;

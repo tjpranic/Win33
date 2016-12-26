@@ -7,19 +7,19 @@ namespace Win33 {
     
     class CheckBox : public Control {
     public:
-        CheckBox( ) = delete;
         CheckBox(
                   Win33::Window*     parent,
             const Win33::Point&      position,
             const Win33::Size&       size,
             const std::wstring&      text,
                   bool               checked = false,
-                  Win33::ButtonStyle style   = static_cast<Win33::ButtonStyle>( 0 )
+                  Win33::ButtonStyle style   = Win33::ButtonStyle::None
         );
+        CheckBox            ( )                        = delete;
         CheckBox            ( const CheckBox&  other ) = delete;
-        CheckBox            (       CheckBox&& other );
+        CheckBox            (       CheckBox&& other ) = default;
         CheckBox& operator= ( const CheckBox&  other ) = delete;
-        CheckBox& operator= (       CheckBox&& other );
+        CheckBox& operator= (       CheckBox&& other ) = default;
         ~CheckBox           ( )                        = default;
         
         void toggleChecked( );

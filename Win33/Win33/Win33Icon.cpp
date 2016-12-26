@@ -22,14 +22,3 @@ mHandle( nullptr )
         throw std::runtime_error( "Unable to create icon." );
     }
 }
-Win33::Icon::Icon( Icon&& other )
-:
-mHandle( other.mHandle )
-{
-    other.mHandle = nullptr;
-}
-Win33::Icon& Win33::Icon::operator=( Icon&& other ) {
-    mHandle       = other.mHandle;
-    other.mHandle = nullptr;
-    return *this;
-}

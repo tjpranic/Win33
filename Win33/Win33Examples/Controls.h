@@ -38,7 +38,11 @@ public:
         
         mPasswordBox.setText( L"PasswordBox" );
     }
-    ~ControlsWindow( ) = default;
+    ControlsWindow            ( const ControlsWindow&  other ) = delete;
+    ControlsWindow            (       ControlsWindow&& other ) = default;
+    ControlsWindow& operator= ( const ControlsWindow&  other ) = delete;
+    ControlsWindow& operator= (       ControlsWindow&& other ) = default;
+    ~ControlsWindow           ( )                              = default;
     
 private:
     Win33::Label            mTextBoxTypes;
@@ -67,7 +71,11 @@ public:
     {
         mControlsWindow.show( );
     }
-    ~ControlsApplication( ) = default;
+    ControlsApplication            ( const ControlsApplication&  other ) = delete;
+    ControlsApplication            (       ControlsApplication&& other ) = default;
+    ControlsApplication& operator= ( const ControlsApplication&  other ) = delete;
+    ControlsApplication& operator= (       ControlsApplication&& other ) = default;
+    ~ControlsApplication           ( )                                   = default;
     
 private:
     ControlsWindow mControlsWindow;

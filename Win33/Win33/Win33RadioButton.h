@@ -5,11 +5,10 @@
 
 namespace Win33 {
     
-    //grouping works just like Win32, set to true to start a new group,
+    //grouping works just like Win32, set group to true to start a new group,
     //subsequently created RadioButtons will be added to the last created group
     class RadioButton : public Control {
     public:
-        RadioButton( ) = delete;
         RadioButton(
                   Win33::Window*     parent,
             const Win33::Point&      position,
@@ -17,12 +16,13 @@ namespace Win33 {
             const std::wstring&      text,
                   bool               selected = false,
                   bool               group    = false,
-                  Win33::ButtonStyle style    = static_cast<Win33::ButtonStyle>( 0 )
+                  Win33::ButtonStyle style    = Win33::ButtonStyle::None
         );
+        RadioButton            ( )                           = delete;
         RadioButton            ( const RadioButton&  other ) = delete;
-        RadioButton            (       RadioButton&& other );
+        RadioButton            (       RadioButton&& other ) = default;
         RadioButton& operator= ( const RadioButton&  other ) = delete;
-        RadioButton& operator= (       RadioButton&& other );
+        RadioButton& operator= (       RadioButton&& other ) = default;
         ~RadioButton           ( )                           = default;
         
         bool getSelected( ) const;

@@ -24,7 +24,7 @@ public:
         fileMenu.appendSeparator( );
         auto& quit = fileMenu.appendMenuItem( L"&Quit" );
         
-        quit.onClick += [&]( ) {
+        quit.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             close( );
         };
         
@@ -38,7 +38,7 @@ public:
         website.setEnabled  ( false );
         feedback.setEnabled ( false );
         
-        about.onClick += [&]( ) {
+        about.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             Win33::PopupBox::information( L"This is a test." );
         };
         
@@ -49,7 +49,7 @@ public:
         
         english.setChecked( true );
         
-        greet.onClick += [&]( ) {
+        greet.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             switch( mLanguage ) {
                 case Language::English: {
                     Win33::PopupBox::exclamation( L"Hello, world!" );
@@ -64,24 +64,28 @@ public:
                 }
             }
         };
-        english.onClick += [&]( ) {
+        english.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::English;
             english.setChecked( true );
             espanol.setChecked( false );
             greet.setText( L"Say hello" );
         };
-        espanol.onClick += [&]( ) {
+        espanol.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::Espanol;
             english.setChecked( false );
             espanol.setChecked( true );
             greet.setText( L"Di hola" );
         };
         
-        onRightClick += [&]( Win33::WindowEvents::ClickData& data ) {
+        onRightClick += [&]( Win33::WindowEvents::RightClickData& data ) {
             mContextMenu.show( data.getPosition( ) );
         };
     }
-    ~MenusWindow( ) = default;
+    MenusWindow            ( const MenusWindow&  other ) = delete;
+    MenusWindow            (       MenusWindow&& other ) = default;
+    MenusWindow& operator= ( const MenusWindow&  other ) = delete;
+    MenusWindow& operator= (       MenusWindow&& other ) = default;
+    ~MenusWindow           ( )                           = default;
     
 private:
     Win33::MenuBar     mMenuBar;
@@ -103,7 +107,11 @@ public:
     {
         mMenuWindow.show( );
     }
-    ~MenusApplication( ) = default;
+    MenusApplication            ( const MenusApplication&  other ) = delete;
+    MenusApplication            (       MenusApplication&& other ) = default;
+    MenusApplication& operator= ( const MenusApplication&  other ) = delete;
+    MenusApplication& operator= (       MenusApplication&& other ) = default;
+    ~MenusApplication           ( )                                = default;
     
 private:
     MenusWindow mMenuWindow;

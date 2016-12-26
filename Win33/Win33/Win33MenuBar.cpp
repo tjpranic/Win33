@@ -17,23 +17,9 @@ mMenus        ( )
     
     SetMenu( Win33::Interop::toHandle( mWindow ), mHandle );
     
-    window->onClose += [&]( ) {
+    window->onClose += [&]( Win33::WindowEvents::CloseData& data ) {
         mMenus.clear( );
     };
-}
-Win33::MenuBar::MenuBar( MenuBar&& other )
-:
-mLastPosition ( other.mLastPosition ),
-mHandle       ( other.mHandle ),
-mWindow       ( other.mWindow ),
-mMenus        ( std::move( other.mMenus ) )
-{ }
-Win33::MenuBar& Win33::MenuBar::operator=( MenuBar&& other ) {
-    mLastPosition = other.mLastPosition;
-    mHandle       = other.mHandle;
-    mWindow       = other.mWindow;
-    mMenus        = std::move( other.mMenus );
-    return *this;
 }
 
 Win33::Menu& Win33::MenuBar::appendMenu( const std::wstring& text ) {

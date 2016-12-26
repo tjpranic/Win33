@@ -12,7 +12,12 @@ namespace Win33 {
             :
             mChecked( checked )
             { }
-            ~CheckData( ) = default;
+            CheckData            ( )                         = delete;
+            CheckData            ( const CheckData&  other ) = default;
+            CheckData            (       CheckData&& other ) = default;
+            CheckData& operator= ( const CheckData&  other ) = default;
+            CheckData& operator= (       CheckData&& other ) = default;
+            ~CheckData           ( )                         = default;
             
             bool isChecked( ) const {
                 return mChecked;
@@ -21,9 +26,9 @@ namespace Win33 {
         private:
             bool mChecked;
         };
-        typedef std::function<void( CheckData& )> CheckHandler;
+        using CheckHandler = std::function<void( CheckData& )>;
         
-        typedef Win33::Event<CheckHandler> Check;
+        using Check = Win33::Event<CheckHandler>;
         
     };
     

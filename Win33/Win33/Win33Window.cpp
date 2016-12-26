@@ -36,32 +36,6 @@ mTitle       ( L"" )
 {
     assert( mParent != nullptr );
 }
-Win33::Window::Window( Window&& other )
-:
-Common       ( std::move( other ) ),
-onClose      ( std::move( other.onClose ) ),
-onResize     ( std::move( other.onResize ) ),
-onMove       ( std::move( other.onMove ) ),
-onLeftClick  ( std::move( other.onLeftClick ) ),
-onRightClick ( std::move( other.onRightClick ) ),
-mResizable   ( other.mResizable ),
-mMaximizable ( other.mMaximizable ),
-mMinimizable ( other.mMinimizable ),
-mTitle       ( std::move( other.mTitle ) )
-{ }
-Win33::Window& Win33::Window::operator=( Window&& other ) {
-    Common::operator=( std::move( other ) );
-    onClose      = std::move( other.onClose );
-    onResize     = std::move( other.onResize );
-    onMove       = std::move( other.onMove );
-    onLeftClick  = std::move( other.onLeftClick );
-    onRightClick = std::move( other.onRightClick );
-    mResizable   = other.mResizable;
-    mMaximizable = other.mMaximizable;
-    mMinimizable = other.mMinimizable;
-    mTitle       = std::move( other.mTitle );
-    return *this;
-}
 
 void Win33::Window::close( ) {
     SendMessage( mHandle, WM_CLOSE, 0, 0 );

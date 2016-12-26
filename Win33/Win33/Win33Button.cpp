@@ -18,13 +18,3 @@ Control(
 ) {
     setText( text );
 }
-Win33::Button::Button( Button&& other )
-:
-Control( std::move( other ) ),
-onClick( std::move( other.onClick ) )
-{ }
-Win33::Button& Win33::Button::operator=( Button&& other ) {
-    Control::operator=( std::move( other ) );
-    onClick = std::move( other.onClick );
-    return *this;
-}

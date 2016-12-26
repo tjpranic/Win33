@@ -23,16 +23,6 @@ Control(
     setText     ( text );
     setSelected ( selected );
 }
-Win33::RadioButton::RadioButton( RadioButton&& other )
-:
-Control  ( std::move( other ) ),
-onSelect ( std::move( other.onSelect ) )
-{ }
-Win33::RadioButton& Win33::RadioButton::operator=( RadioButton&& other ) {
-    Control::operator=( std::move( other ) );
-    onSelect = std::move( other.onSelect );
-    return *this;
-}
 
 bool Win33::RadioButton::getSelected( ) const {
     return Button_GetCheck( mHandle ) != 0;

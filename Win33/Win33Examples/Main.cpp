@@ -10,7 +10,6 @@
 #include <Win33Utility.h>
 
 //TODO: finish calculator
-//TODO? add event datas to all events
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {

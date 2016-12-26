@@ -7,9 +7,9 @@ namespace Win33 {
         Size            ( );
         Size            ( int width, int height );
         Size            ( const Size&  other ) = default;
-        Size            (       Size&& other );
+        Size            (       Size&& other ) = default;
         Size& operator= ( const Size&  other ) = default;
-        Size& operator= (       Size&& other );
+        Size& operator= (       Size&& other ) = default;
         ~Size           ( )                    = default;
         
         int getWidth( )  const;

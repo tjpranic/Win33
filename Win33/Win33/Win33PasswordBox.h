@@ -6,17 +6,17 @@ namespace Win33 {
     
     class PasswordBox : public Control {
     public:
-        PasswordBox( ) = delete;
         PasswordBox(
                   Win33::Window*   parent,
             const Win33::Point&    position,
             const Win33::Size&     size,
                   Win33::EditStyle style = Win33::EditStyle::Left
         );
+        PasswordBox            ( )                           = delete;
         PasswordBox            ( const PasswordBox&  other ) = delete;
-        PasswordBox            (       PasswordBox&& other );
+        PasswordBox            (       PasswordBox&& other ) = default;
         PasswordBox& operator= ( const PasswordBox&  other ) = delete;
-        PasswordBox& operator= (       PasswordBox&& other );
+        PasswordBox& operator= (       PasswordBox&& other ) = default;
         ~PasswordBox           ( )                           = default;
         
         wchar_t getPasswordCharacter( ) const;

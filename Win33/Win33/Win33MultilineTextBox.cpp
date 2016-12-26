@@ -19,11 +19,3 @@ Control(
 ) {
     setText( text );
 }
-Win33::MultilineTextBox::MultilineTextBox( MultilineTextBox&& other )
-:
-Control( std::move( other ) )
-{ }
-Win33::MultilineTextBox& Win33::MultilineTextBox::operator=( MultilineTextBox&& other ) {
-    Control::operator=( std::move( other ) );
-    return *this;
-}

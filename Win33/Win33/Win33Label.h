@@ -7,7 +7,6 @@ namespace Win33 {
     
     class Label : public Control {
     public:
-        Label( ) = delete;
         Label(
                   Win33::Window*     parent,
             const Win33::Point&      position,
@@ -15,10 +14,11 @@ namespace Win33 {
             const std::wstring&      text  = L"",
                   Win33::StaticStyle style = Win33::StaticStyle::Left
         );
+        Label            ( )                     = delete;
         Label            ( const Label&  other ) = delete;
-        Label            (       Label&& other );
+        Label            (       Label&& other ) = default;
         Label& operator= ( const Label&  other ) = delete;
-        Label& operator= (       Label&& other );
+        Label& operator= (       Label&& other ) = default;
         ~Label           ( )                     = default;
         
         Win33::LabelEvents::Click onClick;

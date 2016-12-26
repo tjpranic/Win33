@@ -9,10 +9,11 @@ namespace Win33 {
     class ContextMenu {
     public:
         ContextMenu            ( Win33::Window* window );
+        ContextMenu            ( )                           = delete;
         ContextMenu            ( const ContextMenu&  other ) = delete;
-        ContextMenu            (       ContextMenu&& other );
+        ContextMenu            (       ContextMenu&& other ) = default;
         ContextMenu& operator= ( const ContextMenu&  other ) = delete;
-        ContextMenu& operator= (       ContextMenu&& other );
+        ContextMenu& operator= (       ContextMenu&& other ) = default;
         ~ContextMenu           ( )                           = default;
         
         void show( const Win33::Point& position = Win33::System::getCursorPosition( ) );

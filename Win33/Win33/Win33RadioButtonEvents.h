@@ -12,7 +12,12 @@ namespace Win33 {
             :
             mSelected( selected )
             { }
-            ~SelectData( ) = default;
+            SelectData            ( )                          = delete;
+            SelectData            ( const SelectData&  other ) = default;
+            SelectData            (       SelectData&& other ) = default;
+            SelectData& operator= ( const SelectData&  other ) = default;
+            SelectData& operator= (       SelectData&& other ) = default;
+            ~SelectData           ( )                          = default;
             
             bool isSelected( ) const {
                 return mSelected;
@@ -21,9 +26,9 @@ namespace Win33 {
         private:
             bool mSelected;
         };
-        typedef std::function<void( SelectData& )> SelectHandler;
+        using SelectHandler = std::function<void( SelectData& )>;
         
-        typedef Win33::Event<SelectHandler> Select;
+        using Select = Win33::Event<SelectHandler>;
         
     };
     

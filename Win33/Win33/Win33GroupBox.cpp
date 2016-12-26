@@ -20,16 +20,6 @@ mTitle( title )
 {
     setTitle( title );
 }
-Win33::GroupBox::GroupBox( GroupBox&& other )
-:
-Control ( std::move( other ) ),
-mTitle  ( std::move( other.mTitle ) )
-{ }
-Win33::GroupBox& Win33::GroupBox::operator=( GroupBox&& other ) {
-    Control::operator=( std::move( other ) );
-    mTitle = std::move( other.mTitle );
-    return *this;
-}
 
 const std::wstring& Win33::GroupBox::getTitle( ) const {
     return mTitle;

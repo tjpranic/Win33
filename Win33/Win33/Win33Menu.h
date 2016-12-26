@@ -16,9 +16,9 @@ namespace Win33 {
     public:
         Menu            ( )                    = delete;
         Menu            ( const Menu&  other ) = delete;
-        Menu            (       Menu&& other );
+        Menu            (       Menu&& other ) = default;
         Menu& operator= ( const Menu&  other ) = delete;
-        Menu& operator= (       Menu&& other );
+        Menu& operator= (       Menu&& other ) = default;
         ~Menu           ( )                    = default;
         
         const std::wstring& getText( )    const;

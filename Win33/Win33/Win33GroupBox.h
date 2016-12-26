@@ -6,18 +6,18 @@ namespace Win33 {
     
     class GroupBox : public Control {
     public:
-        GroupBox( ) = delete;
         GroupBox(
                   Win33::Window*     parent,
             const Win33::Point&      position,
             const Win33::Size&       size,
             const std::wstring&      title,
-                  Win33::ButtonStyle style = static_cast<Win33::ButtonStyle>( 0 )
+                  Win33::ButtonStyle style = Win33::ButtonStyle::None
         );
+        GroupBox            ( )                        = delete;
         GroupBox            ( const GroupBox&  other ) = delete;
-        GroupBox            (       GroupBox&& other );
+        GroupBox            (       GroupBox&& other ) = default;
         GroupBox& operator= ( const GroupBox&  other ) = delete;
-        GroupBox& operator= (       GroupBox&& other );
+        GroupBox& operator= (       GroupBox&& other ) = default;
         ~GroupBox           ( )                        = default;
         
         const std::wstring& getTitle( ) const;

@@ -6,7 +6,6 @@ namespace Win33 {
     
     class TextBox : public Control {
     public:
-        TextBox( ) = delete;
         TextBox(
                   Win33::Window*   parent,
             const Win33::Point&    position,
@@ -14,10 +13,11 @@ namespace Win33 {
             const std::wstring&    text  = L"",
                   Win33::EditStyle style = Win33::EditStyle::Left
         );
+        TextBox            ( )                       = delete;
         TextBox            ( const TextBox&  other ) = delete;
-        TextBox            (       TextBox&& other );
+        TextBox            (       TextBox&& other ) = default;
         TextBox& operator= ( const TextBox&  other ) = delete;
-        TextBox& operator= (       TextBox&& other );
+        TextBox& operator= (       TextBox&& other ) = default;
         ~TextBox           ( )                       = default;
         
         bool getReadOnly( ) const;

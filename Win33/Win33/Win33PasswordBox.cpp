@@ -17,21 +17,13 @@ Control(
     Win33::ExWindowStyle::ClientEdge
 )
 { }
-Win33::PasswordBox::PasswordBox( PasswordBox&& other )
-:
-Control( std::move( other ) )
-{ }
-Win33::PasswordBox& Win33::PasswordBox::operator=( PasswordBox&& other ) {
-    Control::operator=( std::move( other ) );
-    return *this;
-}
 
 wchar_t Win33::PasswordBox::getPasswordCharacter( ) const {
     return static_cast<wchar_t>( SendMessage( mHandle, EM_GETPASSWORDCHAR, 0, 0 ) );
 }
 
 void Win33::PasswordBox::setPasswordCharacter( wchar_t character ) {
-    if( character != L'' || character != L' ' ) {
+    if( character != L'\0' || character != L' ' ) {
         SendMessage( mHandle, EM_SETPASSWORDCHAR, character, 0 );
     }
 }

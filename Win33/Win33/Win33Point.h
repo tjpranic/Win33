@@ -7,9 +7,9 @@ namespace Win33 {
         Point            ( );
         Point            ( int x, int y );
         Point            ( const Point&  other ) = default;
-        Point            (       Point&& other );
+        Point            (       Point&& other ) = default;
         Point& operator= ( const Point&  other ) = default;
-        Point& operator= (       Point&& other );
+        Point& operator= (       Point&& other ) = default;
         ~Point           ( )                     = default;
         
         int getX( ) const;

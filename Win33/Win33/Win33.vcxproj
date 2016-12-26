@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -10,57 +18,169 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Win33Application.h" />
+    <ClInclude Include="Win33BitfieldOperators.h" />
+    <ClInclude Include="Win33Button.h" />
+    <ClInclude Include="Win33ButtonEvents.h" />
+    <ClInclude Include="Win33CheckBox.h" />
+    <ClInclude Include="Win33CheckBoxEvents.h" />
+    <ClInclude Include="Win33Common.h" />
+    <ClInclude Include="Win33Console.h" />
+    <ClInclude Include="Win33ContextMenu.h" />
+    <ClInclude Include="Win33Control.h" />
+    <ClInclude Include="Win33Dialog.h" />
+    <ClInclude Include="Win33Event.h" />
+    <ClInclude Include="Win33Font.h" />
+    <ClInclude Include="Win33GroupBox.h" />
+    <ClInclude Include="Win33Icon.h" />
+    <ClInclude Include="Win33Interop.h" />
+    <ClInclude Include="Win33Label.h" />
+    <ClInclude Include="Win33LabelEvents.h" />
+    <ClInclude Include="Win33Menu.h" />
+    <ClInclude Include="Win33MenuBar.h" />
+    <ClInclude Include="Win33MenuItem.h" />
+    <ClInclude Include="Win33MenuItemEvents.h" />
+    <ClInclude Include="Win33MultilineTextBox.h" />
+    <ClInclude Include="Win33PasswordBox.h" />
+    <ClInclude Include="Win33Point.h" />
+    <ClInclude Include="Win33PopupBox.h" />
+    <ClInclude Include="Win33RadioButton.h" />
+    <ClInclude Include="Win33RadioButtonEvents.h" />
+    <ClInclude Include="Win33Size.h" />
+    <ClInclude Include="Win33System.h" />
+    <ClInclude Include="Win33TextBox.h" />
+    <ClInclude Include="Win33TrayIcon.h" />
+    <ClInclude Include="Win33TrayIconEvents.h" />
+    <ClInclude Include="Win33Utility.h" />
+    <ClInclude Include="Win33Window.h" />
+    <ClInclude Include="Win33WindowEvents.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Win33Application.cpp" />
+    <ClCompile Include="Win33Button.cpp" />
+    <ClCompile Include="Win33CheckBox.cpp" />
+    <ClCompile Include="Win33Common.cpp" />
+    <ClCompile Include="Win33Console.cpp" />
+    <ClCompile Include="Win33ContextMenu.cpp" />
+    <ClCompile Include="Win33Control.cpp" />
+    <ClCompile Include="Win33Font.cpp" />
+    <ClCompile Include="Win33GroupBox.cpp" />
+    <ClCompile Include="Win33Icon.cpp" />
+    <ClCompile Include="Win33Interop.cpp" />
+    <ClCompile Include="Win33Label.cpp" />
+    <ClCompile Include="Win33Menu.cpp" />
+    <ClCompile Include="Win33MenuBar.cpp" />
+    <ClCompile Include="Win33MenuItem.cpp" />
+    <ClCompile Include="Win33MultilineTextBox.cpp" />
+    <ClCompile Include="Win33PasswordBox.cpp" />
+    <ClCompile Include="Win33Point.cpp" />
+    <ClCompile Include="Win33PopupBox.cpp" />
+    <ClCompile Include="Win33RadioButton.cpp" />
+    <ClCompile Include="Win33Size.cpp" />
+    <ClCompile Include="Win33System.cpp" />
+    <ClCompile Include="Win33TextBox.cpp" />
+    <ClCompile Include="Win33TrayIcon.cpp" />
+    <ClCompile Include="Win33Utility.cpp" />
+    <ClCompile Include="Win33Window.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{15082FF5-EFB3-430C-B320-609A397B62EC}</ProjectGuid>
+    <ProjectGuid>{51187E9C-D877-40BA-9ECD-1E0DB218A8F1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Win33</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <IntDir>$(SolutionDir)Win33\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Win33\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Win33\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(SolutionDir)Win33\$(Platform)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)Win33\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Win33\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ShowIncludes>false</ShowIncludes>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -71,81 +191,14 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Win33Font.cpp" />
-    <ClCompile Include="Win33Icon.cpp" />
-    <ClCompile Include="Win33Interop.cpp" />
-    <ClCompile Include="Win33TrayIcon.cpp" />
-    <ClCompile Include="Win33Application.cpp" />
-    <ClCompile Include="Win33CheckBox.cpp" />
-    <ClCompile Include="Win33ContextMenu.cpp" />
-    <ClCompile Include="Win33Size.cpp" />
-    <ClCompile Include="Win33GroupBox.cpp" />
-    <ClCompile Include="Win33Label.cpp" />
-    <ClCompile Include="Win33Menu.cpp" />
-    <ClCompile Include="Win33MenuBar.cpp" />
-    <ClCompile Include="Win33MenuItem.cpp" />
-    <ClCompile Include="Win33MultilineTextBox.cpp" />
-    <ClCompile Include="Win33PasswordBox.cpp" />
-    <ClCompile Include="Win33Common.cpp" />
-    <ClCompile Include="Win33Button.cpp" />
-    <ClCompile Include="Win33Console.cpp" />
-    <ClCompile Include="Win33Control.cpp" />
-    <ClCompile Include="Win33Point.cpp" />
-    <ClCompile Include="Win33PopupBox.cpp" />
-    <ClCompile Include="Win33RadioButton.cpp" />
-    <ClCompile Include="Win33System.cpp" />
-    <ClCompile Include="Win33TextBox.cpp" />
-    <ClCompile Include="Win33Utility.cpp" />
-    <ClCompile Include="Win33Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Win33BitfieldOperators.h" />
-    <ClInclude Include="Win33Font.h" />
-    <ClInclude Include="Win33Icon.h" />
-    <ClInclude Include="Win33Interop.h" />
-    <ClInclude Include="Win33TrayIcon.h" />
-    <ClInclude Include="Win33Application.h" />
-    <ClInclude Include="Win33ButtonEvents.h" />
-    <ClInclude Include="Win33CheckBox.h" />
-    <ClInclude Include="Win33CheckBoxEvents.h" />
-    <ClInclude Include="Win33ContextMenu.h" />
-    <ClInclude Include="Win33Size.h" />
-    <ClInclude Include="Win33Event.h" />
-    <ClInclude Include="Win33GroupBox.h" />
-    <ClInclude Include="Win33Label.h" />
-    <ClInclude Include="Win33LabelEvents.h" />
-    <ClInclude Include="Win33Menu.h" />
-    <ClInclude Include="Win33MenuBar.h" />
-    <ClInclude Include="Win33MenuItemEvents.h" />
-    <ClInclude Include="Win33MenuItem.h" />
-    <ClInclude Include="Win33MultilineTextBox.h" />
-    <ClInclude Include="Win33PasswordBox.h" />
-    <ClInclude Include="Win33Common.h" />
-    <ClInclude Include="Win33Button.h" />
-    <ClInclude Include="Win33Console.h" />
-    <ClInclude Include="Win33Control.h" />
-    <ClInclude Include="Win33Dialog.h" />
-    <ClInclude Include="Win33Point.h" />
-    <ClInclude Include="Win33RadioButton.h" />
-    <ClInclude Include="Win33RadioButtonEvents.h" />
-    <ClInclude Include="Win33TrayIconEvents.h" />
-    <ClInclude Include="Win33Utility.h" />
-    <ClInclude Include="Win33WindowEvents.h" />
-    <ClInclude Include="Win33PopupBox.h" />
-    <ClInclude Include="Win33System.h" />
-    <ClInclude Include="Win33TextBox.h" />
-    <ClInclude Include="Win33Window.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

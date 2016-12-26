@@ -1,7 +1,5 @@
 #include "Calculator.h"
 
-#include <algorithm>
-
 #include <Win33PopupBox.h>
 #include <Win33Utility.h>
 
@@ -18,15 +16,16 @@ mSix          ( this, { 120, 100 }, {  50, 50 }, L"6" ),
 mSeven        ( this, {  10, 155 }, {  50, 50 }, L"7" ),
 mEight        ( this, {  65, 155 }, {  50, 50 }, L"8" ),
 mNine         ( this, { 120, 155 }, {  50, 50 }, L"9" ),
+mClear        ( this, {  10, 210 }, {  50, 50 }, L"C" ),
 mZero         ( this, {  65, 210 }, {  50, 50 }, L"0" ),
 mDot          ( this, { 120, 210 }, {  50, 50 }, L"." ),
 mAdd          ( this, { 175,  45 }, {  50, 50 }, L"+" ),
 mSubtract     ( this, { 175, 100 }, {  50, 50 }, L"-" ),
 mMultiply     ( this, { 175, 155 }, {  50, 50 }, L"*" ),
 mDivide       ( this, { 175, 210 }, {  50, 50 }, L"/" ),
-mOpenBracket  ( this, { 230, 45  }, {  50, 50 }, L"(" ),
-mCloseBracket ( this, { 230, 100 }, {  50, 50 }, L")" ),
-mClear        ( this, { 230, 155 }, {  50, 50 }, L"C" ),
+mBackspace    ( this, { 230, 45  }, {  50, 50 }, L"\u2190" ), //\u2190 is a left arrow
+mOpenBracket  ( this, { 230, 100 }, {  50, 50 }, L"(" ),
+mCloseBracket ( this, { 230, 155 }, {  50, 50 }, L")" ),
 mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
 {
     setTitle       ( L"Calculator" );
@@ -38,103 +37,115 @@ mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
     mResult.setFont     ( &SegoeUI24Bold );
     mResult.setText     ( L"0" );
     
-    mOne.setFont      ( &SegoeUI18 );
-    mTwo.setFont      ( &SegoeUI18 );
-    mThree.setFont    ( &SegoeUI18 );
-    mFour.setFont     ( &SegoeUI18 );
-    mFive.setFont     ( &SegoeUI18 );
-    mSix.setFont      ( &SegoeUI18 );
-    mSeven.setFont    ( &SegoeUI18 );
-    mEight.setFont    ( &SegoeUI18 );
-    mNine.setFont     ( &SegoeUI18 );
-    mZero.setFont     ( &SegoeUI18 );
-    mAdd.setFont      ( &SegoeUI18 );
-    mSubtract.setFont ( &SegoeUI18 );
-    mMultiply.setFont ( &SegoeUI18 );
-    mDivide.setFont   ( &SegoeUI18 );
-    mEquals.setFont   ( &SegoeUI18 );
-    mClear.setFont    ( &SegoeUI18 );
-    mDot.setFont      ( &SegoeUI18 );
+    mOne.setFont          ( &SegoeUI18 );
+    mTwo.setFont          ( &SegoeUI18 );
+    mThree.setFont        ( &SegoeUI18 );
+    mFour.setFont         ( &SegoeUI18 );
+    mFive.setFont         ( &SegoeUI18 );
+    mSix.setFont          ( &SegoeUI18 );
+    mSeven.setFont        ( &SegoeUI18 );
+    mEight.setFont        ( &SegoeUI18 );
+    mNine.setFont         ( &SegoeUI18 );
+    mClear.setFont        ( &SegoeUI18 );
+    mZero.setFont         ( &SegoeUI18 );
+    mAdd.setFont          ( &SegoeUI18 );
+    mSubtract.setFont     ( &SegoeUI18 );
+    mMultiply.setFont     ( &SegoeUI18 );
+    mDivide.setFont       ( &SegoeUI18 );
+    mEquals.setFont       ( &SegoeUI18 );
+    mBackspace.setFont    ( &SegoeUI18 );
+    mOpenBracket.setFont  ( &SegoeUI18 );
+    mCloseBracket.setFont ( &SegoeUI18 );
+    mDot.setFont          ( &SegoeUI18 );
     
-    mOne.onClick += [&]( ) {
+    mOne.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"1" : mResult.getText( ) + L"1" );
     };
-    mTwo.onClick += [&]( ) {
+    mTwo.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"2" : mResult.getText( ) + L"2" );
     };
-    mThree.onClick += [&]( ) {
+    mThree.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"3" : mResult.getText( ) + L"3" );
     };
-    mFour.onClick += [&]( ) {
+    mFour.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"4" : mResult.getText( ) + L"4" );
     };
-    mFive.onClick += [&]( ) {
+    mFive.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"5" : mResult.getText( ) + L"5" );
     };
-    mSix.onClick += [&]( ) {
+    mSix.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"6" : mResult.getText( ) + L"6" );
     };
-    mSeven.onClick += [&]( ) {
+    mSeven.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"7" : mResult.getText( ) + L"7" );
     };
-    mEight.onClick += [&]( ) {
+    mEight.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"8" : mResult.getText( ) + L"8" );
     };
-    mNine.onClick += [&]( ) {
+    mNine.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"9" : mResult.getText( ) + L"9" );
     };
-    mZero.onClick += [&]( ) {
+    mClear.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
+        mResult.setText( L"0" );
+    };
+    mZero.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         if( mResult.getText( ) != L"0" ) {
             mResult.setText( mResult.getText( ) + L"0" );
         }
     };
-    mDot.onClick += [&]( ) {
+    mDot.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         auto text = mResult.getText( );
         auto last = text.back( );
         if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
             mResult.setText( ( text == L"0" ) ? L"." : text + L"." );
         }
     };
-    mAdd.onClick += [&]( ) {
+    mAdd.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         auto text = mResult.getText( );
         auto last = text.back( );
         if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
             mResult.setText( text + L"+" );
         }
     };
-    mSubtract.onClick += [&]( ) {
+    mSubtract.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         auto text = mResult.getText( );
         auto last = text.back( );
         if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' ) {
             mResult.setText( ( text == L"0" ) ? L"-" : text + L"-" );
         }
     };
-    mMultiply.onClick += [&]( ) {
+    mMultiply.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         auto text = mResult.getText( );
         auto last = text.back( );
         if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
             mResult.setText( text + L"*" );
         }
     };
-    mDivide.onClick += [&]( ) {
+    mDivide.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         auto text = mResult.getText( );
         auto last = text.back( );
         if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
             mResult.setText( text + L"/" );
         }
     };
-    mOpenBracket.onClick += [&]( ) {
+    mBackspace.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
+        auto text = mResult.getText( );
+        if( text.size( ) == 1 ) {
+            mResult.setText( L"0" );
+        }
+        else if( text != L"0" ) {
+            mResult.setText( text.substr( 0, text.size( ) - 1 ) );
+        }
+    };
+    mOpenBracket.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L"(" : mResult.getText( ) + L"(" );
     };
-    mCloseBracket.onClick += [&]( ) {
+    mCloseBracket.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mResult.setText( ( mResult.getText( ) == L"0" ) ? L")" : mResult.getText( ) + L")" );
     };
-    mClear.onClick += [&]( ) {
-        mResult.setText( L"0" );
-    };
-    mEquals.onClick += [&]( ) {
-        double result = 0.0;
-        //...
+    mEquals.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
+        auto result = 0.0;
+        //...arithmetic expression parser goes here...
         mResult.setText( Win33::Utility::format( L"%g", result ) );
     };
 }

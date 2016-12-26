@@ -12,7 +12,7 @@
 namespace Win33 {
     
     enum class WindowStyle : DWORD {
-        NoStyle          = 0,
+        None             = 0,
         Border           = WS_BORDER,
         Caption          = WS_CAPTION,
         Child            = WS_CHILD,
@@ -41,7 +41,7 @@ namespace Win33 {
         VerticalScroll   = WS_VSCROLL
     };
     enum class ExWindowStyle : DWORD {
-        NoExWindowStyle     = 0,
+        None                = 0,
         DragAndDrop         = WS_EX_ACCEPTFILES,
         AppWindow           = WS_EX_APPWINDOW,
         ClientEdge          = WS_EX_CLIENTEDGE,
@@ -71,7 +71,7 @@ namespace Win33 {
         WindowEdge          = WS_EX_WINDOWEDGE
     };
     enum class ButtonStyle : DWORD {
-        NoButtonStyle      = 0,
+        None               = 0,
         ThreeState         = BS_3STATE,
         AutoThreeState     = BS_AUTO3STATE,
         AutoCheckBox       = BS_AUTOCHECKBOX,
@@ -105,7 +105,7 @@ namespace Win33 {
         VerticalCenter     = BS_VCENTER
     };
     enum class EditStyle : DWORD {
-        NoEditControlStyle   = 0,
+        None                 = 0,
         AutoHorizontalScroll = ES_AUTOHSCROLL,
         AutoVerticalScroll   = ES_AUTOVSCROLL,
         Center               = ES_CENTER,
@@ -122,6 +122,7 @@ namespace Win33 {
         WantReturn           = ES_WANTRETURN
     };
     enum class StaticStyle : DWORD {
+        None             = 0,
         Bitmap           = SS_BITMAP,
         BlackFrame       = SS_BLACKFRAME,
         BlackRectangle   = SS_BLACKRECT,
@@ -212,7 +213,7 @@ namespace Win33 {
             const Win33::Point&        position,
             const Win33::Size&         size,
                   Win33::WindowStyle   style   = Win33::WindowStyle::OverlappedWindow,
-                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::NoExWindowStyle
+                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::None
         );
         
         HWND                mHandle;

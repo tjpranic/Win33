@@ -2,7 +2,9 @@
 
 #include <cassert>
 
-Win33::Font::Font( const std::wstring& font, int size, Win33::FontDecoration::Type decorations )
+#include "Win33BitfieldOperators.h"
+
+Win33::Font::Font( const std::wstring& font, int size, Win33::FontDecoration decorations )
 :
 mHandle( nullptr )
 {
@@ -28,17 +30,6 @@ mHandle( nullptr )
     if( !mHandle ) {
         throw std::runtime_error( "Unable to create font." );
     }
-}
-Win33::Font::Font( Font&& other )
-:
-mHandle( other.mHandle )
-{
-    other.mHandle = nullptr;
-}
-Win33::Font& Win33::Font::operator=( Font&& other ) {
-    mHandle       = other.mHandle;
-    other.mHandle = nullptr;
-    return *this;
 }
 Win33::Font::~Font( ) {
     if( mHandle ) {

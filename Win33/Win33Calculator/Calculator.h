@@ -10,8 +10,12 @@ const Win33::Font SegoeUI24Bold = Win33::Font( L"SegoeUI", 24, Win33::FontDecora
 
 class CalculatorWindow : public Win33::Window {
 public:
-    CalculatorWindow  ( );
-    ~CalculatorWindow ( ) = default;
+    CalculatorWindow            ( );
+    CalculatorWindow            ( const CalculatorWindow&  other ) = delete;
+    CalculatorWindow            (       CalculatorWindow&& other ) = default;
+    CalculatorWindow& operator= ( const CalculatorWindow&  other ) = delete;
+    CalculatorWindow& operator= (       CalculatorWindow&& other ) = default;
+    ~CalculatorWindow           ( )                                = default;
     
 private:
     Win33::TextBox mResult;
@@ -24,22 +28,27 @@ private:
     Win33::Button  mSeven;
     Win33::Button  mEight;
     Win33::Button  mNine;
+    Win33::Button  mClear;
     Win33::Button  mZero;
     Win33::Button  mDot;
     Win33::Button  mAdd;
     Win33::Button  mSubtract;
     Win33::Button  mMultiply;
     Win33::Button  mDivide;
+    Win33::Button  mBackspace;
     Win33::Button  mOpenBracket;
     Win33::Button  mCloseBracket;
-    Win33::Button  mClear;
     Win33::Button  mEquals;
 };
 
 class CalculatorApplication : public Win33::Application {
 public:
-    CalculatorApplication  ( );
-    ~CalculatorApplication ( ) = default;
+    CalculatorApplication            ( );
+    CalculatorApplication            ( const CalculatorApplication&  other ) = delete;
+    CalculatorApplication            (       CalculatorApplication&& other ) = default;
+    CalculatorApplication& operator= ( const CalculatorApplication&  other ) = delete;
+    CalculatorApplication& operator= (       CalculatorApplication&& other ) = default;
+    ~CalculatorApplication           ( )                                     = default;
     
     int run( );
     

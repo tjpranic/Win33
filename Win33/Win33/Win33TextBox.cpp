@@ -23,16 +23,6 @@ mReadOnly( false )
 {
     setText( text );
 }
-Win33::TextBox::TextBox( TextBox&& other )
-:
-Control   ( std::move( other ) ),
-mReadOnly ( other.mReadOnly )
-{ }
-Win33::TextBox& Win33::TextBox::operator=( TextBox&& other ) {
-    Control::operator=( std::move( other ) );
-    mReadOnly = other.mReadOnly;
-    return *this;
-}
 
 bool Win33::TextBox::getReadOnly( ) const {
     return mReadOnly;

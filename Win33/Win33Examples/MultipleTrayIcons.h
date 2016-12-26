@@ -16,13 +16,17 @@ public:
     {
         setTitle( L"FirstWindow" );
         
-        mFirstTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::ClickData& data ) {
+        mFirstTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::LeftClickData& data ) {
             toggleVisibility( );
         };
         
         mFirstTrayIcon.setTooltip( L"Hello" );
     }
-    ~FirstTrayIconWindow( ) = default;
+    FirstTrayIconWindow            ( const FirstTrayIconWindow&  other ) = delete;
+    FirstTrayIconWindow            (       FirstTrayIconWindow&& other ) = default;
+    FirstTrayIconWindow& operator= ( const FirstTrayIconWindow&  other ) = delete;
+    FirstTrayIconWindow& operator= (       FirstTrayIconWindow&& other ) = default;
+    ~FirstTrayIconWindow           ( )                                   = default;
     
 private:
     Win33::TrayIcon mFirstTrayIcon;
@@ -37,11 +41,15 @@ public:
     {
         setTitle( L"SecondWindow" );
         
-        mSecondTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::ClickData& data ) {
+        mSecondTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::LeftClickData& data ) {
             toggleVisibility( );
         };
     }
-    ~SecondTrayIconWindow( ) = default;
+    SecondTrayIconWindow            ( const SecondTrayIconWindow&  other ) = delete;
+    SecondTrayIconWindow            (       SecondTrayIconWindow&& other ) = default;
+    SecondTrayIconWindow& operator= ( const SecondTrayIconWindow&  other ) = delete;
+    SecondTrayIconWindow& operator= (       SecondTrayIconWindow&& other ) = default;
+    ~SecondTrayIconWindow           ( )                                    = default;
     
 private:
     Win33::TrayIcon mSecondTrayIcon;
@@ -58,7 +66,11 @@ public:
         mFirstWindow.show( );
         mSecondWindow.show( );
     }
-    ~MultipleTrayIconsApplication( ) = default;
+    MultipleTrayIconsApplication            ( const MultipleTrayIconsApplication&  other ) = delete;
+    MultipleTrayIconsApplication            (       MultipleTrayIconsApplication&& other ) = default;
+    MultipleTrayIconsApplication& operator= ( const MultipleTrayIconsApplication&  other ) = delete;
+    MultipleTrayIconsApplication& operator= (       MultipleTrayIconsApplication&& other ) = default;
+    ~MultipleTrayIconsApplication           ( ) = default;
     
 private:
     FirstTrayIconWindow  mFirstWindow;

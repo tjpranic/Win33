@@ -67,18 +67,6 @@ mText   ( L"" )
     //Win32 defaults to a different UI font, so actually set the proper UI default
     SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( GetStockObject( DEFAULT_GUI_FONT ) ), MAKELPARAM( TRUE, 0 ) );
 }
-Win33::Control::Control( Control&& other )
-:
-Common  ( std::move( other ) ),
-mAnchor ( other.mAnchor ),
-mText   ( std::move( other.mText ) )
-{ }
-Win33::Control& Win33::Control::operator=( Control&& other ) {
-    Common::operator=( std::move( other ) );
-    mAnchor = other.mAnchor;
-    mText   = std::move( other.mText );
-    return *this;
-}
 
 Win33::Anchor Win33::Control::getAnchor( ) const {
     return mAnchor;

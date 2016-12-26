@@ -8,50 +8,16 @@ namespace Win33 {
     
     class Application;
     
-    namespace Events {
-        typedef std::function<void( )> Handler;
-    };
-    namespace WindowEvents {
-        typedef std::function<void( )> Handler;
-    };
-    namespace ButtonEvents {
-        typedef std::function<void( )> Handler;
-    };
-    namespace CheckBoxEvents {
-        typedef std::function<void( )> Handler;
-    };
-    namespace LabelEvents {
-        typedef std::function<void( )> Handler;
-    };
-    namespace RadioButtonEvents {
-        typedef std::function<void( )> Handler;
-    };
-    namespace MenuEvents {
-        typedef std::function<void( )> Handler;
-    };
-    namespace TrayIconEvents {
-        typedef std::function<void( )> Handler;
-    }
-    
-    template<class H = Win33::Events::Handler>
+    template<class H>
     class Event {
     friend class Application;
     public:
-        Event( )
-        :
-        mEventHandlers( )
-        { }
-        Event( const Event&  other ) = delete;
-        Event(       Event&& other )
-        :
-        mEventHandlers( std::move( other.mEventHandlers ) )
-        { }
-        Event& operator=( const Event&  other ) = delete;
-        Event& operator=(       Event&& other ) {
-            mEventHandlers = std::move( other.mEventHandlers );
-            return *this;
-        }
-        ~Event( ) = default;
+        Event            ( )                     = default;
+        Event            ( const Event&  other ) = delete;
+        Event            (       Event&& other ) = default;
+        Event& operator= ( const Event&  other ) = delete;
+        Event& operator= (       Event&& other ) = default;
+        ~Event           ( )                     = default;
         
         void addHandler( const H& handler ) {
             mEventHandlers.push_back( handler );
@@ -72,17 +38,11 @@ namespace Win33 {
         }
         
     private:
-        void handle( ) {
-            for( auto& h = mEventHandlers.begin( ); h != mEventHandlers.end( ); ++h ) {
-                ( *h )( );
-                //this is to stop close events (which erase event handlers) from triggering debug assertions
-                if( mEventHandlers.empty( ) ) { break; }
-            }
-        }
         template<class D>
         void handle( D& data ) {
             for( auto& h = mEventHandlers.begin( ); h != mEventHandlers.end( ); ++h ) {
                 ( *h )( data );
+                //this is to stop close events (which erase event handlers) from triggering a crash
                 if( mEventHandlers.empty( ) ) { break; }
             }
         }

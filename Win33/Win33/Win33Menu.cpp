@@ -42,26 +42,6 @@ mMenuItems    ( )
         throw std::runtime_error( "Unable to create menu." );
     }
 }
-Win33::Menu::Menu( Menu&& other )
-:
-mLastPosition ( other.mLastPosition ),
-mHandle       ( other.mHandle ),
-mParent       ( other.mParent ),
-mPosition     ( other.mPosition ),
-mText         ( std::move( other.mText ) ),
-mSubMenus     ( std::move( other.mSubMenus ) ),
-mMenuItems    ( std::move( other.mMenuItems ) )
-{ }
-Win33::Menu& Win33::Menu::operator=( Menu&& other ) {
-    mLastPosition = other.mLastPosition;
-    mHandle       = other.mHandle;
-    mParent       = other.mParent;
-    mPosition     = other.mPosition;
-    mText         = std::move( other.mText );
-    mSubMenus     = std::move( other.mSubMenus );
-    mMenuItems    = std::move( other.mMenuItems );
-    return *this;
-}
 
 const std::wstring& Win33::Menu::getText( ) const {
     return mText;

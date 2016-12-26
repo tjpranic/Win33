@@ -16,7 +16,11 @@ public:
         
         mResult = L"Hello, world!";
     }
-    ~Dialog( ) = default;
+    Dialog            ( const Dialog&  other ) = delete;
+    Dialog            (       Dialog&& other ) = default;
+    Dialog& operator= ( const Dialog&  other ) = delete;
+    Dialog& operator= (       Dialog&& other ) = default;
+    ~Dialog           ( )                      = default;
 };
 
 class DialogWindow : public Win33::Window {
@@ -29,13 +33,17 @@ public:
         setTitle( L"DialogWindow" );
         
         mShowDialog.setAnchor( Win33::Anchor::RightBottom );
-        mShowDialog.onClick += [&]( ) {
+        mShowDialog.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
             auto result = Dialog( this ).show( );
             
             Win33::PopupBox::information( result, L"Dialog Result" );
         };
     }
-    ~DialogWindow( ) = default;
+    DialogWindow            ( const DialogWindow&  other ) = delete;
+    DialogWindow            (       DialogWindow&& other ) = default;
+    DialogWindow& operator= ( const DialogWindow&  other ) = delete;
+    DialogWindow& operator= (       DialogWindow&& other ) = default;
+    ~DialogWindow           ( )                            = default;
     
 private:
     Win33::Button mShowDialog;
@@ -50,7 +58,11 @@ public:
     {
         mDialogWindow.show( );
     }
-    ~DialogApplication( ) = default;
+    DialogApplication            ( const DialogApplication&  other ) = delete;
+    DialogApplication            (       DialogApplication&& other ) = default;
+    DialogApplication& operator= ( const DialogApplication&  other ) = delete;
+    DialogApplication& operator= (       DialogApplication&& other ) = default;
+    ~DialogApplication           ( )                                 = default;
     
 private:
     DialogWindow mDialogWindow;
