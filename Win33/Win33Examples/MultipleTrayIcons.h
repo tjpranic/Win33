@@ -70,7 +70,7 @@ public:
     MultipleTrayIconsApplication            (       MultipleTrayIconsApplication&& other ) = default;
     MultipleTrayIconsApplication& operator= ( const MultipleTrayIconsApplication&  other ) = delete;
     MultipleTrayIconsApplication& operator= (       MultipleTrayIconsApplication&& other ) = default;
-    ~MultipleTrayIconsApplication           ( ) = default;
+    ~MultipleTrayIconsApplication           ( )                                            = default;
     
 private:
     FirstTrayIconWindow  mFirstWindow;

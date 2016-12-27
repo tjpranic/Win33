@@ -20,18 +20,23 @@ namespace Win33 {
         void close( );
         void minimize( );
         void maximize( );
+        void restore( );
         void toggleVisibility( );
         
         const std::wstring& getTitle( )       const;
               bool          getResizable( )   const;
               bool          getMaximizable( ) const;
               bool          getMinimizable( ) const;
+              bool          getMinimized( )   const;
+              bool          getMaximized( )   const;
         
         void setTitle       ( const std::wstring& title       );
         void setResizable   (       bool          resizable   );
         void setIcon        ( const std::wstring& icon        );
         void setMaximizable (       bool          maximizable );
         void setMinimizable (       bool          minimizable );
+        void setMinimzed    (       bool          minimized   );
+        void setMaximized   (       bool          maximized   );
         
         Win33::WindowEvents::Close      onClose;
         Win33::WindowEvents::Resize     onResize;
@@ -60,6 +65,8 @@ namespace Win33 {
         bool         mResizable;
         bool         mMaximizable;
         bool         mMinimizable;
+        bool         mMinimized;
+        bool         mMaximized;
         std::wstring mTitle;
     };
     

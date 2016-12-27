@@ -8,31 +8,21 @@ namespace Win33 {
     
     namespace WindowEvents {
         
-        class CloseData {
+        class CloseData : public CancellableEventData {
         public:
             CloseData( )
             :
-            mCancelled( false )
+            CancellableEventData( )
             { }
             CloseData            ( const CloseData&  other ) = default;
             CloseData            (       CloseData&& other ) = default;
             CloseData& operator= ( const CloseData&  other ) = default;
             CloseData& operator= (       CloseData&& other ) = default;
             ~CloseData           ( )                         = default;
-            
-            bool getCancelled( ) const {
-                return mCancelled;
-            }
-            void setCancelled( bool cancelled ) {
-                mCancelled = cancelled;
-            }
-            
-        private:
-            bool mCancelled;
         };
         using CloseHandler = std::function<void( CloseData& )>;
         
-        class ResizeData {
+        class ResizeData : public EventData {
         public:
             ResizeData( const Size& size )
             :
@@ -54,7 +44,7 @@ namespace Win33 {
         };
         using ResizeHandler = std::function<void( ResizeData& )>;
         
-        class MoveData {
+        class MoveData : public EventData {
         public:
             MoveData( const Point& position )
             :
@@ -76,7 +66,7 @@ namespace Win33 {
         };
         using MoveHandler = std::function<void( MoveData& )>;
         
-        class LeftClickData {
+        class LeftClickData : public EventData {
         public:
             LeftClickData( const Point& position )
             :
@@ -98,7 +88,7 @@ namespace Win33 {
         };
         using LeftClickHandler  = std::function<void( LeftClickData& )>;
         
-        class RightClickData {
+        class RightClickData : public EventData {
         public:
             RightClickData( const Point& position )
             :
@@ -120,7 +110,7 @@ namespace Win33 {
         };
         using RightClickHandler = std::function<void( RightClickData& )>;
         
-        using Close      = Win33::Event<CloseHandler>;
+        using Close      = Win33::CancellableEvent<CloseHandler>;
         using Resize     = Win33::Event<ResizeHandler>;
         using Move       = Win33::Event<MoveHandler>;
         using LeftClick  = Win33::Event<LeftClickHandler>;

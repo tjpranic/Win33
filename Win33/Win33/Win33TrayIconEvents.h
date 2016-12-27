@@ -6,7 +6,7 @@ namespace Win33 {
     
     namespace TrayIconEvents {
         
-        class LeftClickData {
+        class LeftClickData : public EventData {
         public:
             LeftClickData( const Point& position )
             :
@@ -28,7 +28,7 @@ namespace Win33 {
         };
         using LeftClickHandler  = std::function<void( LeftClickData& )>;
         
-        class RightClickData {
+        class RightClickData : public EventData {
         public:
             RightClickData( const Point& position )
             :

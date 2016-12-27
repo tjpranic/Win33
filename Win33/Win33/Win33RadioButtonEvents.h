@@ -6,7 +6,7 @@ namespace Win33 {
     
     namespace RadioButtonEvents {
         
-        class SelectData {
+        class SelectData : public EventData {
         public:
             SelectData( bool selected )
             :

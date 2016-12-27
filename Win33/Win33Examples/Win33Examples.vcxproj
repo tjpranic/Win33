@@ -158,6 +158,7 @@
     <ClInclude Include="Menus.h" />
     <ClInclude Include="MultipleTrayIcons.h" />
     <ClInclude Include="MultipleWindows.h" />
+    <ClInclude Include="TrayIcon.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

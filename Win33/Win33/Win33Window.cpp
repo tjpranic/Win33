@@ -19,6 +19,8 @@ Common       ( Win33::Common::Type::Window, nullptr, position, size, style, exSt
 mResizable   ( ( style & Win33::WindowStyle::Thickframe   ) == Win33::WindowStyle::Thickframe   ),
 mMaximizable ( ( style & Win33::WindowStyle::MaximizedBox ) == Win33::WindowStyle::MaximizedBox ),
 mMinimizable ( ( style & Win33::WindowStyle::MinimizedBox ) == Win33::WindowStyle::MinimizedBox ),
+mMinimized   ( false ),
+mMaximized   ( false ),
 mTitle       ( L"" )
 { }
 Win33::Window::Window(
@@ -32,6 +34,8 @@ Common       ( Win33::Common::Type::Window, parent, position, size, style, exSty
 mResizable   ( ( style & Win33::WindowStyle::Thickframe   ) == Win33::WindowStyle::Thickframe   ),
 mMaximizable ( ( style & Win33::WindowStyle::MaximizedBox ) == Win33::WindowStyle::MaximizedBox ),
 mMinimizable ( ( style & Win33::WindowStyle::MinimizedBox ) == Win33::WindowStyle::MinimizedBox ),
+mMinimized   ( false ),
+mMaximized   ( false ),
 mTitle       ( L"" )
 {
     assert( mParent != nullptr );
@@ -42,9 +46,18 @@ void Win33::Window::close( ) {
 }
 void Win33::Window::minimize( ) {
     CloseWindow( mHandle );
+    mMinimized = true;
+    mMaximized = false;
 }
 void Win33::Window::maximize( ) {
     ShowWindow( mHandle, SW_MAXIMIZE );
+    mMaximized = true;
+    mMinimized = false;
+}
+void Win33::Window::restore( ) {
+    ShowWindow( mHandle, SW_RESTORE );
+    mMaximized = false;
+    mMinimized = false;
 }
 void Win33::Window::toggleVisibility( ) {
     if( getVisible( ) ) {
@@ -69,6 +82,12 @@ bool Win33::Window::getMaximizable( ) const {
 }
 bool Win33::Window::getMinimizable( ) const {
     return mMinimizable;
+}
+bool Win33::Window::getMinimized( ) const {
+    return mMinimized;
+}
+bool Win33::Window::getMaximized( ) const {
+    return mMaximized;
 }
 
 void Win33::Window::setTitle( const std::wstring& title ) {
@@ -106,5 +125,15 @@ void Win33::Window::setMinimizable( bool minimizable ) {
     }
     else {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_MINIMIZEBOX );
+    }
+}
+void Win33::Window::setMinimzed( bool minimized ) {
+    if( !mMinimized ) {
+        minimize( );
+    }
+}
+void Win33::Window::setMaximized( bool maximized ) {
+    if( !mMaximized ) {
+        maximize( );
     }
 }

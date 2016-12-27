@@ -6,7 +6,7 @@ namespace Win33 {
     
     namespace CheckBoxEvents {
         
-        class CheckData {
+        class CheckData : public EventData {
         public:
             CheckData( bool checked )
             :

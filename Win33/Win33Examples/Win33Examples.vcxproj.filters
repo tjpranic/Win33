@@ -24,6 +24,9 @@
     <ClInclude Include="HiddenWindow.h">
       <Filter>Examples</Filter>
     </ClInclude>
+    <ClInclude Include="TrayIcon.h">
+      <Filter>Examples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />

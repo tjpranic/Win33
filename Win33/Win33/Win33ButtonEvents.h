@@ -6,7 +6,7 @@ namespace Win33 {
     
     namespace ButtonEvents {
         
-        class ClickData {
+        class ClickData : public EventData {
         public:
             ClickData            ( )                         = default;
             ClickData            ( const ClickData&  other ) = default;
