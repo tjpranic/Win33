@@ -150,7 +150,7 @@ int Win33::Common::getY( ) const {
     return cr.top + p.y;
 }
 const Win33::Point& Win33::Common::getPosition( ) const {
-    Win33::Utility::mutate( const_cast<Win33::Point*>( &mPosition ), getX( ), getY( ) );
+    *const_cast<Win33::Point*>( &mPosition ) = { getX( ), getY( ) };
     return mPosition;
 }
 int Win33::Common::getWidth( ) const {
@@ -164,7 +164,7 @@ int Win33::Common::getHeight( ) const {
     return wr.bottom - wr.top;
 }
 const Win33::Size& Win33::Common::getSize( ) const {
-    Win33::Utility::mutate( const_cast<Win33::Size*>( &mSize ), getWidth( ), getHeight( ) );
+    *const_cast<Win33::Size*>( &mSize ) = { getWidth( ), getHeight( ) };
     return mSize;
 }
 bool Win33::Common::getVisible( ) const {

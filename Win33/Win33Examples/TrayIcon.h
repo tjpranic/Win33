@@ -12,17 +12,24 @@ public:
     TrayIconWindow( )
     :
     Win33::Window ( Win33::Window::DefaultPosition, { 640, 480 } ),
+    mAllowExit    ( false ),
     mTrayIcon     ( this, &TrayIcon, L"TrayIcon" ),
-    mQuit         ( this, { }, { }, L"Quit" )
+    mQuit         ( this, { 515, 407 }, { 100, 25 }, L"Quit" )
     {
         setTitle( L"TrayIconWindow" );
         
-        onClose += [&]( Win33::WindowEvents::CloseData& data ) {
-            data.setCancelled( true );
+        mTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::LeftClickData& data ) {
             toggleVisibility( );
         };
         
-        mTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::LeftClickData& data ) {
+        mQuit.setAnchor( Win33::Anchor::RightBottom );
+        mQuit.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
+            mAllowExit = true;
+            close( );
+        };
+        
+        onClose += [&]( Win33::WindowEvents::CloseData& data ) {
+            data.setCancelled( !mAllowExit );
             toggleVisibility( );
         };
         
@@ -35,6 +42,8 @@ public:
     ~TrayIconWindow           ( )                              = default;
     
 private:
+    bool mAllowExit;
+    
     Win33::TrayIcon mTrayIcon;
     Win33::Button   mQuit;
 };

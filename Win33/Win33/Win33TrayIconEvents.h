@@ -50,8 +50,8 @@ namespace Win33 {
         };
         using RightClickHandler = std::function<void( RightClickData& )>;
         
-        using LeftClick  = Win33::Event<LeftClickHandler>;
-        using RightClick = Win33::Event<RightClickHandler>;
+        using LeftClick  = Win33::Event<LeftClickData, LeftClickHandler>;
+        using RightClick = Win33::Event<RightClickData, RightClickHandler>;
         
     };
     

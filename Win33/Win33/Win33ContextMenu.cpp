@@ -14,7 +14,7 @@ mMenuItems    ( )
         throw std::runtime_error( "Unable to create context menu." );
     }
     
-    window->onClose += [&]( Win33::WindowEvents::CloseData& data ) {
+    window->onDestroy += [&]( Win33::WindowEvents::DestroyData& data ) {
         mMenus.clear( );
         mMenuItems.clear( );
     };

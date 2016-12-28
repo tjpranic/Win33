@@ -39,6 +39,7 @@ namespace Win33 {
         void setMaximized   (       bool          maximized   );
         
         Win33::WindowEvents::Close      onClose;
+        Win33::WindowEvents::Destroy    onDestroy;
         Win33::WindowEvents::Resize     onResize;
         Win33::WindowEvents::Move       onMove;
         Win33::WindowEvents::LeftClick  onLeftClick;
@@ -62,11 +63,6 @@ namespace Win33 {
         );
         
     private:
-        bool         mResizable;
-        bool         mMaximizable;
-        bool         mMinimizable;
-        bool         mMinimized;
-        bool         mMaximized;
         std::wstring mTitle;
     };
     

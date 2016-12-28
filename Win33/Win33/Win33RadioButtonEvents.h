@@ -28,7 +28,7 @@ namespace Win33 {
         };
         using SelectHandler = std::function<void( SelectData& )>;
         
-        using Select = Win33::Event<SelectHandler>;
+        using Select = Win33::Event<SelectData, SelectHandler>;
         
     };
     

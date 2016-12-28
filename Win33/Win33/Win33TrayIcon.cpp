@@ -24,7 +24,7 @@ Win33::TrayIcon::TrayIcon(
     mNID.uID              = generateID( );
     mNID.uFlags           = NIF_MESSAGE | NIF_ICON | NIF_TIP;
     mNID.uCallbackMessage = WM_TRAYICON;
-    mNID.hIcon            = Win33::Interop::toHandle( icon ); //static_cast<HICON>( LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED ) );
+    mNID.hIcon            = Win33::Interop::toHandle( icon );
     
     for( auto i = 0; i != tooltip.size( ); ++i ) {
         mNID.szTip[i] = tooltip[i];
@@ -36,7 +36,7 @@ Win33::TrayIcon::TrayIcon(
     
     Win33::Application::mTrayIcons[mNID.uID] = this;
     
-    window->onClose += [&]( Win33::WindowEvents::CloseData& data ) {
+    window->onDestroy += [&]( Win33::WindowEvents::DestroyData& data ) {
         Shell_NotifyIcon( NIM_DELETE, &mNID );
         Win33::Application::mTrayIcons.erase( mNID.uID );
     };

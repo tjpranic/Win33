@@ -10,10 +10,7 @@ namespace Win33 {
         
         class CloseData : public CancellableEventData {
         public:
-            CloseData( )
-            :
-            CancellableEventData( )
-            { }
+            CloseData            ( )                         = default;
             CloseData            ( const CloseData&  other ) = default;
             CloseData            (       CloseData&& other ) = default;
             CloseData& operator= ( const CloseData&  other ) = default;
@@ -21,6 +18,17 @@ namespace Win33 {
             ~CloseData           ( )                         = default;
         };
         using CloseHandler = std::function<void( CloseData& )>;
+        
+        class DestroyData : public EventData {
+        public:
+            DestroyData            ( )                           = default;
+            DestroyData            ( const DestroyData&  other ) = default;
+            DestroyData            (       DestroyData&& other ) = default;
+            DestroyData& operator= ( const DestroyData&  other ) = default;
+            DestroyData& operator= (       DestroyData&& other ) = default;
+            ~DestroyData           ( )                           = default;
+        };
+        using DestroyHandler = std::function<void( DestroyData& )>;
         
         class ResizeData : public EventData {
         public:
@@ -110,10 +118,11 @@ namespace Win33 {
         };
         using RightClickHandler = std::function<void( RightClickData& )>;
         
-        using Close      = Win33::CancellableEvent<CloseHandler>;
-        using Resize     = Win33::Event<ResizeHandler>;
-        using Move       = Win33::Event<MoveHandler>;
-        using LeftClick  = Win33::Event<LeftClickHandler>;
-        using RightClick = Win33::Event<RightClickHandler>;
+        using Close      = Win33::CancellableEvent<CloseData, CloseHandler>;
+        using Destroy    = Win33::Event<DestroyData, DestroyHandler>;
+        using Resize     = Win33::Event<ResizeData, ResizeHandler>;
+        using Move       = Win33::Event<MoveData, MoveHandler>;
+        using LeftClick  = Win33::Event<LeftClickData, LeftClickHandler>;
+        using RightClick = Win33::Event<RightClickData, RightClickHandler>;
     };
 };

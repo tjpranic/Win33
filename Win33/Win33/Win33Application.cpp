@@ -136,6 +136,10 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         if( data.getCancelled( ) ) {
                             return true;
                         }
+                        break;
+                    }
+                    case WM_DESTROY: {
+                        w->onDestroy.handle( Win33::WindowEvents::DestroyData( ) );
                         EnumChildWindows( Win33::Interop::toHandle( w ), []( HWND window, LPARAM longParameter ) -> BOOL { mCommons.erase( window ); return true; }, 0 );
                         mCommons.erase( Win33::Interop::toHandle( w ) );
                         break;

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include <Win33Application.h>
 #include <Win33Window.h>
 #include <Win33Label.h>

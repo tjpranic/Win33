@@ -74,7 +74,7 @@ Win33::Anchor Win33::Control::getAnchor( ) const {
 const std::wstring& Win33::Control::getText( ) const {
     static wchar_t text[256];
     GetWindowText( mHandle, text, 256 );
-    Win33::Utility::mutate( const_cast<std::wstring*>( &mText ), text );
+    *const_cast<std::wstring*>( &mText ) = std::wstring( text );
     return mText;
 }
 int Win33::Control::getX( ) const {

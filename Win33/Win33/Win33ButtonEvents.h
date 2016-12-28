@@ -17,7 +17,7 @@ namespace Win33 {
         };
         using ClickHandler = std::function<void( ClickData& )>;
         
-        using Click = Win33::Event<ClickHandler>;
+        using Click = Win33::Event<ClickData, ClickHandler>;
         
     };
     

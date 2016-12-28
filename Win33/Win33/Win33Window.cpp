@@ -4,7 +4,6 @@
 
 #include "Win33Application.h"
 #include "Win33Utility.h"
-#include "Win33BitfieldOperators.h"
 
 const Win33::Point Win33::Window::DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
 const Win33::Size  Win33::Window::DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
@@ -15,13 +14,8 @@ Win33::Window::Window(
           Win33::WindowStyle   style,
           Win33::ExWindowStyle exStyle
 ):
-Common       ( Win33::Common::Type::Window, nullptr, position, size, style, exStyle ),
-mResizable   ( ( style & Win33::WindowStyle::Thickframe   ) == Win33::WindowStyle::Thickframe   ),
-mMaximizable ( ( style & Win33::WindowStyle::MaximizedBox ) == Win33::WindowStyle::MaximizedBox ),
-mMinimizable ( ( style & Win33::WindowStyle::MinimizedBox ) == Win33::WindowStyle::MinimizedBox ),
-mMinimized   ( false ),
-mMaximized   ( false ),
-mTitle       ( L"" )
+Common( Win33::Common::Type::Window, nullptr, position, size, style, exStyle ),
+mTitle( L"" )
 { }
 Win33::Window::Window(
           Win33::Window*       parent,
@@ -30,13 +24,8 @@ Win33::Window::Window(
           Win33::WindowStyle   style,
           Win33::ExWindowStyle exStyle
 ):
-Common       ( Win33::Common::Type::Window, parent, position, size, style, exStyle ),
-mResizable   ( ( style & Win33::WindowStyle::Thickframe   ) == Win33::WindowStyle::Thickframe   ),
-mMaximizable ( ( style & Win33::WindowStyle::MaximizedBox ) == Win33::WindowStyle::MaximizedBox ),
-mMinimizable ( ( style & Win33::WindowStyle::MinimizedBox ) == Win33::WindowStyle::MinimizedBox ),
-mMinimized   ( false ),
-mMaximized   ( false ),
-mTitle       ( L"" )
+Common( Win33::Common::Type::Window, parent, position, size, style, exStyle ),
+mTitle( L"" )
 {
     assert( mParent != nullptr );
 }
@@ -46,18 +35,12 @@ void Win33::Window::close( ) {
 }
 void Win33::Window::minimize( ) {
     CloseWindow( mHandle );
-    mMinimized = true;
-    mMaximized = false;
 }
 void Win33::Window::maximize( ) {
     ShowWindow( mHandle, SW_MAXIMIZE );
-    mMaximized = true;
-    mMinimized = false;
 }
 void Win33::Window::restore( ) {
     ShowWindow( mHandle, SW_RESTORE );
-    mMaximized = false;
-    mMinimized = false;
 }
 void Win33::Window::toggleVisibility( ) {
     if( getVisible( ) ) {
@@ -71,31 +54,34 @@ void Win33::Window::toggleVisibility( ) {
 const std::wstring& Win33::Window::getTitle( ) const {
     static wchar_t text[256];
     GetWindowText( mHandle, text, 256 );
-    Win33::Utility::mutate( const_cast<std::wstring*>( &mTitle ), text );
+    *const_cast<std::wstring*>( &mTitle ) = std::wstring( text );
     return mTitle;
 }
 bool Win33::Window::getResizable( ) const {
-    return mResizable;
+    return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_THICKFRAME ) == WS_THICKFRAME;
 }
 bool Win33::Window::getMaximizable( ) const {
-    return mMaximizable;
+    return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_MAXIMIZEBOX ) == WS_MAXIMIZEBOX;
 }
 bool Win33::Window::getMinimizable( ) const {
-    return mMinimizable;
+    return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_MINIMIZEBOX ) == WS_MINIMIZEBOX;
 }
 bool Win33::Window::getMinimized( ) const {
-    return mMinimized;
+    auto wp = WINDOWPLACEMENT { };
+    GetWindowPlacement( mHandle, &wp );
+    return wp.showCmd == SW_SHOWMINIMIZED;
 }
 bool Win33::Window::getMaximized( ) const {
-    return mMaximized;
+    auto wp = WINDOWPLACEMENT { };
+    GetWindowPlacement( mHandle, &wp );
+    return wp.showCmd == SW_SHOWMAXIMIZED;
 }
 
 void Win33::Window::setTitle( const std::wstring& title ) {
     SetWindowText( mHandle, title.c_str( ) );
 }
 void Win33::Window::setResizable( bool resizable ) {
-    mResizable = resizable;
-    if( !mResizable ) {
+    if( !getResizable( ) ) {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_THICKFRAME );
     }
     else {
@@ -110,8 +96,7 @@ void Win33::Window::setIcon( const std::wstring& icon ) {
     SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( handle ) );
 }
 void Win33::Window::setMaximizable( bool maximizable ) {
-    mMaximizable = maximizable;
-    if( !mMaximizable ) {
+    if( !getMaximizable( ) ) {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_MAXIMIZEBOX );
     }
     else {
@@ -119,8 +104,7 @@ void Win33::Window::setMaximizable( bool maximizable ) {
     }
 }
 void Win33::Window::setMinimizable( bool minimizable ) {
-    mMinimizable = minimizable;
-    if( !mMinimizable ) {
+    if( !getMinimizable( ) ) {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_MINIMIZEBOX );
     }
     else {
@@ -128,12 +112,12 @@ void Win33::Window::setMinimizable( bool minimizable ) {
     }
 }
 void Win33::Window::setMinimzed( bool minimized ) {
-    if( !mMinimized ) {
+    if( !getMinimized( ) ) {
         minimize( );
     }
 }
 void Win33::Window::setMaximized( bool maximized ) {
-    if( !mMaximized ) {
+    if( !getMaximized( ) ) {
         maximize( );
     }
 }

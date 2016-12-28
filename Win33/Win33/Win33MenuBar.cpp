@@ -17,7 +17,7 @@ mMenus        ( )
     
     SetMenu( Win33::Interop::toHandle( mWindow ), mHandle );
     
-    window->onClose += [&]( Win33::WindowEvents::CloseData& data ) {
+    window->onDestroy += [&]( Win33::WindowEvents::DestroyData& data ) {
         mMenus.clear( );
     };
 }

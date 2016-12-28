@@ -11,7 +11,6 @@
 #include <Win33Utility.h>
 
 //TODO: finish calculator
-//TODO? change registration of TrayIcon/ContextMenu/MenuBar destruction event from Close to Destroy
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {

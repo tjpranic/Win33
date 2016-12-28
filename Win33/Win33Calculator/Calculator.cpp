@@ -23,7 +23,7 @@ mAdd          ( this, { 175,  45 }, {  50, 50 }, L"+" ),
 mSubtract     ( this, { 175, 100 }, {  50, 50 }, L"-" ),
 mMultiply     ( this, { 175, 155 }, {  50, 50 }, L"*" ),
 mDivide       ( this, { 175, 210 }, {  50, 50 }, L"/" ),
-mBackspace    ( this, { 230, 45  }, {  50, 50 }, L"\u2190" ), //\u2190 is a left arrow
+mBackspace    ( this, { 230, 45  }, {  50, 50 }, L"\u2190" ), //left arrow
 mOpenBracket  ( this, { 230, 100 }, {  50, 50 }, L"(" ),
 mCloseBracket ( this, { 230, 155 }, {  50, 50 }, L")" ),
 mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
