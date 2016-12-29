@@ -11,6 +11,8 @@
 #include <Win33Utility.h>
 
 //TODO: finish calculator
+//TODO? add common controls
+//TODO? add combo boxes and list boxes
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {
