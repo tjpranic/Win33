@@ -81,7 +81,7 @@ void Win33::Window::setTitle( const std::wstring& title ) {
     SetWindowText( mHandle, title.c_str( ) );
 }
 void Win33::Window::setResizable( bool resizable ) {
-    if( !getResizable( ) ) {
+    if( !resizable ) {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_THICKFRAME );
     }
     else {
@@ -96,7 +96,7 @@ void Win33::Window::setIcon( const std::wstring& icon ) {
     SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( handle ) );
 }
 void Win33::Window::setMaximizable( bool maximizable ) {
-    if( !getMaximizable( ) ) {
+    if( !maximizable ) {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_MAXIMIZEBOX );
     }
     else {
@@ -104,7 +104,7 @@ void Win33::Window::setMaximizable( bool maximizable ) {
     }
 }
 void Win33::Window::setMinimizable( bool minimizable ) {
-    if( !getMinimizable( ) ) {
+    if( !minimizable ) {
         SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_MINIMIZEBOX );
     }
     else {

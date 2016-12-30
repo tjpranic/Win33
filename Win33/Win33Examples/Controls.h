@@ -12,13 +12,14 @@
 #include <Win33CheckBox.h>
 #include <Win33RadioButton.h>
 #include <Win33GroupBox.h>
+#include <Win33ComboBox.h>
 #include <Win33BitfieldOperators.h>
 
 class ControlsWindow : public Win33::Window {
 public:
     ControlsWindow( )
     :
-    Win33::Window     ( Win33::Window::DefaultPosition, { 340, 220 } ),
+    Win33::Window     ( Win33::Window::DefaultPosition, { 445, 220 } ),
     mTextBoxTypes     ( this, {   7,   7 }, { 100,  20 }, L"TextBox Types", Win33::StaticStyle::Center ),
     mTextBox          ( this, {   7,  25 }, { 100,  20 }, L"TextBox" ),
     mMultilineTextBox ( this, {   7,  50 }, { 100, 100 }, Win33::EditStyle::AutoVerticalScroll | Win33::WindowStyle::VerticalScroll, L"MultilineTextBox" ),
@@ -31,7 +32,9 @@ public:
     mRadioButton2     ( this, { 112, 110 }, { 100,  20 }, L"RadioButton2" ),
     mRadioButton3     ( this, { 112, 130 }, { 100,  20 }, L"RadioButton3", true ),
     mMiscTypes        ( this, { 217,   7 }, { 100,  20 }, L"Misc. Types", Win33::StaticStyle::Center ),
-    mGroupBox         ( this, { 217,  25 }, { 100, 150 }, L"GroupBox" )
+    mGroupBox         ( this, { 217,  25 }, { 100, 150 }, L"GroupBox" ),
+    mComboBoxTypes    ( this, { 323,   7 }, { 100,  20 }, L"ComboBox Types", Win33::StaticStyle::Center ),
+    mComboBox         ( this, { 323,  25 }, { 100, 100 }, Win33::ComboBoxStyle::DisableNoScroll | Win33::WindowStyle::VerticalScroll, { L"ComboBox", L"Option 1", L"Option 2", L"Option 3", L"Option 4", L"Option 5", L"Option 6" } )
     {
         setTitle       ( L"ControlsWindow" );
         setMinimizable ( false );
@@ -39,6 +42,8 @@ public:
         setResizable   ( false );
         
         mPasswordBox.setText( L"PasswordBox" );
+        
+        mComboBox.setSelection( 0 );
     }
     ControlsWindow            ( const ControlsWindow&  other ) = delete;
     ControlsWindow            (       ControlsWindow&& other ) = default;
@@ -62,6 +67,9 @@ private:
     
     Win33::Label    mMiscTypes;
     Win33::GroupBox mGroupBox;
+    
+    Win33::Label    mComboBoxTypes;
+    Win33::ComboBox mComboBox;
 };
 
 class ControlsApplication : public Win33::Application {

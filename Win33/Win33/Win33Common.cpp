@@ -45,6 +45,10 @@ mSize            ( size )
             identifier = L"STATIC";
             break;
         }
+        case Win33::Common::Type::ComboBox: {
+            identifier = L"COMBOBOX";
+            break;
+        }
         default: {
             throw std::runtime_error( "Unknown type." );
         }

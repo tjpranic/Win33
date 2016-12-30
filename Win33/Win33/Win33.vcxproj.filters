@@ -49,6 +49,9 @@
     <Filter Include="Win33\Controls\Text Boxes">
       <UniqueIdentifier>{1d8369af-6d13-4a6f-8296-e07fd42b7975}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Win33\Controls\Combo Box">
+      <UniqueIdentifier>{cf3c24a4-dd04-43a8-b3e1-16905aba1ab9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win33Application.h">
@@ -159,6 +162,9 @@
     <ClInclude Include="Win33PopupBox.h">
       <Filter>Win33\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="Win33ComboBox.h">
+      <Filter>Win33\Controls\Combo Box</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Win33Application.cpp">
@@ -238,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="Win33PopupBox.cpp">
       <Filter>Win33\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33ComboBox.cpp">
+      <Filter>Win33\Controls\Combo Box</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

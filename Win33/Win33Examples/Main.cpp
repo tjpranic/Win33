@@ -10,9 +10,10 @@
 #include <Win33PopupBox.h>
 #include <Win33Utility.h>
 
+//TODO: add more combo box types
+//TODO: add list box
 //TODO: finish calculator
 //TODO? add common controls
-//TODO? add combo boxes and list boxes
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {

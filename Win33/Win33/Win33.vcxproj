@@ -25,6 +25,7 @@
     <ClInclude Include="Win33ButtonEvents.h" />
     <ClInclude Include="Win33CheckBox.h" />
     <ClInclude Include="Win33CheckBoxEvents.h" />
+    <ClInclude Include="Win33ComboBox.h" />
     <ClInclude Include="Win33Common.h" />
     <ClInclude Include="Win33Console.h" />
     <ClInclude Include="Win33ContextMenu.h" />
@@ -60,6 +61,7 @@
     <ClCompile Include="Win33Application.cpp" />
     <ClCompile Include="Win33Button.cpp" />
     <ClCompile Include="Win33CheckBox.cpp" />
+    <ClCompile Include="Win33ComboBox.cpp" />
     <ClCompile Include="Win33Common.cpp" />
     <ClCompile Include="Win33Console.cpp" />
     <ClCompile Include="Win33ContextMenu.cpp" />

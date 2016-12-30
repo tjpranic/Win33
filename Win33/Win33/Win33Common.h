@@ -154,6 +154,22 @@ namespace Win33 {
         WhiteRectangle   = SS_WHITERECT,
         WordEllipsis     = SS_WORDELLIPSIS
     };
+    enum class ComboBoxStyle : DWORD {
+        None                 = 0,
+        AutoHorizontalScroll = CBS_AUTOHSCROLL,
+        DisableNoScroll      = CBS_DISABLENOSCROLL,
+        Dropdown             = CBS_DROPDOWN,
+        DropdownList         = CBS_DROPDOWNLIST,
+        HasStrings           = CBS_HASSTRINGS,
+        Lowercase            = CBS_LOWERCASE,
+        NoIntegralHeight     = CBS_NOINTEGRALHEIGHT,
+        OEMConvert           = CBS_OEMCONVERT,
+        OwnerDrawFixed       = CBS_OWNERDRAWFIXED,
+        OwnderDrawVariable   = CBS_OWNERDRAWVARIABLE,
+        Simple               = CBS_SIMPLE,
+        Sort                 = CBS_SORT,
+        Uppercase            = CBS_UPPERCASE
+    };
     
     class Application;
     
@@ -204,7 +220,9 @@ namespace Win33 {
             PasswordBox,
             MultilineTextBox,
             Label,
-            GroupBox
+            GroupBox,
+            
+            ComboBox
         };
         
         Common(

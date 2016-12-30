@@ -16,6 +16,7 @@
 #include "Win33MultilineTextBox.h"
 #include "Win33Label.h"
 #include "Win33GroupBox.h"
+#include "Win33ComboBox.h"
 
 Win33::Application*                        Win33::Application::mInstance = nullptr;
 std::unordered_map<HWND, Win33::Common*>   Win33::Application::mCommons;
@@ -213,6 +214,11 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         break;
                     }
                 }
+                break;
+            }
+            case Win33::Common::Type::ComboBox: {
+                Win33::ComboBox* cb = reinterpret_cast<Win33::ComboBox*>( c );
+                //...
                 break;
             }
             default: {
