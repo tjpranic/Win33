@@ -4,7 +4,7 @@
 
 namespace Win33 {
     
-    namespace Utility {
+    namespace String {
         
         std::string  narrow ( const std::wstring& string );
         std::string  narrow ( const wchar_t*      string );

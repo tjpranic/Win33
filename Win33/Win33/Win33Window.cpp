@@ -3,7 +3,6 @@
 #include <cassert>
 
 #include "Win33Application.h"
-#include "Win33Utility.h"
 
 const Win33::Point Win33::Window::DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
 const Win33::Size  Win33::Window::DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };

@@ -158,8 +158,8 @@ namespace Win33 {
         None                 = 0,
         AutoHorizontalScroll = CBS_AUTOHSCROLL,
         DisableNoScroll      = CBS_DISABLENOSCROLL,
-        Dropdown             = CBS_DROPDOWN,
-        DropdownList         = CBS_DROPDOWNLIST,
+        DropDown             = CBS_DROPDOWN,
+        DropDownList         = CBS_DROPDOWNLIST,
         HasStrings           = CBS_HASSTRINGS,
         Lowercase            = CBS_LOWERCASE,
         NoIntegralHeight     = CBS_NOINTEGRALHEIGHT,
@@ -221,9 +221,16 @@ namespace Win33 {
             MultilineTextBox,
             Label,
             GroupBox,
-            
-            ComboBox
+            ComboBox,
+            DropDown,
         };
+        
+        Win33::Common::Type getTypeFromStyle( Win33::WindowStyle   style ) const;
+        Win33::Common::Type getTypeFromStyle( Win33::ExWindowStyle style ) const;
+        Win33::Common::Type getTypeFromStyle( Win33::ButtonStyle   style ) const;
+        Win33::Common::Type getTypeFromStyle( Win33::EditStyle     style ) const;
+        Win33::Common::Type getTypeFromStyle( Win33::StaticStyle   style ) const;
+        Win33::Common::Type getTypeFromStyle( Win33::ComboBoxStyle style ) const;
         
         Common(
                   Win33::Common::Type  type,

@@ -13,6 +13,7 @@
 #include <Win33RadioButton.h>
 #include <Win33GroupBox.h>
 #include <Win33ComboBox.h>
+#include <Win33DropDown.h>
 #include <Win33BitfieldOperators.h>
 
 class ControlsWindow : public Win33::Window {
@@ -22,19 +23,21 @@ public:
     Win33::Window     ( Win33::Window::DefaultPosition, { 445, 220 } ),
     mTextBoxTypes     ( this, {   7,   7 }, { 100,  20 }, L"TextBox Types", Win33::StaticStyle::Center ),
     mTextBox          ( this, {   7,  25 }, { 100,  20 }, L"TextBox" ),
-    mMultilineTextBox ( this, {   7,  50 }, { 100, 100 }, Win33::EditStyle::AutoVerticalScroll | Win33::WindowStyle::VerticalScroll, L"MultilineTextBox" ),
+    mMultilineTextBox ( this, {   7,  50 }, { 100, 100 }, L"MultilineTextBox", Win33::EditStyle::AutoVerticalScroll | Win33::WindowStyle::VerticalScroll ),
     mPasswordBox      ( this, {   7, 155 }, { 100,  20 } ),
     mButtonTypes      ( this, { 112,   7 }, { 100,  20 }, L"Button Types", Win33::StaticStyle::Center ),
     mButton           ( this, { 112,  25 }, { 100,  20 }, L"Button" ),
-    mCheckBox1        ( this, { 112,  50 }, { 100,  20 }, L"CheckBox1" ),
-    mCheckBox2        ( this, { 112,  70 }, { 100,  20 }, L"CheckBox2" ),
-    mRadioButton1     ( this, { 112,  90 }, { 100,  20 }, L"RadioButton1", false, true ),
-    mRadioButton2     ( this, { 112, 110 }, { 100,  20 }, L"RadioButton2" ),
-    mRadioButton3     ( this, { 112, 130 }, { 100,  20 }, L"RadioButton3", true ),
+    mCheckBox1        ( this, { 112,  50 }, { 100,  20 }, L"CheckBox 1" ),
+    mCheckBox2        ( this, { 112,  70 }, { 100,  20 }, L"CheckBox 2" ),
+    mRadioButton1     ( this, { 112,  90 }, { 100,  20 }, L"RadioButton 1", false, true ),
+    mRadioButton2     ( this, { 112, 110 }, { 100,  20 }, L"RadioButton 2" ),
+    mRadioButton3     ( this, { 112, 130 }, { 100,  20 }, L"RadioButton 3", true ),
     mMiscTypes        ( this, { 217,   7 }, { 100,  20 }, L"Misc. Types", Win33::StaticStyle::Center ),
     mGroupBox         ( this, { 217,  25 }, { 100, 150 }, L"GroupBox" ),
     mComboBoxTypes    ( this, { 323,   7 }, { 100,  20 }, L"ComboBox Types", Win33::StaticStyle::Center ),
-    mComboBox         ( this, { 323,  25 }, { 100, 100 }, Win33::ComboBoxStyle::DisableNoScroll | Win33::WindowStyle::VerticalScroll, { L"ComboBox", L"Option 1", L"Option 2", L"Option 3", L"Option 4", L"Option 5", L"Option 6" } )
+    mComboBox         ( this, { 323,  25 }, { 100,  80 }, { L"ComboBox", L"Option 1", L"Option 2", L"Option 3" } ),
+    mDropDown1        ( this, { 323, 105 }, { 100,  80 }, { L"DropDown 1", L"Option 1", L"Option 2", L"Option 3" } ),
+    mDropDown2        ( this, { 323, 130 }, { 100,  80 }, { L"DropDown 2", L"Option 1", L"Option 2", L"Option 3" }, true )
     {
         setTitle       ( L"ControlsWindow" );
         setMinimizable ( false );
@@ -43,7 +46,9 @@ public:
         
         mPasswordBox.setText( L"PasswordBox" );
         
-        mComboBox.setSelection( 0 );
+        mComboBox.setSelection  ( 0 );
+        mDropDown1.setSelection ( 0 );
+        mDropDown2.setSelection ( 0 );
     }
     ControlsWindow            ( const ControlsWindow&  other ) = delete;
     ControlsWindow            (       ControlsWindow&& other ) = default;
@@ -70,6 +75,8 @@ private:
     
     Win33::Label    mComboBoxTypes;
     Win33::ComboBox mComboBox;
+    Win33::DropDown mDropDown1;
+    Win33::DropDown mDropDown2;
 };
 
 class ControlsApplication : public Win33::Application {

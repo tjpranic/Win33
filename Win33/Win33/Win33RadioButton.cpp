@@ -18,7 +18,7 @@ Control(
     parent,
     position,
     size,
-    Win33::WindowStyle::Tabstop | Win33::WindowStyle::Child | Win33::ButtonStyle::AutoRadioButton | style | ( group ? Win33::WindowStyle::Group : static_cast<Win33::WindowStyle>( 0 ) )
+    Win33::WindowStyle::Tabstop | Win33::WindowStyle::Child | Win33::ButtonStyle::AutoRadioButton | style | ( group ? Win33::WindowStyle::Group : Win33::WindowStyle::None )
 ) {
     setText     ( text );
     setSelected ( selected );

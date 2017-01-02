@@ -150,9 +150,6 @@
     <ClInclude Include="Win33TrayIconEvents.h">
       <Filter>Win33\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Utility.h">
-      <Filter>Win33\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Win33Window.h">
       <Filter>Win33\Windows</Filter>
     </ClInclude>
@@ -164,6 +161,12 @@
     </ClInclude>
     <ClInclude Include="Win33ComboBox.h">
       <Filter>Win33\Controls\Combo Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33DropDown.h">
+      <Filter>Win33\Controls\Combo Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33StringUtilities.h">
+      <Filter>Win33\Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,9 +239,6 @@
     <ClCompile Include="Win33TrayIcon.cpp">
       <Filter>Win33\System Tray</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Utility.cpp">
-      <Filter>Win33\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="Win33Window.cpp">
       <Filter>Win33\Windows</Filter>
     </ClCompile>
@@ -247,6 +247,12 @@
     </ClCompile>
     <ClCompile Include="Win33ComboBox.cpp">
       <Filter>Win33\Controls\Combo Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33DropDown.cpp">
+      <Filter>Win33\Controls\Combo Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33StringUtilities.cpp">
+      <Filter>Win33\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -18,15 +18,12 @@ namespace Win33 {
         TextBox            (       TextBox&& other ) = default;
         TextBox& operator= ( const TextBox&  other ) = delete;
         TextBox& operator= (       TextBox&& other ) = default;
-        ~TextBox           ( )                       = default;
+        virtual ~TextBox   ( )                       = default;
         
         bool getReadOnly( ) const;
         
         void setReadOnly (       bool          readOnly );
         void setText     ( const std::wstring& text     );
-        
-    private:
-        bool mReadOnly;
     };
     
 };

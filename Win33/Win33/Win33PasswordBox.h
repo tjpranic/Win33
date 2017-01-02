@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Win33Control.h"
+#include "Win33TextBox.h"
 
 namespace Win33 {
     
-    class PasswordBox : public Control {
+    class PasswordBox : public TextBox {
     public:
         PasswordBox(
                   Win33::Window*   parent,

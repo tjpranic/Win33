@@ -8,11 +8,11 @@
 
 #include <Win33Console.h>
 #include <Win33PopupBox.h>
-#include <Win33Utility.h>
+#include <Win33StringUtilities.h>
 
-//TODO: add more combo box types
 //TODO: add list box
 //TODO: finish calculator
+//TODO? have class properties return by value
 //TODO? add common controls
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
@@ -26,7 +26,7 @@ int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR comma
         //return TrayIconApplication( ).run( );
     }
     catch( const std::exception& ex ) {
-        Win33::PopupBox::error( Win33::Utility::widen( ex.what( ) ) );
+        Win33::PopupBox::error( Win33::String::widen( ex.what( ) ) );
     }
     return 0;
 }

@@ -31,6 +31,7 @@
     <ClInclude Include="Win33ContextMenu.h" />
     <ClInclude Include="Win33Control.h" />
     <ClInclude Include="Win33Dialog.h" />
+    <ClInclude Include="Win33DropDown.h" />
     <ClInclude Include="Win33Event.h" />
     <ClInclude Include="Win33Font.h" />
     <ClInclude Include="Win33GroupBox.h" />
@@ -53,7 +54,7 @@
     <ClInclude Include="Win33TextBox.h" />
     <ClInclude Include="Win33TrayIcon.h" />
     <ClInclude Include="Win33TrayIconEvents.h" />
-    <ClInclude Include="Win33Utility.h" />
+    <ClInclude Include="Win33StringUtilities.h" />
     <ClInclude Include="Win33Window.h" />
     <ClInclude Include="Win33WindowEvents.h" />
   </ItemGroup>
@@ -66,6 +67,7 @@
     <ClCompile Include="Win33Console.cpp" />
     <ClCompile Include="Win33ContextMenu.cpp" />
     <ClCompile Include="Win33Control.cpp" />
+    <ClCompile Include="Win33DropDown.cpp" />
     <ClCompile Include="Win33Font.cpp" />
     <ClCompile Include="Win33GroupBox.cpp" />
     <ClCompile Include="Win33Icon.cpp" />
@@ -83,7 +85,7 @@
     <ClCompile Include="Win33System.cpp" />
     <ClCompile Include="Win33TextBox.cpp" />
     <ClCompile Include="Win33TrayIcon.cpp" />
-    <ClCompile Include="Win33Utility.cpp" />
+    <ClCompile Include="Win33StringUtilities.cpp" />
     <ClCompile Include="Win33Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

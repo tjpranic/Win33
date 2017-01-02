@@ -2,8 +2,6 @@
 
 #include <cassert>
 
-#include "Win33Utility.h"
-
 Win33::Control::Control(
           Win33::Common::Type  type,
           Win33::Window*       parent,

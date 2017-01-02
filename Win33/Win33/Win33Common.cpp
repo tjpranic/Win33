@@ -2,7 +2,7 @@
 
 #include "Win33Application.h"
 #include "Win33System.h"
-#include "Win33Utility.h"
+#include "Win33BitfieldOperators.h"
 
 Win33::Common::Common(
           Win33::Common::Type  type,
@@ -45,7 +45,8 @@ mSize            ( size )
             identifier = L"STATIC";
             break;
         }
-        case Win33::Common::Type::ComboBox: {
+        case Win33::Common::Type::ComboBox:
+        case Win33::Common::Type::DropDown: {
             identifier = L"COMBOBOX";
             break;
         }
@@ -204,4 +205,50 @@ void Win33::Common::setSize( const Win33::Size& size ) {
 }
 void Win33::Common::setVisible( bool visible ) {
     ShowWindow( mHandle, visible ? SW_SHOW : SW_HIDE );
+}
+
+Win33::Common::Type Win33::Common::getTypeFromStyle( Win33::WindowStyle style ) const {
+    return Win33::Common::Type::Window;
+}
+Win33::Common::Type Win33::Common::getTypeFromStyle( Win33::ExWindowStyle style ) const {
+    return Win33::Common::Type::Window;
+}
+Win33::Common::Type Win33::Common::getTypeFromStyle( Win33::ButtonStyle style ) const {
+    if( ( style & Win33::ButtonStyle::RadioButton ) == Win33::ButtonStyle::RadioButton ) {
+        return Win33::Common::Type::RadioButton;
+    }
+    else if( ( style & Win33::ButtonStyle::AutoRadioButton ) == Win33::ButtonStyle::AutoRadioButton ) {
+        return Win33::Common::Type::RadioButton;
+    }
+    else if( ( style & Win33::ButtonStyle::CheckBox ) == Win33::ButtonStyle::CheckBox ) {
+        return Win33::Common::Type::CheckBox;
+    }
+    else if( ( style & Win33::ButtonStyle::AutoCheckBox ) == Win33::ButtonStyle::AutoCheckBox ) {
+        return Win33::Common::Type::CheckBox;
+    }
+    else {
+        return Win33::Common::Type::Button;
+    }
+}
+Win33::Common::Type Win33::Common::getTypeFromStyle( Win33::EditStyle style ) const {
+    if( ( style & Win33::EditStyle::Password ) == Win33::EditStyle::Password ) {
+        return Win33::Common::Type::PasswordBox;
+    }
+    else if( ( style & Win33::EditStyle::Multiline ) == Win33::EditStyle::Multiline ) {
+        return Win33::Common::Type::MultilineTextBox;
+    }
+    else {
+        return Win33::Common::Type::TextBox;
+    }
+}
+Win33::Common::Type Win33::Common::getTypeFromStyle( Win33::StaticStyle style ) const {
+    return Win33::Common::Type::Label;
+}
+Win33::Common::Type Win33::Common::getTypeFromStyle( Win33::ComboBoxStyle style ) const {
+    if( ( style & Win33::ComboBoxStyle::DropDown ) == Win33::ComboBoxStyle::DropDown ) {
+        return Win33::Common::Type::DropDown;
+    }
+    else {
+        return Win33::Common::Type::ComboBox;
+    }
 }

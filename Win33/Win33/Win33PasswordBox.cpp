@@ -8,13 +8,12 @@ Win33::PasswordBox::PasswordBox(
     const Win33::Size&     size,
           Win33::EditStyle style
 ):
-Control(
-    Win33::Common::Type::PasswordBox,
+TextBox(
     parent,
     position,
     size,
-    Win33::WindowStyle::Tabstop | Win33::WindowStyle::Child | Win33::EditStyle::Left | Win33::EditStyle::Password | Win33::EditStyle::AutoHorizontalScroll | style,
-    Win33::ExWindowStyle::ClientEdge
+    L"",
+    Win33::EditStyle::Password | style
 )
 { }
 

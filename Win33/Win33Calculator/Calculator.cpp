@@ -1,7 +1,7 @@
 #include "Calculator.h"
 
 #include <Win33PopupBox.h>
-#include <Win33Utility.h>
+#include <Win33StringUtilities.h>
 
 CalculatorWindow::CalculatorWindow( )
 :
@@ -146,14 +146,14 @@ mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
     mEquals.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         auto result = 0.0;
         //...arithmetic expression parser goes here...
-        mResult.setText( Win33::Utility::format( L"%g", result ) );
+        mResult.setText( Win33::String::format( L"%g", result ) );
     };
 }
 
 CalculatorApplication::CalculatorApplication( )
 :
-Win33::Application( ),
-mCalculatorWindow( )
+Win33::Application ( ),
+mCalculatorWindow  ( )
 {
     mCalculatorWindow.show( );
 }
@@ -164,7 +164,7 @@ int CalculatorApplication::run( ) {
     }
     catch( const std::exception& ex ) {
         mCalculatorWindow.setEnabled( false );
-        Win33::PopupBox::error( Win33::Utility::widen( ex.what( ) ) );
+        Win33::PopupBox::error( Win33::String::widen( ex.what( ) ) );
     }
     return 0;
 }
