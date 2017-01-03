@@ -10,9 +10,8 @@
 #include <Win33PopupBox.h>
 #include <Win33StringUtilities.h>
 
-//TODO: add list box
 //TODO: finish calculator
-//TODO? have class properties return by value
+//TODO? disable move construction/assignments (requires redesign of menu classes (specifically, the removal of std::lists))
 //TODO? add common controls
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;

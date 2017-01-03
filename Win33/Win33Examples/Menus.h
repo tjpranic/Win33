@@ -103,9 +103,9 @@ public:
     MenusApplication( )
     :
     Win33::Application ( ),
-    mMenuWindow        ( )
+    mMenusWindow       ( )
     {
-        mMenuWindow.show( );
+        mMenusWindow.show( );
     }
     MenusApplication            ( const MenusApplication&  other ) = delete;
     MenusApplication            (       MenusApplication&& other ) = default;
@@ -114,5 +114,5 @@ public:
     ~MenusApplication           ( )                                = default;
     
 private:
-    MenusWindow mMenuWindow;
+    MenusWindow mMenusWindow;
 };

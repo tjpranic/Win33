@@ -12,7 +12,7 @@ namespace Win33 {
         Dialog            (       Dialog&& other ) = default;
         Dialog& operator= ( const Dialog&  other ) = delete;
         Dialog& operator= (       Dialog&& other ) = default;
-        ~Dialog           ( )                      = default;
+        virtual ~Dialog   ( )                      = default;
         
         T show( ) {
             mParent->setEnabled( false );

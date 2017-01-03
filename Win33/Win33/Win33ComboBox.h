@@ -30,6 +30,7 @@ namespace Win33 {
         void clearSelection ( );
         
         int getOptionCount( ) const;
+        int getSelection( )   const;
     };
     
 };

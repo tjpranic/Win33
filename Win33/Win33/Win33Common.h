@@ -170,6 +170,26 @@ namespace Win33 {
         Sort                 = CBS_SORT,
         Uppercase            = CBS_UPPERCASE
     };
+    enum class ListBoxStyle : DWORD {
+        None              = 0,
+        ComboBox          = LBS_COMBOBOX,
+        DisableNoScroll   = LBS_DISABLENOSCROLL,
+        ExtendedSelect    = LBS_EXTENDEDSEL,
+        HasStrings        = LBS_HASSTRINGS,
+        MultiColumn       = LBS_MULTICOLUMN,
+        MultipleSelect    = LBS_MULTIPLESEL,
+        NoData            = LBS_NODATA,
+        NoIntegralHeight  = LBS_NOINTEGRALHEIGHT,
+        NoRedraw          = LBS_NOREDRAW,
+        NoSelect          = LBS_NOSEL,
+        Notify            = LBS_NOTIFY,
+        OwnerDrawFixed    = LBS_OWNERDRAWFIXED,
+        OwnerDrawVariable = LBS_OWNERDRAWVARIABLE,
+        Sort              = LBS_SORT,
+        Standard          = LBS_STANDARD,
+        UseTabStops       = LBS_USETABSTOPS,
+        WantKeyboardInput = LBS_WANTKEYBOARDINPUT
+    };
     
     class Application;
     
@@ -186,18 +206,18 @@ namespace Win33 {
         void show( );
         void hide( );
         
-        const Win33::Point& getInitialPosition( ) const;
-        const Win33::Size&  getInitialSize( )     const;
-        const Win33::Size&  getMinimumSize( )     const;
-        const Win33::Size&  getMaximumSize( )     const;
-              bool          getEnabled( )         const;
-              int           getX( )               const;
-              int           getY( )               const;
-        const Win33::Point& getPosition( )        const;
-              int           getWidth( )           const;
-              int           getHeight( )          const;
-        const Win33::Size&  getSize( )            const;
-              bool          getVisible( )         const;
+        Win33::Point getInitialPosition( ) const;
+        Win33::Size  getInitialSize( )     const;
+        Win33::Size  getMinimumSize( )     const;
+        Win33::Size  getMaximumSize( )     const;
+        bool         getEnabled( )         const;
+        int          getX( )               const;
+        int          getY( )               const;
+        Win33::Point getPosition( )        const;
+        int          getWidth( )           const;
+        int          getHeight( )          const;
+        Win33::Size  getSize( )            const;
+        bool         getVisible( )         const;
         
         void setMinimumSize ( const Win33::Size&  minimumSize );
         void setMaximumSize ( const Win33::Size&  maximumSize );
@@ -223,6 +243,8 @@ namespace Win33 {
             GroupBox,
             ComboBox,
             DropDown,
+            ListBox,
+            MultiSelectListBox
         };
         
         Win33::Common::Type getTypeFromStyle( Win33::WindowStyle   style ) const;
@@ -231,6 +253,7 @@ namespace Win33 {
         Win33::Common::Type getTypeFromStyle( Win33::EditStyle     style ) const;
         Win33::Common::Type getTypeFromStyle( Win33::StaticStyle   style ) const;
         Win33::Common::Type getTypeFromStyle( Win33::ComboBoxStyle style ) const;
+        Win33::Common::Type getTypeFromStyle( Win33::ListBoxStyle  style ) const;
         
         Common(
                   Win33::Common::Type  type,

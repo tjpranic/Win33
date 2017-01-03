@@ -39,11 +39,13 @@
     <ClInclude Include="Win33Interop.h" />
     <ClInclude Include="Win33Label.h" />
     <ClInclude Include="Win33LabelEvents.h" />
+    <ClInclude Include="Win33ListBox.h" />
     <ClInclude Include="Win33Menu.h" />
     <ClInclude Include="Win33MenuBar.h" />
     <ClInclude Include="Win33MenuItem.h" />
     <ClInclude Include="Win33MenuItemEvents.h" />
     <ClInclude Include="Win33MultilineTextBox.h" />
+    <ClInclude Include="Win33MultiSelectListBox.h" />
     <ClInclude Include="Win33PasswordBox.h" />
     <ClInclude Include="Win33Point.h" />
     <ClInclude Include="Win33PopupBox.h" />
@@ -73,10 +75,12 @@
     <ClCompile Include="Win33Icon.cpp" />
     <ClCompile Include="Win33Interop.cpp" />
     <ClCompile Include="Win33Label.cpp" />
+    <ClCompile Include="Win33ListBox.cpp" />
     <ClCompile Include="Win33Menu.cpp" />
     <ClCompile Include="Win33MenuBar.cpp" />
     <ClCompile Include="Win33MenuItem.cpp" />
     <ClCompile Include="Win33MultilineTextBox.cpp" />
+    <ClCompile Include="Win33MultiSelectListBox.cpp" />
     <ClCompile Include="Win33PasswordBox.cpp" />
     <ClCompile Include="Win33Point.cpp" />
     <ClCompile Include="Win33PopupBox.cpp" />

@@ -12,7 +12,7 @@ namespace Win33 {
         Window            (       Window&& other ) = default;
         Window& operator= ( const Window&  other ) = delete;
         Window& operator= (       Window&& other ) = default;
-        ~Window           ( )                      = default;
+        virtual ~Window   ( )                      = default;
         
         static const Win33::Point DefaultPosition;
         static const Win33::Size  DefaultSize;
@@ -23,12 +23,12 @@ namespace Win33 {
         void restore( );
         void toggleVisibility( );
         
-        const std::wstring& getTitle( )       const;
-              bool          getResizable( )   const;
-              bool          getMaximizable( ) const;
-              bool          getMinimizable( ) const;
-              bool          getMinimized( )   const;
-              bool          getMaximized( )   const;
+        std::wstring getTitle( )       const;
+        bool         getResizable( )   const;
+        bool         getMaximizable( ) const;
+        bool         getMinimizable( ) const;
+        bool         getMinimized( )   const;
+        bool         getMaximized( )   const;
         
         void setTitle       ( const std::wstring& title       );
         void setResizable   (       bool          resizable   );
@@ -61,9 +61,6 @@ namespace Win33 {
                   Win33::WindowStyle   style   = Win33::WindowStyle::OverlappedWindow,
                   Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::None
         );
-        
-    private:
-        std::wstring mTitle;
     };
     
 };

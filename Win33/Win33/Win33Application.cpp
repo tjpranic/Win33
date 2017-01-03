@@ -18,6 +18,8 @@
 #include "Win33GroupBox.h"
 #include "Win33ComboBox.h"
 #include "Win33DropDown.h"
+#include "Win33ListBox.h"
+#include "Win33MultiSelectListBox.h"
 
 Win33::Application*                        Win33::Application::mInstance = nullptr;
 std::unordered_map<HWND, Win33::Common*>   Win33::Application::mCommons;
@@ -224,6 +226,16 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
             }
             case Win33::Common::Type::DropDown: {
                 Win33::DropDown* dd = reinterpret_cast<Win33::DropDown*>( c );
+                //...
+                break;
+            }
+            case Win33::Common::Type::ListBox: {
+                Win33::ListBox* lb = reinterpret_cast<Win33::ListBox*>( c );
+                //...
+                break;
+            }
+            case Win33::Common::Type::MultiSelectListBox: {
+                Win33::MultiSelectListBox* mslb = reinterpret_cast<Win33::MultiSelectListBox*>( c );
                 //...
                 break;
             }

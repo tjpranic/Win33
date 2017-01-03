@@ -49,8 +49,11 @@
     <Filter Include="Win33\Controls\Text Boxes">
       <UniqueIdentifier>{1d8369af-6d13-4a6f-8296-e07fd42b7975}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Win33\Controls\Combo Box">
+    <Filter Include="Win33\Controls\Combo Boxes">
       <UniqueIdentifier>{cf3c24a4-dd04-43a8-b3e1-16905aba1ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\List Boxes">
+      <UniqueIdentifier>{f5319a1a-977a-481e-b2c6-9f4189a31ba5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -160,13 +163,19 @@
       <Filter>Win33\Windows</Filter>
     </ClInclude>
     <ClInclude Include="Win33ComboBox.h">
-      <Filter>Win33\Controls\Combo Box</Filter>
+      <Filter>Win33\Controls\Combo Boxes</Filter>
     </ClInclude>
     <ClInclude Include="Win33DropDown.h">
-      <Filter>Win33\Controls\Combo Box</Filter>
+      <Filter>Win33\Controls\Combo Boxes</Filter>
     </ClInclude>
     <ClInclude Include="Win33StringUtilities.h">
       <Filter>Win33\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33ListBox.h">
+      <Filter>Win33\Controls\List Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33MultiSelectListBox.h">
+      <Filter>Win33\Controls\List Boxes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -246,13 +255,19 @@
       <Filter>Win33\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Win33ComboBox.cpp">
-      <Filter>Win33\Controls\Combo Box</Filter>
+      <Filter>Win33\Controls\Combo Boxes</Filter>
     </ClCompile>
     <ClCompile Include="Win33DropDown.cpp">
-      <Filter>Win33\Controls\Combo Box</Filter>
+      <Filter>Win33\Controls\Combo Boxes</Filter>
     </ClCompile>
     <ClCompile Include="Win33StringUtilities.cpp">
       <Filter>Win33\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33ListBox.cpp">
+      <Filter>Win33\Controls\List Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33MultiSelectListBox.cpp">
+      <Filter>Win33\Controls\List Boxes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

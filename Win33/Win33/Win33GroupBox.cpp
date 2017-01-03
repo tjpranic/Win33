@@ -6,7 +6,7 @@ Win33::GroupBox::GroupBox(
           Win33::Window* parent,
     const Win33::Point&  position,
     const Win33::Size&   size,
-    const std::wstring&  title,
+    const std::wstring&  text,
     Win33::ButtonStyle   style
 ):
 Control(
@@ -15,18 +15,6 @@ Control(
     position,
     size,
     Win33::WindowStyle::Child | Win33::ButtonStyle::GroupBox | style
-),
-mTitle( title )
-{
-    setTitle( title );
-}
-
-const std::wstring& Win33::GroupBox::getTitle( ) const {
-    return mTitle;
-}
-
-void Win33::GroupBox::setTitle( const std::wstring& title ) {
-    mTitle = title;
-    
-    SetWindowText( mHandle, title.c_str( ) );
+) {
+    setText( text );
 }

@@ -11,8 +11,7 @@ Win33::Control::Control(
           Win33::ExWindowStyle exStyle
 ):
 Common  ( type, parent, position, size, style, exStyle ),
-mAnchor ( Win33::Anchor::TopLeft ),
-mText   ( L"" )
+mAnchor ( Win33::Anchor::TopLeft )
 {
     assert( parent != nullptr );
     parent->onResize += [&]( Win33::WindowEvents::ResizeData& data ) {
@@ -69,11 +68,10 @@ mText   ( L"" )
 Win33::Anchor Win33::Control::getAnchor( ) const {
     return mAnchor;
 }
-const std::wstring& Win33::Control::getText( ) const {
+std::wstring Win33::Control::getText( ) const {
     static wchar_t text[256];
     GetWindowText( mHandle, text, 256 );
-    *const_cast<std::wstring*>( &mText ) = std::wstring( text );
-    return mText;
+    return std::wstring( text );
 }
 int Win33::Control::getX( ) const {
     RECT cr;
@@ -100,8 +98,6 @@ void Win33::Control::setAnchor( Win33::Anchor anchor ) {
     mAnchor = anchor;
 }
 void Win33::Control::setText( const std::wstring& text ) {
-    mText = text;
-    
     SetWindowText( mHandle, text.c_str( ) );
 }
 void Win33::Control::setX( int x ) {

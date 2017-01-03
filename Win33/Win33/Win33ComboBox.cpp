@@ -57,3 +57,6 @@ void Win33::ComboBox::clearSelection( ) {
 int Win33::ComboBox::getOptionCount( ) const {
     return ComboBox_GetCount( mHandle );
 }
+int Win33::ComboBox::getSelection( ) const {
+    return ComboBox_GetCurSel( mHandle );
+}

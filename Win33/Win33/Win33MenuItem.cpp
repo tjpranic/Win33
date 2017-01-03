@@ -11,16 +11,14 @@ int Win33::MenuItem::generateID( ) {
 Win33::MenuItem::MenuItem( Win33::ContextMenu* contextMenu, const std::wstring& text )
 :
 mParent ( Win33::Interop::toHandle( contextMenu ) ),
-mID     ( Win33::MenuItem::generateID( ) ),
-mText   ( text )
+mID     ( Win33::MenuItem::generateID( ) )
 {
     Win33::Application::mMenuItems[mID] = this;
 }
 Win33::MenuItem::MenuItem( Win33::Menu* menu, const std::wstring& text )
 :
 mParent ( Win33::Interop::toHandle( menu ) ),
-mID     ( Win33::MenuItem::generateID( ) ),
-mText   ( text )
+mID     ( Win33::MenuItem::generateID( ) )
 {
     Win33::Application::mMenuItems[mID] = this;
 }
@@ -28,8 +26,7 @@ Win33::MenuItem::MenuItem( MenuItem&& other )
 :
 onClick( std::move( other.onClick ) ),
 mParent( other.mParent ),
-mID    ( other.mID ),
-mText  ( std::move( other.mText ) )
+mID    ( other.mID )
 {
     other.mID = -1;
     Win33::Application::mMenuItems[mID] = this;
@@ -38,7 +35,6 @@ Win33::MenuItem& Win33::MenuItem::operator=( MenuItem&& other ) {
     onClick   = std::move( other.onClick );
     mParent   = other.mParent;
     mID       = other.mID;
-    mText     = std::move( other.mText );
     other.mID = -1;
     
     Win33::Application::mMenuItems[mID] = this;
@@ -52,8 +48,15 @@ void Win33::MenuItem::toggleChecked( ) {
     setChecked( !getChecked( ) );
 }
 
-const std::wstring& Win33::MenuItem::getText( ) const {
-    return mText;
+std::wstring Win33::MenuItem::getText( ) const {
+    static wchar_t text[256];
+    MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
+    mii.dwTypeData   = text;
+    mii.fMask        = MIIM_STRING;
+    mii.fType        = MFT_STRING;
+    mii.cch          = 256 - 1;
+    GetMenuItemInfo( mParent, mID, false, &mii );
+    return std::wstring( text );
 }
 bool Win33::MenuItem::getEnabled( ) const {
     MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
@@ -69,8 +72,6 @@ bool Win33::MenuItem::getChecked( ) const {
 }
 
 void Win33::MenuItem::setText( const std::wstring& text ) {
-    mText = text;
-    
     MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
     mii.fMask        = MIIM_TYPE;
     mii.dwTypeData   = const_cast<wchar_t*>( text.c_str( ) );

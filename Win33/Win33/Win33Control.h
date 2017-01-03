@@ -28,10 +28,10 @@ namespace Win33 {
         Control& operator= (       Control&& other ) = default;
         virtual ~Control   ( )                       = default;
         
-              Win33::Anchor  getAnchor( ) const;
-        const std::wstring&  getText( )   const;
-              int            getX( )      const;
-              int            getY( )      const;
+        Win33::Anchor getAnchor( ) const;
+        std::wstring  getText( )   const;
+        int           getX( )      const;
+        int           getY( )      const;
         
         void setAnchor (       Win33::Anchor anchor );
         void setText   ( const std::wstring& text   );
@@ -51,9 +51,7 @@ namespace Win33 {
                   Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::None
         );
         
-    private:
         Win33::Anchor mAnchor;
-        std::wstring  mText;
     };
     
 };

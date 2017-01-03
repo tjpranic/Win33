@@ -13,8 +13,7 @@ Win33::Window::Window(
           Win33::WindowStyle   style,
           Win33::ExWindowStyle exStyle
 ):
-Common( Win33::Common::Type::Window, nullptr, position, size, style, exStyle ),
-mTitle( L"" )
+Common( Win33::Common::Type::Window, nullptr, position, size, style, exStyle )
 { }
 Win33::Window::Window(
           Win33::Window*       parent,
@@ -23,8 +22,7 @@ Win33::Window::Window(
           Win33::WindowStyle   style,
           Win33::ExWindowStyle exStyle
 ):
-Common( Win33::Common::Type::Window, parent, position, size, style, exStyle ),
-mTitle( L"" )
+Common( Win33::Common::Type::Window, parent, position, size, style, exStyle )
 {
     assert( mParent != nullptr );
 }
@@ -50,11 +48,10 @@ void Win33::Window::toggleVisibility( ) {
     }
 }
 
-const std::wstring& Win33::Window::getTitle( ) const {
+std::wstring Win33::Window::getTitle( ) const {
     static wchar_t text[256];
     GetWindowText( mHandle, text, 256 );
-    *const_cast<std::wstring*>( &mTitle ) = std::wstring( text );
-    return mTitle;
+    return std::wstring( text );
 }
 bool Win33::Window::getResizable( ) const {
     return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_THICKFRAME ) == WS_THICKFRAME;

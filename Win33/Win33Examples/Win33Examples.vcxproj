@@ -156,6 +156,7 @@
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="HiddenWindow.h" />
     <ClInclude Include="Menus.h" />
+    <ClInclude Include="MenusAlt.h" />
     <ClInclude Include="MultipleTrayIcons.h" />
     <ClInclude Include="MultipleWindows.h" />
     <ClInclude Include="TrayIcon.h" />

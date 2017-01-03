@@ -50,6 +50,11 @@ mSize            ( size )
             identifier = L"COMBOBOX";
             break;
         }
+        case Win33::Common::Type::ListBox:
+        case Win33::Common::Type::MultiSelectListBox: {
+            identifier = L"LISTBOX";
+            break;
+        }
         default: {
             throw std::runtime_error( "Unknown type." );
         }
@@ -76,7 +81,6 @@ mSize            ( size )
     
     Win33::Application::mCommons[mHandle] = this;
 }
-
 Win33::Common::Common( Common&& other )
 :
 mHandle          ( other.mHandle ),
@@ -119,16 +123,16 @@ void Win33::Common::hide( ) {
     ShowWindow( mHandle, SW_HIDE );
 }
 
-const Win33::Point& Win33::Common::getInitialPosition( ) const {
+Win33::Point Win33::Common::getInitialPosition( ) const {
     return mInitialPosition;
 }
-const Win33::Size& Win33::Common::getInitialSize( ) const {
+Win33::Size Win33::Common::getInitialSize( ) const {
     return mInitialSize;
 }
-const Win33::Size& Win33::Common::getMinimumSize( ) const {
+Win33::Size Win33::Common::getMinimumSize( ) const {
     return mMinimumSize;
 }
-const Win33::Size& Win33::Common::getMaximumSize( ) const {
+Win33::Size Win33::Common::getMaximumSize( ) const {
     return mMaximumSize;
 }
 bool Win33::Common::getEnabled( ) const {
@@ -154,9 +158,8 @@ int Win33::Common::getY( ) const {
     ScreenToClient( mHandle, &p );
     return cr.top + p.y;
 }
-const Win33::Point& Win33::Common::getPosition( ) const {
-    *const_cast<Win33::Point*>( &mPosition ) = { getX( ), getY( ) };
-    return mPosition;
+Win33::Point Win33::Common::getPosition( ) const {
+    return { getX( ), getY( ) };
 }
 int Win33::Common::getWidth( ) const {
     RECT wr;
@@ -168,9 +171,8 @@ int Win33::Common::getHeight( ) const {
     GetWindowRect( mHandle, &wr );
     return wr.bottom - wr.top;
 }
-const Win33::Size& Win33::Common::getSize( ) const {
-    *const_cast<Win33::Size*>( &mSize ) = { getWidth( ), getHeight( ) };
-    return mSize;
+Win33::Size Win33::Common::getSize( ) const {
+    return { getWidth( ), getHeight( ) };
 }
 bool Win33::Common::getVisible( ) const {
     return IsWindowVisible( mHandle ) != 0;
@@ -250,5 +252,13 @@ Win33::Common::Type Win33::Common::getTypeFromStyle( Win33::ComboBoxStyle style 
     }
     else {
         return Win33::Common::Type::ComboBox;
+    }
+}
+Win33::Common::Type Win33::Common::getTypeFromStyle( Win33::ListBoxStyle style ) const {
+    if( ( style & Win33::ListBoxStyle::MultipleSelect ) == Win33::ListBoxStyle::MultipleSelect ) {
+        return Win33::Common::Type::MultiSelectListBox;
+    }
+    else {
+        return Win33::Common::Type::ListBox;
     }
 }

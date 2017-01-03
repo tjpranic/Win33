@@ -21,8 +21,8 @@ namespace Win33 {
         Menu& operator= (       Menu&& other ) = default;
         ~Menu           ( )                    = default;
         
-        const std::wstring& getText( )    const;
-        bool                getEnabled( ) const;
+        std::wstring getText( )    const;
+        bool         getEnabled( ) const;
         
         void setText    ( const std::wstring& text    );
         void setEnabled (       bool          enabled );
@@ -43,7 +43,6 @@ namespace Win33 {
         HMENU                      mHandle;
         HMENU                      mParent;
         int                        mPosition;
-        std::wstring               mText;
         std::list<Win33::Menu>     mSubMenus;
         std::list<Win33::MenuItem> mMenuItems;
     };

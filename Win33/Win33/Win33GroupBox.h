@@ -10,7 +10,7 @@ namespace Win33 {
                   Win33::Window*     parent,
             const Win33::Point&      position,
             const Win33::Size&       size,
-            const std::wstring&      title,
+            const std::wstring&      text,
                   Win33::ButtonStyle style = Win33::ButtonStyle::None
         );
         GroupBox            ( )                        = delete;
@@ -19,13 +19,6 @@ namespace Win33 {
         GroupBox& operator= ( const GroupBox&  other ) = delete;
         GroupBox& operator= (       GroupBox&& other ) = default;
         ~GroupBox           ( )                        = default;
-        
-        const std::wstring& getTitle( ) const;
-        
-        void setTitle( const std::wstring& title );
-        
-    private:
-        std::wstring mTitle;
     };
     
 };

@@ -22,9 +22,9 @@ namespace Win33 {
         
         void toggleChecked( );
         
-        const std::wstring& getText( )    const;
-              bool          getEnabled( ) const;
-              bool          getChecked( ) const;
+        std::wstring getText( )    const;
+        bool         getEnabled( ) const;
+        bool         getChecked( ) const;
         
         void setText    ( const std::wstring& text    );
         void setEnabled (       bool          enabled );
@@ -38,9 +38,8 @@ namespace Win33 {
         
         static int generateID( );
         
-        HMENU        mParent;
-        int          mID;
-        std::wstring mText;
+        HMENU mParent;
+        int   mID;
     };
     
 };

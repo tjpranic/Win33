@@ -6,7 +6,6 @@ mLastPosition ( 0 ),
 mHandle       ( CreateMenu( ) ),
 mParent       ( Win33::Interop::toHandle( contextMenu ) ),
 mPosition     ( position ),
-mText         ( text ),
 mSubMenus     ( ),
 mMenuItems    ( )
 {
@@ -20,7 +19,6 @@ mLastPosition ( 0 ),
 mHandle       ( CreateMenu( ) ),
 mParent       ( Win33::Interop::toHandle( menuBar ) ),
 mPosition     ( position ),
-mText         ( text ),
 mSubMenus     ( ),
 mMenuItems    ( )
 {
@@ -34,7 +32,6 @@ mLastPosition ( 0 ),
 mHandle       ( CreateMenu( ) ),
 mParent       ( Win33::Interop::toHandle( menu ) ),
 mPosition     ( position ),
-mText         ( text ),
 mSubMenus     ( ),
 mMenuItems    ( )
 {
@@ -43,8 +40,15 @@ mMenuItems    ( )
     }
 }
 
-const std::wstring& Win33::Menu::getText( ) const {
-    return mText;
+std::wstring Win33::Menu::getText( ) const {
+    static wchar_t text[256];
+    MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
+    mii.dwTypeData   = text;
+    mii.fMask        = MIIM_STRING;
+    mii.fType        = MFT_STRING;
+    mii.cch          = 256 - 1;
+    GetMenuItemInfo( mParent, mPosition, true, &mii );
+    return std::wstring( text );
 }
 bool Win33::Menu::getEnabled( ) const {
     MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
@@ -54,8 +58,6 @@ bool Win33::Menu::getEnabled( ) const {
 }
 
 void Win33::Menu::setText( const std::wstring& text ) {
-    mText = text;
-    
     MENUITEMINFO mii = { sizeof( MENUITEMINFO ) };
     mii.fMask        = MIIM_TYPE;
     mii.dwTypeData   = const_cast<wchar_t*>( text.c_str( ) );
@@ -72,7 +74,7 @@ void Win33::Menu::appendSeparator( ) {
     AppendMenu( mHandle, MF_SEPARATOR, 0, nullptr );
 }
 Win33::Menu& Win33::Menu::appendSubMenu( const std::wstring& text ) {
-    mSubMenus.push_back( std::move( Win33::Menu( this, mLastPosition, text ) ) );
+    mSubMenus.emplace_back( std::move( Win33::Menu( this, mLastPosition, text ) ) );
     auto& menu = mSubMenus.back( );
     
     AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.mHandle ), text.c_str( ) );
