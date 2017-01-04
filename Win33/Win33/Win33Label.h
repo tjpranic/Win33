@@ -16,9 +16,9 @@ namespace Win33 {
         );
         Label            ( )                     = delete;
         Label            ( const Label&  other ) = delete;
-        Label            (       Label&& other ) = default;
+        Label            (       Label&& other ) = delete;
         Label& operator= ( const Label&  other ) = delete;
-        Label& operator= (       Label&& other ) = default;
+        Label& operator= (       Label&& other ) = delete;
         ~Label           ( )                     = default;
         
         Win33::LabelEvents::Click onClick;

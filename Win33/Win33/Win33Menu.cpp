@@ -1,43 +1,28 @@
 #include "Win33Menu.h"
 
-Win33::Menu::Menu( Win33::ContextMenu* contextMenu, int position,  const std::wstring& text )
+Win33::Menu::Menu( Win33::ContextMenu* contextMenu, const std::wstring& text )
 :
-mLastPosition ( 0 ),
-mHandle       ( CreateMenu( ) ),
-mParent       ( Win33::Interop::toHandle( contextMenu ) ),
-mPosition     ( position ),
-mSubMenus     ( ),
-mMenuItems    ( )
+mHandle   ( CreateMenu( ) ),
+mParent   ( Win33::Interop::toHandle( contextMenu ) ),
+mPosition ( GetMenuItemCount( mParent ) )
 {
-    if( !mHandle ) {
-        throw std::runtime_error( "Unable to create menu." );
-    }
+    AppendMenu( mParent, MF_POPUP, reinterpret_cast<UINT_PTR>( mHandle ), text.c_str( ) );
 }
-Win33::Menu::Menu( Win33::MenuBar* menuBar, int position,  const std::wstring& text )
+Win33::Menu::Menu( Win33::MenuBar* menuBar, const std::wstring& text )
 :
-mLastPosition ( 0 ),
-mHandle       ( CreateMenu( ) ),
-mParent       ( Win33::Interop::toHandle( menuBar ) ),
-mPosition     ( position ),
-mSubMenus     ( ),
-mMenuItems    ( )
+mHandle   ( CreateMenu( ) ),
+mParent   ( Win33::Interop::toHandle( menuBar ) ),
+mPosition ( GetMenuItemCount( mParent ) )
 {
-    if( !mHandle ) {
-        throw std::runtime_error( "Unable to create menu." );
-    }
+    AppendMenu( mParent, MF_POPUP, reinterpret_cast<UINT_PTR>( mHandle ), text.c_str( ) );
 }
-Win33::Menu::Menu( Win33::Menu* menu, int position,  const std::wstring& text )
+Win33::Menu::Menu( Win33::Menu* menu, const std::wstring& text )
 :
-mLastPosition ( 0 ),
-mHandle       ( CreateMenu( ) ),
-mParent       ( Win33::Interop::toHandle( menu ) ),
-mPosition     ( position ),
-mSubMenus     ( ),
-mMenuItems    ( )
+mHandle   ( CreateMenu( ) ),
+mParent   ( Win33::Interop::toHandle( menu ) ),
+mPosition ( GetMenuItemCount( mParent ) )
 {
-    if( !mHandle ) {
-        throw std::runtime_error( "Unable to create menu." );
-    }
+    AppendMenu( mParent, MF_POPUP, reinterpret_cast<UINT_PTR>( mHandle ), text.c_str( ) );
 }
 
 std::wstring Win33::Menu::getText( ) const {
@@ -68,26 +53,4 @@ void Win33::Menu::setEnabled( bool enabled ) {
     mii.fMask        = MIIM_STATE;
     mii.fState       = enabled ? MFS_ENABLED : MFS_DISABLED;
     SetMenuItemInfo( mParent, mPosition, true, &mii );
-}
-
-void Win33::Menu::appendSeparator( ) {
-    AppendMenu( mHandle, MF_SEPARATOR, 0, nullptr );
-}
-Win33::Menu& Win33::Menu::appendSubMenu( const std::wstring& text ) {
-    mSubMenus.emplace_back( std::move( Win33::Menu( this, mLastPosition, text ) ) );
-    auto& menu = mSubMenus.back( );
-    
-    AppendMenu( mHandle, MF_POPUP, reinterpret_cast<UINT_PTR>( menu.mHandle ), text.c_str( ) );
-    
-    mLastPosition++;
-    return menu;
-}
-Win33::MenuItem& Win33::Menu::appendMenuItem( const std::wstring& text ) {
-    mMenuItems.push_back( std::move( Win33::MenuItem( this, text ) ) );
-    auto& menuItem = mMenuItems.back( );
-    
-    AppendMenu( mHandle, MF_STRING, menuItem.mID, text.c_str( ) );
-    
-    mLastPosition++;
-    return menuItem;
 }

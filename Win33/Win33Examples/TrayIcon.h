@@ -36,9 +36,9 @@ public:
         mTrayIcon.setTooltip( L"I'm a tray icon" );
     }
     TrayIconWindow            ( const TrayIconWindow&  other ) = delete;
-    TrayIconWindow            (       TrayIconWindow&& other ) = default;
+    TrayIconWindow            (       TrayIconWindow&& other ) = delete;
     TrayIconWindow& operator= ( const TrayIconWindow&  other ) = delete;
-    TrayIconWindow& operator= (       TrayIconWindow&& other ) = default;
+    TrayIconWindow& operator= (       TrayIconWindow&& other ) = delete;
     ~TrayIconWindow           ( )                              = default;
     
 private:
@@ -58,9 +58,9 @@ public:
         mTrayIconWindow.show( );
     }
     TrayIconApplication            ( const TrayIconApplication&  other ) = delete;
-    TrayIconApplication            (       TrayIconApplication&& other ) = default;
+    TrayIconApplication            (       TrayIconApplication&& other ) = delete;
     TrayIconApplication& operator= ( const TrayIconApplication&  other ) = delete;
-    TrayIconApplication& operator= (       TrayIconApplication&& other ) = default;
+    TrayIconApplication& operator= (       TrayIconApplication&& other ) = delete;
     ~TrayIconApplication           ( )                                   = default;
     
 private:

@@ -2,60 +2,60 @@
 
 #include <Win33Application.h>
 #include <Win33Window.h>
-#include <Win33MenuBar.h>
 #include <Win33ContextMenu.h>
+#include <Win33MenuBar.h>
+#include <Win33Menu.h>
+#include <Win33MenuItem.h>
+#include <Win33Separator.h>
 #include <Win33PopupBox.h>
 
 class MenusWindow : public Win33::Window {
 public:
     MenusWindow( )
     :
-    Win33::Window ( Win33::Window::DefaultPosition, { 640, 480 } ),
-    mMenuBar      ( this ),
-    mContextMenu  ( this ),
-    mLanguage     ( Language::English )
+    Win33::Window   ( Win33::Window::DefaultPosition, { 640, 480 } ),
+    mContextMenu    ( this ),
+    mGreet          ( &mContextMenu, L"Say hello" ),
+    mGreetSeparator ( &mContextMenu ),
+    mEnglish        ( &mContextMenu, L"English" ),
+    mSpanish        ( &mContextMenu, L"Spanish" ),
+    mMenuBar        ( this ),
+    mFileMenu       ( &mMenuBar, L"File" ),
+    mNew            ( &mFileMenu, L"New" ),
+    mOpen           ( &mFileMenu, L"Open" ),
+    mSave           ( &mFileMenu, L"Save" ),
+    mQuitSeparator  ( &mFileMenu ),
+    mQuit           ( &mFileMenu, L"Quit" ),
+    mHelpMenu       ( &mMenuBar, L"Help" ),
+    mMiscMenu       ( &mHelpMenu, L"Misc" ),
+    mWebsite        ( &mMiscMenu, L"Go to website" ),
+    mFeedback       ( &mMiscMenu, L"Leave feedback" ),
+    mAboutSeparator ( &mHelpMenu ),
+    mAbout          ( &mHelpMenu, L"About" ),
+    mLanguage       ( Language::English )
     {
         setTitle( L"MenusWindow" );
         
-        auto& fileMenu = mMenuBar.appendMenu( L"&File" );
-        fileMenu.appendMenuItem( L"&New" );
-        fileMenu.appendMenuItem( L"&Open" );
-        fileMenu.appendMenuItem( L"&Save" );
-        fileMenu.appendSeparator( );
-        auto& quit = fileMenu.appendMenuItem( L"&Quit" );
-        
-        quit.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        mQuit.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             close( );
         };
         
-        auto& helpMenu = mMenuBar.appendMenu( L"&Help" );
-        auto& miscMenu = helpMenu.appendSubMenu( L"&Misc." );
-        auto& website  = miscMenu.appendMenuItem( L"Go to website" );
-        auto& feedback = miscMenu.appendMenuItem( L"Leave feedback" );
-        helpMenu.appendSeparator( );
-        auto& about = helpMenu.appendMenuItem( L"&About" );
+        mWebsite.setEnabled  ( false );
+        mFeedback.setEnabled ( false );
         
-        website.setEnabled  ( false );
-        feedback.setEnabled ( false );
-        
-        about.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        mAbout.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             Win33::PopupBox::information( L"This is a test." );
         };
         
-        auto& greet = mContextMenu.appendMenuItem( L"Say hello" );
-        mContextMenu.appendSeperator( );
-        auto& english = mContextMenu.appendMenuItem( L"English" );
-        auto& espanol = mContextMenu.appendMenuItem( L"Espanol"  );
+        mEnglish.setChecked( true );
         
-        english.setChecked( true );
-        
-        greet.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        mGreet.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             switch( mLanguage ) {
                 case Language::English: {
                     Win33::PopupBox::exclamation( L"Hello, world!" );
                     break;
                 }
-                case Language::Espanol: {
+                case Language::Spanish: {
                     Win33::PopupBox::exclamation( L"¡Hola, Mundo!" );
                     break;
                 }
@@ -64,36 +64,53 @@ public:
                 }
             }
         };
-        english.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        mEnglish.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
             mLanguage = Language::English;
-            english.setChecked( true );
-            espanol.setChecked( false );
-            greet.setText( L"Say hello" );
+            mEnglish.setChecked( true );
+            mSpanish.setChecked( false );
+            mGreet.setText( L"Say hello" );
         };
-        espanol.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
-            mLanguage = Language::Espanol;
-            english.setChecked( false );
-            espanol.setChecked( true );
-            greet.setText( L"Di hola" );
+        mSpanish.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+            mLanguage = Language::Spanish;
+            mEnglish.setChecked( false );
+            mSpanish.setChecked( true );
+            mGreet.setText( L"Di hola" );
         };
         
         onRightClick += [&]( Win33::WindowEvents::RightClickData& data ) {
-            mContextMenu.show( data.getPosition( ) );
+            mContextMenu.show( );
         };
     }
     MenusWindow            ( const MenusWindow&  other ) = delete;
-    MenusWindow            (       MenusWindow&& other ) = default;
+    MenusWindow            (       MenusWindow&& other ) = delete;
     MenusWindow& operator= ( const MenusWindow&  other ) = delete;
-    MenusWindow& operator= (       MenusWindow&& other ) = default;
+    MenusWindow& operator= (       MenusWindow&& other ) = delete;
     ~MenusWindow           ( )                           = default;
     
 private:
-    Win33::MenuBar     mMenuBar;
     Win33::ContextMenu mContextMenu;
+    Win33::MenuItem    mGreet;
+    Win33::Separator   mGreetSeparator;
+    Win33::MenuItem    mEnglish;
+    Win33::MenuItem    mSpanish;
     
-    enum Language {
+    Win33::MenuBar   mMenuBar;
+    Win33::Menu      mFileMenu;
+    Win33::MenuItem  mNew;
+    Win33::MenuItem  mOpen;
+    Win33::MenuItem  mSave;
+    Win33::Separator mQuitSeparator;
+    Win33::MenuItem  mQuit;
+    Win33::Menu      mHelpMenu;
+    Win33::Menu      mMiscMenu;
+    Win33::MenuItem  mWebsite;
+    Win33::MenuItem  mFeedback;
+    Win33::Separator mAboutSeparator;
+    Win33::MenuItem  mAbout;
+    
+    enum class Language : int {
         English,
-        Espanol
+        Spanish
     };
     Language mLanguage;
 };
@@ -108,9 +125,9 @@ public:
         mMenusWindow.show( );
     }
     MenusApplication            ( const MenusApplication&  other ) = delete;
-    MenusApplication            (       MenusApplication&& other ) = default;
+    MenusApplication            (       MenusApplication&& other ) = delete;
     MenusApplication& operator= ( const MenusApplication&  other ) = delete;
-    MenusApplication& operator= (       MenusApplication&& other ) = default;
+    MenusApplication& operator= (       MenusApplication&& other ) = delete;
     ~MenusApplication           ( )                                = default;
     
 private:

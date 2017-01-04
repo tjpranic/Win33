@@ -198,9 +198,9 @@ namespace Win33 {
     public:
         Common            ( )                      = delete;
         Common            ( const Common&  other ) = delete;
-        Common            (       Common&& other );
+        Common            (       Common&& other ) = delete;
         Common& operator= ( const Common&  other ) = delete;
-        Common& operator= (       Common&& other );
+        Common& operator= (       Common&& other ) = delete;
         virtual ~Common   ( )                      = default;
         
         void show( );

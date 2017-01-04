@@ -23,9 +23,9 @@ namespace Win33 {
     public:
         Control            ( )                       = delete;
         Control            ( const Control&  other ) = delete;
-        Control            (       Control&& other ) = default;
+        Control            (       Control&& other ) = delete;
         Control& operator= ( const Control&  other ) = delete;
-        Control& operator= (       Control&& other ) = default;
+        Control& operator= (       Control&& other ) = delete;
         virtual ~Control   ( )                       = default;
         
         Win33::Anchor getAnchor( ) const;

@@ -17,9 +17,9 @@ namespace Win33 {
         );
         TrayIcon            ( )                        = delete;
         TrayIcon            ( const TrayIcon&  other ) = delete;
-        TrayIcon            (       TrayIcon&& other );
+        TrayIcon            (       TrayIcon&& other ) = delete;
         TrayIcon& operator= ( const TrayIcon&  other ) = delete;
-        TrayIcon& operator= (       TrayIcon&& other );
+        TrayIcon& operator= (       TrayIcon&& other ) = delete;
         ~TrayIcon           ( )                        = default;
         
         void setIcon    ( const Win33::Icon*  icon    );

@@ -110,6 +110,10 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
             case Win33::Common::Type::Window: {
                 Win33::Window* w = reinterpret_cast<Win33::Window*>( c );
                 switch( message ) {
+                    case WM_PAINT: {
+                        DrawMenuBar( Win33::Interop::toHandle( w ) );
+                        break;
+                    }
                     case WM_SIZE: {
                         w->onResize.handle( Win33::WindowEvents::ResizeData( w->getSize( ) ) );
                         break;

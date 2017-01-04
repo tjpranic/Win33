@@ -15,9 +15,9 @@ namespace Win33 {
         );
         GroupBox            ( )                        = delete;
         GroupBox            ( const GroupBox&  other ) = delete;
-        GroupBox            (       GroupBox&& other ) = default;
+        GroupBox            (       GroupBox&& other ) = delete;
         GroupBox& operator= ( const GroupBox&  other ) = delete;
-        GroupBox& operator= (       GroupBox&& other ) = default;
+        GroupBox& operator= (       GroupBox&& other ) = delete;
         ~GroupBox           ( )                        = default;
     };
     

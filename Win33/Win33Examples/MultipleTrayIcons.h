@@ -23,9 +23,9 @@ public:
         mFirstTrayIcon.setTooltip( L"Hello" );
     }
     FirstTrayIconWindow            ( const FirstTrayIconWindow&  other ) = delete;
-    FirstTrayIconWindow            (       FirstTrayIconWindow&& other ) = default;
+    FirstTrayIconWindow            (       FirstTrayIconWindow&& other ) = delete;
     FirstTrayIconWindow& operator= ( const FirstTrayIconWindow&  other ) = delete;
-    FirstTrayIconWindow& operator= (       FirstTrayIconWindow&& other ) = default;
+    FirstTrayIconWindow& operator= (       FirstTrayIconWindow&& other ) = delete;
     ~FirstTrayIconWindow           ( )                                   = default;
     
 private:
@@ -46,9 +46,9 @@ public:
         };
     }
     SecondTrayIconWindow            ( const SecondTrayIconWindow&  other ) = delete;
-    SecondTrayIconWindow            (       SecondTrayIconWindow&& other ) = default;
+    SecondTrayIconWindow            (       SecondTrayIconWindow&& other ) = delete;
     SecondTrayIconWindow& operator= ( const SecondTrayIconWindow&  other ) = delete;
-    SecondTrayIconWindow& operator= (       SecondTrayIconWindow&& other ) = default;
+    SecondTrayIconWindow& operator= (       SecondTrayIconWindow&& other ) = delete;
     ~SecondTrayIconWindow           ( )                                    = default;
     
 private:
@@ -67,9 +67,9 @@ public:
         mSecondWindow.show( );
     }
     MultipleTrayIconsApplication            ( const MultipleTrayIconsApplication&  other ) = delete;
-    MultipleTrayIconsApplication            (       MultipleTrayIconsApplication&& other ) = default;
+    MultipleTrayIconsApplication            (       MultipleTrayIconsApplication&& other ) = delete;
     MultipleTrayIconsApplication& operator= ( const MultipleTrayIconsApplication&  other ) = delete;
-    MultipleTrayIconsApplication& operator= (       MultipleTrayIconsApplication&& other ) = default;
+    MultipleTrayIconsApplication& operator= (       MultipleTrayIconsApplication&& other ) = delete;
     ~MultipleTrayIconsApplication           ( )                                            = default;
     
 private:

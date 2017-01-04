@@ -1,7 +1,6 @@
 #include "Win33MenuItem.h"
 
 #include "Win33Application.h"
-#include "Win33Interop.h"
 
 int Win33::MenuItem::generateID( ) {
     static int id = 0;
@@ -11,41 +10,23 @@ int Win33::MenuItem::generateID( ) {
 Win33::MenuItem::MenuItem( Win33::ContextMenu* contextMenu, const std::wstring& text )
 :
 mParent ( Win33::Interop::toHandle( contextMenu ) ),
-mID     ( Win33::MenuItem::generateID( ) )
+mID     ( generateID( ) )
 {
+    AppendMenu( mParent, MF_STRING, mID, text.c_str( ) );
+    
     Win33::Application::mMenuItems[mID] = this;
 }
 Win33::MenuItem::MenuItem( Win33::Menu* menu, const std::wstring& text )
 :
 mParent ( Win33::Interop::toHandle( menu ) ),
-mID     ( Win33::MenuItem::generateID( ) )
+mID     ( generateID( ) )
 {
-    Win33::Application::mMenuItems[mID] = this;
-}
-Win33::MenuItem::MenuItem( MenuItem&& other )
-:
-onClick( std::move( other.onClick ) ),
-mParent( other.mParent ),
-mID    ( other.mID )
-{
-    other.mID = -1;
-    Win33::Application::mMenuItems[mID] = this;
-}
-Win33::MenuItem& Win33::MenuItem::operator=( MenuItem&& other ) {
-    onClick   = std::move( other.onClick );
-    mParent   = other.mParent;
-    mID       = other.mID;
-    other.mID = -1;
+    AppendMenu( mParent, MF_STRING, mID, text.c_str( ) );
     
     Win33::Application::mMenuItems[mID] = this;
-    return *this;
 }
 Win33::MenuItem::~MenuItem( ) {
     Win33::Application::mMenuItems.erase( mID );
-}
-
-void Win33::MenuItem::toggleChecked( ) {
-    setChecked( !getChecked( ) );
 }
 
 std::wstring Win33::MenuItem::getText( ) const {

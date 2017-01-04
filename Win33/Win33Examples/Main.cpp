@@ -11,8 +11,8 @@
 #include <Win33StringUtilities.h>
 
 //TODO: finish calculator
-//TODO? disable move construction/assignments (requires redesign of menu classes (specifically, the removal of std::lists))
 //TODO? add common controls
+//TODO? remove Win33 prefix from files and projects (put files in Win33 subdir)
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {

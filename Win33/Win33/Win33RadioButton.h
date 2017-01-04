@@ -20,9 +20,9 @@ namespace Win33 {
         );
         RadioButton            ( )                           = delete;
         RadioButton            ( const RadioButton&  other ) = delete;
-        RadioButton            (       RadioButton&& other ) = default;
+        RadioButton            (       RadioButton&& other ) = delete;
         RadioButton& operator= ( const RadioButton&  other ) = delete;
-        RadioButton& operator= (       RadioButton&& other ) = default;
+        RadioButton& operator= (       RadioButton&& other ) = delete;
         ~RadioButton           ( )                           = default;
         
         bool getSelected( ) const;

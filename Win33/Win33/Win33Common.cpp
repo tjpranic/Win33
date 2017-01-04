@@ -81,40 +81,6 @@ mSize            ( size )
     
     Win33::Application::mCommons[mHandle] = this;
 }
-Win33::Common::Common( Common&& other )
-:
-mHandle          ( other.mHandle ),
-mType            ( other.mType ),
-mParent          ( other.mParent ),
-mInitialPosition ( std::move( other.mInitialPosition ) ),
-mInitialSize     ( std::move( other.mInitialSize ) ),
-mMinimumSize     ( std::move( other.mMinimumSize ) ),
-mMaximumSize     ( std::move( other.mMaximumSize ) ),
-mPosition        ( std::move( other.mPosition ) ),
-mSize            ( std::move( other.mSize ) )
-{
-    other.mHandle = nullptr;
-    other.mParent = nullptr;
-    
-    Win33::Application::mCommons[mHandle] = this;
-}
-Win33::Common& Win33::Common::operator=( Common&& other ) {
-    mHandle          = other.mHandle;
-    mType            = other.mType;
-    mParent          = other.mParent;
-    mInitialPosition = std::move( other.mInitialPosition );
-    mInitialSize     = std::move( other.mInitialSize );
-    mMinimumSize     = std::move( other.mMinimumSize );
-    mMaximumSize     = std::move( other.mMaximumSize );
-    mPosition        = std::move( other.mPosition );
-    mSize            = std::move( other.mSize );
-    other.mHandle    = nullptr;
-    other.mParent    = nullptr;
-    
-    Win33::Application::mCommons[mHandle] = this;
-    
-    return *this;
-}
 
 void Win33::Common::show( ) {
     ShowWindow( mHandle, SW_SHOW );

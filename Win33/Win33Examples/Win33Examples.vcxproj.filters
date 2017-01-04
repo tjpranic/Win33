@@ -6,9 +6,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Menus.h">
-      <Filter>Examples</Filter>
-    </ClInclude>
     <ClInclude Include="MultipleTrayIcons.h">
       <Filter>Examples</Filter>
     </ClInclude>
@@ -27,7 +24,7 @@
     <ClInclude Include="TrayIcon.h">
       <Filter>Examples</Filter>
     </ClInclude>
-    <ClInclude Include="MenusAlt.h">
+    <ClInclude Include="Menus.h">
       <Filter>Examples</Filter>
     </ClInclude>
   </ItemGroup>

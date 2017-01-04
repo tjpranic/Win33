@@ -9,9 +9,9 @@ namespace Win33 {
     class Window : public Common {
     public:
         Window            ( const Window&  other ) = delete;
-        Window            (       Window&& other ) = default;
+        Window            (       Window&& other ) = delete;
         Window& operator= ( const Window&  other ) = delete;
-        Window& operator= (       Window&& other ) = default;
+        Window& operator= (       Window&& other ) = delete;
         virtual ~Window   ( )                      = default;
         
         static const Win33::Point DefaultPosition;

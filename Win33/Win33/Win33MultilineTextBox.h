@@ -15,9 +15,9 @@ namespace Win33 {
         );
         MultilineTextBox            ( )                                = delete;
         MultilineTextBox            ( const MultilineTextBox&  other ) = delete;
-        MultilineTextBox            (       MultilineTextBox&& other ) = default;
+        MultilineTextBox            (       MultilineTextBox&& other ) = delete;
         MultilineTextBox& operator= ( const MultilineTextBox&  other ) = delete;
-        MultilineTextBox& operator= (       MultilineTextBox&& other ) = default;
+        MultilineTextBox& operator= (       MultilineTextBox&& other ) = delete;
         ~MultilineTextBox           ( )                                = default;
     };
     

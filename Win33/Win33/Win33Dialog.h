@@ -9,9 +9,9 @@ namespace Win33 {
     public:
         Dialog            ( )                      = delete;
         Dialog            ( const Dialog&  other ) = delete;
-        Dialog            (       Dialog&& other ) = default;
+        Dialog            (       Dialog&& other ) = delete;
         Dialog& operator= ( const Dialog&  other ) = delete;
-        Dialog& operator= (       Dialog&& other ) = default;
+        Dialog& operator= (       Dialog&& other ) = delete;
         virtual ~Dialog   ( )                      = default;
         
         T show( ) {

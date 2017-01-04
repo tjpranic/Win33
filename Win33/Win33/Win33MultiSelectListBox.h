@@ -15,9 +15,9 @@ namespace Win33 {
         );
         MultiSelectListBox            ( )                                  = delete;
         MultiSelectListBox            ( const MultiSelectListBox&  other ) = delete;
-        MultiSelectListBox            (       MultiSelectListBox&& other ) = default;
+        MultiSelectListBox            (       MultiSelectListBox&& other ) = delete;
         MultiSelectListBox& operator= ( const MultiSelectListBox&  other ) = delete;
-        MultiSelectListBox& operator= (       MultiSelectListBox&& other ) = default;
+        MultiSelectListBox& operator= (       MultiSelectListBox&& other ) = delete;
         ~MultiSelectListBox           ( )                                  = default;
         
         void setSelection   ( const std::vector<int>& selections );

@@ -51,6 +51,7 @@
     <ClInclude Include="Win33PopupBox.h" />
     <ClInclude Include="Win33RadioButton.h" />
     <ClInclude Include="Win33RadioButtonEvents.h" />
+    <ClInclude Include="Win33Separator.h" />
     <ClInclude Include="Win33Size.h" />
     <ClInclude Include="Win33System.h" />
     <ClInclude Include="Win33TextBox.h" />
@@ -85,6 +86,7 @@
     <ClCompile Include="Win33Point.cpp" />
     <ClCompile Include="Win33PopupBox.cpp" />
     <ClCompile Include="Win33RadioButton.cpp" />
+    <ClCompile Include="Win33Separator.cpp" />
     <ClCompile Include="Win33Size.cpp" />
     <ClCompile Include="Win33System.cpp" />
     <ClCompile Include="Win33TextBox.cpp" />

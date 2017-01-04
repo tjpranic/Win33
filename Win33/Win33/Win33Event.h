@@ -30,9 +30,9 @@ namespace Win33 {
     public:
         Event            ( )                     = default;
         Event            ( const Event&  other ) = delete;
-        Event            (       Event&& other ) = default;
+        Event            (       Event&& other ) = delete;
         Event& operator= ( const Event&  other ) = delete;
-        Event& operator= (       Event&& other ) = default;
+        Event& operator= (       Event&& other ) = delete;
         ~Event           ( )                     = default;
         
         void addHandler( const H& handler ) {
@@ -97,9 +97,9 @@ namespace Win33 {
     public: 
         CancellableEvent            ( )                                = default;
         CancellableEvent            ( const CancellableEvent&  other ) = delete;
-        CancellableEvent            (       CancellableEvent&& other ) = default;
+        CancellableEvent            (       CancellableEvent&& other ) = delete;
         CancellableEvent& operator= ( const CancellableEvent&  other ) = delete;
-        CancellableEvent& operator= (       CancellableEvent&& other ) = default;
+        CancellableEvent& operator= (       CancellableEvent&& other ) = delete;
         ~CancellableEvent           ( )                                = default;
         
     protected:

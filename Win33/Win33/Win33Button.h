@@ -16,9 +16,9 @@ namespace Win33 {
         );
         Button            ( )                      = delete;
         Button            ( const Button&  other ) = delete;
-        Button            (       Button&& other ) = default;
+        Button            (       Button&& other ) = delete;
         Button& operator= ( const Button&  other ) = delete;
-        Button& operator= (       Button&& other ) = default;
+        Button& operator= (       Button&& other ) = delete;
         ~Button           ( )                      = default;
         
         Win33::ButtonEvents::Click onClick;

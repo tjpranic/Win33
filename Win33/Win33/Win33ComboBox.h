@@ -17,9 +17,9 @@ namespace Win33 {
         );
         ComboBox            ( )                        = delete;
         ComboBox            ( const ComboBox&  other ) = delete;
-        ComboBox            (       ComboBox&& other ) = default;
+        ComboBox            (       ComboBox&& other ) = delete;
         ComboBox& operator= ( const ComboBox&  other ) = delete;
-        ComboBox& operator= (       ComboBox&& other ) = default;
+        ComboBox& operator= (       ComboBox&& other ) = delete;
         virtual ~ComboBox   ( )                        = default;
         
         void addOption    ( const std::wstring& option );

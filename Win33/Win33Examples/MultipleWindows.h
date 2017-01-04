@@ -12,9 +12,9 @@ public:
         setTitle( L"FirstWindow" );
     }
     FirstWindow            ( const FirstWindow&  other ) = delete;
-    FirstWindow            (       FirstWindow&& other ) = default;
+    FirstWindow            (       FirstWindow&& other ) = delete;
     FirstWindow& operator= ( const FirstWindow&  other ) = delete;
-    FirstWindow& operator= (       FirstWindow&& other ) = default;
+    FirstWindow& operator= (       FirstWindow&& other ) = delete;
     ~FirstWindow           ( )                           = default;
 };
 
@@ -27,9 +27,9 @@ public:
         setTitle( L"SecondWindow" );
     }
     SecondWindow            ( const SecondWindow&  other ) = delete;
-    SecondWindow            (       SecondWindow&& other ) = default;
+    SecondWindow            (       SecondWindow&& other ) = delete;
     SecondWindow& operator= ( const SecondWindow&  other ) = delete;
-    SecondWindow& operator= (       SecondWindow&& other ) = default;
+    SecondWindow& operator= (       SecondWindow&& other ) = delete;
     ~SecondWindow           ( )                            = default;
 };
 
@@ -45,9 +45,9 @@ public:
         mSecondWindow.show( );
     }
     MultipleWindowsApplication            ( const MultipleWindowsApplication&  other ) = delete;
-    MultipleWindowsApplication            (       MultipleWindowsApplication&& other ) = default;
+    MultipleWindowsApplication            (       MultipleWindowsApplication&& other ) = delete;
     MultipleWindowsApplication& operator= ( const MultipleWindowsApplication&  other ) = delete;
-    MultipleWindowsApplication& operator= (       MultipleWindowsApplication&& other ) = default;
+    MultipleWindowsApplication& operator= (       MultipleWindowsApplication&& other ) = delete;
     ~MultipleWindowsApplication           ( )                                          = default;
     
 private:

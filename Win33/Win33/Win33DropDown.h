@@ -16,9 +16,9 @@ namespace Win33 {
         );
         DropDown            ( )                        = delete;
         DropDown            ( const DropDown&  other ) = delete;
-        DropDown            (       DropDown&& other ) = default;
+        DropDown            (       DropDown&& other ) = delete;
         DropDown& operator= ( const DropDown&  other ) = delete;
-        DropDown& operator= (       DropDown&& other ) = default;
+        DropDown& operator= (       DropDown&& other ) = delete;
         ~DropDown           ( )                        = default;
         
         void showDropDown( );

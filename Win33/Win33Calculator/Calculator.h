@@ -12,9 +12,9 @@ class CalculatorWindow : public Win33::Window {
 public:
     CalculatorWindow            ( );
     CalculatorWindow            ( const CalculatorWindow&  other ) = delete;
-    CalculatorWindow            (       CalculatorWindow&& other ) = default;
+    CalculatorWindow            (       CalculatorWindow&& other ) = delete;
     CalculatorWindow& operator= ( const CalculatorWindow&  other ) = delete;
-    CalculatorWindow& operator= (       CalculatorWindow&& other ) = default;
+    CalculatorWindow& operator= (       CalculatorWindow&& other ) = delete;
     ~CalculatorWindow           ( )                                = default;
     
 private:
@@ -45,9 +45,9 @@ class CalculatorApplication : public Win33::Application {
 public:
     CalculatorApplication            ( );
     CalculatorApplication            ( const CalculatorApplication&  other ) = delete;
-    CalculatorApplication            (       CalculatorApplication&& other ) = default;
+    CalculatorApplication            (       CalculatorApplication&& other ) = delete;
     CalculatorApplication& operator= ( const CalculatorApplication&  other ) = delete;
-    CalculatorApplication& operator= (       CalculatorApplication&& other ) = default;
+    CalculatorApplication& operator= (       CalculatorApplication&& other ) = delete;
     ~CalculatorApplication           ( )                                     = default;
     
     int run( );

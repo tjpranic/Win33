@@ -60,9 +60,9 @@ public:
         mMultiSelectListBox.setSelection( { 0, 1 } );
     }
     ControlsWindow            ( const ControlsWindow&  other ) = delete;
-    ControlsWindow            (       ControlsWindow&& other ) = default;
+    ControlsWindow            (       ControlsWindow&& other ) = delete;
     ControlsWindow& operator= ( const ControlsWindow&  other ) = delete;
-    ControlsWindow& operator= (       ControlsWindow&& other ) = default;
+    ControlsWindow& operator= (       ControlsWindow&& other ) = delete;
     ~ControlsWindow           ( )                              = default;
     
 private:
@@ -102,9 +102,9 @@ public:
         mControlsWindow.show( );
     }
     ControlsApplication            ( const ControlsApplication&  other ) = delete;
-    ControlsApplication            (       ControlsApplication&& other ) = default;
+    ControlsApplication            (       ControlsApplication&& other ) = delete;
     ControlsApplication& operator= ( const ControlsApplication&  other ) = delete;
-    ControlsApplication& operator= (       ControlsApplication&& other ) = default;
+    ControlsApplication& operator= (       ControlsApplication&& other ) = delete;
     ~ControlsApplication           ( )                                   = default;
     
 private:

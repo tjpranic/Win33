@@ -12,9 +12,9 @@ public:
         setTitle( L"HiddenWindowTest" );
     }
     HiddenWindow            ( const HiddenWindow&  other ) = delete;
-    HiddenWindow            (       HiddenWindow&& other ) = default;
+    HiddenWindow            (       HiddenWindow&& other ) = delete;
     HiddenWindow& operator= ( const HiddenWindow&  other ) = delete;
-    HiddenWindow& operator= (       HiddenWindow&& other ) = default;
+    HiddenWindow& operator= (       HiddenWindow&& other ) = delete;
     ~HiddenWindow           ( )                            = default;
 };
 
@@ -26,9 +26,9 @@ public:
     mHiddenWindow      ( )
     { }
     HiddenWindowApplication            ( const HiddenWindowApplication&  other ) = delete;
-    HiddenWindowApplication            (       HiddenWindowApplication&& other ) = default;
+    HiddenWindowApplication            (       HiddenWindowApplication&& other ) = delete;
     HiddenWindowApplication& operator= ( const HiddenWindowApplication&  other ) = delete;
-    HiddenWindowApplication& operator= (       HiddenWindowApplication&& other ) = default;
+    HiddenWindowApplication& operator= (       HiddenWindowApplication&& other ) = delete;
     ~HiddenWindowApplication           ( )                                       = default;
     
 private:

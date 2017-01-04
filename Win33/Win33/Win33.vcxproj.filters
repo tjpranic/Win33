@@ -81,9 +81,6 @@
     <ClInclude Include="Win33Console.h">
       <Filter>Win33\Console</Filter>
     </ClInclude>
-    <ClInclude Include="Win33ContextMenu.h">
-      <Filter>Win33\Menus</Filter>
-    </ClInclude>
     <ClInclude Include="Win33Control.h">
       <Filter>Win33\Controls</Filter>
     </ClInclude>
@@ -110,15 +107,6 @@
     </ClInclude>
     <ClInclude Include="Win33LabelEvents.h">
       <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33MenuBar.h">
-      <Filter>Win33\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33MenuItem.h">
-      <Filter>Win33\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33Menu.h">
-      <Filter>Win33\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Win33MenuItemEvents.h">
       <Filter>Win33\Events</Filter>
@@ -177,6 +165,21 @@
     <ClInclude Include="Win33MultiSelectListBox.h">
       <Filter>Win33\Controls\List Boxes</Filter>
     </ClInclude>
+    <ClInclude Include="Win33MenuBar.h">
+      <Filter>Win33\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33Menu.h">
+      <Filter>Win33\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33MenuItem.h">
+      <Filter>Win33\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33ContextMenu.h">
+      <Filter>Win33\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Win33Separator.h">
+      <Filter>Win33\Menus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Win33Application.cpp">
@@ -193,9 +196,6 @@
     </ClCompile>
     <ClCompile Include="Win33Console.cpp">
       <Filter>Win33\Console</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33ContextMenu.cpp">
-      <Filter>Win33\Menus</Filter>
     </ClCompile>
     <ClCompile Include="Win33Control.cpp">
       <Filter>Win33\Controls</Filter>
@@ -214,15 +214,6 @@
     </ClCompile>
     <ClCompile Include="Win33Label.cpp">
       <Filter>Win33\Controls\Text</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33MenuBar.cpp">
-      <Filter>Win33\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33MenuItem.cpp">
-      <Filter>Win33\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33Menu.cpp">
-      <Filter>Win33\Menus</Filter>
     </ClCompile>
     <ClCompile Include="Win33MultilineTextBox.cpp">
       <Filter>Win33\Controls\Text Boxes</Filter>
@@ -268,6 +259,21 @@
     </ClCompile>
     <ClCompile Include="Win33MultiSelectListBox.cpp">
       <Filter>Win33\Controls\List Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33MenuBar.cpp">
+      <Filter>Win33\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33Menu.cpp">
+      <Filter>Win33\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33MenuItem.cpp">
+      <Filter>Win33\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33ContextMenu.cpp">
+      <Filter>Win33\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33Separator.cpp">
+      <Filter>Win33\Menus</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -17,9 +17,9 @@ namespace Win33 {
         );
         CheckBox            ( )                        = delete;
         CheckBox            ( const CheckBox&  other ) = delete;
-        CheckBox            (       CheckBox&& other ) = default;
+        CheckBox            (       CheckBox&& other ) = delete;
         CheckBox& operator= ( const CheckBox&  other ) = delete;
-        CheckBox& operator= (       CheckBox&& other ) = default;
+        CheckBox& operator= (       CheckBox&& other ) = delete;
         ~CheckBox           ( )                        = default;
         
         void toggleChecked( );

@@ -14,9 +14,9 @@ namespace Win33 {
         );
         PasswordBox            ( )                           = delete;
         PasswordBox            ( const PasswordBox&  other ) = delete;
-        PasswordBox            (       PasswordBox&& other ) = default;
+        PasswordBox            (       PasswordBox&& other ) = delete;
         PasswordBox& operator= ( const PasswordBox&  other ) = delete;
-        PasswordBox& operator= (       PasswordBox&& other ) = default;
+        PasswordBox& operator= (       PasswordBox&& other ) = delete;
         ~PasswordBox           ( )                           = default;
         
         wchar_t getPasswordCharacter( ) const;

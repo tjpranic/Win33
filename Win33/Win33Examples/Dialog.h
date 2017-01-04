@@ -17,9 +17,9 @@ public:
         mResult = L"Hello, world!";
     }
     Dialog            ( const Dialog&  other ) = delete;
-    Dialog            (       Dialog&& other ) = default;
+    Dialog            (       Dialog&& other ) = delete;
     Dialog& operator= ( const Dialog&  other ) = delete;
-    Dialog& operator= (       Dialog&& other ) = default;
+    Dialog& operator= (       Dialog&& other ) = delete;
     ~Dialog           ( )                      = default;
 };
 
@@ -40,9 +40,9 @@ public:
         };
     }
     DialogWindow            ( const DialogWindow&  other ) = delete;
-    DialogWindow            (       DialogWindow&& other ) = default;
+    DialogWindow            (       DialogWindow&& other ) = delete;
     DialogWindow& operator= ( const DialogWindow&  other ) = delete;
-    DialogWindow& operator= (       DialogWindow&& other ) = default;
+    DialogWindow& operator= (       DialogWindow&& other ) = delete;
     ~DialogWindow           ( )                            = default;
     
 private:
@@ -59,9 +59,9 @@ public:
         mDialogWindow.show( );
     }
     DialogApplication            ( const DialogApplication&  other ) = delete;
-    DialogApplication            (       DialogApplication&& other ) = default;
+    DialogApplication            (       DialogApplication&& other ) = delete;
     DialogApplication& operator= ( const DialogApplication&  other ) = delete;
-    DialogApplication& operator= (       DialogApplication&& other ) = default;
+    DialogApplication& operator= (       DialogApplication&& other ) = delete;
     ~DialogApplication           ( )                                 = default;
     
 private:

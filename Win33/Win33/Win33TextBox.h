@@ -15,9 +15,9 @@ namespace Win33 {
         );
         TextBox            ( )                       = delete;
         TextBox            ( const TextBox&  other ) = delete;
-        TextBox            (       TextBox&& other ) = default;
+        TextBox            (       TextBox&& other ) = delete;
         TextBox& operator= ( const TextBox&  other ) = delete;
-        TextBox& operator= (       TextBox&& other ) = default;
+        TextBox& operator= (       TextBox&& other ) = delete;
         virtual ~TextBox   ( )                       = default;
         
         bool getReadOnly( ) const;

@@ -1,24 +1,19 @@
 #pragma once
 
-#include <list>
-
-#include "Win33MenuItem.h"
-#include "Win33Interop.h"
+#include "Win33MenuBar.h"
 
 namespace Win33 {
     
-    class ContextMenu;
-    class MenuBar;
-    
     class Menu {
-    friend class ContextMenu;
-    friend class MenuBar;
     public:
+        Menu            ( Win33::ContextMenu* contextMenu, const std::wstring& text );
+        Menu            ( Win33::MenuBar*     menuBar,     const std::wstring& text );
+        Menu            ( Win33::Menu*        menu,        const std::wstring& text );
         Menu            ( )                    = delete;
         Menu            ( const Menu&  other ) = delete;
-        Menu            (       Menu&& other ) = default;
+        Menu            (       Menu&& other ) = delete;
         Menu& operator= ( const Menu&  other ) = delete;
-        Menu& operator= (       Menu&& other ) = default;
+        Menu& operator= (       Menu&& other ) = delete;
         ~Menu           ( )                    = default;
         
         std::wstring getText( )    const;
@@ -27,24 +22,12 @@ namespace Win33 {
         void setText    ( const std::wstring& text    );
         void setEnabled (       bool          enabled );
         
-        void      appendSeparator ( );
-        Menu&     appendSubMenu   ( const std::wstring& text );
-        MenuItem& appendMenuItem  ( const std::wstring& text );
-        
         friend HMENU Win33::Interop::toHandle( const Win33::Menu* menu );
         
     private:
-        Menu( Win33::ContextMenu* contextMenu, int position, const std::wstring& text );
-        Menu( Win33::MenuBar*     menuBar,     int position, const std::wstring& text );
-        Menu( Win33::Menu*        menu,        int position, const std::wstring& text );
-        
-        int mLastPosition;
-        
-        HMENU                      mHandle;
-        HMENU                      mParent;
-        int                        mPosition;
-        std::list<Win33::Menu>     mSubMenus;
-        std::list<Win33::MenuItem> mMenuItems;
+        HMENU mHandle;
+        HMENU mParent;
+        int   mPosition;
     };
     
 };

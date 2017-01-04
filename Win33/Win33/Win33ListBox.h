@@ -15,9 +15,9 @@ namespace Win33 {
         );
         ListBox            ( )                       = delete;
         ListBox            ( const ListBox&  other ) = delete;
-        ListBox            (       ListBox&& other ) = default;
+        ListBox            (       ListBox&& other ) = delete;
         ListBox& operator= ( const ListBox&  other ) = delete;
-        ListBox& operator= (       ListBox&& other ) = default;
+        ListBox& operator= (       ListBox&& other ) = delete;
         virtual ~ListBox   ( )                       = default;
         
         void addOption    ( const std::wstring& option );
