@@ -93,7 +93,7 @@ void Calculator::addInput( Input input ) {
         case Input::CloseBracket: {
             if( mExpression != L"0" ) {
                 auto lastCharacter = mExpression.back( );
-                if( lastCharacter != L'(' ) {
+                if( lastCharacter != L'(' && lastCharacter != L'+' && lastCharacter != L'-' && lastCharacter != L'\u00F7' && lastCharacter != L'\u00D7' ) {
                     mExpression += L')';
                 }
             }
