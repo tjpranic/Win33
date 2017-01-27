@@ -12,6 +12,12 @@ namespace Win33 {
         std::wstring widen  ( const char*         string );
         
         template<typename... A>
+        std::string format( const char* string, const A&... args ) {
+            char buffer[256];
+            sprintf_s( buffer, 256, string, args... );
+            return buffer;
+        }
+        template<typename... A>
         static std::wstring format( const wchar_t* string, const A&... args ) {
             wchar_t buffer[256];
             swprintf_s( buffer, 256, string, args... );

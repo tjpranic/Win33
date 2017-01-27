@@ -3,6 +3,189 @@
 #include <Win33PopupBox.h>
 #include <Win33StringUtilities.h>
 
+Calculator::Calculator( )
+:
+mExpression ( L"0" ),
+mWISS       ( )
+{ }
+
+//ensures the entered expression is as well-formed as possible by restricting certain
+//inputs from being entered if entering them would result in a malformed expression.
+void Calculator::addInput( Input input ) {
+    auto character = static_cast<wchar_t>( input );
+    switch( input ) {
+        case Input::One:
+        case Input::Two:
+        case Input::Three:
+        case Input::Four:
+        case Input::Five:
+        case Input::Six:
+        case Input::Seven:
+        case Input::Eight:
+        case Input::Nine:
+        case Input::Zero: {
+            if( mExpression != L"0" ) {
+                auto lastCharacter = mExpression.back( );
+                if( lastCharacter != L')' ) {
+                    auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
+                    auto lastNumber = index == std::wstring::npos ? mExpression : index == mExpression.size( ) - 1 ? L"" : mExpression.substr( index + 1 );
+                    if( lastNumber != L"0" ) {
+                        mExpression += character;
+                    }
+                    else {
+                        mExpression = mExpression.substr( 0, mExpression.size( ) - 1 ) + character;
+                    }
+                }
+            }
+            else {
+                mExpression = std::wstring( 1, character );
+            }
+            break;
+        }
+        case Input::Clear: {
+            mExpression = L"0";
+            break;
+        }
+        case Input::Dot: {
+            auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
+            auto lastNumber = index == std::wstring::npos ? mExpression : index == mExpression.size( ) - 1 ? L"" : mExpression.substr( index + 1 );
+            auto notDecimal = lastNumber != L"" && lastNumber.find_last_of( L'.' ) == std::wstring::npos;
+            if( notDecimal ) {
+                mExpression += L'.';
+            }
+            break;
+        }
+        case Input::Add:
+        case Input::Subtract:
+        case Input::Multiply:
+        case Input::Divide: {
+            auto lastCharacter = mExpression.back( );
+            if( lastCharacter != L'+' && lastCharacter != L'-' && lastCharacter != L'\u00F7' && lastCharacter != L'\u00D7' ) {
+                mExpression += character;
+            }
+            else {
+                mExpression = mExpression.substr( 0, mExpression.size( ) - 1 ) + character;
+            }
+            break;
+        }
+        case Input::Backspace: {
+            if( mExpression.size( ) > 1 ) {
+                mExpression = mExpression.substr( 0, mExpression.size( ) - 1 );
+            }
+            else {
+                mExpression = L"0";
+            }
+            break;
+        }
+        case Input::OpenBracket: {
+            if( mExpression != L"0" ) {
+                auto lastCharacter = mExpression.back( );
+                auto notNumber = !( lastCharacter >= L'1' && lastCharacter <= L'9' );
+                if( notNumber ) {
+                    mExpression += L'(';
+                }
+            }
+            else {
+                mExpression = L"(";
+            }
+            break;
+        }
+        case Input::CloseBracket: {
+            if( mExpression != L"0" ) {
+                auto lastCharacter = mExpression.back( );
+                if( lastCharacter != L'(' ) {
+                    mExpression += L')';
+                }
+            }
+            else {
+                mExpression = L")";
+            }
+            break;
+        }
+        default: {
+            throw std::runtime_error( "Unknown input." );
+        }
+    }
+}
+
+double Calculator::getResult( ) {
+    try {
+        mWISS.str   ( mExpression );
+        mWISS.clear ( );
+        auto result = expression( );
+        mExpression = L"0";
+        return result;
+    }
+    catch( const std::exception& exception ) {
+        mExpression = L"0";
+        throw exception;
+    }
+}
+std::wstring Calculator::getExpression( ) const {
+    return mExpression;
+}
+
+wchar_t Calculator::peek( ) {
+    return static_cast<wchar_t>( mWISS.peek( ) );
+}
+wchar_t Calculator::get( ) {
+    return static_cast<wchar_t>( mWISS.get( ) );
+}
+
+//recursive descent parser that evaluates expressions, expects (mostly) well-formed expressions.
+double Calculator::number( ) {
+    double result;
+    mWISS >> result;
+    if( mWISS.fail( ) ) {
+        throw std::runtime_error( "Malformed number in expression." ); 
+    }
+    return result;
+}
+double Calculator::factor( ) {
+    if( peek( ) >= L'0' && peek( ) <= L'9' ) {
+        return number( );
+    }
+    else if( peek( ) == L'(' ) {
+        auto openBracket   = get( );
+        auto result        = expression( );
+        auto closedBracket = get( );
+        return result;
+    }
+    else if( peek( ) == L'-' ) {
+        auto negativeSign = get( );
+        return -factor( );
+    }
+    else if( peek( ) == L'+' ) {
+        auto positiveSign = get( );
+        return factor( );
+    }
+    throw std::runtime_error( "Unable to evaluate expression." );
+}
+double Calculator::term( ) {
+    auto result = factor( );
+    while( peek( ) == L'\u00D7' || peek( ) == L'\u00F7' ) {
+        if( get( ) == L'\u00D7' ) {
+            result *= factor( );
+        }
+        else {
+            result /= factor( );
+        }
+    }
+    return result;
+}
+double Calculator::expression( ) {
+    auto result = term( );
+    while( peek( ) == L'+' || peek( ) == L'-' ) {
+        if( get( ) == L'+' ) {
+            result += term( );
+        }
+        else {
+            result -= term( );
+        }
+    }
+    return result;
+}
+
 CalculatorWindow::CalculatorWindow( )
 :
 Win33::Window ( Win33::Window::DefaultPosition, { 306, 308 } ),
@@ -21,12 +204,13 @@ mZero         ( this, {  65, 210 }, {  50, 50 }, L"0" ),
 mDot          ( this, { 120, 210 }, {  50, 50 }, L"." ),
 mAdd          ( this, { 175,  45 }, {  50, 50 }, L"+" ),
 mSubtract     ( this, { 175, 100 }, {  50, 50 }, L"-" ),
-mMultiply     ( this, { 175, 155 }, {  50, 50 }, L"*" ),
-mDivide       ( this, { 175, 210 }, {  50, 50 }, L"/" ),
+mMultiply     ( this, { 175, 155 }, {  50, 50 }, L"\u00D7" ), //times symbol
+mDivide       ( this, { 175, 210 }, {  50, 50 }, L"\u00F7" ), //division symbol
 mBackspace    ( this, { 230, 45  }, {  50, 50 }, L"\u2190" ), //left arrow
 mOpenBracket  ( this, { 230, 100 }, {  50, 50 }, L"(" ),
 mCloseBracket ( this, { 230, 155 }, {  50, 50 }, L")" ),
-mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
+mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" ),
+mCalculator   ( )
 {
     setTitle       ( L"Calculator" );
     setResizable   ( false );
@@ -59,94 +243,88 @@ mEquals       ( this, { 230, 210 }, {  50, 50 }, L"=" )
     mDot.setFont          ( &SegoeUI18 );
     
     mOne.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"1" : mResult.getText( ) + L"1" );
+        mCalculator.addInput( Input::One );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mTwo.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"2" : mResult.getText( ) + L"2" );
+        mCalculator.addInput( Input::Two );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mThree.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"3" : mResult.getText( ) + L"3" );
+        mCalculator.addInput( Input::Three );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mFour.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"4" : mResult.getText( ) + L"4" );
+        mCalculator.addInput( Input::Four );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mFive.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"5" : mResult.getText( ) + L"5" );
+        mCalculator.addInput( Input::Five );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mSix.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"6" : mResult.getText( ) + L"6" );
+        mCalculator.addInput( Input::Six );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mSeven.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"7" : mResult.getText( ) + L"7" );
+        mCalculator.addInput( Input::Seven );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mEight.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"8" : mResult.getText( ) + L"8" );
+        mCalculator.addInput( Input::Eight );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mNine.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"9" : mResult.getText( ) + L"9" );
+        mCalculator.addInput( Input::Nine );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mClear.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( L"0" );
+        mCalculator.addInput( Input::Clear );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mZero.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        if( mResult.getText( ) != L"0" ) {
-            mResult.setText( mResult.getText( ) + L"0" );
-        }
+        mCalculator.addInput( Input::Zero );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mDot.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        auto text = mResult.getText( );
-        auto last = text.back( );
-        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
-            mResult.setText( ( text == L"0" ) ? L"." : text + L"." );
-        }
+        mCalculator.addInput( Input::Dot );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mAdd.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        auto text = mResult.getText( );
-        auto last = text.back( );
-        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
-            mResult.setText( text + L"+" );
-        }
+        mCalculator.addInput( Input::Add );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mSubtract.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        auto text = mResult.getText( );
-        auto last = text.back( );
-        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' ) {
-            mResult.setText( ( text == L"0" ) ? L"-" : text + L"-" );
-        }
+        mCalculator.addInput( Input::Subtract );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mMultiply.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        auto text = mResult.getText( );
-        auto last = text.back( );
-        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
-            mResult.setText( text + L"*" );
-        }
+        mCalculator.addInput( Input::Multiply );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mDivide.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        auto text = mResult.getText( );
-        auto last = text.back( );
-        if( last != L'+' && last != L'-' && last != L'*' && last != L'/' && last != L'.' && text != L"0" ) {
-            mResult.setText( text + L"/" );
-        }
+        mCalculator.addInput( Input::Divide );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mBackspace.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        auto text = mResult.getText( );
-        if( text.size( ) == 1 ) {
-            mResult.setText( L"0" );
-        }
-        else if( text != L"0" ) {
-            mResult.setText( text.substr( 0, text.size( ) - 1 ) );
-        }
+        mCalculator.addInput( Input::Backspace );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mOpenBracket.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L"(" : mResult.getText( ) + L"(" );
+        mCalculator.addInput( Input::OpenBracket );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mCloseBracket.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        mResult.setText( ( mResult.getText( ) == L"0" ) ? L")" : mResult.getText( ) + L")" );
+        mCalculator.addInput( Input::CloseBracket );
+        mResult.setText( mCalculator.getExpression( ) );
     };
     mEquals.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        auto result = 0.0;
-        //...arithmetic expression parser goes here...
-        mResult.setText( Win33::String::format( L"%g", result ) );
+        try {
+            mResult.setText( Win33::String::format( L"%g", mCalculator.getResult( ) ) );
+        }
+        catch( const std::exception& ) {
+            mResult.setText( L"Error" );
+        }
     };
 }
 

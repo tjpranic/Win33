@@ -1,9 +1,60 @@
 #pragma once
 
+#include <sstream>
+
 #include <Win33Application.h>
 #include <Win33Window.h>
 #include <Win33TextBox.h>
 #include <Win33Button.h>
+
+enum class Input : wchar_t {
+    One          = L'1',
+    Two          = L'2',
+    Three        = L'3',
+    Four         = L'4',
+    Five         = L'5',
+    Six          = L'6',
+    Seven        = L'7',
+    Eight        = L'8',
+    Nine         = L'9',
+    Zero         = L'0',
+    Add          = L'+',
+    Subtract     = L'-',
+    Multiply     = L'\u00D7',
+    Divide       = L'\u00F7',
+    Backspace    = L'\u2190',
+    Clear        = L'C',
+    Dot          = L'.',
+    OpenBracket  = L'(',
+    CloseBracket = L')'
+};
+
+class Calculator {
+public:
+    Calculator            ( );
+    Calculator            ( const Calculator&  other ) = default;
+    Calculator            (       Calculator&& other ) = default;
+    Calculator& operator= ( const Calculator&  other ) = default;
+    Calculator& operator= (       Calculator&& other ) = default;
+    ~Calculator           ( )                          = default;
+    
+    void addInput( Input input );
+    
+    double       getResult( );
+    std::wstring getExpression( ) const;
+    
+private:
+    wchar_t peek( );
+    wchar_t get( );
+    
+    double number( );
+    double factor( );
+    double term( );
+    double expression( );
+    
+    std::wstring        mExpression;
+    std::wistringstream mWISS;
+};
 
 const Win33::Font SegoeUI18     = Win33::Font( L"SegoeUI", 18 );
 const Win33::Font SegoeUI24Bold = Win33::Font( L"SegoeUI", 24, Win33::FontDecoration::Bold );
@@ -39,6 +90,8 @@ private:
     Win33::Button  mOpenBracket;
     Win33::Button  mCloseBracket;
     Win33::Button  mEquals;
+    
+    Calculator mCalculator;
 };
 
 class CalculatorApplication : public Win33::Application {
