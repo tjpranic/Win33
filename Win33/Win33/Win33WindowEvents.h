@@ -3,6 +3,7 @@
 #include "Win33Event.h"
 #include "Win33Point.h"
 #include "Win33Size.h"
+#include "Win33Keys.h"
 
 namespace Win33 {
     
@@ -118,11 +119,57 @@ namespace Win33 {
         };
         using RightClickHandler = std::function<void( RightClickData& )>;
         
+        class KeyDownData : public EventData {
+        public:
+            KeyDownData( Win33::Key key )
+            :
+            mKey( key )
+            { }
+            KeyDownData            ( )                           = delete;
+            KeyDownData            ( const KeyDownData&  other ) = default;
+            KeyDownData            (       KeyDownData&& other ) = default;
+            KeyDownData& operator= ( const KeyDownData&  other ) = default;
+            KeyDownData& operator= (       KeyDownData&& other ) = default;
+            ~KeyDownData           ( )                           = default;
+            
+            Win33::Key getKey( ) const {
+                return mKey;
+            }
+            
+        private:
+            Win33::Key mKey;
+        };
+        using KeyDownHandler = std::function<void( KeyDownData& )>;
+        
+        class KeyUpData : public EventData {
+        public:
+            KeyUpData( Win33::Key key )
+            :
+            mKey( key )
+            { }
+            KeyUpData            ( )                         = delete;
+            KeyUpData            ( const KeyUpData&  other ) = default;
+            KeyUpData            (       KeyUpData&& other ) = default;
+            KeyUpData& operator= ( const KeyUpData&  other ) = default;
+            KeyUpData& operator= (       KeyUpData&& other ) = default;
+            ~KeyUpData           ( )                         = default;
+            
+            Win33::Key getKey( ) const {
+                return mKey;
+            }
+            
+        private:
+            Win33::Key mKey;
+        };
+        using KeyUpHandler = std::function<void( KeyUpData& )>;
+        
         using Close      = Win33::CancellableEvent<CloseData, CloseHandler>;
         using Destroy    = Win33::Event<DestroyData, DestroyHandler>;
         using Resize     = Win33::Event<ResizeData, ResizeHandler>;
         using Move       = Win33::Event<MoveData, MoveHandler>;
         using LeftClick  = Win33::Event<LeftClickData, LeftClickHandler>;
         using RightClick = Win33::Event<RightClickData, RightClickHandler>;
+        using KeyDown    = Win33::Event<KeyDownData, KeyDownHandler>;
+        using KeyUp      = Win33::Event<KeyUpData, KeyUpHandler>;
     };
 };

@@ -30,6 +30,7 @@ namespace Win33 {
         static LRESULT CALLBACK windowProcessor( HWND window, UINT message, WPARAM wordParameter, LPARAM longParameter );
         
         static Win33::Application*                        mInstance;
+        static HWND                                       mCurrentWindow;
         static std::unordered_map<HWND, Win33::Common*>   mCommons;
         static std::unordered_map<int,  Win33::MenuItem*> mMenuItems;
         static std::unordered_map<int,  Win33::TrayIcon*> mTrayIcons;

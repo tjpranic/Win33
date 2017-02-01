@@ -44,6 +44,8 @@ namespace Win33 {
         Win33::WindowEvents::Move       onMove;
         Win33::WindowEvents::LeftClick  onLeftClick;
         Win33::WindowEvents::RightClick onRightClick;
+        Win33::WindowEvents::KeyDown    onKeyDown;
+        Win33::WindowEvents::KeyUp      onKeyUp;
         
         friend HWND Win33::Interop::toHandle( const Win33::Window* window );
         
@@ -56,10 +58,10 @@ namespace Win33 {
         );
         Window(
                   Win33::Window*       parent,
-            const Win33::Point&        position,
-            const Win33::Size&         size,
-                  Win33::WindowStyle   style   = Win33::WindowStyle::OverlappedWindow,
-                  Win33::ExWindowStyle exStyle = Win33::ExWindowStyle::None
+            const Win33::Point&        position = Win33::Window::DefaultPosition,
+            const Win33::Size&         size     = Win33::Window::DefaultSize,
+                  Win33::WindowStyle   style    = Win33::WindowStyle::OverlappedWindow,
+                  Win33::ExWindowStyle exStyle  = Win33::ExWindowStyle::None
         );
     };
     

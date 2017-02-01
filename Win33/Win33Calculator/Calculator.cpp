@@ -24,7 +24,7 @@ void Calculator::addInput( Input input ) {
         case Input::Eight:
         case Input::Nine:
         case Input::Zero: {
-            if( mExpression != L"0" ) {
+            if( mExpression != L"0" && mExpression != L"Error" ) {
                 auto lastCharacter = mExpression.back( );
                 if( lastCharacter != L')' ) {
                     auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
@@ -47,11 +47,13 @@ void Calculator::addInput( Input input ) {
             break;
         }
         case Input::Dot: {
-            auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
-            auto lastNumber = index == std::wstring::npos ? mExpression : index == mExpression.size( ) - 1 ? L"" : mExpression.substr( index + 1 );
-            auto notDecimal = lastNumber != L"" && lastNumber.find_last_of( L'.' ) == std::wstring::npos;
-            if( notDecimal ) {
-                mExpression += L'.';
+            if( mExpression != L"Error" ) {
+                auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
+                auto lastNumber = index == std::wstring::npos ? mExpression : index == mExpression.size( ) - 1 ? L"" : mExpression.substr( index + 1 );
+                auto notDecimal = lastNumber != L"" && lastNumber.find_last_of( L'.' ) == std::wstring::npos;
+                if( notDecimal ) {
+                    mExpression += L'.';
+                }
             }
             break;
         }
@@ -59,17 +61,22 @@ void Calculator::addInput( Input input ) {
         case Input::Subtract:
         case Input::Multiply:
         case Input::Divide: {
-            auto lastCharacter = mExpression.back( );
-            if( lastCharacter != L'+' && lastCharacter != L'-' && lastCharacter != L'\u00F7' && lastCharacter != L'\u00D7' ) {
-                mExpression += character;
-            }
-            else {
-                mExpression = mExpression.substr( 0, mExpression.size( ) - 1 ) + character;
+            if( mExpression != L"Error" ) {
+                auto lastCharacter = mExpression.back( );
+                if( lastCharacter == L'.' ) {
+                    //do nothing and don't overwrite last input
+                }
+                else if( lastCharacter != L'+' && lastCharacter != L'-' && lastCharacter != L'\u00F7' && lastCharacter != L'\u00D7' ) {
+                    mExpression += character;
+                }
+                else {
+                    mExpression = mExpression.substr( 0, mExpression.size( ) - 1 ) + character;
+                }
             }
             break;
         }
         case Input::Backspace: {
-            if( mExpression.size( ) > 1 ) {
+            if( mExpression.size( ) > 1 && mExpression != L"Error" ) {
                 mExpression = mExpression.substr( 0, mExpression.size( ) - 1 );
             }
             else {
@@ -78,27 +85,42 @@ void Calculator::addInput( Input input ) {
             break;
         }
         case Input::OpenBracket: {
-            if( mExpression != L"0" ) {
-                auto lastCharacter = mExpression.back( );
-                auto notNumber = !( lastCharacter >= L'1' && lastCharacter <= L'9' );
-                if( notNumber ) {
-                    mExpression += L'(';
+            if( mExpression != L"Error" ) {
+                if( mExpression != L"0" ) {
+                    auto lastCharacter = mExpression.back( );
+                    auto notNumber = !( lastCharacter >= L'0' && lastCharacter <= L'9' );
+                    if( notNumber ) {
+                        mExpression += L'(';
+                    }
                 }
-            }
-            else {
-                mExpression = L"(";
+                else {
+                    mExpression = L"(";
+                }
             }
             break;
         }
         case Input::CloseBracket: {
-            if( mExpression != L"0" ) {
-                auto lastCharacter = mExpression.back( );
-                if( lastCharacter != L'(' && lastCharacter != L'+' && lastCharacter != L'-' && lastCharacter != L'\u00F7' && lastCharacter != L'\u00D7' ) {
-                    mExpression += L')';
+            if( mExpression != L"Error" ) {
+                if( mExpression != L"0" ) {
+                    auto lastCharacter = mExpression.back( );
+                    if( lastCharacter != L'(' && lastCharacter != L'+' && lastCharacter != L'-' && lastCharacter != L'\u00F7' && lastCharacter != L'\u00D7' ) {
+                        mExpression += L')';
+                    }
+                }
+                else {
+                    mExpression = L")";
                 }
             }
-            else {
-                mExpression = L")";
+            break;
+        }
+        case Input::Equals: {
+            try {
+                mWISS.str   ( mExpression );
+                mWISS.clear ( );
+                mExpression = Win33::String::format( L"%g", expression( ) );
+            }
+            catch( const std::exception& ) {
+                mExpression = L"Error";
             }
             break;
         }
@@ -108,19 +130,6 @@ void Calculator::addInput( Input input ) {
     }
 }
 
-double Calculator::getResult( ) {
-    try {
-        mWISS.str   ( mExpression );
-        mWISS.clear ( );
-        auto result = expression( );
-        mExpression = L"0";
-        return result;
-    }
-    catch( const std::exception& exception ) {
-        mExpression = L"0";
-        throw exception;
-    }
-}
 std::wstring Calculator::getExpression( ) const {
     return mExpression;
 }
@@ -219,7 +228,7 @@ mCalculator   ( )
     
     mResult.setReadOnly ( true );
     mResult.setFont     ( &SegoeUI24Bold );
-    mResult.setText     ( L"0" );
+    mResult.setText     ( mCalculator.getExpression( ) );
     
     mOne.setFont          ( &SegoeUI18 );
     mTwo.setFont          ( &SegoeUI18 );
@@ -319,11 +328,120 @@ mCalculator   ( )
         mResult.setText( mCalculator.getExpression( ) );
     };
     mEquals.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-        try {
-            mResult.setText( Win33::String::format( L"%g", mCalculator.getResult( ) ) );
-        }
-        catch( const std::exception& ) {
-            mResult.setText( L"Error" );
+        mCalculator.addInput( Input::Equals );
+        mResult.setText( mCalculator.getExpression( ) );
+    };
+    
+    onKeyDown += [&]( Win33::WindowEvents::KeyDownData& data ) {
+        switch( data.getKey( ) ) {
+            case Win33::Key::Zero:
+            case Win33::Key::NumpadZero: {
+                mCalculator.addInput( Input::Zero );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::One:
+            case Win33::Key::NumpadOne: {
+                mCalculator.addInput( Input::One );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Two:
+            case Win33::Key::NumpadTwo: {
+                mCalculator.addInput( Input::Two );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Three:
+            case Win33::Key::NumpadThree: {
+                mCalculator.addInput( Input::Three );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Four:
+            case Win33::Key::NumpadFour: {
+                mCalculator.addInput( Input::Four );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Five:
+            case Win33::Key::NumpadFive: {
+                mCalculator.addInput( Input::Five );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Six:
+            case Win33::Key::NumpadSix: {
+                mCalculator.addInput( Input::Six );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Seven:
+            case Win33::Key::NumpadSeven: {
+                mCalculator.addInput( Input::Seven );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Eight:
+            case Win33::Key::NumpadEight: {
+                mCalculator.addInput( Input::Eight );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Nine:
+            case Win33::Key::NumpadNine: {
+                mCalculator.addInput( Input::Nine );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Plus:
+            case Win33::Key::NumpadAdd: {
+                mCalculator.addInput( Input::Add );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Minus:
+            case Win33::Key::NumpadSubtract: {
+                mCalculator.addInput( Input::Subtract );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Asterisk:
+            case Win33::Key::NumpadMultiply: {
+                mCalculator.addInput( Input::Multiply );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Slash:
+            case Win33::Key::NumpadDivide: {
+                mCalculator.addInput( Input::Divide );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Backspace: {
+                mCalculator.addInput( Input::Backspace );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::OpenBracket: {
+                mCalculator.addInput( Input::OpenBracket );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::CloseBracket: {
+                mCalculator.addInput( Input::CloseBracket );
+                mResult.setText( mCalculator.getExpression( ) );
+                break;
+            }
+            case Win33::Key::Equals:
+            case Win33::Key::Enter:
+            case Win33::Key::NumpadEnter: {
+                mCalculator.addInput( Input::Equals );
+                mResult.setText( mCalculator.getExpression( ) );
+            }
+            default: {
+                break;
+            }
         }
     };
 }

@@ -10,7 +10,6 @@
 #include <Win33PopupBox.h>
 #include <Win33StringUtilities.h>
 
-//TODO: add key up/down events to window class
 //TODO? add common controls
 //TODO? remove Win33 prefix from files and projects (put files in Win33 subdir)
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {

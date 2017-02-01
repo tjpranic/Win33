@@ -26,7 +26,8 @@ enum class Input : wchar_t {
     Clear        = L'C',
     Dot          = L'.',
     OpenBracket  = L'(',
-    CloseBracket = L')'
+    CloseBracket = L')',
+    Equals       = L'='
 };
 
 class Calculator {
@@ -40,7 +41,6 @@ public:
     
     void addInput( Input input );
     
-    double       getResult( );
     std::wstring getExpression( ) const;
     
 private:

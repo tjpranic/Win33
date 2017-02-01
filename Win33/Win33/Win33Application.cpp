@@ -21,7 +21,8 @@
 #include "Win33ListBox.h"
 #include "Win33MultiSelectListBox.h"
 
-Win33::Application*                        Win33::Application::mInstance = nullptr;
+Win33::Application*                        Win33::Application::mInstance      = nullptr;
+HWND                                       Win33::Application::mCurrentWindow = nullptr;
 std::unordered_map<HWND, Win33::Common*>   Win33::Application::mCommons;
 std::unordered_map<int,  Win33::MenuItem*> Win33::Application::mMenuItems;
 std::unordered_map<int,  Win33::TrayIcon*> Win33::Application::mTrayIcons;
@@ -38,8 +39,8 @@ Win33::Application::Application( ) {
     wcex.cbClsExtra    = 0;
     wcex.cbWndExtra    = 0;
     wcex.hInstance     = GetModuleHandle( nullptr );
-    wcex.hIcon         = LoadIcon( nullptr, MAKEINTRESOURCE( IDI_APPLICATION ) );
-    wcex.hCursor       = LoadCursor( nullptr, MAKEINTRESOURCE( IDC_ARROW ) );
+    wcex.hIcon         = LoadIcon   ( nullptr, MAKEINTRESOURCE( IDI_APPLICATION ) );
+    wcex.hCursor       = LoadCursor ( nullptr, MAKEINTRESOURCE( IDC_ARROW ) );
     wcex.hbrBackground = reinterpret_cast<HBRUSH>( COLOR_WINDOW );
     wcex.lpszMenuName  = nullptr;
     wcex.lpszClassName = L"WINDOW";
@@ -54,8 +55,33 @@ int Win33::Application::run( ) {
     auto m = MSG { };
     while( !mCommons.empty( ) ) {
         if( PeekMessage( &m, 0, 0, 0, PM_REMOVE ) > 0 ) {
-            TranslateMessage( &m );
-            DispatchMessage( &m );
+            switch( m.message ) {
+                //allow tab presses to be sent through to default dialog processing to allow tabstop cycling
+                case WM_KEYDOWN: {
+                    auto keyCode = static_cast<Win33::VirtualKeyCode>( m.wParam );
+                    switch( keyCode ) {
+                        case Win33::VirtualKeyCode::Tab: {
+                            if( !IsDialogMessage( mCurrentWindow, &m ) ) {
+                                TranslateMessage ( &m );
+                                DispatchMessage  ( &m );
+                            }
+                            break;
+                        }
+                        //send keypresses to parent window to allow event system to catch them
+                        default: {
+                            SendMessage( mCurrentWindow, m.message, m.wParam, m.lParam );
+                            break;
+                        }
+                    }
+                    break;
+                }
+                //standard processing of all other messages
+                default: {
+                    TranslateMessage ( &m );
+                    DispatchMessage  ( &m );
+                    break;
+                }
+            }
         }
         else {
             Sleep( 10 );
@@ -84,8 +110,8 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 break;
             }
             case WM_TRAYICON: {
-                auto trayiconID = static_cast<int>( wordParameter );
-                Win33::TrayIcon* ti = mTrayIcons[trayiconID];
+                auto  trayiconID = static_cast<int>( wordParameter );
+                auto* ti         = mTrayIcons[trayiconID];
                 switch( longParameter ) {
                     case WM_LBUTTONUP: {
                         ti->onLeftClick.handle( Win33::TrayIconEvents::LeftClickData( Win33::System::getCursorPosition( ) ) );
@@ -108,8 +134,12 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
         }
         switch( c->mType ) {
             case Win33::Common::Type::Window: {
-                Win33::Window* w = reinterpret_cast<Win33::Window*>( c );
+                auto* w = reinterpret_cast<Win33::Window*>( c );
                 switch( message ) {
+                    case WM_ACTIVATE: {
+                        mCurrentWindow = window;
+                        break;
+                    }
                     case WM_PAINT: {
                         DrawMenuBar( Win33::Interop::toHandle( w ) );
                         break;
@@ -123,7 +153,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         break;
                     }
                     case WM_GETMINMAXINFO: {
-                        MINMAXINFO* mmi = reinterpret_cast<MINMAXINFO*>( longParameter );
+                        auto* mmi = reinterpret_cast<MINMAXINFO*>( longParameter );
                         mmi->ptMinTrackSize.x = w->getMinimumSize( ).getWidth( );
                         mmi->ptMinTrackSize.y = w->getMinimumSize( ).getHeight( );
                         mmi->ptMaxTrackSize.x = w->getMaximumSize( ).getWidth( );
@@ -138,6 +168,24 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         w->onRightClick.handle( Win33::WindowEvents::RightClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
+                    case WM_KEYDOWN:
+                    case WM_KEYUP: {
+                        auto w       = reinterpret_cast<Win33::Window*>( mCommons.at( mCurrentWindow ) );
+                        auto keyCode = static_cast<Win33::VirtualKeyCode>( wordParameter );
+                        auto key = Win33::toKey( keyCode, GetKeyState( VK_SHIFT ) < 0 );
+                        if( keyCode == Win33::VirtualKeyCode::Enter && longParameter & 0x1000000 ) { //detect numpad enter
+                            key = Win33::Key::NumpadEnter;
+                        }
+                        if( key != Win33::Key::Unknown ) {
+                            if( message == WM_KEYDOWN ) {
+                                w->onKeyDown.handle( Win33::WindowEvents::KeyDownData( key ) );
+                            }
+                            if( message == WM_KEYUP ) {
+                                w->onKeyUp.handle( Win33::WindowEvents::KeyUpData( key ) );
+                            }
+                        }
+                        break;
+                    }
                     case WM_CLOSE: {
                         auto data = Win33::WindowEvents::CloseData( );
                         w->onClose.handle( data );
@@ -148,6 +196,9 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     }
                     case WM_DESTROY: {
                         w->onDestroy.handle( Win33::WindowEvents::DestroyData( ) );
+                        if( window == mCurrentWindow ) {
+                            mCurrentWindow = nullptr;
+                        }
                         EnumChildWindows( Win33::Interop::toHandle( w ), []( HWND window, LPARAM longParameter ) -> BOOL { mCommons.erase( window ); return true; }, 0 );
                         mCommons.erase( Win33::Interop::toHandle( w ) );
                         break;
@@ -159,7 +210,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 break;
             }
             case Win33::Common::Type::Button: {
-                Win33::Button* b = reinterpret_cast<Win33::Button*>( c );
+                auto* b = reinterpret_cast<Win33::Button*>( c );
                 switch( message ) {
                     case BN_CLICKED: {
                         b->onClick.handle( Win33::ButtonEvents::ClickData( ) );
@@ -172,7 +223,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 break;
             }
             case Win33::Common::Type::CheckBox: {
-                Win33::CheckBox* cb = reinterpret_cast<Win33::CheckBox*>( c );
+                auto* cb = reinterpret_cast<Win33::CheckBox*>( c );
                 switch( message ) {
                     case BN_CLICKED: {
                         cb->onCheck.handle( Win33::CheckBoxEvents::CheckData( cb->getChecked( ) ) );
@@ -185,32 +236,32 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 break;
             }
             case Win33::Common::Type::RadioButton: {
-                Win33::RadioButton* rb = reinterpret_cast<Win33::RadioButton*>( c );
+                auto* rb = reinterpret_cast<Win33::RadioButton*>( c );
                 //...
                 break;
             }
             case Win33::Common::Type::TextBox: {
-                Win33::TextBox* tb = reinterpret_cast<Win33::TextBox*>( c );
+                auto* tb = reinterpret_cast<Win33::TextBox*>( c );
                 //...
                 break;
             }
             case Win33::Common::Type::PasswordBox: {
-                Win33::PasswordBox* pb = reinterpret_cast<Win33::PasswordBox*>( c );
+                auto* pb = reinterpret_cast<Win33::PasswordBox*>( c );
                 //...
                 break;
             }
             case Win33::Common::Type::MultilineTextBox: {
-                Win33::MultilineTextBox* mtb = reinterpret_cast<Win33::MultilineTextBox*>( c );
+                auto* mtb = reinterpret_cast<Win33::MultilineTextBox*>( c );
                 //...
                 break;
             }
             case Win33::Common::Type::GroupBox: {
-                Win33::GroupBox* gb = reinterpret_cast<Win33::GroupBox*>( c );
+                auto* gb = reinterpret_cast<Win33::GroupBox*>( c );
                 //...
                 break;
             }
             case Win33::Common::Type::Label: {
-                Win33::Label* l = reinterpret_cast<Win33::Label*>( c );
+                auto* l = reinterpret_cast<Win33::Label*>( c );
                 switch( message ) {
                     case STN_DBLCLK: //double clicks have to be counted amongst single clicks due to notify style (?)
                     case STN_CLICKED: {
@@ -224,22 +275,22 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 break;
             }
             case Win33::Common::Type::ComboBox: {
-                Win33::ComboBox* cb = reinterpret_cast<Win33::ComboBox*>( c );
+                auto* cb = reinterpret_cast<Win33::ComboBox*>( c );
                 //...
                 break;
             }
             case Win33::Common::Type::DropDown: {
-                Win33::DropDown* dd = reinterpret_cast<Win33::DropDown*>( c );
+                auto* dd = reinterpret_cast<Win33::DropDown*>( c );
                 //...
                 break;
             }
             case Win33::Common::Type::ListBox: {
-                Win33::ListBox* lb = reinterpret_cast<Win33::ListBox*>( c );
+                auto* lb = reinterpret_cast<Win33::ListBox*>( c );
                 //...
                 break;
             }
             case Win33::Common::Type::MultiSelectListBox: {
-                Win33::MultiSelectListBox* mslb = reinterpret_cast<Win33::MultiSelectListBox*>( c );
+                auto* mslb = reinterpret_cast<Win33::MultiSelectListBox*>( c );
                 //...
                 break;
             }
@@ -255,6 +306,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
         }
         case WM_DESTROY: {
             PostQuitMessage( 0 );
+            break;
         }
         default: {
             break;

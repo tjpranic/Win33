@@ -37,6 +37,7 @@
     <ClInclude Include="Win33GroupBox.h" />
     <ClInclude Include="Win33Icon.h" />
     <ClInclude Include="Win33Interop.h" />
+    <ClInclude Include="Win33Keys.h" />
     <ClInclude Include="Win33Label.h" />
     <ClInclude Include="Win33LabelEvents.h" />
     <ClInclude Include="Win33ListBox.h" />
@@ -75,6 +76,7 @@
     <ClCompile Include="Win33GroupBox.cpp" />
     <ClCompile Include="Win33Icon.cpp" />
     <ClCompile Include="Win33Interop.cpp" />
+    <ClCompile Include="Win33Keys.cpp" />
     <ClCompile Include="Win33Label.cpp" />
     <ClCompile Include="Win33ListBox.cpp" />
     <ClCompile Include="Win33Menu.cpp" />

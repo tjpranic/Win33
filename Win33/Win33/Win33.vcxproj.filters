@@ -180,6 +180,9 @@
     <ClInclude Include="Win33Separator.h">
       <Filter>Win33\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="Win33Keys.h">
+      <Filter>Win33\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Win33Application.cpp">
@@ -274,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="Win33Separator.cpp">
       <Filter>Win33\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Win33Keys.cpp">
+      <Filter>Win33\Utility</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
