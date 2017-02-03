@@ -438,6 +438,7 @@ mCalculator   ( )
             case Win33::Key::NumpadEnter: {
                 mCalculator.addInput( Input::Equals );
                 mResult.setText( mCalculator.getExpression( ) );
+                break;
             }
             default: {
                 break;

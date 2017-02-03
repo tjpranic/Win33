@@ -1,8 +1,7 @@
 #include "Win33Keys.h"
 
-#include <stdexcept>
-
-Win33::Key Win33::toKey( Win33::VirtualKeyCode keyCode, bool shift ) {
+Win33::Key Win33::toKey( Win33::VirtualKeyCode keyCode ) {
+    auto shiftHeld = GetKeyState( VK_SHIFT ) < 0;
     switch( keyCode ) {
         case Win33::VirtualKeyCode::Backspace: {
             return Win33::Key::Backspace;
@@ -56,34 +55,34 @@ Win33::Key Win33::toKey( Win33::VirtualKeyCode keyCode, bool shift ) {
             return Win33::Key::Delete;
         }
         case Win33::VirtualKeyCode::Zero: {
-            return shift ? Win33::Key::CloseBracket : Win33::Key::Zero;
+            return shiftHeld ? Win33::Key::CloseBracket : Win33::Key::Zero;
         }
         case Win33::VirtualKeyCode::One: {
-            return shift ? Win33::Key::ExlamationPoint : Win33::Key::One;
+            return shiftHeld ? Win33::Key::ExlamationPoint : Win33::Key::One;
         }
         case Win33::VirtualKeyCode::Two: {
-            return shift ? Win33::Key::AtSymbol : Win33::Key::Two;
+            return shiftHeld ? Win33::Key::AtSymbol : Win33::Key::Two;
         }
         case Win33::VirtualKeyCode::Three: {
-            return shift ? Win33::Key::Hash : Win33::Key::Three;
+            return shiftHeld ? Win33::Key::Hash : Win33::Key::Three;
         }
         case Win33::VirtualKeyCode::Four: {
-            return shift ? Win33::Key::DollarSign : Win33::Key::Four;
+            return shiftHeld ? Win33::Key::DollarSign : Win33::Key::Four;
         }
         case Win33::VirtualKeyCode::Five: {
-            return shift ? Win33::Key::Percent : Win33::Key::Five;
+            return shiftHeld ? Win33::Key::Percent : Win33::Key::Five;
         }
         case Win33::VirtualKeyCode::Six: {
-            return shift ? Win33::Key::Caret : Win33::Key::Six;
+            return shiftHeld ? Win33::Key::Caret : Win33::Key::Six;
         }
         case Win33::VirtualKeyCode::Seven: {
-            return shift ? Win33::Key::Ampersand : Win33::Key::Seven;
+            return shiftHeld ? Win33::Key::Ampersand : Win33::Key::Seven;
         }
         case Win33::VirtualKeyCode::Eight: {
-            return shift ? Win33::Key::Asterisk : Win33::Key::Eight;
+            return shiftHeld ? Win33::Key::Asterisk : Win33::Key::Eight;
         }
         case Win33::VirtualKeyCode::Nine: {
-            return shift ? Win33::Key::OpenBracket : Win33::Key::Nine;
+            return shiftHeld ? Win33::Key::OpenBracket : Win33::Key::Nine;
         }
         case Win33::VirtualKeyCode::A: {
             return Win33::Key::A;
@@ -163,9 +162,14 @@ Win33::Key Win33::toKey( Win33::VirtualKeyCode keyCode, bool shift ) {
         case Win33::VirtualKeyCode::Z: {
             return Win33::Key::Z;
         }
-        case Win33::VirtualKeyCode::LeftWindows:
+        case Win33::VirtualKeyCode::Control: {
+            return GetKeyState( VK_RCONTROL ) < 0 ? Win33::Key::RightControl : Win33::Key::LeftControl;
+        }
+        case Win33::VirtualKeyCode::LeftWindows: {
+            return Win33::Key::LeftWindows;
+        }
         case Win33::VirtualKeyCode::RightWindows: {
-            return Win33::Key::Windows;
+            return Win33::Key::RightWindows;
         }
         case Win33::VirtualKeyCode::NumpadZero: {
             return Win33::Key::NumpadZero;
@@ -254,53 +258,44 @@ Win33::Key Win33::toKey( Win33::VirtualKeyCode keyCode, bool shift ) {
         case Win33::VirtualKeyCode::ScrollLock: {
             return Win33::Key::ScrollLock;
         }
-        case Win33::VirtualKeyCode::Shift:
-        case Win33::VirtualKeyCode::LeftShift:
-        case Win33::VirtualKeyCode::RightShift: {
-            return Win33::Key::Shift;
+        case Win33::VirtualKeyCode::Shift: {
+            return GetKeyState( VK_RSHIFT ) < 0 ? Win33::Key::RightShift : Win33::Key::LeftShift;
         }
-        case Win33::VirtualKeyCode::Control:
-        case Win33::VirtualKeyCode::LeftControl:
-        case Win33::VirtualKeyCode::RightControl: {
-            return Win33::Key::Control;
-        }
-        case Win33::VirtualKeyCode::Alt:
-        case Win33::VirtualKeyCode::LeftAlt:
-        case Win33::VirtualKeyCode::RightAlt: {
-            return Win33::Key::Alt;
+        case Win33::VirtualKeyCode::Alt: {
+            return GetKeyState( VK_RMENU ) < 0 ? Win33::Key::RightAlt : Win33::Key::LeftAlt;
         }
         case Win33::VirtualKeyCode::SemiColon: {
-            return shift ? Win33::Key::Colon : Win33::Key::SemiColon;
+            return shiftHeld ? Win33::Key::Colon : Win33::Key::SemiColon;
         }
         case Win33::VirtualKeyCode::Plus: {
-            return shift ? Win33::Key::Plus : Win33::Key::Equals;
+            return shiftHeld ? Win33::Key::Plus : Win33::Key::Equals;
         }
         case Win33::VirtualKeyCode::Comma: {
-            return shift ? Win33::Key::LessThan : Win33::Key::Comma;
+            return shiftHeld ? Win33::Key::LessThan : Win33::Key::Comma;
         }
         case Win33::VirtualKeyCode::Minus: {
-            return shift ? Win33::Key::Underscore : Win33::Key::Minus;
+            return shiftHeld ? Win33::Key::Underscore : Win33::Key::Minus;
         }
         case Win33::VirtualKeyCode::Period: {
-            return shift ? Win33::Key::GreaterThan : Win33::Key::Period;
+            return shiftHeld ? Win33::Key::GreaterThan : Win33::Key::Period;
         }
         case Win33::VirtualKeyCode::QuestionMark: {
-            return shift ? Win33::Key::QuestionMark : Win33::Key::Slash;
+            return shiftHeld ? Win33::Key::QuestionMark : Win33::Key::Slash;
         }
         case Win33::VirtualKeyCode::Tilde: {
-            return shift ? Win33::Key::Tilde : Win33::Key::Tick;
+            return shiftHeld ? Win33::Key::Tilde : Win33::Key::Tick;
         }
         case Win33::VirtualKeyCode::OpenSquareBracket: {
-            return shift ? Win33::Key::OpenCurlyBrace : Win33::Key::OpenSquareBracket;
+            return shiftHeld ? Win33::Key::OpenCurlyBrace : Win33::Key::OpenSquareBracket;
         }
         case Win33::VirtualKeyCode::Pipe: {
-            return shift ? Win33::Key::BackSlash : Win33::Key::Pipe;
+            return shiftHeld ? Win33::Key::BackSlash : Win33::Key::Pipe;
         }
         case Win33::VirtualKeyCode::CloseSquareBracket: {
-            return shift ? Win33::Key::CloseCurlyBrace : Win33::Key::CloseSquareBracket;
+            return shiftHeld ? Win33::Key::CloseCurlyBrace : Win33::Key::CloseSquareBracket;
         }
         case Win33::VirtualKeyCode::SingleQuote: {
-            return shift ? Win33::Key::DoubleQuote : Win33::Key::SingleQuote;
+            return shiftHeld ? Win33::Key::DoubleQuote : Win33::Key::SingleQuote;
         }
         default: {
             return Win33::Key::Unknown;

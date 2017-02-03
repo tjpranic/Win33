@@ -168,22 +168,14 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         w->onRightClick.handle( Win33::WindowEvents::RightClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
-                    case WM_KEYDOWN:
+                    case WM_SYSKEYDOWN:
+                    case WM_KEYDOWN: {
+                        w->onKeyDown.handle( Win33::WindowEvents::KeyDownData( Win33::toKey( static_cast<Win33::VirtualKeyCode>( wordParameter ) ) ) );
+                        break;
+                    }
+                    case WM_SYSKEYUP:
                     case WM_KEYUP: {
-                        auto w       = reinterpret_cast<Win33::Window*>( mCommons.at( mCurrentWindow ) );
-                        auto keyCode = static_cast<Win33::VirtualKeyCode>( wordParameter );
-                        auto key = Win33::toKey( keyCode, GetKeyState( VK_SHIFT ) < 0 );
-                        if( keyCode == Win33::VirtualKeyCode::Enter && longParameter & 0x1000000 ) { //detect numpad enter
-                            key = Win33::Key::NumpadEnter;
-                        }
-                        if( key != Win33::Key::Unknown ) {
-                            if( message == WM_KEYDOWN ) {
-                                w->onKeyDown.handle( Win33::WindowEvents::KeyDownData( key ) );
-                            }
-                            if( message == WM_KEYUP ) {
-                                w->onKeyUp.handle( Win33::WindowEvents::KeyUpData( key ) );
-                            }
-                        }
+                        w->onKeyUp.handle( Win33::WindowEvents::KeyUpData( Win33::toKey( static_cast<Win33::VirtualKeyCode>( wordParameter ) ) ) );
                         break;
                     }
                     case WM_CLOSE: {

@@ -28,7 +28,7 @@ namespace Win33 {
         };
         using CheckHandler = std::function<void( CheckData& )>;
         
-        using Check = Win33::Event<CheckData, CheckHandler>;
+        using Check = Win33::Event<CheckHandler, CheckData>;
         
     };
     

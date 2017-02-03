@@ -163,13 +163,13 @@ namespace Win33 {
         };
         using KeyUpHandler = std::function<void( KeyUpData& )>;
         
-        using Close      = Win33::CancellableEvent<CloseData, CloseHandler>;
-        using Destroy    = Win33::Event<DestroyData, DestroyHandler>;
-        using Resize     = Win33::Event<ResizeData, ResizeHandler>;
-        using Move       = Win33::Event<MoveData, MoveHandler>;
-        using LeftClick  = Win33::Event<LeftClickData, LeftClickHandler>;
-        using RightClick = Win33::Event<RightClickData, RightClickHandler>;
-        using KeyDown    = Win33::Event<KeyDownData, KeyDownHandler>;
-        using KeyUp      = Win33::Event<KeyUpData, KeyUpHandler>;
+        using Close      = Win33::CancellableEvent<CloseHandler, CloseData>;
+        using Destroy    = Win33::Event<DestroyHandler, DestroyData>;
+        using Resize     = Win33::Event<ResizeHandler, ResizeData>;
+        using Move       = Win33::Event<MoveHandler, MoveData>;
+        using LeftClick  = Win33::Event<LeftClickHandler, LeftClickData>;
+        using RightClick = Win33::Event<RightClickHandler, RightClickData>;
+        using KeyDown    = Win33::Event<KeyDownHandler, KeyDownData>;
+        using KeyUp      = Win33::Event<KeyUpHandler, KeyUpData>;
     };
 };

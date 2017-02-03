@@ -187,7 +187,7 @@ namespace Win33 {
         SingleQuote,
         DoubleQuote,
         Enter,
-        Shift,
+        LeftShift,
         Z,
         X,
         C,
@@ -201,11 +201,15 @@ namespace Win33 {
         GreaterThan,
         Slash,
         QuestionMark,
-        Control,
-        Windows,
-        Alt,
+        RightShift,
+        LeftControl,
+        LeftWindows,
+        LeftAlt,
         Spacebar,
+        RightAlt,
+        RightWindows,
         Menu,
+        RightControl,
         PrintScreen,
         MagicSysRq,
         ScrollLock,
@@ -240,6 +244,6 @@ namespace Win33 {
         NumpadEnter
     };
     
-    Win33::Key toKey( Win33::VirtualKeyCode keyCode, bool shift );
+    Win33::Key toKey( Win33::VirtualKeyCode keyCode );
     
 };

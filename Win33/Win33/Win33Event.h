@@ -20,8 +20,8 @@ namespace Win33 {
     
     template
     <
-        class D, //event datas are derived from EventData marker class
         class H, //event handlers are a std::function that takes an event data reference
+        class D, //event datas are derived from EventData marker class
         typename = typename std::enable_if<std::is_base_of<EventData, D>::value>::type,
         typename = typename std::enable_if<std::is_same<H, std::function<void( D& )>>::value>::type
     >
@@ -91,8 +91,8 @@ namespace Win33 {
         bool mCancelled;
     };
     
-    template<class D, class H>
-    class CancellableEvent : public Event<D, H> {
+    template<class H, class D>
+    class CancellableEvent : public Event<H, D> {
     friend class Application;
     public: 
         CancellableEvent            ( )                                = default;
