@@ -20,10 +20,10 @@ namespace Win33 {
     
     template
     <
-        class H, //event handlers are a std::function that takes an event data reference
-        class D, //event datas are derived from EventData marker class
-        typename = typename std::enable_if<std::is_base_of<EventData, D>::value>::type,
-        typename = typename std::enable_if<std::is_same<H, std::function<void( D& )>>::value>::type
+        class Handler, //event handlers are a std::function that takes an event data reference
+        class Data,    //event datas are derived from EventData marker class
+        typename = typename std::enable_if<std::is_same<Handler, std::function<void( Data& )>>::value>::type,
+        typename = typename std::enable_if<std::is_base_of<EventData, Data>::value>::type
     >
     class Event {
     friend class Application;
@@ -35,10 +35,10 @@ namespace Win33 {
         Event& operator= (       Event&& other ) = delete;
         ~Event           ( )                     = default;
         
-        void addHandler( const H& handler ) {
+        void operator+=( const Handler& handler ) {
             mEventHandlers.push_back( handler );
         }
-        void removeHandler( const H& handler ) {
+        void operator-=( const Handler& handler ) {
             mEventHandlers.erase(
                 std::remove_if( mEventHandlers.begin( ), mEventHandlers.end( ), [&]( const H& h ) {
                     return handler.target<H>( ) == h.target<H>( );
@@ -46,26 +46,19 @@ namespace Win33 {
             );
         }
         
-        void operator+=( const H& handler ) {
-            addHandler( handler );
-        }
-        void operator-=( const H& handler ) {
-            removeHandler( handler );
-        }
-        
     protected:
-        void handle( D& data ) {
-            //iterate in the order of latest added to first added
+        void fire( Data& data ) {
+            //iterate in the order of last added to first added
             for( auto& h = mEventHandlers.rbegin( ); h != mEventHandlers.rend( ); ++h ) {
                 ( *h )( data );
-                //this is to stop certain events (ones that erase event handlers) from triggering a crash
+                //this is to stop events that erase event handlers from triggering a crash
                 if( mEventHandlers.empty( ) ) {
                     break;
                 }
             }
         }
         
-        std::vector<H> mEventHandlers;
+        std::vector<Handler> mEventHandlers;
     };
     
     class CancellableEventData : public EventData {
@@ -91,8 +84,8 @@ namespace Win33 {
         bool mCancelled;
     };
     
-    template<class H, class D>
-    class CancellableEvent : public Event<H, D> {
+    template<class Handler, class Data>
+    class CancellableEvent : public Event<Handler, Data> {
     friend class Application;
     public: 
         CancellableEvent            ( )                                = default;
@@ -103,10 +96,9 @@ namespace Win33 {
         ~CancellableEvent           ( )                                = default;
         
     protected:
-        void handle( D& data ) {
+        void fire( Data& data ) {
             for( auto& h = mEventHandlers.rbegin( ); h != mEventHandlers.rend( ); ++h ) {
                 ( *h )( data );
-                //this is to stop certain events (ones that erase event handlers) from triggering a crash
                 if( mEventHandlers.empty( ) ) {
                     break;
                 }

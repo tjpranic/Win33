@@ -103,7 +103,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                     auto menuID = static_cast<int>( wordParameter );
                     if( mMenuItems.find( menuID ) != mMenuItems.end( ) ) {
                         auto menuItem = mMenuItems[menuID];
-                        menuItem->onClick.handle( Win33::MenuItemEvents::ClickData( ) );
+                        menuItem->onClick.fire( Win33::MenuItemEvents::ClickData( ) );
                     }
                     return true;
                 }
@@ -114,11 +114,11 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 auto* ti         = mTrayIcons[trayiconID];
                 switch( longParameter ) {
                     case WM_LBUTTONUP: {
-                        ti->onLeftClick.handle( Win33::TrayIconEvents::LeftClickData( Win33::System::getCursorPosition( ) ) );
+                        ti->onLeftClick.fire( Win33::TrayIconEvents::LeftClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_RBUTTONUP: {
-                        ti->onRightClick.handle( Win33::TrayIconEvents::RightClickData( Win33::System::getCursorPosition( ) ) );
+                        ti->onRightClick.fire( Win33::TrayIconEvents::RightClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     default: {
@@ -145,11 +145,11 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         break;
                     }
                     case WM_SIZE: {
-                        w->onResize.handle( Win33::WindowEvents::ResizeData( w->getSize( ) ) );
+                        w->onResize.fire( Win33::WindowEvents::ResizeData( w->getSize( ) ) );
                         break;
                     }
                     case WM_MOVE: {
-                        w->onMove.handle( Win33::WindowEvents::MoveData( w->getPosition( ) ) );
+                        w->onMove.fire( Win33::WindowEvents::MoveData( w->getPosition( ) ) );
                         break;
                     }
                     case WM_GETMINMAXINFO: {
@@ -161,33 +161,33 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                         break;
                     }
                     case WM_LBUTTONUP: {
-                        w->onLeftClick.handle( Win33::WindowEvents::LeftClickData( Win33::System::getCursorPosition( ) ) );
+                        w->onLeftClick.fire( Win33::WindowEvents::LeftClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_RBUTTONUP: {
-                        w->onRightClick.handle( Win33::WindowEvents::RightClickData( Win33::System::getCursorPosition( ) ) );
+                        w->onRightClick.fire( Win33::WindowEvents::RightClickData( Win33::System::getCursorPosition( ) ) );
                         break;
                     }
                     case WM_SYSKEYDOWN:
                     case WM_KEYDOWN: {
-                        w->onKeyDown.handle( Win33::WindowEvents::KeyDownData( Win33::toKey( static_cast<Win33::VirtualKeyCode>( wordParameter ) ) ) );
+                        w->onKeyDown.fire( Win33::WindowEvents::KeyDownData( Win33::toKey( static_cast<Win33::VirtualKeyCode>( wordParameter ) ) ) );
                         break;
                     }
                     case WM_SYSKEYUP:
                     case WM_KEYUP: {
-                        w->onKeyUp.handle( Win33::WindowEvents::KeyUpData( Win33::toKey( static_cast<Win33::VirtualKeyCode>( wordParameter ) ) ) );
+                        w->onKeyUp.fire( Win33::WindowEvents::KeyUpData( Win33::toKey( static_cast<Win33::VirtualKeyCode>( wordParameter ) ) ) );
                         break;
                     }
                     case WM_CLOSE: {
                         auto data = Win33::WindowEvents::CloseData( );
-                        w->onClose.handle( data );
+                        w->onClose.fire( data );
                         if( data.getCancelled( ) ) {
                             return true;
                         }
                         break;
                     }
                     case WM_DESTROY: {
-                        w->onDestroy.handle( Win33::WindowEvents::DestroyData( ) );
+                        w->onDestroy.fire( Win33::WindowEvents::DestroyData( ) );
                         if( window == mCurrentWindow ) {
                             mCurrentWindow = nullptr;
                         }
@@ -205,7 +205,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 auto* b = reinterpret_cast<Win33::Button*>( c );
                 switch( message ) {
                     case BN_CLICKED: {
-                        b->onClick.handle( Win33::ButtonEvents::ClickData( ) );
+                        b->onClick.fire( Win33::ButtonEvents::ClickData( ) );
                         break;
                     }
                     default: {
@@ -218,7 +218,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 auto* cb = reinterpret_cast<Win33::CheckBox*>( c );
                 switch( message ) {
                     case BN_CLICKED: {
-                        cb->onCheck.handle( Win33::CheckBoxEvents::CheckData( cb->getChecked( ) ) );
+                        cb->onCheck.fire( Win33::CheckBoxEvents::CheckData( cb->getChecked( ) ) );
                         break;
                     }
                     default: {
@@ -257,7 +257,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND window, UINT message,
                 switch( message ) {
                     case STN_DBLCLK: //double clicks have to be counted amongst single clicks due to notify style (?)
                     case STN_CLICKED: {
-                        l->onClick.handle( Win33::LabelEvents::ClickData( ) );
+                        l->onClick.fire( Win33::LabelEvents::ClickData( ) );
                         break;
                     }
                     default: {
