@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Win33Application.h>
-#include <Win33Window.h>
+#include <Win33/Application.h>
+#include <Win33/Window.h>
 
 class HiddenWindow : public Win33::Window {
 public:

@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Win33Application.h>
-#include <Win33Window.h>
-#include <Win33Dialog.h>
-#include <Win33Button.h>
-#include <Win33PopupBox.h>
+#include <Win33/Application.h>
+#include <Win33/Window.h>
+#include <Win33/Dialog.h>
+#include <Win33/Button.h>
+#include <Win33/PopupBox.h>
 
 class Dialog : public Win33::Dialog<std::wstring> {
 public:

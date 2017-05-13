@@ -1,11 +1,11 @@
 #pragma once
 
-#include <Win33Application.h>
-#include <Win33Window.h>
-#include <Win33TrayIcon.h>
-#include <Win33Button.h>
+#include <Win33/Application.h>
+#include <Win33/Window.h>
+#include <Win33/TrayIcon.h>
+#include <Win33/Button.h>
 
-const Win33::Icon TrayIcon = Win33::Icon( L"TestIcon1.ico" );
+#include "Resources.h"
 
 class TrayIconWindow : public Win33::Window {
 public:
@@ -13,7 +13,7 @@ public:
     :
     Win33::Window ( Win33::Window::DefaultPosition, { 640, 480 } ),
     mAllowExit    ( false ),
-    mTrayIcon     ( this, &TrayIcon, L"TrayIcon" ),
+    mTrayIcon     ( this, Icons::getTestIcon1( ), L"TrayIcon" ),
     mQuit         ( this, { 515, 407 }, { 100, 25 }, L"Quit" )
     {
         setTitle( L"TrayIconWindow" );

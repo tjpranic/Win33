@@ -1,13 +1,13 @@
 #pragma once
 
-#include <Win33Application.h>
-#include <Win33Window.h>
-#include <Win33ContextMenu.h>
-#include <Win33MenuBar.h>
-#include <Win33Menu.h>
-#include <Win33MenuItem.h>
-#include <Win33Separator.h>
-#include <Win33PopupBox.h>
+#include <Win33/Application.h>
+#include <Win33/Window.h>
+#include <Win33/ContextMenu.h>
+#include <Win33/MenuBar.h>
+#include <Win33/Menu.h>
+#include <Win33/MenuItem.h>
+#include <Win33/Separator.h>
+#include <Win33/PopupBox.h>
 
 class MenusWindow : public Win33::Window {
 public:

@@ -55,231 +55,321 @@
     <Filter Include="Win33\Controls\List Boxes">
       <UniqueIdentifier>{f5319a1a-977a-481e-b2c6-9f4189a31ba5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Win33\Controls\Buttons\Button">
+      <UniqueIdentifier>{54b55b0d-336f-4cc0-95a2-e61857ea72d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Buttons\CheckBox">
+      <UniqueIdentifier>{020ee728-cfbd-4909-9d76-2de65a3cc84a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Buttons\Radio Button">
+      <UniqueIdentifier>{4df26882-6e4c-45ba-bcad-47ef01a337b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Combo Boxes\Combo Box">
+      <UniqueIdentifier>{edba1ba3-4707-4646-8d33-cabd1ea97dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Combo Boxes\Drop Down">
+      <UniqueIdentifier>{293a896d-30cd-4cf1-b8ef-b59d278fbb93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\List Boxes\List Box">
+      <UniqueIdentifier>{8a8ac80a-6e21-441d-84e4-03e3248cbca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\List Boxes\Multi Select List Box">
+      <UniqueIdentifier>{d5dea760-18df-47c8-86f1-409f13ace3f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Misc\Group Box">
+      <UniqueIdentifier>{40833bf1-ad1c-4fa8-82bd-06eb08bc3c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Text\Label">
+      <UniqueIdentifier>{af77447f-27f4-4b54-b044-e217e61f3b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Text Boxes\Multiline Text Box">
+      <UniqueIdentifier>{015922cb-3637-4b5c-8207-3a6ce0ae77ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Text Boxes\Password Box">
+      <UniqueIdentifier>{54efed00-78e5-4eab-af94-70a5522ad5f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Controls\Text Boxes\Text Box">
+      <UniqueIdentifier>{050cb4fb-fcc2-4471-ad20-830f3921cdc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Core\Common">
+      <UniqueIdentifier>{786c916d-9062-4d4a-9c67-418faa1c1fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Core\System">
+      <UniqueIdentifier>{d04ebf9d-0553-4901-aff7-48da83941554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Menus\Context Menu">
+      <UniqueIdentifier>{dd38bae7-c30c-4520-b14a-31a5beac6668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Menus\Menu">
+      <UniqueIdentifier>{cfc9ce9d-a3cb-4a1a-a863-76ef0286ecf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Menus\Menu Bar">
+      <UniqueIdentifier>{39f4f92c-3abf-44d2-9b7f-001201fc3a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Menus\Menu Item">
+      <UniqueIdentifier>{38e9f594-edec-4d5c-b530-b06662aa0b1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Menus\Separator">
+      <UniqueIdentifier>{b257ec43-7b78-4623-b63d-727e29162a67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Resource\Font">
+      <UniqueIdentifier>{9b96be55-dabd-4395-b14b-aa1217c84a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Resource\Icon">
+      <UniqueIdentifier>{a19fbd37-6a22-4740-9c25-6c9acd8461a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\System Tray\Tray Icon">
+      <UniqueIdentifier>{e5dbb7ad-6f0e-44f5-887b-40ed11868984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\Keys">
+      <UniqueIdentifier>{83fe80a8-239d-4ef3-9c62-bce25dda53ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\Point">
+      <UniqueIdentifier>{97895fbb-9ce2-4a87-abc9-ce8ae40df8f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\Size">
+      <UniqueIdentifier>{873f1b21-5a70-4533-b652-3da91bc796c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\String">
+      <UniqueIdentifier>{67953f0c-ba2a-4515-9f9b-5570b5323eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Windows\Dialog">
+      <UniqueIdentifier>{61b309bd-e749-4f11-bc63-02de1929a1ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Windows\Popup Box">
+      <UniqueIdentifier>{9b562228-58b2-4a31-814a-9bba45a49a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Windows\Window">
+      <UniqueIdentifier>{82f8fb2b-16bb-47c6-bcb2-287a9ac291c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Win33Application.h">
+    <ClInclude Include="Application.h">
       <Filter>Win33\Application</Filter>
     </ClInclude>
-    <ClInclude Include="Win33BitfieldOperators.h">
-      <Filter>Win33\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33Button.h">
-      <Filter>Win33\Controls\Buttons</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33ButtonEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33CheckBox.h">
-      <Filter>Win33\Controls\Buttons</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33CheckBoxEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33Common.h">
-      <Filter>Win33\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33Console.h">
+    <ClInclude Include="Console.h">
       <Filter>Win33\Console</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Control.h">
+    <ClInclude Include="Control.h">
       <Filter>Win33\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Dialog.h">
-      <Filter>Win33\Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33Event.h">
+    <ClInclude Include="ButtonEvents.h">
       <Filter>Win33\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Font.h">
-      <Filter>Win33\Resource</Filter>
+    <ClInclude Include="CheckBoxEvents.h">
+      <Filter>Win33\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Win33GroupBox.h">
-      <Filter>Win33\Controls\Misc</Filter>
+    <ClInclude Include="Event.h">
+      <Filter>Win33\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Icon.h">
-      <Filter>Win33\Resource</Filter>
+    <ClInclude Include="LabelEvents.h">
+      <Filter>Win33\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Interop.h">
+    <ClInclude Include="MenuItemEvents.h">
+      <Filter>Win33\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="RadioButtonEvents.h">
+      <Filter>Win33\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="TrayIconEvents.h">
+      <Filter>Win33\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowEvents.h">
+      <Filter>Win33\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Interop.h">
       <Filter>Win33\Interop</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Label.h">
-      <Filter>Win33\Controls\Text</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33LabelEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33MenuItemEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33MultilineTextBox.h">
-      <Filter>Win33\Controls\Text Boxes</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33PasswordBox.h">
-      <Filter>Win33\Controls\Text Boxes</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33Point.h">
+    <ClInclude Include="BitfieldOperators.h">
       <Filter>Win33\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Win33RadioButton.h">
-      <Filter>Win33\Controls\Buttons</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33RadioButtonEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Win33Size.h">
+    <ClInclude Include="ComparableFunction.h">
       <Filter>Win33\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Win33System.h">
-      <Filter>Win33\Core</Filter>
+    <ClInclude Include="Button.h">
+      <Filter>Win33\Controls\Buttons\Button</Filter>
     </ClInclude>
-    <ClInclude Include="Win33TextBox.h">
-      <Filter>Win33\Controls\Text Boxes</Filter>
+    <ClInclude Include="CheckBox.h">
+      <Filter>Win33\Controls\Buttons\CheckBox</Filter>
     </ClInclude>
-    <ClInclude Include="Win33TrayIcon.h">
-      <Filter>Win33\System Tray</Filter>
+    <ClInclude Include="RadioButton.h">
+      <Filter>Win33\Controls\Buttons\Radio Button</Filter>
     </ClInclude>
-    <ClInclude Include="Win33TrayIconEvents.h">
-      <Filter>Win33\Events</Filter>
+    <ClInclude Include="ComboBox.h">
+      <Filter>Win33\Controls\Combo Boxes\Combo Box</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Window.h">
-      <Filter>Win33\Windows</Filter>
+    <ClInclude Include="DropDown.h">
+      <Filter>Win33\Controls\Combo Boxes\Drop Down</Filter>
     </ClInclude>
-    <ClInclude Include="Win33WindowEvents.h">
-      <Filter>Win33\Events</Filter>
+    <ClInclude Include="ListBox.h">
+      <Filter>Win33\Controls\List Boxes\List Box</Filter>
     </ClInclude>
-    <ClInclude Include="Win33PopupBox.h">
-      <Filter>Win33\Windows</Filter>
+    <ClInclude Include="MultiSelectListBox.h">
+      <Filter>Win33\Controls\List Boxes\Multi Select List Box</Filter>
     </ClInclude>
-    <ClInclude Include="Win33ComboBox.h">
-      <Filter>Win33\Controls\Combo Boxes</Filter>
+    <ClInclude Include="GroupBox.h">
+      <Filter>Win33\Controls\Misc\Group Box</Filter>
     </ClInclude>
-    <ClInclude Include="Win33DropDown.h">
-      <Filter>Win33\Controls\Combo Boxes</Filter>
+    <ClInclude Include="Label.h">
+      <Filter>Win33\Controls\Text\Label</Filter>
     </ClInclude>
-    <ClInclude Include="Win33StringUtilities.h">
-      <Filter>Win33\Utility</Filter>
+    <ClInclude Include="MultilineTextBox.h">
+      <Filter>Win33\Controls\Text Boxes\Multiline Text Box</Filter>
     </ClInclude>
-    <ClInclude Include="Win33ListBox.h">
-      <Filter>Win33\Controls\List Boxes</Filter>
+    <ClInclude Include="PasswordBox.h">
+      <Filter>Win33\Controls\Text Boxes\Password Box</Filter>
     </ClInclude>
-    <ClInclude Include="Win33MultiSelectListBox.h">
-      <Filter>Win33\Controls\List Boxes</Filter>
+    <ClInclude Include="TextBox.h">
+      <Filter>Win33\Controls\Text Boxes\Text Box</Filter>
     </ClInclude>
-    <ClInclude Include="Win33MenuBar.h">
-      <Filter>Win33\Menus</Filter>
+    <ClInclude Include="Common.h">
+      <Filter>Win33\Core\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Menu.h">
-      <Filter>Win33\Menus</Filter>
+    <ClInclude Include="System.h">
+      <Filter>Win33\Core\System</Filter>
     </ClInclude>
-    <ClInclude Include="Win33MenuItem.h">
-      <Filter>Win33\Menus</Filter>
+    <ClInclude Include="ContextMenu.h">
+      <Filter>Win33\Menus\Context Menu</Filter>
     </ClInclude>
-    <ClInclude Include="Win33ContextMenu.h">
-      <Filter>Win33\Menus</Filter>
+    <ClInclude Include="Menu.h">
+      <Filter>Win33\Menus\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Separator.h">
-      <Filter>Win33\Menus</Filter>
+    <ClInclude Include="MenuBar.h">
+      <Filter>Win33\Menus\Menu Bar</Filter>
     </ClInclude>
-    <ClInclude Include="Win33Keys.h">
-      <Filter>Win33\Utility</Filter>
+    <ClInclude Include="MenuItem.h">
+      <Filter>Win33\Menus\Menu Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Separator.h">
+      <Filter>Win33\Menus\Separator</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Win33\Resource\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Icon.h">
+      <Filter>Win33\Resource\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="TrayIcon.h">
+      <Filter>Win33\System Tray\Tray Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="Keys.h">
+      <Filter>Win33\Utility\Keys</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Win33\Utility\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="Size.h">
+      <Filter>Win33\Utility\Size</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtilities.h">
+      <Filter>Win33\Utility\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialog.h">
+      <Filter>Win33\Windows\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupBox.h">
+      <Filter>Win33\Windows\Popup Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Win33\Windows\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Win33Application.cpp">
+    <ClCompile Include="Application.cpp">
       <Filter>Win33\Application</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Button.cpp">
-      <Filter>Win33\Controls\Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33CheckBox.cpp">
-      <Filter>Win33\Controls\Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33Common.cpp">
-      <Filter>Win33\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33Console.cpp">
+    <ClCompile Include="Console.cpp">
       <Filter>Win33\Console</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Control.cpp">
+    <ClCompile Include="Control.cpp">
       <Filter>Win33\Controls</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Font.cpp">
-      <Filter>Win33\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33GroupBox.cpp">
-      <Filter>Win33\Controls\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33Icon.cpp">
-      <Filter>Win33\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Win33Interop.cpp">
+    <ClCompile Include="Interop.cpp">
       <Filter>Win33\Interop</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Label.cpp">
-      <Filter>Win33\Controls\Text</Filter>
+    <ClCompile Include="Button.cpp">
+      <Filter>Win33\Controls\Buttons\Button</Filter>
     </ClCompile>
-    <ClCompile Include="Win33MultilineTextBox.cpp">
-      <Filter>Win33\Controls\Text Boxes</Filter>
+    <ClCompile Include="CheckBox.cpp">
+      <Filter>Win33\Controls\Buttons\CheckBox</Filter>
     </ClCompile>
-    <ClCompile Include="Win33PasswordBox.cpp">
-      <Filter>Win33\Controls\Text Boxes</Filter>
+    <ClCompile Include="RadioButton.cpp">
+      <Filter>Win33\Controls\Buttons\Radio Button</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Point.cpp">
-      <Filter>Win33\Utility</Filter>
+    <ClCompile Include="ComboBox.cpp">
+      <Filter>Win33\Controls\Combo Boxes\Combo Box</Filter>
     </ClCompile>
-    <ClCompile Include="Win33RadioButton.cpp">
-      <Filter>Win33\Controls\Buttons</Filter>
+    <ClCompile Include="DropDown.cpp">
+      <Filter>Win33\Controls\Combo Boxes\Drop Down</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Size.cpp">
-      <Filter>Win33\Utility</Filter>
+    <ClCompile Include="ListBox.cpp">
+      <Filter>Win33\Controls\List Boxes\List Box</Filter>
     </ClCompile>
-    <ClCompile Include="Win33System.cpp">
-      <Filter>Win33\Core</Filter>
+    <ClCompile Include="MultiSelectListBox.cpp">
+      <Filter>Win33\Controls\List Boxes\Multi Select List Box</Filter>
     </ClCompile>
-    <ClCompile Include="Win33TextBox.cpp">
-      <Filter>Win33\Controls\Text Boxes</Filter>
+    <ClCompile Include="GroupBox.cpp">
+      <Filter>Win33\Controls\Misc\Group Box</Filter>
     </ClCompile>
-    <ClCompile Include="Win33TrayIcon.cpp">
-      <Filter>Win33\System Tray</Filter>
+    <ClCompile Include="Label.cpp">
+      <Filter>Win33\Controls\Text\Label</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Window.cpp">
-      <Filter>Win33\Windows</Filter>
+    <ClCompile Include="MultilineTextBox.cpp">
+      <Filter>Win33\Controls\Text Boxes\Multiline Text Box</Filter>
     </ClCompile>
-    <ClCompile Include="Win33PopupBox.cpp">
-      <Filter>Win33\Windows</Filter>
+    <ClCompile Include="PasswordBox.cpp">
+      <Filter>Win33\Controls\Text Boxes\Password Box</Filter>
     </ClCompile>
-    <ClCompile Include="Win33ComboBox.cpp">
-      <Filter>Win33\Controls\Combo Boxes</Filter>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Win33\Controls\Text Boxes\Text Box</Filter>
     </ClCompile>
-    <ClCompile Include="Win33DropDown.cpp">
-      <Filter>Win33\Controls\Combo Boxes</Filter>
+    <ClCompile Include="Common.cpp">
+      <Filter>Win33\Core\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Win33StringUtilities.cpp">
-      <Filter>Win33\Utility</Filter>
+    <ClCompile Include="System.cpp">
+      <Filter>Win33\Core\System</Filter>
     </ClCompile>
-    <ClCompile Include="Win33ListBox.cpp">
-      <Filter>Win33\Controls\List Boxes</Filter>
+    <ClCompile Include="ContextMenu.cpp">
+      <Filter>Win33\Menus\Context Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Win33MultiSelectListBox.cpp">
-      <Filter>Win33\Controls\List Boxes</Filter>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Win33\Menus\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Win33MenuBar.cpp">
-      <Filter>Win33\Menus</Filter>
+    <ClCompile Include="MenuBar.cpp">
+      <Filter>Win33\Menus\Menu Bar</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Menu.cpp">
-      <Filter>Win33\Menus</Filter>
+    <ClCompile Include="MenuItem.cpp">
+      <Filter>Win33\Menus\Menu Item</Filter>
     </ClCompile>
-    <ClCompile Include="Win33MenuItem.cpp">
-      <Filter>Win33\Menus</Filter>
+    <ClCompile Include="Separator.cpp">
+      <Filter>Win33\Menus\Separator</Filter>
     </ClCompile>
-    <ClCompile Include="Win33ContextMenu.cpp">
-      <Filter>Win33\Menus</Filter>
+    <ClCompile Include="Font.cpp">
+      <Filter>Win33\Resource\Font</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Separator.cpp">
-      <Filter>Win33\Menus</Filter>
+    <ClCompile Include="Icon.cpp">
+      <Filter>Win33\Resource\Icon</Filter>
     </ClCompile>
-    <ClCompile Include="Win33Keys.cpp">
-      <Filter>Win33\Utility</Filter>
+    <ClCompile Include="TrayIcon.cpp">
+      <Filter>Win33\System Tray\Tray Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="Keys.cpp">
+      <Filter>Win33\Utility\Keys</Filter>
+    </ClCompile>
+    <ClCompile Include="Point.cpp">
+      <Filter>Win33\Utility\Point</Filter>
+    </ClCompile>
+    <ClCompile Include="Size.cpp">
+      <Filter>Win33\Utility\Size</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtilities.cpp">
+      <Filter>Win33\Utility\String</Filter>
+    </ClCompile>
+    <ClCompile Include="PopupBox.cpp">
+      <Filter>Win33\Windows\Popup Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Win33\Windows\Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

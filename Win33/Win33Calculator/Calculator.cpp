@@ -1,7 +1,9 @@
 #include "Calculator.h"
 
-#include <Win33PopupBox.h>
-#include <Win33StringUtilities.h>
+#include <Win33/PopupBox.h>
+#include <Win33/StringUtilities.h>
+
+#include "Resources.h"
 
 Calculator::Calculator( )
 :
@@ -227,29 +229,29 @@ mCalculator   ( )
     setMinimizable ( false );
     
     mResult.setReadOnly ( true );
-    mResult.setFont     ( &SegoeUI24Bold );
+    mResult.setFont     ( Fonts::getSegoeUI24Bold( ) );
     mResult.setText     ( mCalculator.getExpression( ) );
     
-    mOne.setFont          ( &SegoeUI18 );
-    mTwo.setFont          ( &SegoeUI18 );
-    mThree.setFont        ( &SegoeUI18 );
-    mFour.setFont         ( &SegoeUI18 );
-    mFive.setFont         ( &SegoeUI18 );
-    mSix.setFont          ( &SegoeUI18 );
-    mSeven.setFont        ( &SegoeUI18 );
-    mEight.setFont        ( &SegoeUI18 );
-    mNine.setFont         ( &SegoeUI18 );
-    mClear.setFont        ( &SegoeUI18 );
-    mZero.setFont         ( &SegoeUI18 );
-    mAdd.setFont          ( &SegoeUI18 );
-    mSubtract.setFont     ( &SegoeUI18 );
-    mMultiply.setFont     ( &SegoeUI18 );
-    mDivide.setFont       ( &SegoeUI18 );
-    mEquals.setFont       ( &SegoeUI18 );
-    mBackspace.setFont    ( &SegoeUI18 );
-    mOpenBracket.setFont  ( &SegoeUI18 );
-    mCloseBracket.setFont ( &SegoeUI18 );
-    mDot.setFont          ( &SegoeUI18 );
+    mOne.setFont          ( Fonts::getSegoeUI18( ) );
+    mTwo.setFont          ( Fonts::getSegoeUI18( ) );
+    mThree.setFont        ( Fonts::getSegoeUI18( ) );
+    mFour.setFont         ( Fonts::getSegoeUI18( ) );
+    mFive.setFont         ( Fonts::getSegoeUI18( ) );
+    mSix.setFont          ( Fonts::getSegoeUI18( ) );
+    mSeven.setFont        ( Fonts::getSegoeUI18( ) );
+    mEight.setFont        ( Fonts::getSegoeUI18( ) );
+    mNine.setFont         ( Fonts::getSegoeUI18( ) );
+    mClear.setFont        ( Fonts::getSegoeUI18( ) );
+    mZero.setFont         ( Fonts::getSegoeUI18( ) );
+    mAdd.setFont          ( Fonts::getSegoeUI18( ) );
+    mSubtract.setFont     ( Fonts::getSegoeUI18( ) );
+    mMultiply.setFont     ( Fonts::getSegoeUI18( ) );
+    mDivide.setFont       ( Fonts::getSegoeUI18( ) );
+    mEquals.setFont       ( Fonts::getSegoeUI18( ) );
+    mBackspace.setFont    ( Fonts::getSegoeUI18( ) );
+    mOpenBracket.setFont  ( Fonts::getSegoeUI18( ) );
+    mCloseBracket.setFont ( Fonts::getSegoeUI18( ) );
+    mDot.setFont          ( Fonts::getSegoeUI18( ) );
     
     mOne.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
         mCalculator.addInput( Input::One );

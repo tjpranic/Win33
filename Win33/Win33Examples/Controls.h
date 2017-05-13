@@ -2,21 +2,21 @@
 
 #include <iostream>
 
-#include <Win33Application.h>
-#include <Win33Window.h>
-#include <Win33Label.h>
-#include <Win33TextBox.h>
-#include <Win33MultilineTextBox.h>
-#include <Win33PasswordBox.h>
-#include <Win33Button.h>
-#include <Win33CheckBox.h>
-#include <Win33RadioButton.h>
-#include <Win33GroupBox.h>
-#include <Win33ComboBox.h>
-#include <Win33DropDown.h>
-#include <Win33ListBox.h>
-#include <Win33MultiSelectListBox.h>
-#include <Win33BitfieldOperators.h>
+#include <Win33/Application.h>
+#include <Win33/Window.h>
+#include <Win33/Label.h>
+#include <Win33/TextBox.h>
+#include <Win33/MultilineTextBox.h>
+#include <Win33/PasswordBox.h>
+#include <Win33/Button.h>
+#include <Win33/CheckBox.h>
+#include <Win33/RadioButton.h>
+#include <Win33/GroupBox.h>
+#include <Win33/ComboBox.h>
+#include <Win33/DropDown.h>
+#include <Win33/ListBox.h>
+#include <Win33/MultiSelectListBox.h>
+#include <Win33/BitfieldOperators.h>
 
 class ControlsWindow : public Win33::Window {
 public:

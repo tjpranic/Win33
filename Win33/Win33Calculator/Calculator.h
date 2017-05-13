@@ -2,10 +2,10 @@
 
 #include <sstream>
 
-#include <Win33Application.h>
-#include <Win33Window.h>
-#include <Win33TextBox.h>
-#include <Win33Button.h>
+#include <Win33/Application.h>
+#include <Win33/Window.h>
+#include <Win33/TextBox.h>
+#include <Win33/Button.h>
 
 enum class Input : wchar_t {
     One          = L'1',
@@ -55,9 +55,6 @@ private:
     std::wstring        mExpression;
     std::wistringstream mWISS;
 };
-
-const Win33::Font SegoeUI18     = Win33::Font( L"SegoeUI", 18 );
-const Win33::Font SegoeUI24Bold = Win33::Font( L"SegoeUI", 24, Win33::FontDecoration::Bold );
 
 class CalculatorWindow : public Win33::Window {
 public:

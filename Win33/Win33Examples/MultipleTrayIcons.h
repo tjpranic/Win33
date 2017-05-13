@@ -1,18 +1,17 @@
 #pragma once
 
-#include <Win33Application.h>
-#include <Win33Window.h>
-#include <Win33TrayIcon.h>
+#include <Win33/Application.h>
+#include <Win33/Window.h>
+#include <Win33/TrayIcon.h>
 
-const Win33::Icon TestIcon1 = Win33::Icon( L"TestIcon1.ico" );
-const Win33::Icon TestIcon2 = Win33::Icon( L"TestIcon2.ico" );
+#include "Resources.h"
 
 class FirstTrayIconWindow : public Win33::Window {
 public:
     FirstTrayIconWindow( )
     :
     Win33::Window  ( Win33::Window::DefaultPosition, { 640, 480 } ),
-    mFirstTrayIcon ( this, &TestIcon1, L"FirstTrayIcon" )
+    mFirstTrayIcon ( this, Icons::getTestIcon1( ), L"FirstTrayIcon" )
     {
         setTitle( L"FirstWindow" );
         
@@ -37,7 +36,7 @@ public:
     SecondTrayIconWindow( )
     :
     Win33::Window   ( Win33::Window::DefaultPosition, { 640, 480 } ),
-    mSecondTrayIcon ( this, &TestIcon2, L"SecondTrayIcon" )
+    mSecondTrayIcon ( this, Icons::getTestIcon2( ), L"SecondTrayIcon" )
     {
         setTitle( L"SecondWindow" );
         

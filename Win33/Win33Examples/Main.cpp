@@ -5,13 +5,14 @@
 #include "Dialog.h"
 #include "Controls.h"
 #include "TrayIcon.h"
+#include "Window.h"
 
-#include <Win33Console.h>
-#include <Win33PopupBox.h>
-#include <Win33StringUtilities.h>
+#include <Win33/Console.h>
+#include <Win33/PopupBox.h>
+#include <Win33/StringUtilities.h>
 
+//TODO: replace SFINAE with static asserts, where applicable
 //TODO? add common controls
-//TODO? remove Win33 prefix from files and projects (put files in Win33 subdir)
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     //Win33::Console console;
     try {
@@ -20,8 +21,9 @@ int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR comma
         //return MultipleTrayIconsApplication( ).run( );
         //return MenusApplication( ).run( );
         //return DialogApplication( ).run( );
-        return ControlsApplication( ).run( );
+        //return ControlsApplication( ).run( );
         //return TrayIconApplication( ).run( );
+        return WindowApplication( ).run( );
     }
     catch( const std::exception& ex ) {
         Win33::PopupBox::error( Win33::String::widen( ex.what( ) ) );
