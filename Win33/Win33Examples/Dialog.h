@@ -34,7 +34,7 @@ public:
         
         mShowDialog.setAnchor( Win33::Anchor::RightBottom );
         mShowDialog.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
-            auto result = Dialog( this ).show( );
+            const auto result = Dialog( this ).show( );
             
             Win33::PopupBox::information( result, L"Dialog Result" );
         };

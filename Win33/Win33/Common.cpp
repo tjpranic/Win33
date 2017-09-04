@@ -105,20 +105,20 @@ bool Win33::Common::getEnabled( ) const {
     return IsWindowEnabled( mHandle ) != 0;
 }
 int Win33::Common::getX( ) const {
-    RECT cr;
+    RECT cr = { };
     GetClientRect( mHandle, &cr );
     MapWindowPoints( mHandle, HWND_DESKTOP, reinterpret_cast<LPPOINT>( &cr ), 2 );
-    RECT wr;
+    RECT wr = { };
     GetWindowRect( mHandle, &wr );
     POINT p = { wr.left, wr.top };
     ScreenToClient( mHandle, &p );
     return cr.left + p.x;
 }
 int Win33::Common::getY( ) const {
-    RECT cr;
+    RECT cr = { };
     GetClientRect( mHandle, &cr );
     MapWindowPoints( mHandle, HWND_DESKTOP, reinterpret_cast<LPPOINT>( &cr ), 2 );
-    RECT wr;
+    RECT wr = { };
     GetWindowRect( mHandle, &wr );
     POINT p = { wr.left, wr.top };
     ScreenToClient( mHandle, &p );
@@ -128,12 +128,12 @@ Win33::Point Win33::Common::getPosition( ) const {
     return { getX( ), getY( ) };
 }
 int Win33::Common::getWidth( ) const {
-    RECT wr;
+    RECT wr = { };
     GetWindowRect( mHandle, &wr );
     return wr.right - wr.left;
 }
 int Win33::Common::getHeight( ) const {
-    RECT wr;
+    RECT wr = { };
     GetWindowRect( mHandle, &wr );
     return wr.bottom - wr.top;
 }

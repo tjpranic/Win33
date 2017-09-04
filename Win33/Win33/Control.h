@@ -39,7 +39,7 @@ namespace Win33 {
         void setY      (       int           y      );
         void setFont   (       Font*         font   );
         
-        friend HWND Interop::toHandle( Control* control );
+        friend HWND Interop::toHandle( const Control* control );
         
     protected:
         Control(

@@ -1,7 +1,7 @@
 #include "Keys.h"
 
 Win33::Key Win33::toKey( VirtualKeyCode keyCode ) {
-    auto shiftHeld = GetKeyState( VK_SHIFT ) < 0;
+    const auto shiftHeld = GetKeyState( VK_SHIFT ) < 0;
     switch( keyCode ) {
         case VirtualKeyCode::Backspace: {
             return Key::Backspace;

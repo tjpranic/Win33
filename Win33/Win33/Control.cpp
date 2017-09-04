@@ -15,8 +15,8 @@ mAnchor ( Anchor::TopLeft )
 {
     assert( parent != nullptr );
     parent->onResize += [&]( WindowEvents::ResizeData& data ) {
-        auto dx = data.getSize( ).getWidth( )  - mParent->getInitialSize( ).getWidth( );
-        auto dy = data.getSize( ).getHeight( ) - mParent->getInitialSize( ).getHeight( );
+        const auto dx = data.getSize( ).getWidth( )  - mParent->getInitialSize( ).getWidth( );
+        const auto dy = data.getSize( ).getHeight( ) - mParent->getInitialSize( ).getHeight( );
         switch( mAnchor ) {
             case Anchor::All: {
                 SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ) + dy, SWP_NOMOVE );

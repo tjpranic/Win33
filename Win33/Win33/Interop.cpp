@@ -8,24 +8,24 @@
 #include "Font.h"
 #include "Icon.h"
 
-HWND Win33::Interop::toHandle( Window* window ) {
+HWND Win33::Interop::toHandle( const Window* window ) {
     return window->mHandle;
 }
-HWND Win33::Interop::toHandle( Control* control ) {
+HWND Win33::Interop::toHandle( const Control* control ) {
     return control->mHandle;
 }
-HMENU Win33::Interop::toHandle( ContextMenu* contextMenu ) {
+HMENU Win33::Interop::toHandle( const ContextMenu* contextMenu ) {
     return contextMenu->mHandle;
 }
-HMENU Win33::Interop::toHandle( MenuBar* menuBar ) {
+HMENU Win33::Interop::toHandle( const MenuBar* menuBar ) {
     return menuBar->mHandle;
 }
-HMENU Win33::Interop::toHandle( Menu* menu ) {
+HMENU Win33::Interop::toHandle( const Menu* menu ) {
     return menu->mHandle;
 }
-HFONT Win33::Interop::toHandle( Font* font ) {
+HFONT Win33::Interop::toHandle( const Font* font ) {
     return font->mHandle;
 }
-HICON Win33::Interop::toHandle( Icon* icon ) {
+HICON Win33::Interop::toHandle( const Icon* icon ) {
     return icon->mHandle;
 }

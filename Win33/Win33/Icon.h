@@ -16,7 +16,7 @@ namespace Win33 {
         Icon& operator= (       Icon&& other ) = default;
         ~Icon           ( )                    = default;
         
-        friend HICON Interop::toHandle( Icon* icon );
+        friend HICON Interop::toHandle( const Icon* icon );
         
     private:
         HICON mHandle;

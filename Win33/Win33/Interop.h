@@ -14,13 +14,13 @@ namespace Win33 {
     
     namespace Interop {
         
-        HWND  toHandle( Window*      window      );
-        HWND  toHandle( Control*     control     );
-        HMENU toHandle( ContextMenu* contextMenu );
-        HMENU toHandle( MenuBar*     menuBar     );
-        HMENU toHandle( Menu*        menu        );
-        HFONT toHandle( Font*        font        );
-        HICON toHandle( Icon*        icon        );
+        HWND  toHandle( const Window*      window      );
+        HWND  toHandle( const Control*     control     );
+        HMENU toHandle( const ContextMenu* contextMenu );
+        HMENU toHandle( const MenuBar*     menuBar     );
+        HMENU toHandle( const Menu*        menu        );
+        HFONT toHandle( const Font*        font        );
+        HICON toHandle( const Icon*        icon        );
         
     };
     

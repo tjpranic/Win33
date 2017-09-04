@@ -18,7 +18,7 @@ namespace Win33 {
         
         void show( const Point& position = System::getCursorPosition( ) );
         
-        friend HMENU Interop::toHandle( ContextMenu* contextMenu );
+        friend HMENU Interop::toHandle( const ContextMenu* contextMenu );
         
     private:
         HMENU   mHandle;

@@ -24,7 +24,7 @@ namespace Win33 {
         Font& operator= (       Font&& other ) = default;
         ~Font           ( );
         
-        friend HFONT Interop::toHandle( Font* font );
+        friend HFONT Interop::toHandle( const Font* font );
         
     private:
         HFONT mHandle;

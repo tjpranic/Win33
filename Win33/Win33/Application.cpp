@@ -58,7 +58,7 @@ int Win33::Application::run( ) {
             switch( m.message ) {
                 //allow tab presses to be sent through to default dialog processing to allow tabstop cycling
                 case WM_KEYDOWN: {
-                    auto keyCode = static_cast<VirtualKeyCode>( m.wParam );
+                    const auto keyCode = static_cast<VirtualKeyCode>( m.wParam );
                     switch( keyCode ) {
                         case VirtualKeyCode::Tab: {
                             if( !IsDialogMessage( mCurrentWindow, &m ) ) {
@@ -100,9 +100,9 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND windowHandle, UINT me
                     common = mCommons.at( reinterpret_cast<HWND>( longParameter ) );
                 }
                 else {
-                    auto menuID = static_cast<int>( wordParameter );
+                    const auto menuID = static_cast<int>( wordParameter );
                     if( mMenuItems.find( menuID ) != mMenuItems.end( ) ) {
-                        auto menuItem = mMenuItems[menuID];
+                        const auto* menuItem = mMenuItems[menuID];
                         menuItem->onClick.trigger( MenuItemEvents::ClickData( ) );
                     }
                     return true;
@@ -110,8 +110,8 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND windowHandle, UINT me
                 break;
             }
             case WM_TRAYICON: {
-                auto  trayIconID = static_cast<int>( wordParameter );
-                auto* trayIcon   = mTrayIcons[trayIconID];
+                const auto  trayIconID = static_cast<int>( wordParameter );
+                const auto* trayIcon   = mTrayIcons[trayIconID];
                 switch( longParameter ) {
                     case WM_LBUTTONUP: {
                         trayIcon->onLeftClick.trigger( TrayIconEvents::LeftClickData( System::getCursorPosition( ) ) );
@@ -134,7 +134,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND windowHandle, UINT me
         }
         switch( common->mType ) {
             case Common::Type::Window: {
-                auto* window = reinterpret_cast<Window*>( common );
+                const auto* window = reinterpret_cast<Window*>( common );
                 switch( message ) {
                     case WM_ACTIVATE: {
                         mCurrentWindow = windowHandle;
@@ -202,7 +202,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND windowHandle, UINT me
                 break;
             }
             case Common::Type::Button: {
-                auto* button = reinterpret_cast<Button*>( common );
+                const auto* button = reinterpret_cast<Button*>( common );
                 switch( message ) {
                     case BN_CLICKED: {
                         button->onClick.trigger( ButtonEvents::ClickData( ) );
@@ -215,7 +215,7 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND windowHandle, UINT me
                 break;
             }
             case Common::Type::CheckBox: {
-                auto* checkBox = reinterpret_cast<CheckBox*>( common );
+                const auto* checkBox = reinterpret_cast<CheckBox*>( common );
                 switch( message ) {
                     case BN_CLICKED: {
                         checkBox->onCheck.trigger( CheckBoxEvents::CheckData( checkBox->getChecked( ) ) );
@@ -228,32 +228,32 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND windowHandle, UINT me
                 break;
             }
             case Common::Type::RadioButton: {
-                auto* radioButton = reinterpret_cast<RadioButton*>( common );
+                const auto* radioButton = reinterpret_cast<RadioButton*>( common );
                 //...
                 break;
             }
             case Common::Type::TextBox: {
-                auto* textBox = reinterpret_cast<TextBox*>( common );
+                const auto* textBox = reinterpret_cast<TextBox*>( common );
                 //...
                 break;
             }
             case Common::Type::PasswordBox: {
-                auto* passwordBox = reinterpret_cast<PasswordBox*>( common );
+                const auto* passwordBox = reinterpret_cast<PasswordBox*>( common );
                 //...
                 break;
             }
             case Common::Type::MultilineTextBox: {
-                auto* multilineTextBox = reinterpret_cast<MultilineTextBox*>( common );
+                const auto* multilineTextBox = reinterpret_cast<MultilineTextBox*>( common );
                 //...
                 break;
             }
             case Common::Type::GroupBox: {
-                auto* groupBox = reinterpret_cast<GroupBox*>( common );
+                const auto* groupBox = reinterpret_cast<GroupBox*>( common );
                 //...
                 break;
             }
             case Common::Type::Label: {
-                auto* label = reinterpret_cast<Label*>( common );
+                const auto* label = reinterpret_cast<Label*>( common );
                 switch( message ) {
                     case STN_DBLCLK: //double clicks have to be counted amongst single clicks due to notify style (?)
                     case STN_CLICKED: {
@@ -267,22 +267,22 @@ LRESULT CALLBACK Win33::Application::windowProcessor( HWND windowHandle, UINT me
                 break;
             }
             case Common::Type::ComboBox: {
-                auto* comboBox = reinterpret_cast<ComboBox*>( common );
+                const auto* comboBox = reinterpret_cast<ComboBox*>( common );
                 //...
                 break;
             }
             case Common::Type::DropDown: {
-                auto* dropDown = reinterpret_cast<DropDown*>( common );
+                const auto* dropDown = reinterpret_cast<DropDown*>( common );
                 //...
                 break;
             }
             case Common::Type::ListBox: {
-                auto* listBox = reinterpret_cast<ListBox*>( common );
+                const auto* listBox = reinterpret_cast<ListBox*>( common );
                 //...
                 break;
             }
             case Common::Type::MultiSelectListBox: {
-                auto* multiSelectListBox = reinterpret_cast<MultiSelectListBox*>( common );
+                const auto* multiSelectListBox = reinterpret_cast<MultiSelectListBox*>( common );
                 //...
                 break;
             }

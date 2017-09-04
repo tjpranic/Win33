@@ -21,12 +21,12 @@ ListBox(
 { }
 
 void Win33::MultiSelectListBox::setSelection( const std::vector<int>& selections ) {
-    for( auto& selection : selections ) {
+    for( const auto& selection : selections ) {
         ListBox_SetSel( mHandle, true, selection );
     }
 }
 void Win33::MultiSelectListBox::unsetSelection( const std::vector<int>& selections ) {
-    for( auto& selection : selections ) {
+    for( const auto& selection : selections ) {
         ListBox_SetSel( mHandle, false, selection );
     }
 }
@@ -41,9 +41,9 @@ int Win33::MultiSelectListBox::getSelectedOptionCount( ) const {
     return ListBox_GetSelCount( mHandle );
 }
 std::vector<int> Win33::MultiSelectListBox::getSelection( ) const {
-    auto count = getSelectedOptionCount( );
+    const auto count = getSelectedOptionCount( );
     if( count > 0 ) {
-        auto selections = std::vector<int>( count );
+        const auto selections = std::vector<int>( count );
         ListBox_GetSelItems( mHandle, count, &selections[0] );
         return selections;
     }
@@ -52,8 +52,8 @@ std::vector<int> Win33::MultiSelectListBox::getSelection( ) const {
     }
 }
 std::vector<std::wstring> Win33::MultiSelectListBox::getText( ) const {
-    auto texts      = std::vector<std::wstring>( );
-    auto selections = getSelection( );
+          auto texts      = std::vector<std::wstring>( );
+    const auto selections = getSelection( );
     for( auto selection : selections ) {
         texts.push_back( Win33::ListBox::getText( selection ) );
     }

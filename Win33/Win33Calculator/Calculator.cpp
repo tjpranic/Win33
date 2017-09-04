@@ -27,10 +27,10 @@ void Calculator::addInput( Input input ) {
         case Input::Nine:
         case Input::Zero: {
             if( mExpression != L"0" && mExpression != L"Error" ) {
-                auto lastCharacter = mExpression.back( );
+                const auto lastCharacter = mExpression.back( );
                 if( lastCharacter != L')' ) {
-                    auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
-                    auto lastNumber = index == std::wstring::npos ? mExpression : index == mExpression.size( ) - 1 ? L"" : mExpression.substr( index + 1 );
+                    const auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
+                    const auto lastNumber = index == std::wstring::npos ? mExpression : index == mExpression.size( ) - 1 ? L"" : mExpression.substr( index + 1 );
                     if( lastNumber != L"0" ) {
                         mExpression += character;
                     }
@@ -50,9 +50,9 @@ void Calculator::addInput( Input input ) {
         }
         case Input::Dot: {
             if( mExpression != L"Error" ) {
-                auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
-                auto lastNumber = index == std::wstring::npos ? mExpression : index == mExpression.size( ) - 1 ? L"" : mExpression.substr( index + 1 );
-                auto notDecimal = lastNumber != L"" && lastNumber.find_last_of( L'.' ) == std::wstring::npos;
+                const auto index      = mExpression.find_last_of( L"+-\u00D7\u00F7" );
+                const auto lastNumber = index == std::wstring::npos ? mExpression : index == mExpression.size( ) - 1 ? L"" : mExpression.substr( index + 1 );
+                const auto notDecimal = lastNumber != L"" && lastNumber.find_last_of( L'.' ) == std::wstring::npos;
                 if( notDecimal ) {
                     mExpression += L'.';
                 }
@@ -64,7 +64,7 @@ void Calculator::addInput( Input input ) {
         case Input::Multiply:
         case Input::Divide: {
             if( mExpression != L"Error" ) {
-                auto lastCharacter = mExpression.back( );
+                const auto lastCharacter = mExpression.back( );
                 if( lastCharacter == L'.' ) {
                     //do nothing and don't overwrite last input
                 }
@@ -89,8 +89,8 @@ void Calculator::addInput( Input input ) {
         case Input::OpenBracket: {
             if( mExpression != L"Error" ) {
                 if( mExpression != L"0" ) {
-                    auto lastCharacter = mExpression.back( );
-                    auto notNumber = !( lastCharacter >= L'0' && lastCharacter <= L'9' );
+                    const auto lastCharacter = mExpression.back( );
+                    const auto notNumber = !( lastCharacter >= L'0' && lastCharacter <= L'9' );
                     if( notNumber ) {
                         mExpression += L'(';
                     }
@@ -104,7 +104,7 @@ void Calculator::addInput( Input input ) {
         case Input::CloseBracket: {
             if( mExpression != L"Error" ) {
                 if( mExpression != L"0" ) {
-                    auto lastCharacter = mExpression.back( );
+                    const auto lastCharacter = mExpression.back( );
                     if( lastCharacter != L'(' && lastCharacter != L'+' && lastCharacter != L'-' && lastCharacter != L'\u00F7' && lastCharacter != L'\u00D7' ) {
                         mExpression += L')';
                     }
@@ -145,7 +145,7 @@ wchar_t Calculator::get( ) {
 
 //recursive descent parser that evaluates expressions, expects (mostly) well-formed expressions.
 double Calculator::number( ) {
-    double result;
+    auto result = 0.0;
     mWISS >> result;
     if( mWISS.fail( ) ) {
         throw std::runtime_error( "Malformed number in expression." ); 
@@ -157,17 +157,17 @@ double Calculator::factor( ) {
         return number( );
     }
     else if( peek( ) == L'(' ) {
-        auto openBracket   = get( );
-        auto result        = expression( );
-        auto closedBracket = get( );
+        const auto openBracket   = get( );
+        const auto result        = expression( );
+        const auto closedBracket = get( );
         return result;
     }
     else if( peek( ) == L'-' ) {
-        auto negativeSign = get( );
+        const auto negativeSign = get( );
         return -factor( );
     }
     else if( peek( ) == L'+' ) {
-        auto positiveSign = get( );
+        const auto positiveSign = get( );
         return factor( );
     }
     throw std::runtime_error( "Unable to evaluate expression." );

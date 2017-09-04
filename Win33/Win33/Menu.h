@@ -22,7 +22,7 @@ namespace Win33 {
         void setText    ( const std::wstring& text    );
         void setEnabled (       bool          enabled );
         
-        friend HMENU Interop::toHandle( Menu* menu );
+        friend HMENU Interop::toHandle( const Menu* menu );
         
     private:
         HMENU mHandle;

@@ -86,7 +86,7 @@ void Win33::Window::setResizable( bool resizable ) {
 }
 void Win33::Window::setIcon( const std::wstring& icon ) {
     assert( icon != L"" );
-    auto handle = static_cast<HICON>(
+    const auto handle = static_cast<HICON>(
         LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
     );
     SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( handle ) );

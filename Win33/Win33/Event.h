@@ -45,14 +45,14 @@ namespace Win33 {
         ~Event           ( )                     = default;
         
         void operator+=( const Handler& handler ) {
-            auto iterator = std::find( mEventHandlers.begin( ), mEventHandlers.end( ), handler );
+            const auto iterator = std::find( mEventHandlers.begin( ), mEventHandlers.end( ), handler );
             if( iterator != mEventHandlers.end( ) ) {
                 throw std::runtime_error( "Handler already added to event." );
             }
             mEventHandlers.push_back( handler );
         }
         void operator-=( const Handler& handler ) {
-            auto iterator = std::find( mEventHandlers.begin( ), mEventHandlers.end( ), handler );
+            const auto iterator = std::find( mEventHandlers.begin( ), mEventHandlers.end( ), handler );
             if( iterator == mEventHandlers.end( ) ) {
                 throw std::runtime_error( "Handler does not exist on event." );
             }
@@ -64,7 +64,7 @@ namespace Win33 {
             class Data,
             typename = typename std::enable_if<std::is_base_of<EventData, Data>::value>::type
         >
-        void trigger( Data& data ) {
+        void trigger( Data& data ) const {
             for( auto iterator = mEventHandlers.begin( ); iterator != mEventHandlers.end( ); ++iterator ) {
                 const auto& handler = *iterator;
                 handler( data );
@@ -121,8 +121,8 @@ namespace Win33 {
             class Data,
             typename = typename std::enable_if<std::is_base_of<CancellableEventData, Data>::value>::type
         >
-        void trigger( Data& data ) {
-            for( auto& iterator = mEventHandlers.rbegin( ); iterator != mEventHandlers.rend( ); ++iterator ) {
+        void trigger( Data& data ) const {
+            for( auto iterator = mEventHandlers.rbegin( ); iterator != mEventHandlers.rend( ); ++iterator ) {
                 const auto& handler = *iterator;
                 handler( data );
                 if( mEventHandlers.empty( ) ) {

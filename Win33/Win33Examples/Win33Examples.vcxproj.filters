@@ -47,11 +47,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="TestIcon1.ico">
+    <None Include="TestIcon2.ico">
       <Filter>Resources\Icons</Filter>
-    </Image>
-    <Image Include="TestIcon2.ico">
+    </None>
+    <None Include="TestIcon1.ico">
       <Filter>Resources\Icons</Filter>
-    </Image>
+    </None>
   </ItemGroup>
 </Project>

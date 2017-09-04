@@ -47,7 +47,7 @@ namespace Win33 {
         WindowEvents::KeyDown    onKeyDown;
         WindowEvents::KeyUp      onKeyUp;
         
-        friend HWND Interop::toHandle( Window* window );
+        friend HWND Interop::toHandle( const Window* window );
         
     protected:
         Window(

@@ -12,7 +12,7 @@ Win33::Size Win33::System::getMonitorSize( ) {
     return { GetSystemMetrics( SM_CXSCREEN ), GetSystemMetrics( SM_CYSCREEN ) };
 }
 Win33::Point Win33::System::getCursorPosition( ) {
-    POINT p;
+    POINT p = { };
     GetCursorPos( &p );
     return { p.x, p.y };
 }

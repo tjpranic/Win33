@@ -15,7 +15,7 @@ namespace Win33 {
         MenuBar& operator= (       MenuBar&& other ) = delete;
         ~MenuBar           ( )                       = default;
         
-        friend HMENU Interop::toHandle( MenuBar* menuBar );
+        friend HMENU Interop::toHandle( const MenuBar* menuBar );
         
     private:
         HMENU mHandle;
