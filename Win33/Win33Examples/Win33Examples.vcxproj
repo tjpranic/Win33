@@ -76,8 +76,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Win33Examples\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Win33Examples\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\Users\Corsair\Documents\Visual Studio 2015\Projects\Win33;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Corsair\Documents\Visual Studio 2015\Projects\Win33\Win33\x64\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Win33\x64\Debug\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -86,8 +86,8 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Win33Examples\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Win33Examples\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>C:\Users\Corsair\Documents\Visual Studio 2015\Projects\Win33;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Corsair\Documents\Visual Studio 2015\Projects\Win33\Win33\x64\Release\Win33.tlog;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir);$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Win33\x64\Release\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
