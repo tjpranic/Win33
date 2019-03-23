@@ -3,7 +3,7 @@
 #include "Control.h"
 
 namespace Win33 {
-    
+
     class GroupBox : public Control {
     public:
         GroupBox(
@@ -20,5 +20,5 @@ namespace Win33 {
         GroupBox& operator= (       GroupBox&& other ) = delete;
         ~GroupBox           ( )                        = default;
     };
-    
-};
+
+}

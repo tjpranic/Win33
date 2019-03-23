@@ -48,15 +48,15 @@ public:
         setMinimizable ( false );
         setMaximizable ( false );
         setResizable   ( false );
-        
+
         mPasswordBox.setText( L"PasswordBox" );
-        
+
         mComboBox.setSelection  ( 0 );
         mDropDown1.setSelection ( 0 );
         mDropDown2.setSelection ( 0 );
-        
+
         mListBox.setSelection( 0 );
-        
+
         mMultiSelectListBox.setSelection( { 0, 1 } );
     }
     ControlsWindow            ( const ControlsWindow&  other ) = delete;
@@ -64,13 +64,13 @@ public:
     ControlsWindow& operator= ( const ControlsWindow&  other ) = delete;
     ControlsWindow& operator= (       ControlsWindow&& other ) = delete;
     ~ControlsWindow           ( )                              = default;
-    
+
 private:
     Win33::Label            mTextBoxTypes;
     Win33::TextBox          mTextBox;
     Win33::MultilineTextBox mMultilineTextBox;
     Win33::PasswordBox      mPasswordBox;
-    
+
     Win33::Label       mButtonTypes;
     Win33::Button      mButton;
     Win33::CheckBox    mCheckBox1;
@@ -78,15 +78,15 @@ private:
     Win33::RadioButton mRadioButton1;
     Win33::RadioButton mRadioButton2;
     Win33::RadioButton mRadioButton3;
-    
+
     Win33::Label    mMiscTypes;
     Win33::GroupBox mGroupBox;
-    
+
     Win33::Label    mComboBoxTypes;
     Win33::ComboBox mComboBox;
     Win33::DropDown mDropDown1;
     Win33::DropDown mDropDown2;
-    
+
     Win33::Label              mListBoxTypes;
     Win33::ListBox            mListBox;
     Win33::MultiSelectListBox mMultiSelectListBox;
@@ -106,7 +106,7 @@ public:
     ControlsApplication& operator= ( const ControlsApplication&  other ) = delete;
     ControlsApplication& operator= (       ControlsApplication&& other ) = delete;
     ~ControlsApplication           ( )                                   = default;
-    
+
 private:
     ControlsWindow mControlsWindow;
 };

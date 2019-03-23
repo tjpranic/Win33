@@ -9,12 +9,11 @@
 
 #include <Win33/Console.h>
 #include <Win33/PopupBox.h>
-#include <Win33/StringUtilities.h>
+#include <Win33/Strings.h>
 
-//TODO: replace SFINAE with static asserts, where applicable
-//TODO? add common controls
+//TODO add common controls
+//TODO improve this vvvvvvvvvvv
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
-    //Win33::Console console;
     try {
         //return MultipleWindowsApplication( ).run( );
         //return HiddenWindowApplication( ).run( );
@@ -25,8 +24,8 @@ int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR comma
         //return TrayIconApplication( ).run( );
         return WindowApplication( ).run( );
     }
-    catch( const std::exception& ex ) {
-        Win33::PopupBox::error( Win33::String::widen( ex.what( ) ) );
+    catch( const Win33::Exception& exception ) {
+        Win33::PopupBox::error( exception.getMessage( ) );
     }
     return 0;
 }

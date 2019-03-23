@@ -49,7 +49,7 @@ public:
     MultipleWindowsApplication& operator= ( const MultipleWindowsApplication&  other ) = delete;
     MultipleWindowsApplication& operator= (       MultipleWindowsApplication&& other ) = delete;
     ~MultipleWindowsApplication           ( )                                          = default;
-    
+
 private:
     FirstWindow  mFirstWindow;
     SecondWindow mSecondWindow;

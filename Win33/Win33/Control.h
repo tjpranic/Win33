@@ -2,11 +2,10 @@
 
 #include "Common.h"
 #include "Window.h"
-#include "Interop.h"
 #include "Font.h"
 
 namespace Win33 {
-    
+
     enum class Anchor : int {
         All,
         TopLeft,
@@ -18,7 +17,7 @@ namespace Win33 {
         LeftBottom,
         RightBottom
     };
-    
+
     class Control : public Common {
     public:
         Control            ( )                       = delete;
@@ -27,20 +26,18 @@ namespace Win33 {
         Control& operator= ( const Control&  other ) = delete;
         Control& operator= (       Control&& other ) = delete;
         virtual ~Control   ( )                       = default;
-        
+
         Anchor       getAnchor( ) const;
         std::wstring getText( )   const;
         int          getX( )      const;
         int          getY( )      const;
-        
+
         void setAnchor (       Anchor        anchor );
         void setText   ( const std::wstring& text   );
         void setX      (       int           x      );
         void setY      (       int           y      );
         void setFont   (       Font*         font   );
-        
-        friend HWND Interop::toHandle( const Control* control );
-        
+
     protected:
         Control(
                   Common::Type  type,
@@ -50,8 +47,8 @@ namespace Win33 {
                   WindowStyle   style,
                   ExWindowStyle exStyle = ExWindowStyle::None
         );
-        
+
         Anchor mAnchor;
     };
-    
-};
+
+}

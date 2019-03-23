@@ -3,7 +3,7 @@
 #include "Control.h"
 
 namespace Win33 {
-    
+
     class ListBox : public Control {
     public:
         ListBox(
@@ -19,17 +19,17 @@ namespace Win33 {
         ListBox& operator= ( const ListBox&  other ) = delete;
         ListBox& operator= (       ListBox&& other ) = delete;
         virtual ~ListBox   ( )                       = default;
-        
+
         void addOption    ( const std::wstring& option );
         void insertOption ( int index, const std::wstring& option );
         void removeOption ( int index );
-        
+
         void setSelection   ( int index );
         void clearSelection ( );
-        
+
         int          getOptionCount ( )               const;
         int          getSelection   ( )               const;
         std::wstring getText        ( int index = 0 ) const;
     };
-    
-};
+
+}

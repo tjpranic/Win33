@@ -1,11 +1,10 @@
 #pragma once
 
+#include "Misc.h"
 #include "Window.h"
-#include "System.h"
-#include "Interop.h"
 
 namespace Win33 {
-    
+
     class ContextMenu {
     public:
         ContextMenu            ( Window* window );
@@ -15,14 +14,14 @@ namespace Win33 {
         ContextMenu& operator= ( const ContextMenu&  other ) = delete;
         ContextMenu& operator= (       ContextMenu&& other ) = delete;
         ~ContextMenu           ( )                           = default;
-        
-        void show( const Point& position = System::getCursorPosition( ) );
-        
-        friend HMENU Interop::toHandle( const ContextMenu* contextMenu );
-        
+
+        void show( const Point& position = Cursor::getPosition( ) );
+
+        operator HMENU( ) const;
+
     private:
         HMENU   mHandle;
         Window* mWindow;
     };
-    
-};
+
+}

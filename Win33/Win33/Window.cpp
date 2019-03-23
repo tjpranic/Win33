@@ -1,8 +1,7 @@
 #include "Window.h"
 
-#include <cassert>
-
 #include "Application.h"
+#include "Error.h"
 
 const Win33::Point Win33::Window::DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
 const Win33::Size  Win33::Window::DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
@@ -24,7 +23,7 @@ Win33::Window::Window(
 ):
 Common( Common::Type::Window, parent, position, size, style, exStyle )
 {
-    assert( mParent != nullptr );
+    ASSERT_TRUE( mParent != nullptr, L"mParent cannot be null." );
 }
 
 void Win33::Window::close( ) {
@@ -85,7 +84,7 @@ void Win33::Window::setResizable( bool resizable ) {
     }
 }
 void Win33::Window::setIcon( const std::wstring& icon ) {
-    assert( icon != L"" );
+    ASSERT_TRUE( icon != L"", L"icon cannot be null" );
     const auto handle = static_cast<HICON>(
         LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
     );

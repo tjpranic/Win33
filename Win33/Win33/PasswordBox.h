@@ -3,7 +3,7 @@
 #include "TextBox.h"
 
 namespace Win33 {
-    
+
     class PasswordBox : public TextBox {
     public:
         PasswordBox(
@@ -18,10 +18,10 @@ namespace Win33 {
         PasswordBox& operator= ( const PasswordBox&  other ) = delete;
         PasswordBox& operator= (       PasswordBox&& other ) = delete;
         ~PasswordBox           ( )                           = default;
-        
+
         wchar_t getPasswordCharacter( ) const;
-        
+
         void setPasswordCharacter( wchar_t character );
     };
-    
-};
+
+}

@@ -1,10 +1,9 @@
 #pragma once
 
 #include "Window.h"
-#include "Interop.h"
 
 namespace Win33 {
-    
+
     class MenuBar {
     public:
         MenuBar            ( Window* window );
@@ -14,11 +13,11 @@ namespace Win33 {
         MenuBar& operator= ( const MenuBar&  other ) = delete;
         MenuBar& operator= (       MenuBar&& other ) = delete;
         ~MenuBar           ( )                       = default;
-        
-        friend HMENU Interop::toHandle( const MenuBar* menuBar );
-        
+
+        operator HMENU( ) const;
+
     private:
         HMENU mHandle;
     };
-    
-};
+
+}

@@ -1,15 +1,17 @@
 #pragma once
 
-#include "Window.h"
-#include "TrayIconEvents.h"
 #include "Icon.h"
+#include "Window.h"
 
 #define WM_TRAYICON ( WM_USER + 0x01 )
 
 namespace Win33 {
-    
+
     class TrayIcon {
     public:
+        DECLARE_EVENT( LeftClick,  void( const Point& position ), Application )
+        DECLARE_EVENT( RightClick, void( const Point& position ), Application )
+
         TrayIcon(
                   Window*       window,
                   Icon*         icon,
@@ -21,17 +23,15 @@ namespace Win33 {
         TrayIcon& operator= ( const TrayIcon&  other ) = delete;
         TrayIcon& operator= (       TrayIcon&& other ) = delete;
         ~TrayIcon           ( )                        = default;
-        
+
         void setIcon    (       Icon*         icon    );
         void setTooltip ( const std::wstring& tooltip );
-        
-        TrayIconEvents::LeftClick  onLeftClick;
-        TrayIconEvents::RightClick onRightClick;
-        
+
+        LeftClick  onLeftClick;
+        RightClick onRightClick;
+
     private:
-        int generateID( );
-        
         NOTIFYICONDATA mNID;
     };
-    
-};
+
+}

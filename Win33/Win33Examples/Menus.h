@@ -35,21 +35,21 @@ public:
     mLanguage       ( Language::English )
     {
         setTitle( L"MenusWindow" );
-        
-        mQuit.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+
+        mQuit.onClick += [&]( ) {
             close( );
         };
-        
+
         mWebsite.setEnabled  ( false );
         mFeedback.setEnabled ( false );
-        
-        mAbout.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+
+        mAbout.onClick += [&]( ) {
             Win33::PopupBox::information( L"This is a test." );
         };
-        
+
         mEnglish.setChecked( true );
-        
-        mGreet.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+
+        mGreet.onClick += [&]( ) {
             switch( mLanguage ) {
                 case Language::English: {
                     Win33::PopupBox::exclamation( L"Hello, world!" );
@@ -64,20 +64,20 @@ public:
                 }
             }
         };
-        mEnglish.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        mEnglish.onClick += [&]( ) {
             mLanguage = Language::English;
             mEnglish.setChecked( true );
             mSpanish.setChecked( false );
             mGreet.setText( L"Say hello" );
         };
-        mSpanish.onClick += [&]( Win33::MenuItemEvents::ClickData& data ) {
+        mSpanish.onClick += [&]( ) {
             mLanguage = Language::Spanish;
             mEnglish.setChecked( false );
             mSpanish.setChecked( true );
             mGreet.setText( L"Di hola" );
         };
-        
-        onRightClick += [&]( Win33::WindowEvents::RightClickData& data ) {
+
+        onRightClick += [&]( const Win33::Point& position ) {
             mContextMenu.show( );
         };
     }
@@ -86,14 +86,14 @@ public:
     MenusWindow& operator= ( const MenusWindow&  other ) = delete;
     MenusWindow& operator= (       MenusWindow&& other ) = delete;
     ~MenusWindow           ( )                           = default;
-    
+
 private:
     Win33::ContextMenu mContextMenu;
     Win33::MenuItem    mGreet;
     Win33::Separator   mGreetSeparator;
     Win33::MenuItem    mEnglish;
     Win33::MenuItem    mSpanish;
-    
+
     Win33::MenuBar   mMenuBar;
     Win33::Menu      mFileMenu;
     Win33::MenuItem  mNew;
@@ -107,7 +107,7 @@ private:
     Win33::MenuItem  mFeedback;
     Win33::Separator mAboutSeparator;
     Win33::MenuItem  mAbout;
-    
+
     enum class Language : int {
         English,
         Spanish
@@ -129,7 +129,7 @@ public:
     MenusApplication& operator= ( const MenusApplication&  other ) = delete;
     MenusApplication& operator= (       MenusApplication&& other ) = delete;
     ~MenusApplication           ( )                                = default;
-    
+
 private:
     MenusWindow mMenusWindow;
 };

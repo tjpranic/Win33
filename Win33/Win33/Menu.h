@@ -1,9 +1,10 @@
 #pragma once
 
+#include "ContextMenu.h"
 #include "MenuBar.h"
 
 namespace Win33 {
-    
+
     class Menu {
     public:
         Menu            ( ContextMenu* contextMenu, const std::wstring& text );
@@ -15,19 +16,19 @@ namespace Win33 {
         Menu& operator= ( const Menu&  other ) = delete;
         Menu& operator= (       Menu&& other ) = delete;
         ~Menu           ( )                    = default;
-        
+
         std::wstring getText( )    const;
         bool         getEnabled( ) const;
-        
+
         void setText    ( const std::wstring& text    );
         void setEnabled (       bool          enabled );
-        
-        friend HMENU Interop::toHandle( const Menu* menu );
-        
+
+        operator HMENU( ) const;
+
     private:
         HMENU mHandle;
         HMENU mParent;
         int   mPosition;
     };
-    
-};
+
+}

@@ -1,8 +1,16 @@
 #include "Separator.h"
 
-Win33::Separator::Separator( ContextMenu* contextMenu ) {
-    AppendMenu( Win33::Interop::toHandle( contextMenu ), MF_SEPARATOR, 0, nullptr );
-}
-Win33::Separator::Separator( Menu* menu ) {
-    AppendMenu( Win33::Interop::toHandle( menu ), MF_SEPARATOR, 0, nullptr );
+#include "Error.h"
+
+namespace Win33 {
+
+    Separator::Separator( ContextMenu* contextMenu ) {
+        ASSERT_TRUE( contextMenu != nullptr, L"contextMenu cannot be null." )
+        AppendMenu( *contextMenu, MF_SEPARATOR, 0, nullptr );
+    }
+    Separator::Separator( Menu* menu ) {
+        ASSERT_TRUE( menu != nullptr, L"menu cannot be null." )
+        AppendMenu( *menu, MF_SEPARATOR, 0, nullptr );
+    }
+
 }

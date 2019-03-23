@@ -3,7 +3,7 @@
 #include <Windows.h>
 
 namespace Win33 {
-    
+
     enum class VirtualKeyCode : DWORD {
         Backspace          = VK_BACK,
         Tab                = VK_TAB,
@@ -76,7 +76,7 @@ namespace Win33 {
         NumpadNine         = VK_NUMPAD9,
         NumpadMultiply     = VK_MULTIPLY,
         NumpadAdd          = VK_ADD,
-        NumpadSeperator    = VK_SEPARATOR,
+        NumpadSeparator    = VK_SEPARATOR,
         NumpadSubtract     = VK_SUBTRACT,
         NumpadDecimal      = VK_DECIMAL,
         NumpadDivide       = VK_DIVIDE,
@@ -112,7 +112,7 @@ namespace Win33 {
         CloseSquareBracket = VK_OEM_6,
         SingleQuote        = VK_OEM_7
     };
-    
+
     enum class Key : int {
         Unknown,
         Escape,
@@ -243,7 +243,10 @@ namespace Win33 {
         NumpadDecimal,
         NumpadEnter
     };
-    
-    Key toKey( VirtualKeyCode keyCode );
-    
-};
+
+    namespace Keys {
+
+        Key virtualKeyCodeToKey( VirtualKeyCode virtualKeyCode );
+    }
+
+}

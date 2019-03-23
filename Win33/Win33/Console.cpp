@@ -2,32 +2,60 @@
 
 #include <iostream>
 
-#include <Windows.h>
 #include <stdio.h>
+#include <Windows.h>
 
-FILE* stream;
+namespace Win33 {
 
-Win33::Console::Console( const std::wstring& title ) {
-    if( !AllocConsole( ) ) {
-        throw std::runtime_error( "Unable to allocate a console." );
+    Console::Console( const std::wstring& title ) {
+        if( !AllocConsole( ) ) {
+            throw std::runtime_error( "Unable to allocate a console." );
+        }
+
+        SetConsoleTitle( title.c_str( ) );
+
+        FILE* stream = nullptr;
+
+        //redirect inputs to console
+        freopen_s( &stream, "CONIN$",  "r", stdin  );
+        freopen_s( &stream, "CONOUT$", "w", stdout );
+        freopen_s( &stream, "CONOUT$", "w", stderr );
+
+        std::wcout.clear( );
+        std::cout.clear( );
+        std::wcerr.clear( );
+        std::cerr.clear( );
+        std::wcin.clear( );
+        std::cin.clear( );
     }
-    
-    SetConsoleTitle( title.c_str( ) );
-    
-    //redirect inputs to console
-    freopen_s( &stream, "CONIN$",  "r", stdin  );
-    freopen_s( &stream, "CONOUT$", "w", stdout );
-    freopen_s( &stream, "CONOUT$", "w", stderr );
-    
-    std::wcout.clear( );
-    std::cout.clear( );
-    std::wcerr.clear( );
-    std::cerr.clear( );
-    std::wcin.clear( );
-    std::cin.clear( );
-}
-Win33::Console::~Console( ) {
-    std::cout << "\nPress enter to quit...";
-    std::getchar( );
-    FreeConsole( );
+    Console::~Console( ) {
+        std::cout << "\nPress enter to quit...";
+        std::getchar( );
+        FreeConsole( );
+    }
+
+    void Console::flush( ) {
+        std::cin.clear   ( );
+        std::cin.ignore  ( ( std::numeric_limits<std::streamsize>::max )( ), '\n' );
+        std::wcin.clear  ( );
+        std::wcin.ignore ( ( std::numeric_limits<std::streamsize>::max )( ), L'\n' );
+    }
+    void Console::clear( ) {
+        std::system( "cls" );
+    }
+    void Console::stall( ) {
+        std::wcout << L"\nPress enter to quit...";
+        flush( );
+    }
+
+    void Console::setTitle( const std::wstring& title ) {
+        SetConsoleTitle( title.c_str( ) );
+    }
+
+    std::wstring Console::getTitle( ) {
+        static wchar_t buffer[256];
+        GetConsoleTitle( buffer, 256 );
+        return std::wstring( buffer );
+    }
+
 }

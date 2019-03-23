@@ -7,20 +7,8 @@
     <Filter Include="Win33\Application">
       <UniqueIdentifier>{9da03a3c-1a3a-4d1e-a909-a8d25bb696a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Win33\Console">
-      <UniqueIdentifier>{bfdb2ead-1994-4008-be6d-011c07546f1b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Win33\Controls">
       <UniqueIdentifier>{57ca9c44-5598-4139-8055-460f2fbadca1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Win33\Core">
-      <UniqueIdentifier>{be448d95-1094-4df5-9cb4-a8dd3230dce9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Win33\Events">
-      <UniqueIdentifier>{918e485b-a6b1-4e08-a6d6-ea5df2e8406b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Win33\Interop">
-      <UniqueIdentifier>{c01ed448-832e-4da6-b983-786126f54bb0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Win33\Menus">
       <UniqueIdentifier>{51b18a6b-41e2-47fc-9f42-e0cb4bf37b75}</UniqueIdentifier>
@@ -91,12 +79,6 @@
     <Filter Include="Win33\Controls\Text Boxes\Text Box">
       <UniqueIdentifier>{050cb4fb-fcc2-4471-ad20-830f3921cdc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Win33\Core\Common">
-      <UniqueIdentifier>{786c916d-9062-4d4a-9c67-418faa1c1fc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Win33\Core\System">
-      <UniqueIdentifier>{d04ebf9d-0553-4901-aff7-48da83941554}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Win33\Menus\Context Menu">
       <UniqueIdentifier>{dd38bae7-c30c-4520-b14a-31a5beac6668}</UniqueIdentifier>
     </Filter>
@@ -142,43 +124,40 @@
     <Filter Include="Win33\Windows\Window">
       <UniqueIdentifier>{82f8fb2b-16bb-47c6-bcb2-287a9ac291c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Win33\Graphics">
+      <UniqueIdentifier>{433c3530-d6bc-429b-adcc-69c34cf6f56c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Graphics\Pen">
+      <UniqueIdentifier>{25a5bd82-e44c-47ce-9053-4c2470c51a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Common">
+      <UniqueIdentifier>{786c916d-9062-4d4a-9c67-418faa1c1fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\Misc">
+      <UniqueIdentifier>{d04ebf9d-0553-4901-aff7-48da83941554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\Console">
+      <UniqueIdentifier>{bfdb2ead-1994-4008-be6d-011c07546f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\Debug">
+      <UniqueIdentifier>{45421f06-5eae-431f-8c39-9051e048da71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\Filesystem">
+      <UniqueIdentifier>{87f7d9e9-a7b5-4883-9061-5a96251af4d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win33\Utility\Error">
+      <UniqueIdentifier>{1d94e725-456e-4cf6-8c9d-702289884b75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
       <Filter>Win33\Application</Filter>
     </ClInclude>
     <ClInclude Include="Console.h">
-      <Filter>Win33\Console</Filter>
+      <Filter>Win33\Utility\Console</Filter>
     </ClInclude>
     <ClInclude Include="Control.h">
       <Filter>Win33\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="ButtonEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckBoxEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="LabelEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuItemEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="RadioButtonEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="TrayIconEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowEvents.h">
-      <Filter>Win33\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="Interop.h">
-      <Filter>Win33\Interop</Filter>
     </ClInclude>
     <ClInclude Include="BitfieldOperators.h">
       <Filter>Win33\Utility</Filter>
@@ -223,10 +202,7 @@
       <Filter>Win33\Controls\Text Boxes\Text Box</Filter>
     </ClInclude>
     <ClInclude Include="Common.h">
-      <Filter>Win33\Core\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Win33\Core\System</Filter>
+      <Filter>Win33\Common</Filter>
     </ClInclude>
     <ClInclude Include="ContextMenu.h">
       <Filter>Win33\Menus\Context Menu</Filter>
@@ -261,9 +237,6 @@
     <ClInclude Include="Size.h">
       <Filter>Win33\Utility\Size</Filter>
     </ClInclude>
-    <ClInclude Include="StringUtilities.h">
-      <Filter>Win33\Utility\String</Filter>
-    </ClInclude>
     <ClInclude Include="Dialog.h">
       <Filter>Win33\Windows\Dialog</Filter>
     </ClInclude>
@@ -273,19 +246,34 @@
     <ClInclude Include="Window.h">
       <Filter>Win33\Windows\Window</Filter>
     </ClInclude>
+    <ClInclude Include="Strings.h">
+      <Filter>Win33\Utility\String</Filter>
+    </ClInclude>
+    <ClInclude Include="Misc.h">
+      <Filter>Win33\Utility\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>Win33\Utility\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Filesystem.h">
+      <Filter>Win33\Utility\Filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>Win33\Utility\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Win33\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
       <Filter>Win33\Application</Filter>
     </ClCompile>
     <ClCompile Include="Console.cpp">
-      <Filter>Win33\Console</Filter>
+      <Filter>Win33\Utility\Console</Filter>
     </ClCompile>
     <ClCompile Include="Control.cpp">
       <Filter>Win33\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="Interop.cpp">
-      <Filter>Win33\Interop</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>Win33\Controls\Buttons\Button</Filter>
@@ -324,10 +312,7 @@
       <Filter>Win33\Controls\Text Boxes\Text Box</Filter>
     </ClCompile>
     <ClCompile Include="Common.cpp">
-      <Filter>Win33\Core\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="System.cpp">
-      <Filter>Win33\Core\System</Filter>
+      <Filter>Win33\Common</Filter>
     </ClCompile>
     <ClCompile Include="ContextMenu.cpp">
       <Filter>Win33\Menus\Context Menu</Filter>
@@ -362,14 +347,23 @@
     <ClCompile Include="Size.cpp">
       <Filter>Win33\Utility\Size</Filter>
     </ClCompile>
-    <ClCompile Include="StringUtilities.cpp">
-      <Filter>Win33\Utility\String</Filter>
-    </ClCompile>
     <ClCompile Include="PopupBox.cpp">
       <Filter>Win33\Windows\Popup Box</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Win33\Windows\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Strings.cpp">
+      <Filter>Win33\Utility\String</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc.cpp">
+      <Filter>Win33\Utility\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>Win33\Utility\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Error.cpp">
+      <Filter>Win33\Utility\Error</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

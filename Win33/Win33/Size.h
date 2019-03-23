@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Win33 {
-    
+
     class Size {
     public:
         Size            ( );
@@ -11,13 +11,13 @@ namespace Win33 {
         Size& operator= ( const Size&  other ) = default;
         Size& operator= (       Size&& other ) = default;
         ~Size           ( )                    = default;
-        
+
         int getWidth( )  const;
         int getHeight( ) const;
-        
+
     private:
         int mWidth;
         int mHeight;
     };
-    
-};
+
+}

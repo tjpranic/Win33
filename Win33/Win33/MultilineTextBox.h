@@ -3,7 +3,7 @@
 #include "TextBox.h"
 
 namespace Win33 {
-    
+
     class MultilineTextBox : public TextBox {
     public:
         MultilineTextBox(
@@ -20,5 +20,5 @@ namespace Win33 {
         MultilineTextBox& operator= (       MultilineTextBox&& other ) = delete;
         ~MultilineTextBox           ( )                                = default;
     };
-    
-};
+
+}

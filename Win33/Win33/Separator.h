@@ -4,7 +4,7 @@
 #include "Menu.h"
 
 namespace Win33 {
-    
+
     class Separator {
     public:
         Separator            ( ContextMenu* contextMenu );
@@ -16,5 +16,5 @@ namespace Win33 {
         Separator& operator= (       Separator&& other ) = delete;
         ~Separator           ( )                         = default;
     };
-    
-};
+ 
+}

@@ -13,7 +13,7 @@ public:
     Win33::Dialog<std::wstring>( parent, Win33::Window::DefaultPosition, { 320, 240 } )
     {
         setTitle( L"Dialog" );
-        
+
         mResult = L"Hello, world!";
     }
     Dialog            ( const Dialog&  other ) = delete;
@@ -31,11 +31,11 @@ public:
     mShowDialog   ( this, { 515, 407 }, { 100, 25 }, L"Show Dialog" )
     {
         setTitle( L"DialogWindow" );
-        
+
         mShowDialog.setAnchor( Win33::Anchor::RightBottom );
-        mShowDialog.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
+        mShowDialog.onClick += [&]( ) {
             const auto result = Dialog( this ).show( );
-            
+
             Win33::PopupBox::information( result, L"Dialog Result" );
         };
     }
@@ -44,7 +44,7 @@ public:
     DialogWindow& operator= ( const DialogWindow&  other ) = delete;
     DialogWindow& operator= (       DialogWindow&& other ) = delete;
     ~DialogWindow           ( )                            = default;
-    
+
 private:
     Win33::Button mShowDialog;
 };
@@ -63,7 +63,7 @@ public:
     DialogApplication& operator= ( const DialogApplication&  other ) = delete;
     DialogApplication& operator= (       DialogApplication&& other ) = delete;
     ~DialogApplication           ( )                                 = default;
-    
+
 private:
     DialogWindow mDialogWindow;
 };

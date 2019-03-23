@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Control.h"
-#include "CheckBoxEvents.h"
+#include "Event.h"
 
 namespace Win33 {
-    
+
     class CheckBox : public Control {
     public:
+        DECLARE_EVENT( Check, void( bool checked ), Application )
+
         CheckBox(
                   Window*       parent,
             const Point&        position,
@@ -21,14 +23,14 @@ namespace Win33 {
         CheckBox& operator= ( const CheckBox&  other ) = delete;
         CheckBox& operator= (       CheckBox&& other ) = delete;
         ~CheckBox           ( )                        = default;
-        
+
         void toggleChecked( );
-        
+
         bool getChecked( ) const;
-        
+
         void setChecked( bool checked );
-        
-        CheckBoxEvents::Check onCheck;
+
+        Check onCheck;
     };
-    
-};
+
+}

@@ -3,7 +3,7 @@
 #include "ComboBox.h"
 
 namespace Win33 {
-    
+
     class DropDown : public ComboBox {
     public:
         DropDown(
@@ -20,9 +20,9 @@ namespace Win33 {
         DropDown& operator= ( const DropDown&  other ) = delete;
         DropDown& operator= (       DropDown&& other ) = delete;
         ~DropDown           ( )                        = default;
-        
+
         void showDropDown( );
         void hideDropDown( );
     };
-    
-};
+
+}

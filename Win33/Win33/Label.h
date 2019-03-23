@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Control.h"
-#include "LabelEvents.h"
+#include "Event.h"
 
 namespace Win33 {
-    
+
     class Label : public Control {
     public:
+        DECLARE_EVENT( Click, void( ), Application )
+
         Label(
                   Window*       parent,
             const Point&        position,
@@ -21,7 +23,7 @@ namespace Win33 {
         Label& operator= (       Label&& other ) = delete;
         ~Label           ( )                     = default;
         
-        LabelEvents::Click onClick;
+        Click onClick;
     };
-    
-};
+
+}

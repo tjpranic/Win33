@@ -14,9 +14,9 @@ Common  ( type, parent, position, size, style, exStyle ),
 mAnchor ( Anchor::TopLeft )
 {
     assert( parent != nullptr );
-    parent->onResize += [&]( WindowEvents::ResizeData& data ) {
-        const auto dx = data.getSize( ).getWidth( )  - mParent->getInitialSize( ).getWidth( );
-        const auto dy = data.getSize( ).getHeight( ) - mParent->getInitialSize( ).getHeight( );
+    parent->onResize += [&]( const Size& size ) {
+        const auto dx = size.getWidth( )  - mParent->getInitialSize( ).getWidth( );
+        const auto dy = size.getHeight( ) - mParent->getInitialSize( ).getHeight( );
         switch( mAnchor ) {
             case Anchor::All: {
                 SetWindowPos( mHandle, HWND_TOP, 0, 0, mInitialSize.getWidth( ) + dx, mInitialSize.getHeight( ) + dy, SWP_NOMOVE );
@@ -58,9 +58,9 @@ mAnchor ( Anchor::TopLeft )
             }
         }
     };
-    
+
     Common::show( );
-    
+
     //Win32 defaults to a different UI font, so actually set the proper UI default
     SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( GetStockObject( DEFAULT_GUI_FONT ) ), MAKELPARAM( TRUE, 0 ) );
 }
@@ -107,5 +107,11 @@ void Win33::Control::setY( int y ) {
     Common::setY( y );
 }
 void Win33::Control::setFont( Font* font ) {
-    SendMessage( mHandle, WM_SETFONT, reinterpret_cast<WPARAM>( Win33::Interop::toHandle( font ) ), MAKELPARAM( TRUE, 0 ) );
+    ASSERT_TRUE( font != nullptr, L"font cannot be null." );
+    SendMessage(
+        mHandle,
+        WM_SETFONT,
+        reinterpret_cast<WPARAM>( static_cast<HFONT>( *font ) ),
+        MAKELPARAM( TRUE, 0 )
+    );
 }

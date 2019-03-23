@@ -1,14 +1,15 @@
 #pragma once
 
 #include "Control.h"
-#include "RadioButtonEvents.h"
 
 namespace Win33 {
-    
+
     //grouping works just like Win32, set group to true to start a new group,
     //subsequently created RadioButtons will be added to the last created group
     class RadioButton : public Control {
     public:
+        DECLARE_EVENT( Select, void( bool ), Application )
+
         RadioButton(
                   Window*       parent,
             const Point&        position,
@@ -24,12 +25,12 @@ namespace Win33 {
         RadioButton& operator= ( const RadioButton&  other ) = delete;
         RadioButton& operator= (       RadioButton&& other ) = delete;
         ~RadioButton           ( )                           = default;
-        
+
         bool getSelected( ) const;
-        
+
         void setSelected ( bool selected );
-        
-        RadioButtonEvents::Select onSelect;
+
+        Select onSelect;
     };
-    
-};
+
+}

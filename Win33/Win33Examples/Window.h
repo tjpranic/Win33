@@ -32,7 +32,7 @@ public:
     WindowApplication& operator= ( const WindowApplication&  other ) = delete;
     WindowApplication& operator= (       WindowApplication&& other ) = delete;
     ~WindowApplication           ( )                                 = default;
-    
+
 private:
     Window mWindow;
 };

@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -22,46 +14,41 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="BitfieldOperators.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="ButtonEvents.h" />
     <ClInclude Include="CheckBox.h" />
-    <ClInclude Include="CheckBoxEvents.h" />
     <ClInclude Include="ComboBox.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="ComparableFunction.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="ContextMenu.h" />
     <ClInclude Include="Control.h" />
+    <ClInclude Include="Debug.h" />
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="DropDown.h" />
+    <ClInclude Include="Error.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Filesystem.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GroupBox.h" />
     <ClInclude Include="Icon.h" />
-    <ClInclude Include="Interop.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="Label.h" />
-    <ClInclude Include="LabelEvents.h" />
     <ClInclude Include="ListBox.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuBar.h" />
     <ClInclude Include="MenuItem.h" />
-    <ClInclude Include="MenuItemEvents.h" />
     <ClInclude Include="MultilineTextBox.h" />
     <ClInclude Include="MultiSelectListBox.h" />
     <ClInclude Include="PasswordBox.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PopupBox.h" />
     <ClInclude Include="RadioButton.h" />
-    <ClInclude Include="RadioButtonEvents.h" />
     <ClInclude Include="Separator.h" />
     <ClInclude Include="Size.h" />
-    <ClInclude Include="System.h" />
+    <ClInclude Include="Misc.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="TrayIcon.h" />
-    <ClInclude Include="TrayIconEvents.h" />
-    <ClInclude Include="StringUtilities.h" />
+    <ClInclude Include="Strings.h" />
     <ClInclude Include="Window.h" />
-    <ClInclude Include="WindowEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -72,11 +59,12 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ContextMenu.cpp" />
     <ClCompile Include="Control.cpp" />
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DropDown.cpp" />
+    <ClCompile Include="Error.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GroupBox.cpp" />
     <ClCompile Include="Icon.cpp" />
-    <ClCompile Include="Interop.cpp" />
     <ClCompile Include="Keys.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="ListBox.cpp" />
@@ -91,42 +79,29 @@
     <ClCompile Include="RadioButton.cpp" />
     <ClCompile Include="Separator.cpp" />
     <ClCompile Include="Size.cpp" />
-    <ClCompile Include="System.cpp" />
+    <ClCompile Include="Misc.cpp" />
     <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TrayIcon.cpp" />
-    <ClCompile Include="StringUtilities.cpp" />
+    <ClCompile Include="Strings.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{51187E9C-D877-40BA-9ECD-1E0DB218A8F1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Win33</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -134,12 +109,6 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -156,44 +125,17 @@
     <OutDir>$(SolutionDir)Win33\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Win33\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;NOMINMAX;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -204,7 +146,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;NOMINMAX;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -3,7 +3,7 @@
 #include "Control.h"
 
 namespace Win33 {
-    
+
     class TextBox : public Control {
     public:
         TextBox(
@@ -19,11 +19,11 @@ namespace Win33 {
         TextBox& operator= ( const TextBox&  other ) = delete;
         TextBox& operator= (       TextBox&& other ) = delete;
         virtual ~TextBox   ( )                       = default;
-        
+
         bool getReadOnly( ) const;
-        
+
         void setReadOnly (       bool          readOnly );
         void setText     ( const std::wstring& text     );
     };
-    
-};
+
+}

@@ -17,22 +17,22 @@ public:
     mQuit         ( this, { 515, 407 }, { 100, 25 }, L"Quit" )
     {
         setTitle( L"TrayIconWindow" );
-        
-        mTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::LeftClickData& data ) {
+
+        mTrayIcon.onLeftClick += [&]( const Win33::Point& position ) {
             toggleVisibility( );
         };
-        
+
         mQuit.setAnchor( Win33::Anchor::RightBottom );
-        mQuit.onClick += [&]( Win33::ButtonEvents::ClickData& data ) {
+        mQuit.onClick += [&]( ) {
             mAllowExit = true;
             close( );
         };
-        
-        onClose += [&]( Win33::WindowEvents::CloseData& data ) {
-            data.setCancelled( !mAllowExit );
+
+        onClose += [&]( bool& cancelled ) {
+            cancelled = !mAllowExit;
             toggleVisibility( );
         };
-        
+
         mTrayIcon.setTooltip( L"I'm a tray icon" );
     }
     TrayIconWindow            ( const TrayIconWindow&  other ) = delete;
@@ -40,10 +40,10 @@ public:
     TrayIconWindow& operator= ( const TrayIconWindow&  other ) = delete;
     TrayIconWindow& operator= (       TrayIconWindow&& other ) = delete;
     ~TrayIconWindow           ( )                              = default;
-    
+
 private:
     bool mAllowExit;
-    
+
     Win33::TrayIcon mTrayIcon;
     Win33::Button   mQuit;
 };
@@ -62,7 +62,7 @@ public:
     TrayIconApplication& operator= ( const TrayIconApplication&  other ) = delete;
     TrayIconApplication& operator= (       TrayIconApplication&& other ) = delete;
     ~TrayIconApplication           ( )                                   = default;
-    
+
 private:
     TrayIconWindow  mTrayIconWindow;
 };

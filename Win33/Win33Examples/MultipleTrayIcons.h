@@ -14,11 +14,11 @@ public:
     mFirstTrayIcon ( this, Icons::getTestIcon1( ), L"FirstTrayIcon" )
     {
         setTitle( L"FirstWindow" );
-        
-        mFirstTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::LeftClickData& data ) {
+
+        mFirstTrayIcon.onLeftClick += [&]( const Win33::Point& point ) {
             toggleVisibility( );
         };
-        
+
         mFirstTrayIcon.setTooltip( L"Hello" );
     }
     FirstTrayIconWindow            ( const FirstTrayIconWindow&  other ) = delete;
@@ -26,7 +26,7 @@ public:
     FirstTrayIconWindow& operator= ( const FirstTrayIconWindow&  other ) = delete;
     FirstTrayIconWindow& operator= (       FirstTrayIconWindow&& other ) = delete;
     ~FirstTrayIconWindow           ( )                                   = default;
-    
+
 private:
     Win33::TrayIcon mFirstTrayIcon;
 };
@@ -39,8 +39,8 @@ public:
     mSecondTrayIcon ( this, Icons::getTestIcon2( ), L"SecondTrayIcon" )
     {
         setTitle( L"SecondWindow" );
-        
-        mSecondTrayIcon.onLeftClick += [&]( Win33::TrayIconEvents::LeftClickData& data ) {
+
+        mSecondTrayIcon.onLeftClick += [&]( const Win33::Point& position ) {
             toggleVisibility( );
         };
     }
@@ -70,7 +70,7 @@ public:
     MultipleTrayIconsApplication& operator= ( const MultipleTrayIconsApplication&  other ) = delete;
     MultipleTrayIconsApplication& operator= (       MultipleTrayIconsApplication&& other ) = delete;
     ~MultipleTrayIconsApplication           ( )                                            = default;
-    
+
 private:
     FirstTrayIconWindow  mFirstWindow;
     SecondTrayIconWindow mSecondWindow;

@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Control.h"
-#include "ButtonEvents.h"
+#include "Event.h"
 
 namespace Win33 {
-    
+
     class Button : public Control {
     public:
+        DECLARE_EVENT( Click, void( ), Application )
+
         Button(
                   Window*       parent,
             const Point&        position,
@@ -20,8 +22,8 @@ namespace Win33 {
         Button& operator= ( const Button&  other ) = delete;
         Button& operator= (       Button&& other ) = delete;
         ~Button           ( )                      = default;
-        
-        ButtonEvents::Click onClick;
+
+        Click onClick;
     };
-    
-};
+
+}

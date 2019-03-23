@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include <cassert>
 
 #include <Windows.h>
 
@@ -10,7 +9,7 @@
 #include "Size.h"
 
 namespace Win33 {
-    
+
     enum class WindowStyle : DWORD {
         None             = 0,
         Border           = WS_BORDER,
@@ -190,7 +189,7 @@ namespace Win33 {
         UseTabStops       = LBS_USETABSTOPS,
         WantKeyboardInput = LBS_WANTKEYBOARDINPUT
     };
-    
+
     class Common {
     friend class Application;
     public:
@@ -200,10 +199,10 @@ namespace Win33 {
         Common& operator= ( const Common&  other ) = delete;
         Common& operator= (       Common&& other ) = delete;
         virtual ~Common   ( )                      = default;
-        
+
         void show( );
         void hide( );
-        
+
         Point getInitialPosition( ) const;
         Size  getInitialSize( )     const;
         Size  getMinimumSize( )     const;
@@ -216,7 +215,7 @@ namespace Win33 {
         int   getHeight( )          const;
         Size  getSize( )            const;
         bool  getVisible( )         const;
-        
+
         void setMinimumSize ( const Size&  minimumSize );
         void setMaximumSize ( const Size&  maximumSize );
         void setEnabled     (       bool   enabled     );
@@ -227,7 +226,9 @@ namespace Win33 {
         void setHeight      (       int    height      );
         void setSize        ( const Size&  size        );
         void setVisible     (       bool   visible     );
-        
+
+        operator HWND( ) const;
+
     protected:
         enum class Type : int {
             Window,
@@ -244,33 +245,33 @@ namespace Win33 {
             ListBox,
             MultiSelectListBox
         };
-        
-        Common::Type getTypeFromStyle( WindowStyle   style ) const;
-        Common::Type getTypeFromStyle( ExWindowStyle style ) const;
-        Common::Type getTypeFromStyle( ButtonStyle   style ) const;
-        Common::Type getTypeFromStyle( EditStyle     style ) const;
-        Common::Type getTypeFromStyle( StaticStyle   style ) const;
-        Common::Type getTypeFromStyle( ComboBoxStyle style ) const;
-        Common::Type getTypeFromStyle( ListBoxStyle  style ) const;
-        
+
+        Type getTypeFromStyle( WindowStyle   style ) const;
+        Type getTypeFromStyle( ExWindowStyle style ) const;
+        Type getTypeFromStyle( ButtonStyle   style ) const;
+        Type getTypeFromStyle( EditStyle     style ) const;
+        Type getTypeFromStyle( StaticStyle   style ) const;
+        Type getTypeFromStyle( ComboBoxStyle style ) const;
+        Type getTypeFromStyle( ListBoxStyle  style ) const;
+
         Common(
-                  Common::Type  type,
+                  Type          type,
                   Common*       parent,
             const Point&        position,
             const Size&         size,
                   WindowStyle   style   = WindowStyle::OverlappedWindow,
                   ExWindowStyle exStyle = ExWindowStyle::None
         );
-        
-        HWND         mHandle;
-        Common::Type mType;
-        Common*      mParent;
-        Point        mInitialPosition;
-        Size         mInitialSize;
-        Size         mMinimumSize;
-        Size         mMaximumSize;
-        Point        mPosition;
-        Size         mSize;
+
+        HWND    mHandle;
+        Type    mType;
+        Common* mParent;
+        Point   mInitialPosition;
+        Size    mInitialSize;
+        Size    mMinimumSize;
+        Size    mMaximumSize;
+        Point   mPosition;
+        Size    mSize;
     };
-    
-};
+
+}

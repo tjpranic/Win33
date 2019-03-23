@@ -3,7 +3,7 @@
 #include "Window.h"
 
 namespace Win33 {
-    
+
     template<class T>
     class Dialog : public Window {
     public:
@@ -13,7 +13,7 @@ namespace Win33 {
         Dialog& operator= ( const Dialog&  other ) = delete;
         Dialog& operator= (       Dialog&& other ) = delete;
         virtual ~Dialog   ( )                      = default;
-        
+
         T show( ) {
             mParent->setEnabled( false );
             Window::show( );
@@ -29,7 +29,7 @@ namespace Win33 {
             }
             return mResult;
         }
-        
+
     protected:
         Dialog(
                   Window*       parent,
@@ -41,12 +41,12 @@ namespace Win33 {
         Window  ( parent, position, size, style, exStyle ),
         mResult ( )
         {
-            onClose += [&]( WindowEvents::CloseData& data ) {
+            onClose += [&]( bool& cancelled ) {
                 mParent->setEnabled( true );
             };
         }
-        
+
         T mResult;
     };
-    
-};
+
+}

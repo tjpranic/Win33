@@ -3,7 +3,7 @@
 #include <string>
 
 namespace Win33 {
-    
+
     class Console {
     public:
         Console            ( const std::wstring& title = L"Console" );
@@ -11,7 +11,15 @@ namespace Win33 {
         Console            (       Console&& other ) = delete;
         Console& operator= ( const Console&  other ) = delete;
         Console& operator= (       Console&& other ) = delete;
-         ~Console          ( );
+        ~Console           ( );
+
+        void flush( );
+        void clear( );
+        void stall( );
+
+        void setTitle( const std::wstring& title );
+
+        std::wstring getTitle( );
     };
-    
-};
+
+}

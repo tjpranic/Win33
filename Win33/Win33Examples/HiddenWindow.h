@@ -30,7 +30,7 @@ public:
     HiddenWindowApplication& operator= ( const HiddenWindowApplication&  other ) = delete;
     HiddenWindowApplication& operator= (       HiddenWindowApplication&& other ) = delete;
     ~HiddenWindowApplication           ( )                                       = default;
-    
+
 private:
     HiddenWindow mHiddenWindow;
 };

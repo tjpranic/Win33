@@ -1,16 +1,27 @@
 #include "ContextMenu.h"
 
-Win33::ContextMenu::ContextMenu( Window* window )
-:
-mHandle ( CreatePopupMenu( ) ),
-mWindow ( window )
-{
-    assert( window != nullptr );
-    if( !mHandle ) {
-        throw std::runtime_error( "Unable to create context menu." );
-    }
-}
+#include "Error.h"
 
-void Win33::ContextMenu::show( const Point& position ) {
-    TrackPopupMenuEx( mHandle, TPM_TOPALIGN | TPM_LEFTALIGN, position.getX( ), position.getY( ), Interop::toHandle( mWindow ), nullptr );
+namespace Win33 {
+
+    ContextMenu::ContextMenu( Window* window )
+    :
+    mHandle ( CreatePopupMenu( ) ),
+    mWindow ( window )
+    {
+        ASSERT_TRUE( window != nullptr, L"window cannot be null." );
+        if( !mHandle ) {
+            throw EXCEPTION( L"Unable to create context menu." );
+        }
+    }
+
+    void ContextMenu::show( const Point& position ) {
+        ASSERT_TRUE( mWindow != nullptr, L"mWindow cannot be null."  );
+        TrackPopupMenuEx( mHandle, TPM_TOPALIGN | TPM_LEFTALIGN, position.getX( ), position.getY( ), *mWindow, nullptr );
+    }
+
+    ContextMenu::operator HMENU( ) const {
+        return mHandle;
+    }
+
 }

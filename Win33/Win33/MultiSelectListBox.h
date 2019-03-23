@@ -3,7 +3,7 @@
 #include "ListBox.h"
 
 namespace Win33 {
-    
+
     class MultiSelectListBox : public ListBox {
     public:
         MultiSelectListBox(
@@ -19,15 +19,15 @@ namespace Win33 {
         MultiSelectListBox& operator= ( const MultiSelectListBox&  other ) = delete;
         MultiSelectListBox& operator= (       MultiSelectListBox&& other ) = delete;
         ~MultiSelectListBox           ( )                                  = default;
-        
+
         void setSelection   ( const std::vector<int>& selections );
         void unsetSelection ( const std::vector<int>& selections );
         void clearSelection ( );
         void selectAll      ( );
-        
+
         int                       getSelectedOptionCount( ) const;
         std::vector<int>          getSelection( )           const;
         std::vector<std::wstring> getText( )                const;
     };
-    
-};
+
+}
