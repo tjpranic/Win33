@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Common.h"
 #include "Window.h"
 #include "Font.h"
 
@@ -18,7 +17,7 @@ namespace Win33 {
         RightBottom
     };
 
-    class Control : public Common {
+    class Control : protected Window {
     public:
         Control            ( )                       = delete;
         Control            ( const Control&  other ) = delete;
@@ -40,7 +39,7 @@ namespace Win33 {
 
     protected:
         Control(
-                  Common::Type  type,
+                  Type          type,
                   Window*       parent,
             const Point&        position,
             const Size&         size,

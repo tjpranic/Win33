@@ -11,8 +11,7 @@
 #include <Win33/PopupBox.h>
 #include <Win33/Strings.h>
 
-//TODO add common controls
-//TODO improve this vvvvvvvvvvv
+//TODO: improve this
 int CALLBACK WinMain( HINSTANCE instance, HINSTANCE previousInstance, PSTR commandLine, int showCommand ) {
     try {
         //return MultipleWindowsApplication( ).run( );

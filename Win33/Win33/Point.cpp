@@ -1,19 +1,23 @@
 #include "Point.h"
 
-Win33::Point::Point( )
-:
-mX( 0 ),
-mY( 0 )
-{ }
-Win33::Point::Point( int x, int y )
-:
-mX( x ),
-mY( y )
-{ }
+namespace Win33 {
 
-int Win33::Point::getX( ) const {
-    return mX;
-}
-int Win33::Point::getY( ) const {
-    return mY;
+    Point::Point( )
+    :
+    mX( 0 ),
+    mY( 0 )
+    { }
+    Point::Point( int x, int y )
+    :
+    mX( x ),
+    mY( y )
+    { }
+
+    int Point::getX( ) const {
+        return mX;
+    }
+    int Point::getY( ) const {
+        return mY;
+    }
+
 }

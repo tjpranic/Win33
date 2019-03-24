@@ -2,117 +2,342 @@
 
 #include "Application.h"
 #include "Error.h"
+#include "Misc.h"
 
-const Win33::Point Win33::Window::DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
-const Win33::Size  Win33::Window::DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
+namespace Win33 {
 
-Win33::Window::Window(
-    const Point&        position,
-    const Size&         size,
-          WindowStyle   style,
-          ExWindowStyle exStyle
-):
-Common( Common::Type::Window, nullptr, position, size, style, exStyle )
-{ }
-Win33::Window::Window(
-          Window*       parent,
-    const Point&        position,
-    const Size&         size,
-          WindowStyle   style,
-          ExWindowStyle exStyle
-):
-Common( Common::Type::Window, parent, position, size, style, exStyle )
-{
-    ASSERT_TRUE( mParent != nullptr, L"mParent cannot be null." );
-}
+    const Point Window::DefaultPosition = { CW_USEDEFAULT, CW_USEDEFAULT };
+    const Size  Window::DefaultSize     = { CW_USEDEFAULT, CW_USEDEFAULT };
 
-void Win33::Window::close( ) {
-    SendMessage( mHandle, WM_CLOSE, 0, 0 );
-}
-void Win33::Window::minimize( ) {
-    CloseWindow( mHandle );
-}
-void Win33::Window::maximize( ) {
-    ShowWindow( mHandle, SW_MAXIMIZE );
-}
-void Win33::Window::restore( ) {
-    ShowWindow( mHandle, SW_RESTORE );
-}
-void Win33::Window::toggleVisibility( ) {
-    if( getVisible( ) ) {
-        hide( );
-    }
-    else {
-        show( );
-    }
-}
+    Window::Window(
+        const Point&        position,
+        const Size&         size,
+              WindowStyle   style,
+              ExWindowStyle exStyle,
+              Type          type
+    ):
+    Window( nullptr, position, size, style, exStyle, type )
+    { }
+    Window::Window(
+              Window*       parent,
+        const Point&        position,
+        const Size&         size,
+              WindowStyle   style,
+              ExWindowStyle exStyle,
+              Type          type
+    ):
+    mHandle          ( nullptr ),
+    mType            ( type ),
+    mParent          ( parent ),
+    mInitialPosition ( position ),
+    mInitialSize     ( size ),
+    mMinimumSize     ( { 0, 0 } ),
+    mMaximumSize     ( Monitor::getSize( ) ),
+    mPosition        ( position ),
+    mSize            ( size )
+    {
+        auto identifier = L"";
+        switch( mType ) {
+            case Type::Button:
+            case Type::CheckBox:
+            case Type::RadioButton:
+            case Type::GroupBox: {
+                identifier = L"BUTTON";
+                break;
+            }
+            case Type::TextBox:
+            case Type::PasswordBox:
+            case Type::MultilineTextBox: {
+                identifier = L"EDIT";
+                break;
+            }
+            case Type::Window: {
+                identifier = L"WINDOW";
+                break;
+            }
+            case Type::Label: {
+                identifier = L"STATIC";
+                break;
+            }
+            case Type::ComboBox:
+            case Type::DropDown: {
+                identifier = L"COMBOBOX";
+                break;
+            }
+            case Type::ListBox:
+            case Type::MultiSelectListBox: {
+                identifier = L"LISTBOX";
+                break;
+            }
+            default: {
+                throw EXCEPTION( "Unknown type." );
+            }
+        }
 
-std::wstring Win33::Window::getTitle( ) const {
-    static wchar_t text[256];
-    GetWindowText( mHandle, text, 256 );
-    return std::wstring( text );
-}
-bool Win33::Window::getResizable( ) const {
-    return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_THICKFRAME ) == WS_THICKFRAME;
-}
-bool Win33::Window::getMaximizable( ) const {
-    return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_MAXIMIZEBOX ) == WS_MAXIMIZEBOX;
-}
-bool Win33::Window::getMinimizable( ) const {
-    return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_MINIMIZEBOX ) == WS_MINIMIZEBOX;
-}
-bool Win33::Window::getMinimized( ) const {
-    auto wp = WINDOWPLACEMENT { };
-    GetWindowPlacement( mHandle, &wp );
-    return wp.showCmd == SW_SHOWMINIMIZED;
-}
-bool Win33::Window::getMaximized( ) const {
-    auto wp = WINDOWPLACEMENT { };
-    GetWindowPlacement( mHandle, &wp );
-    return wp.showCmd == SW_SHOWMAXIMIZED;
-}
+        mHandle = CreateWindowEx(
+            static_cast<DWORD>( exStyle ),
+            identifier,
+            L"",
+            static_cast<DWORD>( style ),
+            position.getX( ),
+            position.getY( ),
+            size.getWidth( ),
+            size.getHeight( ),
+            parent ? parent->mHandle : nullptr,
+            nullptr,
+            GetModuleHandle( nullptr ),
+            nullptr
+        );
 
-void Win33::Window::setTitle( const std::wstring& title ) {
-    SetWindowText( mHandle, title.c_str( ) );
-}
-void Win33::Window::setResizable( bool resizable ) {
-    if( !resizable ) {
-        SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_THICKFRAME );
+        if( !mHandle ) {
+            throw EXCEPTION( L"Unable to create window." );
+        }
+
+        Application::get( ).mWindows[mHandle] = this;
     }
-    else {
-        SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_THICKFRAME );
+
+    void Window::show( ) {
+        ShowWindow( mHandle, SW_SHOW );
     }
-}
-void Win33::Window::setIcon( const std::wstring& icon ) {
-    ASSERT_TRUE( icon != L"", L"icon cannot be null" );
-    const auto handle = static_cast<HICON>(
-        LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
-    );
-    SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( handle ) );
-}
-void Win33::Window::setMaximizable( bool maximizable ) {
-    if( !maximizable ) {
-        SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_MAXIMIZEBOX );
+    void Window::hide( ) {
+        ShowWindow( mHandle, SW_HIDE );
     }
-    else {
-        SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_MAXIMIZEBOX );
+    void Window::close( ) {
+        SendMessage( mHandle, WM_CLOSE, 0, 0 );
     }
-}
-void Win33::Window::setMinimizable( bool minimizable ) {
-    if( !minimizable ) {
-        SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_MINIMIZEBOX );
+    void Window::minimize( ) {
+        CloseWindow( mHandle );
     }
-    else {
-        SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_MINIMIZEBOX );
+    void Window::maximize( ) {
+        ShowWindow( mHandle, SW_MAXIMIZE );
     }
-}
-void Win33::Window::setMinimzed( bool minimized ) {
-    if( !getMinimized( ) ) {
-        minimize( );
+    void Window::restore( ) {
+        ShowWindow( mHandle, SW_RESTORE );
     }
-}
-void Win33::Window::setMaximized( bool maximized ) {
-    if( !getMaximized( ) ) {
-        maximize( );
+    void Window::toggleVisibility( ) {
+        if( getVisible( ) ) {
+            hide( );
+        }
+        else {
+            show( );
+        }
     }
+
+    Point Window::getInitialPosition( ) const {
+        return mInitialPosition;
+    }
+    Size Window::getInitialSize( ) const {
+        return mInitialSize;
+    }
+    Size Window::getMinimumSize( ) const {
+        return mMinimumSize;
+    }
+    Size Window::getMaximumSize( ) const {
+        return mMaximumSize;
+    }
+    bool Window::getEnabled( ) const {
+        return IsWindowEnabled( mHandle ) != 0;
+    }
+    int Window::getX( ) const {
+        RECT cr = { };
+        GetClientRect( mHandle, &cr );
+        MapWindowPoints( mHandle, HWND_DESKTOP, reinterpret_cast<LPPOINT>( &cr ), 2 );
+        RECT wr = { };
+        GetWindowRect( mHandle, &wr );
+        POINT p = { wr.left, wr.top };
+        ScreenToClient( mHandle, &p );
+        return cr.left + p.x;
+    }
+    int Window::getY( ) const {
+        RECT cr = { };
+        GetClientRect( mHandle, &cr );
+        MapWindowPoints( mHandle, HWND_DESKTOP, reinterpret_cast<LPPOINT>( &cr ), 2 );
+        RECT wr = { };
+        GetWindowRect( mHandle, &wr );
+        POINT p = { wr.left, wr.top };
+        ScreenToClient( mHandle, &p );
+        return cr.top + p.y;
+    }
+    Point Window::getPosition( ) const {
+        return { getX( ), getY( ) };
+    }
+    int Window::getWidth( ) const {
+        RECT wr = { };
+        GetWindowRect( mHandle, &wr );
+        return wr.right - wr.left;
+    }
+    int Window::getHeight( ) const {
+        RECT wr = { };
+        GetWindowRect( mHandle, &wr );
+        return wr.bottom - wr.top;
+    }
+    Size Window::getSize( ) const {
+        return { getWidth( ), getHeight( ) };
+    }
+    bool Window::getVisible( ) const {
+        return IsWindowVisible( mHandle ) != 0;
+    }
+    std::wstring Window::getTitle( ) const {
+        static wchar_t text[256];
+        GetWindowText( mHandle, text, 256 );
+        return std::wstring( text );
+    }
+    bool Window::getResizable( ) const {
+        return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_THICKFRAME ) == WS_THICKFRAME;
+    }
+    bool Window::getMaximizable( ) const {
+        return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_MAXIMIZEBOX ) == WS_MAXIMIZEBOX;
+    }
+    bool Window::getMinimizable( ) const {
+        return ( GetWindowLong( mHandle, GWL_STYLE ) & WS_MINIMIZEBOX ) == WS_MINIMIZEBOX;
+    }
+    bool Window::getMinimized( ) const {
+        auto wp = WINDOWPLACEMENT { };
+        GetWindowPlacement( mHandle, &wp );
+        return wp.showCmd == SW_SHOWMINIMIZED;
+    }
+    bool Window::getMaximized( ) const {
+        auto wp = WINDOWPLACEMENT { };
+        GetWindowPlacement( mHandle, &wp );
+        return wp.showCmd == SW_SHOWMAXIMIZED;
+    }
+
+    void Window::setMinimumSize( const Size& size ) {
+        mMinimumSize = size;
+    }
+    void Window::setMaximumSize( const Size& size ) {
+        mMaximumSize = size;
+    }
+    void Window::setEnabled( bool enabled ) {
+        EnableWindow( mHandle, enabled );
+    }
+    void Window::setX( int x ) {
+        SetWindowPos( mHandle, HWND_TOP, x, getY( ), 0, 0, SWP_NOSIZE );
+    }
+    void Window::setY( int y ) {
+        SetWindowPos( mHandle, HWND_TOP, getX( ), y, 0, 0, SWP_NOSIZE );
+    }
+    void Window::setPosition( const Point& position ) {
+        SetWindowPos( mHandle, HWND_TOP, position.getX( ), position.getY( ), 0, 0, SWP_NOSIZE );
+    }
+    void Window::setWidth( int width ) {
+        SetWindowPos( mHandle, HWND_TOP, 0, 0, width, getHeight( ), SWP_NOMOVE );
+    }
+    void Window::setHeight( int height ) {
+        SetWindowPos( mHandle, HWND_TOP, 0, 0, getWidth( ), height, SWP_NOMOVE );
+    }
+    void Window::setSize( const Size& size ) {
+        SetWindowPos( mHandle, HWND_TOP, 0, 0, size.getWidth( ), size.getHeight( ), SWP_NOMOVE );
+    }
+    void Window::setVisible( bool visible ) {
+        ShowWindow( mHandle, visible ? SW_SHOW : SW_HIDE );
+    }
+    void Window::setTitle( const std::wstring& title ) {
+        SetWindowText( mHandle, title.c_str( ) );
+    }
+    void Window::setResizable( bool resizable ) {
+        if( !resizable ) {
+            SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_THICKFRAME );
+        }
+        else {
+            SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_THICKFRAME );
+        }
+    }
+    void Window::setIcon( const std::wstring& icon ) {
+        ASSERT_TRUE( icon != L"", L"icon cannot be null" );
+        const auto handle = static_cast<HICON>(
+            LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
+        );
+        SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( handle ) );
+    }
+    void Window::setMaximizable( bool maximizable ) {
+        if( !maximizable ) {
+            SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_MAXIMIZEBOX );
+        }
+        else {
+            SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_MAXIMIZEBOX );
+        }
+    }
+    void Window::setMinimizable( bool minimizable ) {
+        if( !minimizable ) {
+            SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) & ~WS_MINIMIZEBOX );
+        }
+        else {
+            SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_MINIMIZEBOX );
+        }
+    }
+    void Window::setMinimzed( bool minimized ) {
+        if( !getMinimized( ) ) {
+            minimize( );
+        }
+    }
+    void Window::setMaximized( bool maximized ) {
+        if( !getMaximized( ) ) {
+            maximize( );
+        }
+    }
+
+    LRESULT CALLBACK Window::windowProcessor( HWND handle, UINT message, WPARAM wordParameter, LPARAM longParameter ) {
+        switch( message ) {
+            case WM_PAINT: {
+                DrawMenuBar( handle );
+                break;
+            }
+            case WM_SIZE: {
+                onResize.trigger( getSize( ) );
+                break;
+            }
+            case WM_MOVE: {
+                onMove.trigger( getPosition( ) );
+                break;
+            }
+            case WM_GETMINMAXINFO: {
+                auto* mmi = reinterpret_cast<MINMAXINFO*>( longParameter );
+                mmi->ptMinTrackSize.x = getMinimumSize( ).getWidth( );
+                mmi->ptMinTrackSize.y = getMinimumSize( ).getHeight( );
+                mmi->ptMaxTrackSize.x = getMaximumSize( ).getWidth( );
+                mmi->ptMaxTrackSize.y = getMaximumSize( ).getHeight( );
+                break;
+            }
+            case WM_LBUTTONUP: {
+                onLeftClick.trigger( Cursor::getPosition( ) );
+                break;
+            }
+            case WM_RBUTTONUP: {
+                onRightClick.trigger( Cursor::getPosition( ) );
+                break;
+            }
+            case WM_SYSKEYDOWN:
+            case WM_KEYDOWN: {
+                onKeyDown.trigger( Keys::virtualKeyCodeToKey( static_cast<VirtualKeyCode>( wordParameter ) ) );
+                break;
+            }
+            case WM_SYSKEYUP:
+            case WM_KEYUP: {
+                onKeyUp.trigger( Keys::virtualKeyCodeToKey( static_cast<VirtualKeyCode>( wordParameter ) ) );
+                break;
+            }
+            case WM_CLOSE: {
+                const auto cancelled = false;
+                onClose.trigger( cancelled );
+                if( cancelled ) {
+                    return true;
+                }
+                break;
+            }
+            case WM_DESTROY: {
+                onDestroy.trigger( );
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        return DefWindowProc( handle, message, wordParameter, longParameter );
+    }
+
+    Window::operator HWND( ) const {
+        return mHandle;
+    }
+
 }

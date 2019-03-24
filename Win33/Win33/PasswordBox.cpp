@@ -2,27 +2,31 @@
 
 #include "BitfieldOperators.h"
 
-Win33::PasswordBox::PasswordBox(
-          Window*   parent,
-    const Point&    position,
-    const Size&     size,
-          EditStyle style
-):
-TextBox(
-    parent,
-    position,
-    size,
-    L"",
-    EditStyle::Password | style
-)
-{ }
+namespace Win33 {
 
-wchar_t Win33::PasswordBox::getPasswordCharacter( ) const {
-    return static_cast<wchar_t>( SendMessage( mHandle, EM_GETPASSWORDCHAR, 0, 0 ) );
-}
+    PasswordBox::PasswordBox(
+              Window*   parent,
+        const Point&    position,
+        const Size&     size,
+              EditStyle style
+    ):
+    TextBox(
+        parent,
+        position,
+        size,
+        L"",
+        EditStyle::Password | style
+    )
+    { }
 
-void Win33::PasswordBox::setPasswordCharacter( wchar_t character ) {
-    if( character != L'\0' || character != L' ' ) {
-        SendMessage( mHandle, EM_SETPASSWORDCHAR, character, 0 );
+    wchar_t PasswordBox::getPasswordCharacter( ) const {
+        return static_cast<wchar_t>( SendMessage( mHandle, EM_GETPASSWORDCHAR, 0, 0 ) );
     }
+
+    void PasswordBox::setPasswordCharacter( wchar_t character ) {
+        if( character != L'\0' || character != L' ' ) {
+            SendMessage( mHandle, EM_SETPASSWORDCHAR, character, 0 );
+        }
+    }
+
 }

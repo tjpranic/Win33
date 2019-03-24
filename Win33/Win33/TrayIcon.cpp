@@ -36,11 +36,11 @@ namespace Win33 {
 
         Shell_NotifyIcon( NIM_ADD, &mNID );
 
-        Application::mTrayIcons[mNID.uID] = this;
+        Application::get( ).mTrayIcons[mNID.uID] = this;
 
         window->onDestroy += [&]( ) {
             Shell_NotifyIcon( NIM_DELETE, &mNID );
-            Application::mTrayIcons.erase( mNID.uID );
+            Application::get( ).mTrayIcons.erase( mNID.uID );
         };
     }
 

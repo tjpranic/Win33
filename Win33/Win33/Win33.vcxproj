@@ -16,7 +16,6 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="CheckBox.h" />
     <ClInclude Include="ComboBox.h" />
-    <ClInclude Include="Common.h" />
     <ClInclude Include="ComparableFunction.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="ContextMenu.h" />
@@ -55,7 +54,6 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="ComboBox.cpp" />
-    <ClCompile Include="Common.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="ContextMenu.cpp" />
     <ClCompile Include="Control.cpp" />

@@ -6,8 +6,9 @@
 
 namespace Win33 {
 
+    //TODO: add common controls
     class Application {
-    friend class Common;
+    friend class Window;
     friend class MenuItem;
     friend class TrayIcon;
     public:
@@ -17,6 +18,8 @@ namespace Win33 {
         Application& operator= (       Application&& other ) = delete;
         ~Application           ( )                           = default;
 
+        static Application& get( );
+
         int run( );
 
     protected:
@@ -25,11 +28,12 @@ namespace Win33 {
     private:
         static LRESULT CALLBACK windowProcessor( HWND windowHandle, UINT message, WPARAM wordParameter, LPARAM longParameter );
 
-        static Application*                        mInstance;
-        static HWND                                mCurrentWindow;
-        static std::unordered_map<HWND, Common*>   mCommons;
-        static std::unordered_map<int,  MenuItem*> mMenuItems;
-        static std::unordered_map<int,  TrayIcon*> mTrayIcons;
+        static Application* mInstance;
+
+        HWND                                mCurrentWindow;
+        std::unordered_map<HWND, Window*>   mWindows;
+        std::unordered_map<int,  MenuItem*> mMenuItems;
+        std::unordered_map<int,  TrayIcon*> mTrayIcons;
     };
 
 }

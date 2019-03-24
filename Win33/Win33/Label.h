@@ -7,7 +7,7 @@ namespace Win33 {
 
     class Label : public Control {
     public:
-        DECLARE_EVENT( Click, void( ), Application )
+        DECLARE_EVENT( Click, void( ), Label )
 
         Label(
                   Window*       parent,
@@ -22,7 +22,9 @@ namespace Win33 {
         Label& operator= ( const Label&  other ) = delete;
         Label& operator= (       Label&& other ) = delete;
         ~Label           ( )                     = default;
-        
+
+        virtual LRESULT CALLBACK windowProcessor( HWND handle, UINT message, WPARAM wordParameter, LPARAM longParameter );
+
         Click onClick;
     };
 

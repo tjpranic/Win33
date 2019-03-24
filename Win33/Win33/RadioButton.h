@@ -8,8 +8,6 @@ namespace Win33 {
     //subsequently created RadioButtons will be added to the last created group
     class RadioButton : public Control {
     public:
-        DECLARE_EVENT( Select, void( bool ), Application )
-
         RadioButton(
                   Window*       parent,
             const Point&        position,
@@ -29,8 +27,6 @@ namespace Win33 {
         bool getSelected( ) const;
 
         void setSelected ( bool selected );
-
-        Select onSelect;
     };
 
 }

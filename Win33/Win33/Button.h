@@ -7,7 +7,7 @@ namespace Win33 {
 
     class Button : public Control {
     public:
-        DECLARE_EVENT( Click, void( ), Application )
+        DECLARE_EVENT( Click, void( ), Button )
 
         Button(
                   Window*       parent,
@@ -22,6 +22,8 @@ namespace Win33 {
         Button& operator= ( const Button&  other ) = delete;
         Button& operator= (       Button&& other ) = delete;
         ~Button           ( )                      = default;
+
+        virtual LRESULT CALLBACK windowProcessor( HWND handle, UINT message, WPARAM wordParameter, LPARAM longParameter );
 
         Click onClick;
     };

@@ -7,7 +7,7 @@ namespace Win33 {
 
     class CheckBox : public Control {
     public:
-        DECLARE_EVENT( Check, void( bool checked ), Application )
+        DECLARE_EVENT( Check, void( bool checked ), CheckBox )
 
         CheckBox(
                   Window*       parent,
@@ -29,6 +29,8 @@ namespace Win33 {
         bool getChecked( ) const;
 
         void setChecked( bool checked );
+
+        virtual LRESULT CALLBACK windowProcessor( HWND handle, UINT message, WPARAM wordParameter, LPARAM longParameter );
 
         Check onCheck;
     };

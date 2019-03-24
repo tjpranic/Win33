@@ -130,9 +130,6 @@
     <Filter Include="Win33\Graphics\Pen">
       <UniqueIdentifier>{25a5bd82-e44c-47ce-9053-4c2470c51a92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Win33\Common">
-      <UniqueIdentifier>{786c916d-9062-4d4a-9c67-418faa1c1fc5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Win33\Utility\Misc">
       <UniqueIdentifier>{d04ebf9d-0553-4901-aff7-48da83941554}</UniqueIdentifier>
     </Filter>
@@ -200,9 +197,6 @@
     </ClInclude>
     <ClInclude Include="TextBox.h">
       <Filter>Win33\Controls\Text Boxes\Text Box</Filter>
-    </ClInclude>
-    <ClInclude Include="Common.h">
-      <Filter>Win33\Common</Filter>
     </ClInclude>
     <ClInclude Include="ContextMenu.h">
       <Filter>Win33\Menus\Context Menu</Filter>
@@ -310,9 +304,6 @@
     </ClCompile>
     <ClCompile Include="TextBox.cpp">
       <Filter>Win33\Controls\Text Boxes\Text Box</Filter>
-    </ClCompile>
-    <ClCompile Include="Common.cpp">
-      <Filter>Win33\Common</Filter>
     </ClCompile>
     <ClCompile Include="ContextMenu.cpp">
       <Filter>Win33\Menus\Context Menu</Filter>

@@ -4,33 +4,50 @@
 
 #include "BitfieldOperators.h"
 
-Win33::CheckBox::CheckBox(
-          Window*       parent,
-    const Point&        position,
-    const Size&         size,
-    const std::wstring& text,
-          bool          checked,
-          ButtonStyle   style
-):
-Control(
-    Win33::Common::Type::CheckBox,
-    parent,
-    position,
-    size,
-    WindowStyle::Tabstop | WindowStyle::Child | ButtonStyle::AutoCheckBox | style
-) {
-    setText    ( text );
-    setChecked ( checked );
-}
+namespace Win33 {
 
-void Win33::CheckBox::toggleChecked( ) {
-    setChecked( !getChecked( ) );
-}
+    CheckBox::CheckBox(
+              Window*       parent,
+        const Point&        position,
+        const Size&         size,
+        const std::wstring& text,
+              bool          checked,
+              ButtonStyle   style
+    ):
+    Control(
+        Type::CheckBox,
+        parent,
+        position,
+        size,
+        WindowStyle::Tabstop | WindowStyle::Child | ButtonStyle::AutoCheckBox | style
+    ) {
+        setText    ( text );
+        setChecked ( checked );
+    }
 
-bool Win33::CheckBox::getChecked( ) const {
-    return Button_GetCheck( mHandle ) != 0;
-}
+    void CheckBox::toggleChecked( ) {
+        setChecked( !getChecked( ) );
+    }
 
-void Win33::CheckBox::setChecked( bool checked ) {
-    Button_SetCheck( mHandle, checked );
+    bool CheckBox::getChecked( ) const {
+        return Button_GetCheck( mHandle ) != 0;
+    }
+
+    void CheckBox::setChecked( bool checked ) {
+        Button_SetCheck( mHandle, checked );
+    }
+
+    LRESULT CALLBACK CheckBox::windowProcessor( HWND handle, UINT message, WPARAM wordParameter, LPARAM longParameter ) {
+        switch( message ) {
+            case BN_CLICKED: {
+                onCheck.trigger( getChecked( ) );
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        return DefWindowProc( handle, message, wordParameter, longParameter );
+    }
+
 }
