@@ -4,14 +4,14 @@ WIP object-oriented C++ wrapper around Win32.
 Usage
 -----------
 
-Build with Visual Studio 2015 or higher and link the static lib to your project.
+Build with Visual Studio 2017 or higher and link the static lib to your project.
 
 Licence
 -----------
 
 The MIT License (MIT)
 
-Copyright (c) 2014 Thomas Pranic
+Copyright (c) 2019 Thomas Pranic
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
