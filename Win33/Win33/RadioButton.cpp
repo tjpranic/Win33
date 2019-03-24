@@ -16,7 +16,7 @@ namespace Win33 {
               ButtonStyle   style
     ):
     Control(
-        Type::RadioButton,
+        L"BUTTON",
         parent,
         position,
         size,

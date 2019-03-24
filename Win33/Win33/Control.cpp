@@ -5,14 +5,14 @@
 namespace Win33 {
 
     Control::Control(
-              Type          type,
+        const std::wstring& className,
               Window*       parent,
         const Point&        position,
         const Size&         size,
               WindowStyle   style,
               ExWindowStyle exStyle
     ):
-    Window  ( parent, position, size, style, exStyle, type ),
+    Window  ( parent, position, size, style, exStyle, className ),
     mAnchor ( Anchor::TopLeft )
     {
         ASSERT_TRUE( parent != nullptr, L"parent cannot be null." );

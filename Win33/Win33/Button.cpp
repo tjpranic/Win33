@@ -12,7 +12,7 @@ namespace Win33 {
               ButtonStyle   style
     ):
     Control(
-        Type::Button,
+        L"BUTTON",
         parent,
         position,
         size,

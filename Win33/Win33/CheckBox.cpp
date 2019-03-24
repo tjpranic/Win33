@@ -15,7 +15,7 @@ namespace Win33 {
               ButtonStyle   style
     ):
     Control(
-        Type::CheckBox,
+        L"BUTTON",
         parent,
         position,
         size,

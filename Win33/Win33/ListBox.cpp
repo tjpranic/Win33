@@ -14,7 +14,7 @@ namespace Win33 {
               ListBoxStyle               style
     ):
     Control(
-        Type::ListBox,
+        L"LISTBOX",
         parent,
         position,
         size,

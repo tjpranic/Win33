@@ -38,6 +38,7 @@
     <ClInclude Include="MultilineTextBox.h" />
     <ClInclude Include="MultiSelectListBox.h" />
     <ClInclude Include="PasswordBox.h" />
+    <ClInclude Include="Pen.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PopupBox.h" />
     <ClInclude Include="RadioButton.h" />

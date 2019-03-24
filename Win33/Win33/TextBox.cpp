@@ -14,7 +14,7 @@ namespace Win33 {
               EditStyle     style
     ):
     Control(
-        Type::TextBox,
+        L"EDIT",
         parent,
         position,
         size,

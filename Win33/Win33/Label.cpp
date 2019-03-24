@@ -12,7 +12,7 @@ namespace Win33 {
               StaticStyle   style
     ):
     Control(
-        Type::Label,
+        L"STATIC",
         parent,
         position,
         size,

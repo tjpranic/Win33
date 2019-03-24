@@ -258,6 +258,9 @@
     <ClInclude Include="Event.h">
       <Filter>Win33\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="Pen.h">
+      <Filter>Win33\Graphics\Pen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

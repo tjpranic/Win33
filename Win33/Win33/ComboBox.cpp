@@ -27,7 +27,7 @@ namespace Win33 {
               ComboBoxStyle              style
     ):
     Control(
-        Type::ComboBox,
+        L"COMBOBOX",
         parent,
         position,
         size,

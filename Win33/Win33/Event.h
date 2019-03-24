@@ -58,6 +58,7 @@ namespace Win33 {
             }
         }
 
+    private:
         std::vector<EventHandler> mEventHandlers;
     };
 

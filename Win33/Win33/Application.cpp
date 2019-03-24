@@ -37,20 +37,20 @@ namespace Win33 {
         }
         mInstance = this;
 
-        auto wcex          = WNDCLASSEX { sizeof( WNDCLASSEX ) };
-        wcex.style         = CS_HREDRAW | CS_VREDRAW;
-        wcex.lpfnWndProc   = &Application::windowProcessor;
-        wcex.cbClsExtra    = 0;
-        wcex.cbWndExtra    = 0;
-        wcex.hInstance     = GetModuleHandle( nullptr );
-        wcex.hIcon         = LoadIcon   ( nullptr, MAKEINTRESOURCE( IDI_APPLICATION ) );
-        wcex.hCursor       = LoadCursor ( nullptr, MAKEINTRESOURCE( IDC_ARROW ) );
-        wcex.hbrBackground = reinterpret_cast<HBRUSH>( COLOR_WINDOW );
-        wcex.lpszMenuName  = nullptr;
-        wcex.lpszClassName = L"WINDOW";
-        wcex.hIconSm       = LoadIcon( nullptr, IDI_APPLICATION );
+        auto windowClass          = WNDCLASSEX { sizeof( WNDCLASSEX ) };
+        windowClass.style         = CS_HREDRAW | CS_VREDRAW;
+        windowClass.lpfnWndProc   = &Application::windowProcessor;
+        windowClass.cbClsExtra    = 0;
+        windowClass.cbWndExtra    = 0;
+        windowClass.hInstance     = GetModuleHandle( nullptr );
+        windowClass.hIcon         = LoadIcon   ( nullptr, MAKEINTRESOURCE( IDI_APPLICATION ) );
+        windowClass.hCursor       = LoadCursor ( nullptr, MAKEINTRESOURCE( IDC_ARROW ) );
+        windowClass.hbrBackground = reinterpret_cast<HBRUSH>( COLOR_WINDOW );
+        windowClass.lpszMenuName  = nullptr;
+        windowClass.lpszClassName = L"WINDOW";
+        windowClass.hIconSm       = LoadIcon( nullptr, IDI_APPLICATION );
 
-        const auto result = RegisterClassEx( &wcex );
+        const auto result = RegisterClassEx( &windowClass );
         const auto error  = GetLastError( );
         if( !result && error != ERROR_CLASS_ALREADY_EXISTS ) {
             throw EXCEPTION( L"Unable to register window." );
@@ -65,31 +65,31 @@ namespace Win33 {
     }
 
     int Application::run( ) {
-        auto m = MSG { };
+        auto message = MSG { };
         while( !mWindows.empty( ) ) {
-            if( PeekMessage( &m, 0, 0, 0, PM_REMOVE ) > 0 ) {
-                switch( m.message ) {
+            if( PeekMessage( &message, 0, 0, 0, PM_REMOVE ) > 0 ) {
+                switch( message.message ) {
                     //allow tab presses to be sent through to default dialog processing to allow tabstop cycling
                     case WM_KEYDOWN: {
-                        switch( static_cast<VirtualKeyCode>( m.wParam ) ) {
+                        switch( static_cast<VirtualKeyCode>( message.wParam ) ) {
                             case VirtualKeyCode::Tab: {
-                                if( !IsDialogMessage( mCurrentWindow, &m ) ) {
-                                    TranslateMessage ( &m );
-                                    DispatchMessage  ( &m );
+                                if( !IsDialogMessage( mCurrentWindow, &message ) ) {
+                                    TranslateMessage ( &message );
+                                    DispatchMessage  ( &message );
                                 }
                                 break;
                             }
                             //send keypresses to parent window to allow event system to catch them
                             default: {
-                                SendMessage( mCurrentWindow, m.message, m.wParam, m.lParam );
+                                SendMessage( mCurrentWindow, message.message, message.wParam, message.lParam );
                                 break;
                             }
                         }
                     }
                     //standard processing of all other messages
                     default: {
-                        TranslateMessage ( &m );
-                        DispatchMessage  ( &m );
+                        TranslateMessage ( &message );
+                        DispatchMessage  ( &message );
                         break;
                     }
                 }
@@ -98,7 +98,7 @@ namespace Win33 {
                 Sleep( 10 );
             }
         }
-        return static_cast<int>( m.wParam );
+        return static_cast<int>( message.wParam );
     }
 
     LRESULT CALLBACK Application::windowProcessor( HWND handle, UINT message, WPARAM wordParameter, LPARAM longParameter ) {

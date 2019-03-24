@@ -14,9 +14,9 @@ namespace Win33 {
         const Size&         size,
               WindowStyle   style,
               ExWindowStyle exStyle,
-              Type          type
+        const std::wstring& className
     ):
-    Window( nullptr, position, size, style, exStyle, type )
+    Window( nullptr, position, size, style, exStyle, className )
     { }
     Window::Window(
               Window*       parent,
@@ -24,10 +24,9 @@ namespace Win33 {
         const Size&         size,
               WindowStyle   style,
               ExWindowStyle exStyle,
-              Type          type
+        const std::wstring& className
     ):
     mHandle          ( nullptr ),
-    mType            ( type ),
     mParent          ( parent ),
     mInitialPosition ( position ),
     mInitialSize     ( size ),
@@ -36,47 +35,9 @@ namespace Win33 {
     mPosition        ( position ),
     mSize            ( size )
     {
-        auto identifier = L"";
-        switch( mType ) {
-            case Type::Button:
-            case Type::CheckBox:
-            case Type::RadioButton:
-            case Type::GroupBox: {
-                identifier = L"BUTTON";
-                break;
-            }
-            case Type::TextBox:
-            case Type::PasswordBox:
-            case Type::MultilineTextBox: {
-                identifier = L"EDIT";
-                break;
-            }
-            case Type::Window: {
-                identifier = L"WINDOW";
-                break;
-            }
-            case Type::Label: {
-                identifier = L"STATIC";
-                break;
-            }
-            case Type::ComboBox:
-            case Type::DropDown: {
-                identifier = L"COMBOBOX";
-                break;
-            }
-            case Type::ListBox:
-            case Type::MultiSelectListBox: {
-                identifier = L"LISTBOX";
-                break;
-            }
-            default: {
-                throw EXCEPTION( "Unknown type." );
-            }
-        }
-
         mHandle = CreateWindowEx(
             static_cast<DWORD>( exStyle ),
-            identifier,
+            className.c_str( ),
             L"",
             static_cast<DWORD>( style ),
             position.getX( ),

@@ -271,40 +271,23 @@ namespace Win33 {
         KeyUp      onKeyUp;
 
     protected:
-        enum class Type : int {
-            Window,
-            Button,
-            CheckBox,
-            RadioButton,
-            TextBox,
-            PasswordBox,
-            MultilineTextBox,
-            Label,
-            GroupBox,
-            ComboBox,
-            DropDown,
-            ListBox,
-            MultiSelectListBox
-        };
-
         Window(
-            const Point&        position = Window::DefaultPosition,
-            const Size&         size     = Window::DefaultSize,
-                  WindowStyle   style    = WindowStyle::OverlappedWindow,
-                  ExWindowStyle exStyle  = ExWindowStyle::None,
-                  Type          type     = Type::Window
+            const Point&        position  = Window::DefaultPosition,
+            const Size&         size      = Window::DefaultSize,
+                  WindowStyle   style     = WindowStyle::OverlappedWindow,
+                  ExWindowStyle exStyle   = ExWindowStyle::None,
+            const std::wstring& className = L"WINDOW"
         );
         Window(
                   Window*       parent,
-            const Point&        position = Window::DefaultPosition,
-            const Size&         size     = Window::DefaultSize,
-                  WindowStyle   style    = WindowStyle::OverlappedWindow,
-                  ExWindowStyle exStyle  = ExWindowStyle::None,
-                  Type          type     = Type::Window
+            const Point&        position  = Window::DefaultPosition,
+            const Size&         size      = Window::DefaultSize,
+                  WindowStyle   style     = WindowStyle::OverlappedWindow,
+                  ExWindowStyle exStyle   = ExWindowStyle::None,
+            const std::wstring& className = L"WINDOW"
         );
 
         HWND    mHandle;
-        Type    mType;
         Window* mParent;
         Point   mInitialPosition;
         Size    mInitialSize;

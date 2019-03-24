@@ -39,7 +39,7 @@ namespace Win33 {
 
     protected:
         Control(
-                  Type          type,
+            const std::wstring& className,
                   Window*       parent,
             const Point&        position,
             const Size&         size,
