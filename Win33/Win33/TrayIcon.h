@@ -31,7 +31,7 @@ namespace Win33 {
         RightClick onRightClick;
 
     private:
-        NOTIFYICONDATA mNID;
+        NOTIFYICONDATA mNotifyIconData;
     };
 
 }

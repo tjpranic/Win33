@@ -21,8 +21,8 @@ namespace Win33::String {
     }
 
     std::wstring nameof( const std::type_info& typeinfo ) {
-        auto type  = String::widen( typeinfo.name( ) );
-        auto index = type.find_last_of( L" " );
+              auto type  = String::widen( typeinfo.name( ) );
+        const auto index = type.find_last_of( L" " );
         if( index != std::wstring::npos ) {
             type = type.substr( index + 1 );
         }

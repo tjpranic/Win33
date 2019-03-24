@@ -15,7 +15,8 @@ namespace Win33 {
     Window  ( parent, position, size, style, exStyle, className ),
     mAnchor ( Anchor::TopLeft )
     {
-        ASSERT_TRUE( parent != nullptr, L"parent cannot be null." );
+        ASSERT_TRUE( className != L"",     L"className cannot be empty." );
+        ASSERT_TRUE( parent    != nullptr, L"parent cannot be null."     );
         parent->onResize += [&]( const Size& size ) {
             const auto dx = size.getWidth( )  - mParent->getInitialSize( ).getWidth( );
             const auto dy = size.getHeight( ) - mParent->getInitialSize( ).getHeight( );

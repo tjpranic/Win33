@@ -204,12 +204,9 @@ namespace Win33 {
             SetWindowLong( mHandle, GWL_STYLE, GetWindowLong( mHandle, GWL_STYLE ) | WS_THICKFRAME );
         }
     }
-    void Window::setIcon( const std::wstring& icon ) {
-        ASSERT_TRUE( icon != L"", L"icon cannot be null" );
-        const auto handle = static_cast<HICON>(
-            LoadImage( nullptr, icon.c_str( ), IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED )
-        );
-        SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( handle ) );
+    void Window::setIcon( Icon* icon ) {
+        ASSERT_TRUE( icon != nullptr, L"icon cannot be null" );
+        SendMessage( mHandle, WM_SETICON, ICON_SMALL, reinterpret_cast<LONG_PTR>( icon ) );
     }
     void Window::setMaximizable( bool maximizable ) {
         if( !maximizable ) {

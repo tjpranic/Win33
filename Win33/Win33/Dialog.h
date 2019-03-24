@@ -17,11 +17,11 @@ namespace Win33 {
         T show( ) {
             mParent->setEnabled( false );
             Window::show( );
-            auto m = MSG { };
-            while( m.message != WM_QUIT ) {
-                if( PeekMessage( &m, 0, 0, 0, PM_REMOVE ) > 0 ) {
-                    TranslateMessage( &m );
-                    DispatchMessage( &m );
+            auto message = MSG { };
+            while( message.message != WM_QUIT ) {
+                if( PeekMessage( &message, 0, 0, 0, PM_REMOVE ) > 0 ) {
+                    TranslateMessage( &message );
+                    DispatchMessage( &message );
                 }
                 else {
                     Sleep( 10 );
@@ -35,10 +35,11 @@ namespace Win33 {
                   Window*       parent,
             const Point&        position,
             const Size&         size,
-                  WindowStyle   style   = WindowStyle::OverlappedWindow,
-                  ExWindowStyle exStyle = ExWindowStyle::None
+                  WindowStyle   style     = WindowStyle::OverlappedWindow,
+                  ExWindowStyle exStyle   = ExWindowStyle::None,
+            const std::wstring& className = L"WINDOW"
         ):
-        Window  ( parent, position, size, style, exStyle ),
+        Window  ( parent, position, size, style, exStyle, className ),
         mResult ( )
         {
             onClose += [&]( bool& cancelled ) {

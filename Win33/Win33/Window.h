@@ -6,6 +6,7 @@
 #include <Windows.h>
 
 #include "Event.h"
+#include "Icon.h"
 #include "Keys.h"
 #include "Point.h"
 #include "Size.h"
@@ -251,7 +252,7 @@ namespace Win33 {
         void setVisible     (       bool          visible     );
         void setTitle       ( const std::wstring& title       );
         void setResizable   (       bool          resizable   );
-        void setIcon        ( const std::wstring& icon        );
+        void setIcon        (       Icon*         icon        );
         void setMaximizable (       bool          maximizable );
         void setMinimizable (       bool          minimizable );
         void setMinimzed    (       bool          minimized   );

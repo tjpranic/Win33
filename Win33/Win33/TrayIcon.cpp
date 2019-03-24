@@ -16,46 +16,48 @@ namespace Win33 {
               Window*       window,
               Icon*         icon,
         const std::wstring& tooltip
-    ) {
+    ):
+    mNotifyIconData( )
+    {
         ASSERT_TRUE( window            != nullptr, L"window cannot be null." );
         ASSERT_TRUE( icon              != nullptr, L"icon cannot be null."   );
         ASSERT_TRUE( tooltip.length( ) <= 128,     L"icon cannot be null."   );
 
-        mNID                  = { sizeof( NOTIFYICONDATA ) };
-        mNID.hWnd             = *window;
-        mNID.uID              = generateID( );
-        mNID.uFlags           = NIF_MESSAGE | NIF_ICON | NIF_TIP;
-        mNID.uCallbackMessage = WM_TRAYICON;
-        mNID.hIcon            = *icon;
+        mNotifyIconData                  = { sizeof( NOTIFYICONDATA ) };
+        mNotifyIconData.hWnd             = *window;
+        mNotifyIconData.uID              = generateID( );
+        mNotifyIconData.uFlags           = NIF_MESSAGE | NIF_ICON | NIF_TIP;
+        mNotifyIconData.uCallbackMessage = WM_TRAYICON;
+        mNotifyIconData.hIcon            = *icon;
 
         for( auto i = 0U; i != tooltip.size( ); ++i ) {
-            mNID.szTip[i] = tooltip[i];
+            mNotifyIconData.szTip[i] = tooltip[i];
         }
 
-        mNID.uVersion = NOTIFYICON_VERSION;
+        mNotifyIconData.uVersion = NOTIFYICON_VERSION;
 
-        Shell_NotifyIcon( NIM_ADD, &mNID );
+        Shell_NotifyIcon( NIM_ADD, &mNotifyIconData );
 
-        Application::get( ).mTrayIcons[mNID.uID] = this;
+        Application::get( ).mTrayIcons[mNotifyIconData.uID] = this;
 
         window->onDestroy += [&]( ) {
-            Shell_NotifyIcon( NIM_DELETE, &mNID );
-            Application::get( ).mTrayIcons.erase( mNID.uID );
+            Shell_NotifyIcon( NIM_DELETE, &mNotifyIconData );
+            Application::get( ).mTrayIcons.erase( mNotifyIconData.uID );
         };
     }
 
     void TrayIcon::setIcon( Icon* icon ) {
         ASSERT_TRUE( icon != nullptr, L"icon cannot be null." );
-        mNID.hIcon = *icon;
-        Shell_NotifyIcon( NIM_MODIFY, &mNID );
+        mNotifyIconData.hIcon = *icon;
+        Shell_NotifyIcon( NIM_MODIFY, &mNotifyIconData );
     }
     void TrayIcon::setTooltip( const std::wstring& tooltip ) {
         ASSERT_TRUE( tooltip.length( ) <= 128, L"tooltip must be 128 characters maximum." );
-        ZeroMemory( mNID.szTip, 128 );
+        ZeroMemory( mNotifyIconData.szTip, 128 );
         for( auto i = 0U; i != tooltip.size( ); ++i ) {
-            mNID.szTip[i] = tooltip[i];
+            mNotifyIconData.szTip[i] = tooltip[i];
         }
-        Shell_NotifyIcon( NIM_MODIFY, &mNID );
+        Shell_NotifyIcon( NIM_MODIFY, &mNotifyIconData );
     }
 
 };
